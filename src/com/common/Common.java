@@ -4,7 +4,7 @@ public class Common {
 
 		public final static String url = "jdbc:oracle:thin:@localhost:1521:XE";
 		public final static String driver = "oracle.jdbc.driver.OracleDriver";
-		// ¥²¶·¥ý¦bOracle DB¤W«Ø¥ßBOOKSHOP_JDBC¨Ï¥ÎªÌ¡A¨Ã±Â¤©³s½u»P«Ø¥ßªí®æÅv§Q
+		// å¿…é ˆå…ˆåœ¨Oracle DBä¸Šå»ºç«‹BOOKSHOP_JDBCä½¿ç”¨è€…ï¼Œä¸¦æŽˆäºˆé€£ç·šèˆ‡å»ºç«‹è¡¨æ ¼æ¬Šåˆ©
 		public final static String userId = "PETBOX";
 		public final static String passWord = "123456";
 
