@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class StoreDAO implements StoreDAO_interface {
+public abstract class StoreDAO implements StoreDAO_interface {
 
 	private static DataSource datasource = null;
 
@@ -24,7 +24,7 @@ public class StoreDAO implements StoreDAO_interface {
 			e.printStackTrace();
 		}
 	}
-	// insert into ¤Ö¤Fcreate_time©M¤W¶Ç¹Ï¤ù ¦@17+10­ÓÄÝ©Ê
+	// insert into ï¿½Ö¤Fcreate_timeï¿½Mï¿½Wï¿½Ç¹Ï¤ï¿½ ï¿½@17+10ï¿½ï¿½ï¿½Ý©ï¿½
 	public static final String INSERT =
 			"insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number,"
 			+ " store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1,"
@@ -71,7 +71,7 @@ public class StoreDAO implements StoreDAO_interface {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new RuntimeException("¸ê®Æ®wµo¥Í¿ù»~¡G " + e.getMessage());
+			throw new RuntimeException("è³‡æ–™åº«ç™¼ç”ŸéŒ¯èª¤ï¼š" + e.getMessage());
 		} finally {
 			if (ps != null) {
 				try {
@@ -123,7 +123,7 @@ public class StoreDAO implements StoreDAO_interface {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new RuntimeException("¸ê®Æ®wµo¥Í¿ù»~¡G " + e.getMessage());
+			throw new RuntimeException("è³‡æ–™åº«ç™¼ç”ŸéŒ¯èª¤ï¼š" + e.getMessage());
 		} finally {
 			if (ps != null) {
 				try {
@@ -159,7 +159,7 @@ public class StoreDAO implements StoreDAO_interface {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new RuntimeException("¸ê®Æ®wµo¥Í¿ù»~¡G " + e.getMessage());
+			throw new RuntimeException("è³‡æ–™åº«ç™¼ç”ŸéŒ¯èª¤ï¼š" + e.getMessage());
 		} finally {
 			if (ps != null) {
 				try {
@@ -224,7 +224,7 @@ public class StoreDAO implements StoreDAO_interface {
 			}
 
 		} catch (SQLException e) {
-			throw new RuntimeException("¸ê®Æ®wµo¥Í¿ù»~¡G " + e.getMessage());
+			throw new RuntimeException("è³‡æ–™åº«ç™¼ç”ŸéŒ¯èª¤ï¼š" + e.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -297,7 +297,7 @@ public class StoreDAO implements StoreDAO_interface {
 			}
 			
 		} catch (SQLException e) {
-			throw new RuntimeException("¸ê®Æ®wµo¥Í¿ù»~¡G " + e.getMessage());
+			throw new RuntimeException("è³‡æ–™åº«ç™¼ç”ŸéŒ¯èª¤ï¼š" + e.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -370,7 +370,7 @@ public class StoreDAO implements StoreDAO_interface {
 			}
 			
 		} catch (SQLException e) {
-			throw new RuntimeException("¸ê®Æ®wµo¥Í¿ù»~¡G " + e.getMessage());
+			throw new RuntimeException("è³‡æ–™åº«ç™¼ç”ŸéŒ¯èª¤ï¼š" + e.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -393,12 +393,12 @@ public class StoreDAO implements StoreDAO_interface {
 		return list;
 	}
 	
-	public static void main(String[] args) {
-		StoreDAO storeDao = new StoreDAO();
-		StoreVO st1 = storeDao.findByPK("2");
-		String id = st1.getStore_id();
-		String name = st1.getStore_name();
-		System.out.println(id + " " +name);
-		
-	}
+//	public static void main(String[] args) {
+//		StoreDAO storeDao = new StoreDAO();
+//		StoreVO st1 = storeDao.findByPK("2");
+//		String id = st1.getStore_id();
+//		String name = st1.getStore_name();
+//		System.out.println(id + " " +name);
+//		
+//	}
 }

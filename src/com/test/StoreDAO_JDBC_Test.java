@@ -14,8 +14,9 @@ public class StoreDAO_JDBC_Test {
 		
 		// insert setInt 不能null
 //		StoreVO st2 = new StoreVO();
+//		st2.setMember_id("MB00033");
 //		st2.setStore_name("毛毛豆豆");
-//		st2.setStore_class("餐廳");
+//		st2.setStore_class("旅館");
 //		st2.setStore_clicks(3);
 //		st2.setStore_firstbreak(2);
 //		st2.setStore_secondbreak(2);
@@ -24,7 +25,7 @@ public class StoreDAO_JDBC_Test {
 //		st2.setStore_on(0);
 //		st2.setUpdate_time(new java.sql.Date(System.currentTimeMillis()));
 //		storeDao.insert(st2);
-//		System.out.println("新增="+ st2.getStore_id()+ " " + st2.getStore_name() + " " + st2.getStore_class());
+//		System.out.println("新增="+ st2.getMember_id()+ " " + st2.getStore_name() + " " + st2.getStore_class());
 //		System.out.println(st2.getUpdate_time());
 				
 		// update
@@ -45,6 +46,20 @@ public class StoreDAO_JDBC_Test {
 //		String name = st1.getStore_name();
 //		Date date = st1.getUpdate_time();
 //		System.out.println("查詢id= " + id + " " +name+ " " +date);
+		
+		// findByMemberId
+//		StoreVO st1 = storeDao.findByMemberId("MB01005");
+//		String id = st1.getStore_id();
+//		String name = st1.getStore_name();
+//		Date date = st1.getUpdate_time();
+//		System.out.println("查詢id= " + id + " " +name+ " " +date);
+		
+		// findByMemberId-NullPointerException
+//		try {
+//		System.out.println(storeDao.findByMemberId("MB01005").getStore_id());
+//		}catch(java.lang.NullPointerException e) {
+//			System.out.println("MB01005不存在");
+//		}
 		
 		// findByClass
 //		List<StoreVO> st4 = storeDao.findByClass("美容");

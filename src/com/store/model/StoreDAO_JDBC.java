@@ -27,7 +27,8 @@ public class StoreDAO_JDBC implements StoreDAO_interface {
 			+ " store_openhours2=? ,store_openhours3=? ,store_timelimit=?, store_maxcapacity=? ,store_on=?,"
 			+ " update_time=? where store_id= ? ";
 	public static final String DELETE = "delete from store where store_id= ? ";
-	public static final String SELECT_ONE = "select * from store where store_id= ? ";
+	public static final String SELECT_BY_STORE_ID = "select * from store where store_id= ? ";
+	public static final String SELECT_BY_MEMBER_ID = "select * from store where member_id= ? ";
 	public static final String SELECT_BY_CLASS = "select * from store where store_class= ? ";
 	public static final String SELECT_ALL = "select * from store ";
 
@@ -187,7 +188,7 @@ public class StoreDAO_JDBC implements StoreDAO_interface {
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, userId, passWord);
-			ps = conn.prepareStatement(SELECT_ONE);
+			ps = conn.prepareStatement(SELECT_BY_STORE_ID);
 			ps.setString(1, store_id);
 			rs = ps.executeQuery();
 
@@ -251,6 +252,83 @@ public class StoreDAO_JDBC implements StoreDAO_interface {
 			
 		}
 
+		return storeVO;
+	}
+	@Override
+	public StoreVO findByMemberId(String member_id) {
+		StoreVO storeVO = null;
+		
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userId, passWord);
+			ps = conn.prepareStatement(SELECT_BY_MEMBER_ID);
+			ps.setString(1, member_id);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				storeVO = new StoreVO();
+				storeVO.setStore_id(rs.getString("store_id"));
+				storeVO.setMember_id(rs.getString("member_id"));
+				storeVO.setStore_class(rs.getString("store_class"));
+				storeVO.setStore_name(rs.getString("store_name"));
+				storeVO.setStore_adress(rs.getString("store_adress"));
+				storeVO.setStore_phone_number(rs.getString("store_phone_number"));
+				storeVO.setStore_introduction(rs.getString("store_introduction"));
+				storeVO.setStore_clicks(rs.getInt("store_clicks"));
+				storeVO.setStore_firstbreak(rs.getInt("store_firstbreak"));
+				storeVO.setStore_secondbreak(rs.getInt("store_secondbreak"));
+				storeVO.setStore_openhours1(rs.getString("store_openhours1"));
+				storeVO.setStore_openhours2(rs.getString("store_openhours2"));
+				storeVO.setStore_openhours3(rs.getString("store_openhours3"));
+				storeVO.setStore_timelimit(rs.getInt("store_timelimit"));
+				storeVO.setStore_maxcapacity(rs.getInt("store_maxcapacity"));
+				storeVO.setStore_image1(rs.getBytes("store_image1"));
+				storeVO.setStore_image2(rs.getBytes("store_image2"));
+				storeVO.setStore_image3(rs.getBytes("store_image3"));
+				storeVO.setStore_image4(rs.getBytes("store_image4"));
+				storeVO.setStore_image5(rs.getBytes("store_image5"));
+				storeVO.setStore_image6(rs.getBytes("store_image6"));
+				storeVO.setStore_menu1(rs.getBytes("store_menu1"));
+				storeVO.setStore_menu2(rs.getBytes("store_menu2"));
+				storeVO.setStore_menu3(rs.getBytes("store_menu3"));
+				storeVO.setStore_on(rs.getInt("store_on"));
+				storeVO.setCreate_time(rs.getDate("create_time"));
+				storeVO.setUpdate_time(rs.getDate("update_time"));
+			}
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver： " + e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured： " + e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			
+		}
+		
 		return storeVO;
 	}
 
