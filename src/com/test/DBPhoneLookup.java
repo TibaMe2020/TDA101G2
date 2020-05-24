@@ -23,7 +23,7 @@ public class DBPhoneLookup extends HttpServlet {
     	Context ctx = new javax.naming.InitialContext();
 		DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/PetBoxDB");
 		con = ds.getConnection();
-		// ¦h¤F³s½u¦Àªº¥\¯à
+		// å¤šäº†é€£ç·šæ± çš„åŠŸèƒ½
 		
       // Create a Statement object
       stmt = con.createStatement();

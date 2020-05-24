@@ -6,7 +6,6 @@ import java.util.Set;
 
 import com.store.model.StoreVO;
 
-
 public class Store_closedService {
 	private Store_closedDAO_interface dao;
 	
@@ -14,7 +13,7 @@ public class Store_closedService {
 		dao = new Store_closedDAO_JDBC();
 	}
 	
-	public String getMemberId(StoreVO storeVO) {
+	public String getStoreId(StoreVO storeVO) {
 		return storeVO.getStore_id();
 	}
 	

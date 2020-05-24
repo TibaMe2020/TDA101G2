@@ -17,7 +17,7 @@
   </resource-ref>
   <servlet>
     <servlet-name>DBPhoneLookup</servlet-name>
-    <servlet-class>com.store.model.DBPhoneLookup</servlet-class>
+    <servlet-class>com.test.DBPhoneLookup</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DBPhoneLookup</servlet-name>
