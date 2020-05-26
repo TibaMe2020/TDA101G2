@@ -13,13 +13,9 @@ public class Store_closedService {
 		dao = new Store_closedDAO_JDBC();
 	}
 	
-	public String getStoreId(StoreVO storeVO) {
-		return storeVO.getStore_id();
-	}
-	
 	public Store_closedVO newClosed(String store_id, Date store_closed_day) {
 		Store_closedVO closedVO = new Store_closedVO();
-		closedVO.setStore_closed_id(store_id);
+		closedVO.setStore_id(store_id);
 		closedVO.setStore_closed_day(store_closed_day);
 		dao.insert(closedVO);
 		return closedVO;
@@ -34,5 +30,19 @@ public class Store_closedService {
 		closed = dao.selectByStore(store_id);
 		return closed;
 	}
+	
+//	public static void main(String[] args) {
+//		Store_closedService scs = new Store_closedService();
+//		scs.newClosed("S07008", new java.sql.Date(System.currentTimeMillis()));
+//		System.out.println("newClose 新增成功");
+//		scs.deleteClosed("SC00023");
+//		System.out.println("deleteClosed 刪除成功");
+//		Set<Store_closedVO>collection = scs.selectByStore("S07010");
+//		for(Store_closedVO list : collection) {
+//			String id = list.getStore_closed_id();
+//			Date date = list.getStore_closed_day();
+//			System.out.println(id+" "+date);
+//		}
+//	}
 	
 }

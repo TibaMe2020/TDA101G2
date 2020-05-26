@@ -41,11 +41,12 @@ public class StoreDAO_JDBC_Test {
 //		System.out.println("刪除成功");
 		
 		// findByPK
-//		StoreVO st1 = storeDao.findByPK("S07001");
+//		StoreVO st1 = storeDao.findByPK("S00021");
 //		String id = st1.getStore_id();
 //		String name = st1.getStore_name();
+//		String class2 = st1.getStore_class();
 //		Date date = st1.getUpdate_time();
-//		System.out.println("查詢id= " + id + " " +name+ " " +date);
+//		System.out.println("查詢id=" + id + " " +name+ " " +class2+" "+date);
 		
 		// findByMemberId
 //		StoreVO st1 = storeDao.findByMemberId("MB01005");
