@@ -84,11 +84,11 @@ public class StoreServlet extends HttpServlet {
 				String member_id = req.getParameter("memberId");
 				
 				String store_name = req.getParameter("storeName");
-				String store_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,15}$";
+				String store_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
 				if (store_name == null || store_name.trim().length() == 0) {
 					errorMsgs.put("error_name","店家名稱: 請勿空白");
 				} else if(!store_name.trim().matches(store_nameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.put("error_name","店家名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到15之間");
+					errorMsgs.put("error_name","店家名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
 				}
 				
 				String store_class = req.getParameter("storeClass");
@@ -99,9 +99,12 @@ public class StoreServlet extends HttpServlet {
 				}
 				
 				String store_phone_number = req.getParameter("storePhoneNumber").trim();
+				String phoneReg = "^[0-9]{9,10}$";
 				if (store_phone_number == null || store_phone_number.trim().length() == 0) {
 					errorMsgs.put("error_phone","電話請勿空白");
-				}
+				}else if(!store_phone_number.matches(phoneReg))
+					errorMsgs.put("error_phone","請輸入數字且是9-10位數");
+					
 				String store_introduction = req.getParameter("storeIntroduction");
 				
 				Integer store_clicks = null;
@@ -176,6 +179,8 @@ public class StoreServlet extends HttpServlet {
 				String url = "/back-end/store/listAllStore.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.put("error","新增錯誤:" + e.getMessage());
 				e.printStackTrace();
@@ -196,7 +201,6 @@ public class StoreServlet extends HttpServlet {
 				/***************************2.開始查詢資料****************************************/
 				StoreService storeSvc = new StoreService();
 				storeVO = storeSvc.findByStoreId(store_id);
-				System.out.println(storeVO.getStore_id());
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("storeVO", storeVO);         // 資料庫取出的empVO物件,存入req
@@ -221,17 +225,16 @@ public class StoreServlet extends HttpServlet {
 		
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String member_id = req.getParameter("memberId");
-				
 				String store_id = req.getParameter("storeId");
 				
+				String member_id = req.getParameter("memberId");
+				
 				String store_name = req.getParameter("storeName");
-				System.out.println(store_name);
-				String store_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,15}$";
+				String store_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
 				if (store_name == null || store_name.trim().length() == 0) {
 					errorMsgs.put("error_name","店家名稱: 請勿空白");
 				} else if(!store_name.trim().matches(store_nameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.put("error_name","店家名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到15之間");
+					errorMsgs.put("error_name","店家名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
 				}
 				
 				String store_class = req.getParameter("storeClass");
@@ -242,9 +245,12 @@ public class StoreServlet extends HttpServlet {
 				}
 				
 				String store_phone_number = req.getParameter("storePhoneNumber").trim();
+				String phoneReg = "^[0-9]{9,10}$";
 				if (store_phone_number == null || store_phone_number.trim().length() == 0) {
 					errorMsgs.put("error_phone","電話請勿空白");
-				}
+				}else if(!store_phone_number.matches(phoneReg))
+					errorMsgs.put("error_phone","請輸入數字且是9-10位數");
+				
 				String store_introduction = req.getParameter("storeIntroduction");
 				
 				Integer store_clicks = null;

@@ -21,32 +21,37 @@
 				
 			</tr>
 			<tr>
+				<td>會員編號:</td>
+				<td><input type="TEXT" name="memberId" size="45" value="<%=storeVO.getMember_id()%>" /></td>
+				
+			</tr>
+			<tr>
 				<td>名稱:<font color=red><b>*</b></font></td>
 				<td><input type="TEXT" name="storeName" size="45" value="<%=storeVO.getStore_name()%>" /></td>
 				
 			</tr>
 			<tr>
 				<td>分類:</td>
-				<td><select name="storeClass" size="" value="${storeVO.getClass()}">
-						<option value="餐廳" >餐廳</option>
-						<option value="旅館" >旅館</option>
-						<option value="美容" >美容</option>
-						<option value="學校" >學校</option>
-						<option value="醫院" >醫院</option>
+				<td><select name="storeClass" size="1" value="<%=storeVO.getStore_class()%>">
+						<option value="餐廳" <c:if test="${storeVO.store_class=='餐廳'}">selected</c:if>>餐廳</option>
+						<option value="旅館" <c:if test="${storeVO.store_class=='旅館' }">selected</c:if>>旅館</option>
+						<option value="美容" <c:if test="${storeVO.store_class=='美容' }">selected</c:if>>美容</option>
+						<option value="學校" <c:if test="${storeVO.store_class=='學校' }">selected</c:if>>學校</option>
+						<option value="醫院" <c:if test="${storeVO.store_class=='醫院' }">selected</c:if>>醫院</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<td>地址:</td>
+				<td>地址:<font color=red><b>*</b></font></td>
 				<td><input type="TEXT" name="storeAdress" size="45"	value="<%=storeVO.getStore_adress()%>" /></td>
 			</tr>
 			<tr>
-				<td>電話::</td>
+				<td>電話:<font color=red><b>*</b></font></td>
 				<td><input name="storePhoneNumber" type="text" value="<%=storeVO.getStore_phone_number()%>"/></td>
 			</tr>
 			<tr>
 				<td>簡介:</td>
-				<td><input type="TEXT" name="storeIntroduction" size="45"	value="<%=storeVO.getStore_introduction()%>" /></td>
+				<td><textarea name="storeIntroduction" style="resize:none;width:321.44px;height:100px;" /><%=storeVO.getStore_introduction()%></textarea></td>
 			</tr>
 			<tr>
 				<td>點閱數:</td>
@@ -55,28 +60,28 @@
 			<tr>
 				<td>公休日1:</td>
 				<td><select size="1" name="storeFirstbreak" value="<%=storeVO.getStore_firstbreak()%>">
-						<option value=0></option>
-						<option value=1 >周一</option>
-						<option value=2 >週二</option>
-						<option value=3 >週三</option>
-						<option value=4 >週四</option>
-						<option value=5 >週五</option>
-						<option value=6 >週六</option>
-						<option value=7 >週日</option>
+						<option value=0 <c:if test="${storeVO.store_firstbreak==''}">selected</c:if>></option>
+						<option value=1 <c:if test="${storeVO.store_firstbreak==1 }">selected</c:if>>周一</option>
+						<option value=2 <c:if test="${storeVO.store_firstbreak==2 }">selected</c:if>>週二</option>
+						<option value=3 <c:if test="${storeVO.store_firstbreak==3 }">selected</c:if>>週三</option>
+						<option value=4 <c:if test="${storeVO.store_firstbreak==4 }">selected</c:if>>週四</option>
+						<option value=5 <c:if test="${storeVO.store_firstbreak==5 }">selected</c:if>>週五</option>
+						<option value=6 <c:if test="${storeVO.store_firstbreak==6 }">selected</c:if>>週六</option>
+						<option value=7 <c:if test="${storeVO.store_firstbreak==7 }">selected</c:if>>週日</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>公休日2:</td>
 				<td><select size="1" name="storeSecondbreak" value="<%=storeVO.getStore_secondbreak()%>">
-						<option value=0></option>
-						<option value=1 >周一</option>
-						<option value=2 >週二</option>
-						<option value=3 >週三</option>
-						<option value=4 >週四</option>
-						<option value=5 >週五</option>
-						<option value=6 >週六</option>
-						<option value=7 >週日</option>
+						<option value=0 <c:if test="${storeVO.store_secondbreak==''}">selected</c:if>></option>
+						<option value=1 <c:if test="${storeVO.store_secondbreak==1 }">selected</c:if>>周一</option>
+						<option value=2 <c:if test="${storeVO.store_secondbreak==2 }">selected</c:if>>週二</option>
+						<option value=3 <c:if test="${storeVO.store_secondbreak==3 }">selected</c:if>>週三</option>
+						<option value=4 <c:if test="${storeVO.store_secondbreak==4 }">selected</c:if>>週四</option>
+						<option value=5 <c:if test="${storeVO.store_secondbreak==5 }">selected</c:if>>週五</option>
+						<option value=6 <c:if test="${storeVO.store_secondbreak==6 }">selected</c:if>>週六</option>
+						<option value=7 <c:if test="${storeVO.store_secondbreak==7 }">selected</c:if>>週日</option>
 					</select>
 				</td>
 			</tr>
