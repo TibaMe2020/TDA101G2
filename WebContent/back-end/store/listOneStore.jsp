@@ -50,5 +50,6 @@
 	
 	</tr>
 </table>
+<a href='<%=request.getContextPath()%>/back-end/store/select_page.jsp'>回select_page</a>
 </body>
 </html>

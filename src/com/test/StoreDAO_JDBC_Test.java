@@ -30,7 +30,7 @@ public class StoreDAO_JDBC_Test {
 				
 		// update
 //		StoreVO st3 = new StoreVO();
-//		st3.setStore_id("100");
+//		st3.setStore_id("S07001");
 //		st3.setStore_name("錢錢胖胖");
 //		st3.setStore_class("旅館");
 //		storeDao.update(st3);

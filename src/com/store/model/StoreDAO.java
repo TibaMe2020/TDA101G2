@@ -24,7 +24,7 @@ public abstract class StoreDAO implements StoreDAO_interface {
 			e.printStackTrace();
 		}
 	}
-	// insert into �֤Fcreate_time�M�W�ǹϤ� �@17+10���ݩ�
+	// insert into 少了create_time和上傳圖片 共17+10個屬性
 	public static final String INSERT =
 			"insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number,"
 			+ " store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1,"
@@ -92,7 +92,7 @@ public abstract class StoreDAO implements StoreDAO_interface {
 	}
 
 	@Override
-	public void update(StoreVO storeVO) {
+	public StoreVO update(StoreVO storeVO) {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -121,7 +121,7 @@ public abstract class StoreDAO implements StoreDAO_interface {
 			ps.setString(17, storeVO.getStore_id());
 
 			ps.executeUpdate();
-
+			return storeVO;
 		} catch (SQLException e) {
 			throw new RuntimeException("資料庫發生錯誤：" + e.getMessage());
 		} finally {

@@ -87,7 +87,7 @@ public class StoreDAO_JDBC implements StoreDAO_interface {
 	}
 
 	@Override
-	public void update(StoreVO storeVO) {
+	public StoreVO update(StoreVO storeVO) {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -117,6 +117,7 @@ public class StoreDAO_JDBC implements StoreDAO_interface {
 
 			ps.executeUpdate();
 
+			return storeVO;
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver： " + e.getMessage());
 		} catch (SQLException e) {

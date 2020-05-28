@@ -37,6 +37,10 @@
 		<th>公休日2</th>
 		<th>營業時段1</th>
 		<th>用餐時間(分)</th>
+		<th>最大人數</th>
+		<th>狀態</th>
+		<th>修改</th>
+		<th>刪除</th>
 	</tr>
 	<%@ include file="page1.file" %> 
 	<c:forEach var="storeVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -53,10 +57,24 @@
 		<td>${storeVO.store_secondbreak}</td>
 		<td>${storeVO.store_openhours1}</td>
 		<td>${storeVO.store_timelimit}</td>
-	
+		<td>${storeVO.store_maxcapacity}</td>
+		<td>${storeVO.store_on}</td>
+		<td>
+		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" style="margin-bottom: 0px;">
+		     <input type="submit" value="修改">
+		     <input type="hidden" name="storeId"  value="${storeVO.store_id}">
+		     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+		</td>
+		<td>
+		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" style="margin-bottom: 0px;">
+		     <input type="submit" value="刪除">
+		     <input type="hidden" name="storeId"  value="${storeVO.store_id}">
+		     <input type="hidden" name="action" value="delete"></FORM>
+		</td>
 	</tr>
 	</c:forEach>
 	</table>
 	<%@ include file="page2.file" %>
+	<a href='<%=request.getContextPath()%>/back-end/store/select_page.jsp'>回select_page</a>
 </body>
 </html>

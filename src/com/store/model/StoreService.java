@@ -27,10 +27,11 @@ public class StoreService {
 	}
 	
 	public StoreVO matchMemberId(MemberVO memberVO) {
-		String memberId = memberVO.getMember_id();
+		String member_id = memberVO.getMember_id();
+//		String member_id = "MB00001";
 		try {
 		// 回傳店家
-		return dao.findByMemberId(memberId);
+		return dao.findByMemberId(member_id);
 			
 		}catch(NullPointerException e) {
 			// 店家尚未新增
@@ -45,15 +46,24 @@ public class StoreService {
 			storeVO.setStore_on(0);
 		}
 	}
+	public StoreVO newStore(StoreVO storeVO) {
+		dao.insert(storeVO);
+		return storeVO;
+	}
+	public StoreVO updateStore(StoreVO storeVO) {
+		dao.update(storeVO);
+		return storeVO;
+	}
 	
-	public StoreVO newStore(String store_id, String member_id, String store_class, String store_name,
+//	public StoreVO newStore(String store_id, String member_id, String store_class, String store_name,
+	public StoreVO newStore(				 String member_id, String store_class, String store_name,
 			String store_adress, String store_phone_number,	String store_introduction, Integer store_clicks,
 			Integer store_firstbreak, Integer store_secondbreak, String store_openhours1, String store_openhours2,
 			String store_openhours3, Integer store_timelimit, Integer store_maxcapacity, byte[] store_image1,
 			byte[] store_image2, byte[] store_image3, byte[] store_image4, byte[] store_image5, byte[] store_image6,
 			byte[] store_menu1, byte[] store_menu2, byte[] store_menu3, Integer store_on) {
 		StoreVO storeVO = new StoreVO();
-		storeVO.setStore_id(store_id);
+//		storeVO.setStore_id(store_id);
 		storeVO.setMember_id(member_id);
 		storeVO.setStore_class(store_class);
 		storeVO.setStore_name(store_name);
@@ -125,7 +135,7 @@ public class StoreService {
 		dao.delete(store_id);
 	}
 	
-	public StoreVO findStoreId(String store_id) {
+	public StoreVO findByStoreId(String store_id) {
 		return dao.findByPK(store_id);
 	}
 		
@@ -156,17 +166,20 @@ public class StoreService {
 		
 		// newStore
 //		File file = new File("C:\\Users\\user\\Downloads\\2019-10月秋季新番\\PSYCHO-PASS 心靈判官 第三季\\001323zrox39rnq3jiwnmg.jpg");
-//        FileInputStream fin = null;
-//        try {
+        FileInputStream fin = null;
+        try {
 //			fin = new FileInputStream(file);
 //			byte[] fileContent = new byte[(int)file.length()];
 //			System.out.println(fileContent.toString());
 //			ss.newStore("S00111", "MB0055", "學校", "曼巴", "板橋大貫路	", "000-000", "小寶萬歲", 500, 2, 5, "", "","",00,00,
 //					fileContent, fileContent, fileContent, fileContent, fileContent, fileContent, fileContent, fileContent, fileContent, 1);
+			ss.newStore(		  "MB0055", "學校", "曼巴", "板橋大貫路	", "000-000", "小寶萬歲", 500, 2, 5, "", "","",00,00,
+					null, null, null, null, null, null, null, null, null, 1);
+			System.out.println("新增成功");
 //		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         
         // deleteStore
 //        ss.deleteStore("S00006");
