@@ -18,6 +18,7 @@
 </style>
 </head>
 <body>
+	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
 	<table>
 	<tr>
 		<th>店家編號</th>
@@ -26,7 +27,7 @@
 		<th>名稱</th>
 		<th>地址</th>
 		<th>電話</th>
-		<th>地址</th>
+		<th>簡介</th>
 		<th>點閱數</th>
 		<th>公休日1</th>
 		<th>公休日2</th>

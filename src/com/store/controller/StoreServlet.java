@@ -30,6 +30,7 @@ public class StoreServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		StoreVO storeVO = null;
+// 單一查詢
 		if("getOneForDisplay".equals(action)) {
 			Map<String, String> errorMsgs = new HashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -71,6 +72,30 @@ public class StoreServlet extends HttpServlet {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-end/store/select_page.jsp");
 				failureView.forward(req, res);
+			}
+			
+		}
+// 新增
+		if("insert".equals(action)) {
+			Map<String, String> errorMsgs = new HashMap<>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+			String sname = req.getParameter("sname");
+			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			if (sname == null || sname.trim().length() == 0) {
+				errorMsgs.put("errorMsgs","店家名稱: 請勿空白");
+			} else if(!sname.trim().matches(enameReg)) { //以下練習正則(規)表示式(regular-expression)
+				errorMsgs.put("errorMsgs","員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+            }
+			
+			String adress = req.getParameter("adress").trim();
+			if (adress == null || adress.trim().length() == 0) {
+				errorMsgs.put("errorMsgs","地址請勿空白");
+			}
+			String phone = req.getParameter("phone").trim();
+			if (phone == null || phone.trim().length() == 0) {
+				errorMsgs.put("errorMsgs","電話請勿空白");
 			}
 			
 		}

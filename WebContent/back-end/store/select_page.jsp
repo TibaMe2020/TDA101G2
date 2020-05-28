@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Store:Home</title>
 </head>
 <body>
-	<p>店家查詢</p>
+	<h3>店家查詢</h3>
 	<ul>
+		<li><a href='listAllStore.jsp'>List</a> all Stores.  <br><br></li>
 		<li>
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller">
 				<b>輸入店家編號 (如S07001):</b> 
@@ -18,7 +19,11 @@
 				<span style="color: red ">${errorMsgs.error}</span>
 			</FORM>
 		</li>
-
+	</ul>
+	
+	<h3>店家管理</h3>
+	<ul>
+	  <li><a href='addStore.jsp'>新增</a>一間店家</li>
 	</ul>
 </body>
 </html>
