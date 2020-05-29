@@ -258,7 +258,7 @@ public class StoreServlet extends HttpServlet {
 					store_clicks = new Integer(req.getParameter("storeClicks").trim());
 				} catch (NumberFormatException e) {
 					store_clicks = 0;
-					errorMsgs.put("error_clicks","點閱請勿空白");
+					errorMsgs.put("error_clicks", "僅能輸入數字且不能空白");
 				}
 				
 				Integer store_firstbreak = Integer.parseInt(req.getParameter("storeFirstbreak").trim());
@@ -295,7 +295,7 @@ public class StoreServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("storeVO", storeVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/store/addStore.jsp");
+							.getRequestDispatcher("/back-end/store/update_store_input.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -318,7 +318,34 @@ public class StoreServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
+// 刪除
+		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+
+			Map<String, String> errorMsgs = new HashMap<>();
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+			try {
+				/***************************1.接收請求參數***************************************/
+				String store_id = req.getParameter("storeId");
+				
+				/***************************2.開始刪除資料***************************************/
+				StoreService storeSvc = new StoreService();
+				storeSvc.deleteStore(store_id);
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
+				errorMsgs.put("error",store_id+"刪除成功");
+				String url = "/back-end/store/listAllStore.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.put("error","刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/store/listAllStore.jsp");
+				failureView.forward(req, res);
+			}
+		}
 		
 	}
 	

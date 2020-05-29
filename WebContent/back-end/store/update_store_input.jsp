@@ -13,6 +13,7 @@
 <title>店家資料修改 - update_store_input</title>
 </head>
 <body>
+	<h3>店家修改</h3>
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" name="form1">
 		<table>
 			<tr>
@@ -27,7 +28,9 @@
 			</tr>
 			<tr>
 				<td>名稱:<font color=red><b>*</b></font></td>
-				<td><input type="TEXT" name="storeName" size="45" value="<%=storeVO.getStore_name()%>" /></td>
+				<td><input type="TEXT" name="storeName" size="45" value="<%=storeVO.getStore_name()%>" />
+					<span style="color: red ">${errorMsgs.error_name}</span>
+				</td>
 				
 			</tr>
 			<tr>
@@ -43,11 +46,15 @@
 			</tr>
 			<tr>
 				<td>地址:<font color=red><b>*</b></font></td>
-				<td><input type="TEXT" name="storeAdress" size="45"	value="<%=storeVO.getStore_adress()%>" /></td>
+				<td><input type="TEXT" name="storeAdress" size="45"	value="<%=storeVO.getStore_adress()%>" />
+					<span style="color: red ">${errorMsgs.error_adress}</span>
+				</td>
 			</tr>
 			<tr>
 				<td>電話:<font color=red><b>*</b></font></td>
-				<td><input name="storePhoneNumber" type="text" value="<%=storeVO.getStore_phone_number()%>"/></td>
+				<td><input name="storePhoneNumber" type="text" value="<%=storeVO.getStore_phone_number()%>"/>
+					<span style="color: red ">${errorMsgs.error_phone}</span>
+				</td>
 			</tr>
 			<tr>
 				<td>簡介:</td>
@@ -55,7 +62,9 @@
 			</tr>
 			<tr>
 				<td>點閱數:</td>
-				<td><input type="TEXT" name="storeClicks" size="45" value="<%=storeVO.getStore_clicks()%>" /></td>
+				<td><input type="TEXT" name="storeClicks" size="45" value="<%=storeVO.getStore_clicks()%>" />
+					<span style="color: red ">${errorMsgs.error_clicks}</span>
+				</td>
 			</tr>
 			<tr>
 				<td>公休日1:</td>
@@ -105,6 +114,7 @@
 			</tr>
 		
 		</table>
+		<span style="color: red ">${errorMsgs.error}</span>
 		<br>
 		<input type="hidden" name="action" value="update">
 		<input type="hidden" name="storeId" value="<%=storeVO.getStore_id()%>">

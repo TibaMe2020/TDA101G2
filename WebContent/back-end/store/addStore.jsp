@@ -13,7 +13,7 @@
 <title>店家資料新增 - addStore.jsp</title>
 </head>
 <body>
-	<h3>資料新增:</h3>
+	<h3>新增店家 :</h3>
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" name="form1">
 		<table>
 			<tr>

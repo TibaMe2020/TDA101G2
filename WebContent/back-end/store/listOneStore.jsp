@@ -33,6 +33,8 @@
 		<th>公休日2</th>
 		<th>營業時段1</th>
 		<th>用餐時間(分)</th>
+		<th>最大人數</th>
+		<th>狀態</th>
 	</tr>
 	<tr>
 		<td><%=storeVO.getStore_id()%></td>
@@ -47,6 +49,8 @@
 		<td><%=storeVO.getStore_secondbreak()%></td>
 		<td><%=storeVO.getStore_openhours1()%></td>
 		<td><%=storeVO.getStore_timelimit()%></td>
+		<td><%=storeVO.getStore_maxcapacity()%></td>
+		<td><%=storeVO.getStore_on()%></td>
 	
 	</tr>
 </table>

@@ -23,6 +23,9 @@
 </style>
 </head>
 <body>
+	<a href='<%=request.getContextPath()%>/back-end/store/select_page.jsp'>回首頁</a>
+	<%@ include file="page1.file" %>
+	<span style="color: red ">${errorMsgs.error}</span>
 	<table>
 	<tr>
 		<th>店家編號</th>
@@ -42,7 +45,7 @@
 		<th>修改</th>
 		<th>刪除</th>
 	</tr>
-	<%@ include file="page1.file" %> 
+	
 	<c:forEach var="storeVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 	<tr>
 		<td>${storeVO.store_id}</td>
@@ -75,6 +78,5 @@
 	</c:forEach>
 	</table>
 	<%@ include file="page2.file" %>
-	<a href='<%=request.getContextPath()%>/back-end/store/select_page.jsp'>回select_page</a>
 </body>
 </html>
