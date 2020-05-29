@@ -64,11 +64,12 @@
 		<td>${storeVO.store_openhours1}</td>
 		<td>${storeVO.store_timelimit}</td>
 		<td>${storeVO.store_maxcapacity}</td>
-		<%
-	      for(int i=1;i<=3;i++){
-	        %><td><img style="width:100px;height:100px;" src="<%=request.getContextPath()%>/store/ShowImg?store_id=${storeVO.store_id}&store_image=<%=i%>"/></td><% 
-	      }
-	    %>
+		<%for(int i=1;i<=3;i++){%>
+		<td>
+			<img style="width:100px;height:100px;" src="<%=request.getContextPath()%>
+			/store/ShowImg?store_id=${storeVO.store_id}&store_image=<%=i%>"/>
+		</td>
+		<%}%>
 		<td>${storeVO.store_on}</td>
 		<td>
 		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" style="margin-bottom: 0px;">

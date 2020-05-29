@@ -34,6 +34,9 @@
 		<th>營業時段1</th>
 		<th>用餐時間(分)</th>
 		<th>最大人數</th>
+		<th>圖1</th>
+		<th>圖2</th>
+		<th>圖3</th>
 		<th>狀態</th>
 	</tr>
 	<tr>
@@ -50,10 +53,15 @@
 		<td><%=storeVO.getStore_openhours1()%></td>
 		<td><%=storeVO.getStore_timelimit()%></td>
 		<td><%=storeVO.getStore_maxcapacity()%></td>
+		<%
+	      for(int i=1;i<=3;i++){
+	        %><td><img style="width:100px;height:100px;" src="<%=request.getContextPath()%>/store/ShowImg?store_id=${storeVO.store_id}&store_image=<%=i%>"/></td><% 
+	      }
+	    %>
 		<td><%=storeVO.getStore_on()%></td>
 	
 	</tr>
 </table>
-<a href='<%=request.getContextPath()%>/back-end/store/select_page.jsp'>回select_page</a>
+<a href='<%=request.getContextPath()%>/back-end/store/select_page.jsp'>回首頁</a>
 </body>
 </html>

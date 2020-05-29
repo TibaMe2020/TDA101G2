@@ -13,7 +13,7 @@
 <title>店家資料修改 - update_store_input</title>
 </head>
 <body>
-	<a href='<%=request.getContextPath()%>/back-end/store/listAllStore.jsp'>回listAllStore</a>
+	<a href='<%=request.getContextPath()%>/back-end/store/listAllStore.jsp'>回查全部</a>
 	<h3>店家修改</h3><span style="color: red ">${errorMsgs.error}</span>
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" name="form1" enctype="multipart/form-data" multiple>
 		<table>
@@ -133,6 +133,11 @@
 		<div style="width:200px; height:200px; display:inline-block;">
 	<img id="image3" style="width:100%;"/>
 	</div>
+<%-- 	<%for(int i=1;i<=3;i++){%> --%>
+<!-- 	<div style="width:200px;height:200px;display:inline-block;"> -->
+<%-- 		<img id="image<%=i%>" style="width:100%;"src="<%=request.getContextPath()%>/store/ShowImg?store_id=${storeVO.store_id}&store_image=<%=i%>"/> --%>
+<!-- 	</div> -->
+<%-- 	<%}%> --%>
 	<script>
 		function loadImageFile(event){
 			console.log(event.target.name);

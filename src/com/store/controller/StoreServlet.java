@@ -90,7 +90,7 @@ public class StoreServlet extends HttpServlet {
 				String member_id = req.getParameter("memberId");
 				
 				String store_name = req.getParameter("storeName");
-				String store_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+				String store_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)(\\s)]{2,20}$";
 				if (store_name == null || store_name.trim().length() == 0) {
 					errorMsgs.put("error_name","店家名稱: 請勿空白");
 				} else if(!store_name.trim().matches(store_nameReg)) { //以下練習正則(規)表示式(regular-expression)
@@ -118,7 +118,7 @@ public class StoreServlet extends HttpServlet {
 					store_clicks = new Integer(req.getParameter("storeClicks").trim());
 				} catch (NumberFormatException e) {
 					store_clicks = 0;
-					errorMsgs.put("error_clicks","點閱請勿空白");
+					errorMsgs.put("error_clicks", "僅能輸入數字且不能空白");
 				}
 				
 				Integer store_firstbreak = Integer.parseInt(req.getParameter("storeFirstbreak").trim());
@@ -137,9 +137,6 @@ public class StoreServlet extends HttpServlet {
 				String store_openhours3 = req.getParameter("storeOpenhours3");
 				Integer store_timelimit = new Integer(req.getParameter("storeTimelimit").trim());
 				Integer store_maxcapacity = new Integer(req.getParameter("storeMaxcapacity").trim());
-//				byte[] store_image1 = null;
-//				byte[] store_image2 = null;
-//				byte[] store_image3 = null;
 				byte[] store_image4 = null;
 				byte[] store_image5 = null;
 				byte[] store_image6 = null;
@@ -194,11 +191,6 @@ public class StoreServlet extends HttpServlet {
 				/***************************2.開始新增資料***************************************/
 				StoreService storeSvc = new StoreService();
 				storeSvc.newStore(storeVO);
-//				storeVO = storeSvc.newStore(member_id, store_class, store_name, store_adress, store_phone_number,
-//						store_introduction, store_clicks, store_firstbreak, store_secondbreak,
-//						store_openhours1, store_openhours2, store_openhours3, store_timelimit,
-//						store_maxcapacity, store_image1, store_image2, store_image3, store_image4,
-//						store_image5, store_image6, store_menu1, store_menu2, store_menu3, store_on);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				errorMsgs.put("error","新增成功");
@@ -215,7 +207,7 @@ public class StoreServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-//修改
+//修改-轉交
 		if("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
 			Map<String, String> errorMsgs = new HashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -243,7 +235,7 @@ public class StoreServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
+// 修改		
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 			
 			Map<String, String> errorMsgs = new HashMap<>();
@@ -256,7 +248,7 @@ public class StoreServlet extends HttpServlet {
 				String member_id = req.getParameter("memberId");
 				
 				String store_name = req.getParameter("storeName");
-				String store_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+				String store_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)(\\s)]{2,20}$";
 				if (store_name == null || store_name.trim().length() == 0) {
 					errorMsgs.put("error_name","店家名稱: 請勿空白");
 				} else if(!store_name.trim().matches(store_nameReg)) { //以下練習正則(規)表示式(regular-expression)
@@ -297,6 +289,11 @@ public class StoreServlet extends HttpServlet {
 				}
 				
 				// 上傳照片
+//				Part image = req.getPart("image1");
+//				InputStream in4 = image.getInputStream();
+//				byte[] image1 = new byte[in4.available()];
+//				in4.read(image1);
+//				in4.close();
 				Part update_image1 = req.getPart("storeImage1");
 				Part update_image2 = req.getPart("storeImage2");
 				Part update_image3 = req.getPart("storeImage3");
@@ -309,12 +306,13 @@ public class StoreServlet extends HttpServlet {
 				in1.read(store_image1);
 				in2.read(store_image2);
 				in3.read(store_image3);
-				System.out.println("圖1="+store_image1.length);
-				System.out.println("圖2="+store_image2.length);
-				System.out.println("圖3="+store_image3.length);
 				in1.close();
 				in2.close();
 				in3.close();
+				
+//				if(store_image1.length==0) {
+//					store_image1=image1;
+//				}
 				
 				String store_openhours1 = req.getParameter("storeOpenhours1");
 				Integer store_timelimit = new Integer(req.getParameter("storeTimelimit").trim());
@@ -398,14 +396,4 @@ public class StoreServlet extends HttpServlet {
 		
 	}
 	
-	public String getFileNameFromPart(Part part) {
-		String header = part.getHeader("content-disposition");
-		System.out.println("header=" + header); // 測試用
-		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
-		System.out.println("filename=" + filename); // 測試用
-		if (filename.length() == 0) {
-			return null;
-		}
-		return filename;
-	}
 }

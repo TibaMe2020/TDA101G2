@@ -127,7 +127,34 @@
 		<input type="hidden" name="action" value="insert">
 		<input type="submit" value="送出新增">
 	</FORM>
-	<br>
+	<div style="width:200px; height:200px; display:inline-block;">
+		<img id="image1" style="width:100%;"/>
+	</div>
+	<div style="width:200px; height:200px; display:inline-block;">
+		<img id="image2"  style="width:100%;"/>
+	</div>
+		<div style="width:200px; height:200px; display:inline-block;">
+	<img id="image3" style="width:100%;"/>
+	</div>
+	<script>
+		function loadImageFile(event){
+			console.log(event.target.name);
+			switch(event.target.name){
+				case 'storeImage1':
+					var image1 = document.getElementById('image1'); 
+					image1.src = URL.createObjectURL(event.target.files[0]);
+					break;
+				case 'storeImage2':
+					var image2 = document.getElementById('image2'); 
+					image2.src = URL.createObjectURL(event.target.files[0]);
+					break;
+				case 'storeImage3':
+					var image3 = document.getElementById('image3'); 
+					image3.src = URL.createObjectURL(event.target.files[0]);
+					break;
+			}
+		}; 
+	</script>
 	
 </body>
 </html>
