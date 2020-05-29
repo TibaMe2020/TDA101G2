@@ -1,6 +1,9 @@
 package com.store.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,15 +11,18 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.store.model.StoreDAO_JDBC;
 import com.store.model.StoreService;
 import com.store.model.StoreVO;
 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 @WebServlet("/store/Controller")
 public class StoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -131,9 +137,9 @@ public class StoreServlet extends HttpServlet {
 				String store_openhours3 = req.getParameter("storeOpenhours3");
 				Integer store_timelimit = new Integer(req.getParameter("storeTimelimit").trim());
 				Integer store_maxcapacity = new Integer(req.getParameter("storeMaxcapacity").trim());
-				byte[] store_image1 = null;
-				byte[] store_image2 = null;
-				byte[] store_image3 = null;
+//				byte[] store_image1 = null;
+//				byte[] store_image2 = null;
+//				byte[] store_image3 = null;
 				byte[] store_image4 = null;
 				byte[] store_image5 = null;
 				byte[] store_image6 = null;
@@ -142,7 +148,23 @@ public class StoreServlet extends HttpServlet {
 				byte[] store_menu3 = null;
 				Integer store_on = new Integer(req.getParameter("storeOn").trim());
 				
-				
+				// 上傳照片
+				Part update_image1 = req.getPart("storeImage1");
+				Part update_image2 = req.getPart("storeImage2");
+				Part update_image3 = req.getPart("storeImage3");
+				InputStream in1 = update_image1.getInputStream();
+				InputStream in2 = update_image2.getInputStream();
+				InputStream in3 = update_image3.getInputStream();
+				byte[] store_image1 = new byte[in1.available()];
+				byte[] store_image2 = new byte[in2.available()];
+				byte[] store_image3 = new byte[in3.available()];
+				in1.read(store_image1);
+				in2.read(store_image2);
+				in3.read(store_image3);
+				in1.close();
+				in2.close();
+				in3.close();
+			
 				storeVO = new StoreVO();
 				storeVO.setMember_id(member_id);
 				storeVO.setStore_name(store_name);
@@ -156,6 +178,9 @@ public class StoreServlet extends HttpServlet {
 				storeVO.setStore_openhours1(store_openhours1);
 				storeVO.setStore_timelimit(store_timelimit);
 				storeVO.setStore_maxcapacity(store_maxcapacity);
+				storeVO.setStore_image1(store_image1);
+				storeVO.setStore_image2(store_image2);
+				storeVO.setStore_image3(store_image3);
 				storeVO.setStore_on(store_on);
 				
 				// Send the use back to the form, if there were errors
@@ -176,6 +201,7 @@ public class StoreServlet extends HttpServlet {
 //						store_image5, store_image6, store_menu1, store_menu2, store_menu3, store_on);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				errorMsgs.put("error","新增成功");
 				String url = "/back-end/store/listAllStore.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
@@ -270,6 +296,26 @@ public class StoreServlet extends HttpServlet {
 					store_secondbreak=null;
 				}
 				
+				// 上傳照片
+				Part update_image1 = req.getPart("storeImage1");
+				Part update_image2 = req.getPart("storeImage2");
+				Part update_image3 = req.getPart("storeImage3");
+				InputStream in1 = update_image1.getInputStream();
+				InputStream in2 = update_image2.getInputStream();
+				InputStream in3 = update_image3.getInputStream();
+				byte[] store_image1 = new byte[in1.available()];
+				byte[] store_image2 = new byte[in2.available()];
+				byte[] store_image3 = new byte[in3.available()];
+				in1.read(store_image1);
+				in2.read(store_image2);
+				in3.read(store_image3);
+				System.out.println("圖1="+store_image1.length);
+				System.out.println("圖2="+store_image2.length);
+				System.out.println("圖3="+store_image3.length);
+				in1.close();
+				in2.close();
+				in3.close();
+				
 				String store_openhours1 = req.getParameter("storeOpenhours1");
 				Integer store_timelimit = new Integer(req.getParameter("storeTimelimit").trim());
 				Integer store_maxcapacity = new Integer(req.getParameter("storeMaxcapacity").trim());
@@ -289,6 +335,9 @@ public class StoreServlet extends HttpServlet {
 				storeVO.setStore_openhours1(store_openhours1);
 				storeVO.setStore_timelimit(store_timelimit);
 				storeVO.setStore_maxcapacity(store_maxcapacity);
+				storeVO.setStore_image1(store_image1);
+				storeVO.setStore_image2(store_image2);
+				storeVO.setStore_image3(store_image3);
 				storeVO.setStore_on(store_on);
 				
 				// Send the use back to the form, if there were errors
@@ -349,5 +398,14 @@ public class StoreServlet extends HttpServlet {
 		
 	}
 	
-
+	public String getFileNameFromPart(Part part) {
+		String header = part.getHeader("content-disposition");
+		System.out.println("header=" + header); // 測試用
+		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
+		System.out.println("filename=" + filename); // 測試用
+		if (filename.length() == 0) {
+			return null;
+		}
+		return filename;
+	}
 }

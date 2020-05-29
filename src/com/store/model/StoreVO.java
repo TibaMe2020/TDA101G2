@@ -4,21 +4,7 @@ import java.sql.Date;
 import java.util.Arrays;
 
 public class StoreVO {
-	@Override
-	public String toString() {
-		return "StoreVO [store_id=" + store_id + ", member_id=" + member_id + ", store_class=" + store_class
-				+ ", store_name=" + store_name + ", store_adress=" + store_adress + ", store_phone_number="
-				+ store_phone_number + ", store_introduction=" + store_introduction + ", store_clicks=" + store_clicks
-				+ ", store_firstbreak=" + store_firstbreak + ", store_secondbreak=" + store_secondbreak
-				+ ", store_openhours1=" + store_openhours1 + ", store_openhours2=" + store_openhours2
-				+ ", store_openhours3=" + store_openhours3 + ", store_timelimit=" + store_timelimit
-				+ ", store_maxcapacity=" + store_maxcapacity + ", store_image1=" + Arrays.toString(store_image1)
-				+ ", store_image2=" + Arrays.toString(store_image2) + ", store_image3=" + Arrays.toString(store_image3)
-				+ ", store_image4=" + Arrays.toString(store_image4) + ", store_image5=" + Arrays.toString(store_image5)
-				+ ", store_image6=" + Arrays.toString(store_image6) + ", store_menu1=" + Arrays.toString(store_menu1)
-				+ ", store_menu2=" + Arrays.toString(store_menu2) + ", store_menu3=" + Arrays.toString(store_menu3)
-				+ ", store_on=" + store_on + ", create_time=" + create_time + ", update_time=" + update_time + "]";
-	}
+
 	private String store_id;
 	private String member_id;
 	private String store_class;
@@ -208,6 +194,22 @@ public class StoreVO {
 	}
 	public void setUpdate_time(Date update_time) {
 		this.update_time = update_time;
+	}
+	
+	@Override
+	public String toString() {
+		return "StoreVO [store_id=" + store_id + ", member_id=" + member_id + ", store_class=" + store_class
+				+ ", store_name=" + store_name + ", store_adress=" + store_adress + ", store_phone_number="
+				+ store_phone_number + ", store_introduction=" + store_introduction + ", store_clicks=" + store_clicks
+				+ ", store_firstbreak=" + store_firstbreak + ", store_secondbreak=" + store_secondbreak
+				+ ", store_openhours1=" + store_openhours1 + ", store_openhours2=" + store_openhours2
+				+ ", store_openhours3=" + store_openhours3 + ", store_timelimit=" + store_timelimit
+				+ ", store_maxcapacity=" + store_maxcapacity + ", store_image1=" + Arrays.toString(store_image1)
+				+ ", store_image2=" + Arrays.toString(store_image2) + ", store_image3=" + Arrays.toString(store_image3)
+				+ ", store_image4=" + Arrays.toString(store_image4) + ", store_image5=" + Arrays.toString(store_image5)
+				+ ", store_image6=" + Arrays.toString(store_image6) + ", store_menu1=" + Arrays.toString(store_menu1)
+				+ ", store_menu2=" + Arrays.toString(store_menu2) + ", store_menu3=" + Arrays.toString(store_menu3)
+				+ ", store_on=" + store_on + ", create_time=" + create_time + ", update_time=" + update_time + "]";
 	}
 	
 }

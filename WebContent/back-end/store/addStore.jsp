@@ -13,8 +13,9 @@
 <title>店家資料新增 - addStore.jsp</title>
 </head>
 <body>
-	<h3>新增店家 :</h3>
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" name="form1">
+	<a href='<%=request.getContextPath()%>/back-end/store/select_page.jsp'>回首頁</a>
+	<h3>新增店家 :</h3><span style="color: red ">${errorMsgs.error}</span>
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" name="form1" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>店家名稱:<font color=red><b>*</b></td>
@@ -119,12 +120,14 @@
 			</tr>
 		
 		</table>
-		<span style="color: red ">${errorMsgs.error}</span>
+		<input type="file" name="storeImage1">
+		<input type="file" name="storeImage2">
+		<input type="file" name="storeImage3">
 		<br>
 		<input type="hidden" name="action" value="insert">
 		<input type="submit" value="送出新增">
 	</FORM>
+	<br>
 	
-	<a href='<%=request.getContextPath()%>/back-end/store/select_page.jsp'>回select_page</a>
 </body>
 </html>

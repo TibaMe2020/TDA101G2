@@ -1,5 +1,10 @@
 package com.test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
 
@@ -12,22 +17,41 @@ public class StoreDAO_JDBC_Test {
 	public static void main(String[] args) {
 		StoreDAO_JDBC storeDao = new StoreDAO_JDBC();
 		
-		// insert setInt 不能null
-//		StoreVO st2 = new StoreVO();
-//		st2.setMember_id("MB00033");
-//		st2.setStore_name("毛毛豆豆");
-//		st2.setStore_class("旅館");
-//		st2.setStore_clicks(3);
-//		st2.setStore_firstbreak(2);
-//		st2.setStore_secondbreak(2);
-//		st2.setStore_maxcapacity(30);
-//		st2.setStore_timelimit(60);
-//		st2.setStore_on(0);
-//		st2.setUpdate_time(new java.sql.Date(System.currentTimeMillis()));
-//		storeDao.insert(st2);
-//		System.out.println("新增="+ st2.getMember_id()+ " " + st2.getStore_name() + " " + st2.getStore_class());
-//		System.out.println(st2.getUpdate_time());
-				
+//		try {
+//			byte[] image;
+//			File input = new File("C:\\Users\\User\\Desktop\\Java雲端服務TDA101\\Agile-陳怡榕\\貓咪.jpg");
+//			FileInputStream fis = new FileInputStream(input);
+//			image = new byte[fis.available()];
+//			fis.read(image);
+//		
+//			// insert setInt 不能null
+//			StoreVO st2 = new StoreVO();
+//			st2.setMember_id("MB00033");
+//			st2.setStore_name("毛毛豆豆");
+//			st2.setStore_class("旅館");
+//			st2.setStore_clicks(3);
+//			st2.setStore_firstbreak(2);
+//			st2.setStore_secondbreak(2);
+//			st2.setStore_maxcapacity(30);
+//			st2.setStore_timelimit(60);
+//			st2.setStore_on(0);
+//			st2.setUpdate_time(new java.sql.Date(System.currentTimeMillis()));
+//			st2.setStore_image1(image);
+//			st2.setStore_image2(image);
+//			st2.setStore_image3(image);
+////			storeDao.insert(st2);
+////			st2.setStore_id("S00052");
+////			storeDao.update(st2);
+//			System.out.println("新增="+ st2.getMember_id()+ " " + st2.getStore_name() + " " + st2.getStore_class());
+//			System.out.println(st2.getUpdate_time());
+//			
+//			fis.close();
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} 		
+		
 		// update
 //		StoreVO st3 = new StoreVO();
 //		st3.setStore_id("S07001");

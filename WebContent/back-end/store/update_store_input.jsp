@@ -13,8 +13,9 @@
 <title>店家資料修改 - update_store_input</title>
 </head>
 <body>
-	<h3>店家修改</h3>
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" name="form1">
+	<a href='<%=request.getContextPath()%>/back-end/store/listAllStore.jsp'>回listAllStore</a>
+	<h3>店家修改</h3><span style="color: red ">${errorMsgs.error}</span>
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" name="form1" enctype="multipart/form-data" multiple>
 		<table>
 			<tr>
 				<td>店家編號:<font color=red><b>*</b></font></td>
@@ -114,12 +115,44 @@
 			</tr>
 		
 		</table>
-		<span style="color: red ">${errorMsgs.error}</span>
+		<input type="file" name="storeImage1" onchange="loadImageFile(event)">
+		<input type="file" name="storeImage2" onchange="loadImageFile(event)">
+		<input type="file" name="storeImage3" onchange="loadImageFile(event)">
 		<br>
 		<input type="hidden" name="action" value="update">
 		<input type="hidden" name="storeId" value="<%=storeVO.getStore_id()%>">
 		<input type="submit" value="送出修改">
+		<img >
 	</FORM>
-	<a href='<%=request.getContextPath()%>/back-end/store/listAllStore.jsp'>回listAllStore</a>
+	<div style="width:200px; height:200px; display:inline-block;">
+		<img id="image1" style="width:100%;"/>
+	</div>
+	<div style="width:200px; height:200px; display:inline-block;">
+		<img id="image2"  style="width:100%;"/>
+	</div>
+		<div style="width:200px; height:200px; display:inline-block;">
+	<img id="image3" style="width:100%;"/>
+	</div>
+	<script>
+		function loadImageFile(event){
+			console.log(event.target.name);
+			switch(event.target.name){
+				case 'storeImage1':
+					var image1 = document.getElementById('image1'); 
+					image1.src = URL.createObjectURL(event.target.files[0]);
+					break;
+				case 'storeImage2':
+					var image2 = document.getElementById('image2'); 
+					image2.src = URL.createObjectURL(event.target.files[0]);
+					break;
+				case 'storeImage3':
+					var image3 = document.getElementById('image3'); 
+					image3.src = URL.createObjectURL(event.target.files[0]);
+					break;
+			}
+		}; 
+	</script>
+	
+	
 </body>
 </html>

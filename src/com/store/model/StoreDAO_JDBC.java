@@ -20,12 +20,13 @@ public class StoreDAO_JDBC implements StoreDAO_interface {
 	// insert into 
 	public static final String INSERT = "insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number,"
 			+ " store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1,"
-			+ " store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on, update_time)"
-			+ " values ('S'||LPAD(to_char(seq_store_id.nextval),5,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+			+ " store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity, store_image1,"
+			+ " store_image2, store_image3,store_on, update_time)"
+			+ " values ('S'||LPAD(to_char(seq_store_id.nextval),5,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 	public static final String UPDATE = "update store set member_id=?, store_class=?, store_name=?, store_adress=?, store_phone_number=?,"
 			+ " store_introduction=?, store_clicks=?, store_firstbreak=?, store_secondbreak=?, store_openhours1=?,"
-			+ " store_openhours2=? ,store_openhours3=? ,store_timelimit=?, store_maxcapacity=? ,store_on=?,"
-			+ " update_time=? where store_id= ? ";
+			+ " store_openhours2=? ,store_openhours3=? ,store_timelimit=?, store_maxcapacity=?,"
+			+ " store_image1=?, store_image2=?, store_image3=? ,store_on=?, update_time=? where store_id= ? ";
 	public static final String DELETE = "delete from store where store_id= ? ";
 	public static final String SELECT_BY_STORE_ID = "select * from store where store_id= ? ";
 	public static final String SELECT_BY_MEMBER_ID = "select * from store where member_id= ? ";
@@ -58,8 +59,11 @@ public class StoreDAO_JDBC implements StoreDAO_interface {
 			ps.setString(12, storeVO.getStore_openhours3());
 			ps.setObject(13, storeVO.getStore_timelimit(), java.sql.Types.INTEGER);
 			ps.setObject(14, storeVO.getStore_maxcapacity(), java.sql.Types.INTEGER);
-			ps.setObject(15, storeVO.getStore_on(), java.sql.Types.INTEGER);
-			ps.setDate(16, storeVO.getUpdate_time());
+			ps.setBytes(15, storeVO.getStore_image1());
+			ps.setBytes(16, storeVO.getStore_image2());
+			ps.setBytes(17, storeVO.getStore_image3());
+			ps.setObject(18, storeVO.getStore_on(), java.sql.Types.INTEGER);
+			ps.setDate(19, storeVO.getUpdate_time());
 
 			ps.executeUpdate();
 
@@ -111,9 +115,12 @@ public class StoreDAO_JDBC implements StoreDAO_interface {
 			ps.setString(12, storeVO.getStore_openhours3());
 			ps.setObject(13, storeVO.getStore_timelimit(), java.sql.Types.INTEGER);
 			ps.setObject(14, storeVO.getStore_maxcapacity(), java.sql.Types.INTEGER);
-			ps.setObject(15, storeVO.getStore_on(), java.sql.Types.INTEGER);
-			ps.setDate(16, storeVO.getUpdate_time());
-			ps.setString(17, storeVO.getStore_id());
+			ps.setBytes(15, storeVO.getStore_image1());
+			ps.setBytes(16, storeVO.getStore_image2());
+			ps.setBytes(17, storeVO.getStore_image3());
+			ps.setObject(18, storeVO.getStore_on(), java.sql.Types.INTEGER);
+			ps.setDate(19, storeVO.getUpdate_time());
+			ps.setString(20, storeVO.getStore_id());
 
 			ps.executeUpdate();
 

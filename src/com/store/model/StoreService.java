@@ -3,7 +3,10 @@ package com.store.model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Collection;
 import java.util.List;
+
+import javax.servlet.http.Part;
 
 import com.abstractInterface.MemberVO;
 
