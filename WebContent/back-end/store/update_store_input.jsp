@@ -130,8 +130,8 @@
 	<div style="width:200px; height:200px; display:inline-block;">
 		<img id="image2"  style="width:100%;"/>
 	</div>
-		<div style="width:200px; height:200px; display:inline-block;">
-	<img id="image3" style="width:100%;"/>
+	<div style="width:200px; height:200px; display:inline-block;">
+		<img id="image3" style="width:100%;"/>
 	</div>
 <%-- 	<%for(int i=1;i<=3;i++){%> --%>
 <!-- 	<div style="width:200px;height:200px;display:inline-block;"> -->
@@ -140,7 +140,6 @@
 <%-- 	<%}%> --%>
 	<script>
 		function loadImageFile(event){
-			console.log(event.target.name);
 			switch(event.target.name){
 				case 'storeImage1':
 					var image1 = document.getElementById('image1'); 

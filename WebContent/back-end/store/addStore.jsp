@@ -120,9 +120,9 @@
 			</tr>
 		
 		</table>
-		<input type="file" name="storeImage1">
-		<input type="file" name="storeImage2">
-		<input type="file" name="storeImage3">
+		<input type="file" name="storeImage1" onchange="loadImageFile(event)">
+		<input type="file" name="storeImage2" onchange="loadImageFile(event)">
+		<input type="file" name="storeImage3" onchange="loadImageFile(event)">
 		<br>
 		<input type="hidden" name="action" value="insert">
 		<input type="submit" value="送出新增">

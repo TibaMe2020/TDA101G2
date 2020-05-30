@@ -3,10 +3,10 @@ package com.service.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceSerivce {
+public class ServiceService {
 	private ServiceDAO_interface dao;
 	
-	public ServiceSerivce() {
+	public ServiceService() {
 		dao = new ServiceDAO_JDBC();
 	}
 	
