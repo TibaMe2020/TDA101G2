@@ -8,14 +8,14 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
 
-import com.store.model.StoreDAO_JDBC;
+import com.store.model.StoreDAO;
 import com.store.model.StoreVO;
 
-public class StoreDAO_JDBC_Test {
+public class StoreDAO_Test {
 
 	
 	public static void main(String[] args) {
-		StoreDAO_JDBC storeDao = new StoreDAO_JDBC();
+		StoreDAO storeDao = new StoreDAO();
 		
 //		try {
 //			byte[] image;

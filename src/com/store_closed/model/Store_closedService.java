@@ -10,7 +10,7 @@ public class Store_closedService {
 	private Store_closedDAO_interface dao;
 	
 	public Store_closedService(){
-		dao = new Store_closedDAO_JDBC();
+		dao = new Store_closedDAO();
 	}
 	
 	public Store_closedVO newClosed(String store_id, Date store_closed_day) {

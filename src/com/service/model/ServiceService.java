@@ -7,7 +7,7 @@ public class ServiceService {
 	private ServiceDAO_interface dao;
 	
 	public ServiceService() {
-		dao = new ServiceDAO_JDBC();
+		dao = new ServiceDAO();
 	}
 	
 	public ServiceVO newSerivce(String store_id,  String service_detail, Integer service_price,

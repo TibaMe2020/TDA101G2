@@ -3,13 +3,13 @@ package com.test;
 import java.sql.Date;
 import java.util.List;
 
-import com.store_order.model.Store_orderDAO_JDBC;
+import com.store_order.model.Store_orderDAO;
 import com.store_order.model.Store_orderVO;
 
-public class Store_orderDAO_JDBC_Test {
+public class Store_orderDAO_Test {
 	
 	public static void main(String[] args) {
-		Store_orderDAO_JDBC order = new Store_orderDAO_JDBC();
+		Store_orderDAO order = new Store_orderDAO();
 		// insert
 		Store_orderVO st1 = new Store_orderVO();
 //		st1.setStore_order_date_time(new java.sql.Date(System.currentTimeMillis()));

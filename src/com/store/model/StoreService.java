@@ -15,7 +15,7 @@ public class StoreService {
 	private StoreDAO_interface dao;
 	
 	public StoreService() {
-		dao = new StoreDAO_JDBC();
+		dao = new StoreDAO();
 	}
 	
 	public String getStoreId(StoreVO storeVO) {

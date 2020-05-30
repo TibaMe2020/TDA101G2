@@ -10,9 +10,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.store_order.model.Store_orderVO;
 
-public class Store_order_detailDAO_JDBC implements Store_order_detail_interface {
+public class Store_order_detailDAO implements Store_order_detail_interface {
+	
+	private static DataSource datasource = null;
+	static {
+		try {
+			Context context = new InitialContext();
+			datasource = (DataSource) context.lookup("java:comp/env/jdbc/PetBoxDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public final String INSERT=
 			"insert into store_order_detail(store_order_detail_id, store_order_id, service_id, order_detail_pets)"
@@ -31,19 +46,19 @@ public class Store_order_detailDAO_JDBC implements Store_order_detail_interface 
 		
 		try {
 			
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userId, passWord);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
 			ps = conn.prepareStatement(INSERT);
 			
-//			ps.setString(1, store_order_detailVO.getStore_order_detail_id());
 			ps.setString(1, store_order_detailVO.getStore_order_id());
 			ps.setString(2, store_order_detailVO.getService_id());
 			ps.setInt(3, store_order_detailVO.getOrder_detail_pets());
 
 			ps.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver： "+e.getMessage());
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： "+e.getMessage());
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {
@@ -71,8 +86,9 @@ public class Store_order_detailDAO_JDBC implements Store_order_detail_interface 
 		
 		try {
 			
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userId, passWord);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
 			ps = conn.prepareStatement(UPDATE);
 			
 			ps.setString(1, store_order_detailVO.getStore_order_id());
@@ -82,8 +98,8 @@ public class Store_order_detailDAO_JDBC implements Store_order_detail_interface 
 			
 			ps.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver： "+e.getMessage());
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： "+e.getMessage());
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {
@@ -110,15 +126,16 @@ public class Store_order_detailDAO_JDBC implements Store_order_detail_interface 
 		PreparedStatement ps = null;
 		
 		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userId, passWord);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
 			ps = conn.prepareStatement(DELETE);
 			
 			ps.setString(1, store_order_detail_id);
 			ps.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver： " + e.getMessage()); 
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： " + e.getMessage()); 
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {
@@ -149,8 +166,9 @@ public class Store_order_detailDAO_JDBC implements Store_order_detail_interface 
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userId, passWord);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
 			ps = conn.prepareStatement(selectByOrderId);
 			ps.setString(1, store_order_id);
 			rs = ps.executeQuery();
@@ -166,8 +184,8 @@ public class Store_order_detailDAO_JDBC implements Store_order_detail_interface 
 				list.add(store_order_detailVO);
 			}
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver： " + e.getMessage());
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： " + e.getMessage());
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {

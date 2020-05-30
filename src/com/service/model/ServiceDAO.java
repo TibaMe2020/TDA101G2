@@ -8,12 +8,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.store.model.StoreVO;
 
 import static com.common.Common.*;
 
-public class ServiceDAO_JDBC implements ServiceDAO_interface {
+public class ServiceDAO implements ServiceDAO_interface {
 
+	private static DataSource datasource = null;
+	static {
+		try {
+			Context context = new InitialContext();
+			datasource = (DataSource) context.lookup("java:comp/env/jdbc/PetBoxDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static final String INSERT= 
 			"insert into service(service_id, store_id, service_detail, service_price, service_limit, " + 
 			"service_time, service_state) values('SE'||LPAD(seq_service_id.nextval,5,'0'), ?, ?, ?, ?, ?, ?)";
@@ -32,8 +47,9 @@ public class ServiceDAO_JDBC implements ServiceDAO_interface {
 		
 		try {
 			
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userId, passWord);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
 			ps = conn.prepareStatement(INSERT);
 			
 //			ps.setString(1, serviceVO.getService_id());
@@ -45,8 +61,8 @@ public class ServiceDAO_JDBC implements ServiceDAO_interface {
 			ps.setObject(6, serviceVO.getService_state(), java.sql.Types.INTEGER);
 			ps.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver： "+e.getMessage());
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： "+e.getMessage());
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {
@@ -74,8 +90,9 @@ public class ServiceDAO_JDBC implements ServiceDAO_interface {
 		
 		try {
 			
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userId, passWord);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
 			ps = conn.prepareStatement(UPDATE);
 			
 			ps.setString(1, serviceVO.getStore_id());
@@ -87,8 +104,8 @@ public class ServiceDAO_JDBC implements ServiceDAO_interface {
 			ps.setString(7, serviceVO.getService_id());
 			ps.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver： "+e.getMessage());
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： "+e.getMessage());
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {
@@ -115,15 +132,16 @@ public class ServiceDAO_JDBC implements ServiceDAO_interface {
 		PreparedStatement ps = null;
 		
 		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userId, passWord);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
 			ps = conn.prepareStatement(DELETE);
 			
 			ps.setString(1, service_id);
 			ps.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver： " + e.getMessage()); 
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： " + e.getMessage()); 
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {
@@ -154,8 +172,9 @@ public class ServiceDAO_JDBC implements ServiceDAO_interface {
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userId, passWord);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
 			ps = conn.prepareStatement(SELECT);
 			ps.setString(1, store_id);
 			rs = ps.executeQuery();
@@ -172,8 +191,8 @@ public class ServiceDAO_JDBC implements ServiceDAO_interface {
 				list.add(serviceVO);
 			}
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver： " + e.getMessage());
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： " + e.getMessage());
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {

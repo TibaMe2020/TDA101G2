@@ -2,13 +2,13 @@ package com.test;
 
 import java.util.List;
 
-import com.service.model.ServiceDAO_JDBC;
+import com.service.model.ServiceDAO;
 import com.service.model.ServiceVO;
 
-public class ServiceDAO_JDBC_Test {
+public class ServiceDAO_Test {
 	public static void main(String[] args) {
 		
-		ServiceDAO_JDBC serviceDao = new ServiceDAO_JDBC(); 
+		ServiceDAO serviceDao = new ServiceDAO(); 
 		// insert
 //		ServiceVO ser1 = new ServiceVO();
 //		ser1.setStore_id("S07008");

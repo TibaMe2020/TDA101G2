@@ -1,12 +1,8 @@
 package com.store.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -18,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.store.model.StoreDAO_JDBC;
 import com.store.model.StoreService;
 import com.store.model.StoreVO;
 
@@ -137,12 +132,6 @@ public class StoreServlet extends HttpServlet {
 				String store_openhours3 = req.getParameter("storeOpenhours3");
 				Integer store_timelimit = new Integer(req.getParameter("storeTimelimit").trim());
 				Integer store_maxcapacity = new Integer(req.getParameter("storeMaxcapacity").trim());
-				byte[] store_image4 = null;
-				byte[] store_image5 = null;
-				byte[] store_image6 = null;
-				byte[] store_menu1 = null;
-				byte[] store_menu2 = null;
-				byte[] store_menu3 = null;
 				Integer store_on = new Integer(req.getParameter("storeOn").trim());
 				
 				// 上傳照片

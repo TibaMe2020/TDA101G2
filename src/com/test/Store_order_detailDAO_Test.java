@@ -2,13 +2,13 @@ package com.test;
 
 import java.util.List;
 
-import com.store_order_detail.model.Store_order_detailDAO_JDBC;
+import com.store_order_detail.model.Store_order_detailDAO;
 import com.store_order_detail.model.Store_order_detailVO;
 
-public class Store_order_detailDAO_JDBC_Test {
+public class Store_order_detailDAO_Test {
 
 	public static void main(String[] args) {
-		Store_order_detailDAO_JDBC detail = new Store_order_detailDAO_JDBC();
+		Store_order_detailDAO detail = new Store_order_detailDAO();
 		// insert
 //		Store_order_detailVO st1 = new Store_order_detailVO();
 //		st1.setStore_order_id("SO05008");

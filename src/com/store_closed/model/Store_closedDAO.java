@@ -8,10 +8,25 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import static com.common.Common.*;
 
-public class Store_closedDAO_JDBC implements Store_closedDAO_interface {
-
+public class Store_closedDAO implements Store_closedDAO_interface {
+	
+	private static DataSource datasource = null;
+	static {
+		try {
+			Context context = new InitialContext();
+			datasource = (DataSource) context.lookup("java:comp/env/jdbc/PetBoxDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static final String INSERT =
 			"insert into store_closed(store_closed_id, store_id, store_closed_day) values('SC'||LPAD(seq_store_closed_id.nextval,5,'0'), ?, ?)";
 	public static final String DELETE =
@@ -26,18 +41,18 @@ public class Store_closedDAO_JDBC implements Store_closedDAO_interface {
 		PreparedStatement ps = null;
 		
 		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userId, passWord);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
 			ps = conn.prepareStatement(INSERT);
 			
-//			ps.setString(1, store_closedVO.getStore_closed_id());
 			ps.setString(1, store_closedVO.getStore_id());
 			ps.setDate(2, store_closedVO.getStore_closed_day());
 			
 			ps.executeUpdate();
-			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver： " + e.getMessage()); 
+		
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： " + e.getMessage()); 
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {
@@ -64,15 +79,16 @@ public class Store_closedDAO_JDBC implements Store_closedDAO_interface {
 		PreparedStatement ps = null;
 		
 		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userId, passWord);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
 			ps = conn.prepareStatement(DELETE);
 			
 			ps.setString(1, store_closed_id);
 			ps.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver： " + e.getMessage()); 
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： " + e.getMessage()); 
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {
@@ -105,8 +121,10 @@ public class Store_closedDAO_JDBC implements Store_closedDAO_interface {
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userId, passWord);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
+			
 			ps = conn.prepareStatement(SELECT);
 			ps.setString(1, store_id);
 			rs = ps.executeQuery();
@@ -118,8 +136,8 @@ public class Store_closedDAO_JDBC implements Store_closedDAO_interface {
 				set.add(stcl); 
 			}
 		
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver： " + e.getMessage()); 
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： " + e.getMessage()); 
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {
