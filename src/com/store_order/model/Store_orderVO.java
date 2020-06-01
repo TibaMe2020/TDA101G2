@@ -15,6 +15,7 @@ public class Store_orderVO {
 	private String store_order_payment;
 	private String store_order_note;
 	private Integer store_order_state;
+	private Date create_time;
 	
 	public String getStore_order_id() {
 		return store_order_id;
@@ -88,6 +89,11 @@ public class Store_orderVO {
 	public void setStore_order_state(Integer store_order_state) {
 		this.store_order_state = store_order_state;
 	}
-	
+	public Date getCreate_time() {
+		return create_time;
+	}
+	public void setCreate_time(Date create_time) {
+		this.create_time = create_time;
+	}
 	
 }

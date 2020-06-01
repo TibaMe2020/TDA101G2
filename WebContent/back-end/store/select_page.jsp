@@ -48,7 +48,27 @@
 	
 	<h3>店家管理</h3>
 	<ul>
-	  <li><a href='addStore.jsp'>新增</a>一間店家</li>
+		<li><a href='addStore.jsp'>新增</a>一間店家</li>
+	</ul>
+	<h3>訂單查詢</h3>
+	<ul>
+		<li><a href='listAllOrder.jsp'>List</a> all Store orders. </li>
+		<li>
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/OrderController">
+				<b>查詢店家訂單：</b> 
+				<select size="1" name="storeId">
+					<c:forEach var="storeVo" items="${storeSvc.all}">
+						<option value="${storeVo.store_id}"/>${storeVo.store_id}-${storeVo.store_name}
+					</c:forEach>
+				</select>
+				<input type="hidden" name="action" value="getOneForDisplay">
+				<input type="submit" value="送出">		
+			</FORM>
+		</li>
+	</ul>
+		<h3>訂單管理</h3>
+	<ul>
+		<li><a href='addOrder.jsp'>新增</a>訂單</li>
 	</ul>
 </body>
 </html>

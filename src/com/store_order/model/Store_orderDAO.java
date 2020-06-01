@@ -43,6 +43,8 @@ public class Store_orderDAO implements Store_orderDAO_interface {
 			"select * from store_order where store_id=? order by store_order_date_time desc";
 	public final String selectByMember=
 			"select * from store_order where member_id=? order by store_order_date_time desc";
+	public final String  selectAll=
+			"select * from store_order";
 	
 	@Override
 	public void insert(Store_orderVO store_orderVO) {
@@ -205,6 +207,7 @@ public class Store_orderDAO implements Store_orderDAO_interface {
 				store_orderVO.setStore_order_payment(rs.getString("store_order_payment"));
 				store_orderVO.setStore_order_note(rs.getString("store_order_note"));
 				store_orderVO.setStore_order_state(rs.getInt("store_order_state"));
+				store_orderVO.setCreate_time(rs.getDate("create_time"));
 				
 				list.add(store_orderVO);
 			}
@@ -269,6 +272,7 @@ public class Store_orderDAO implements Store_orderDAO_interface {
 				store_orderVO.setStore_order_payment(rs.getString("store_order_payment"));
 				store_orderVO.setStore_order_note(rs.getString("store_order_note"));
 				store_orderVO.setStore_order_state(rs.getInt("store_order_state"));
+				store_orderVO.setCreate_time(rs.getDate("create_time"));
 				
 				list.add(store_orderVO);
 			}
@@ -299,6 +303,42 @@ public class Store_orderDAO implements Store_orderDAO_interface {
 					e.printStackTrace(System.err);
 				}
 			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<Store_orderVO> getAll(){
+		List<Store_orderVO> list = new ArrayList<Store_orderVO>();
+		Store_orderVO store_orderVO = null;
+		
+		try(Connection conn = datasource.getConnection(); PreparedStatement ps = conn.prepareStatement(selectAll);ResultSet rs = ps.executeQuery();){
+		//JDBC
+//		try(Connection conn = DriverManager.getConnection(url, userId, passWord); PreparedStatement ps = conn.prepareStatement(selectAll);ResultSet rs = ps.executeQuery();){
+//			Class.forName(driver);
+			
+			while (rs.next()) {
+				store_orderVO = new Store_orderVO();
+				store_orderVO.setStore_order_id(rs.getString("store_order_id"));
+				store_orderVO.setStore_id(rs.getString("store_id"));
+				store_orderVO.setMember_id(rs.getString("member_id"));
+				store_orderVO.setStore_order_name(rs.getString("store_order_name"));
+				store_orderVO.setStore_order_email(rs.getString("store_order_email"));
+				store_orderVO.setStore_order_phone_num(rs.getString("store_order_phone_num"));
+				store_orderVO.setStore_order_date_time(rs.getDate("store_order_date_time"));
+				store_orderVO.setStore_order_end_date(rs.getDate("store_order_end_date"));
+				store_orderVO.setStore_order_persons(rs.getInt("store_order_persons"));
+				store_orderVO.setStore_order_payment(rs.getString("store_order_payment"));
+				store_orderVO.setStore_order_note(rs.getString("store_order_note"));
+				store_orderVO.setStore_order_state(rs.getInt("store_order_state"));
+				store_orderVO.setCreate_time(rs.getDate("create_time"));
+				
+				list.add(store_orderVO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//		throw new RuntimeException("Couldn't load database driver：" + e.getMessage());
 		}
 		return list;
 	}

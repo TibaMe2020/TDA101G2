@@ -53,6 +53,16 @@ public class Store_orderDAO_Test {
 //				int person2 = list3.getStore_order_persons();
 //				System.out.println(id2+" "+name2+" "+num2+" "+person2);	
 //			}
+		// getAll
+		List<Store_orderVO> list4 = order.getAll();
+		System.out.println("列出所有訂單");
+		for(Store_orderVO list5: list4) {
+			String id2= list5.getStore_order_id();
+			String name2 =list5.getStore_order_name();
+			String num2 = list5.getStore_order_phone_num();
+			int person2 = list5.getStore_order_persons();
+			System.out.println(id2+" "+name2+" "+num2+" "+person2);	
+		}
 	}
 }	
 

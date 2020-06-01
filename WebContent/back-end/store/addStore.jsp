@@ -21,7 +21,6 @@
 				<td>店家名稱:<font color=red><b>*</b></td>
 				<td><input type="TEXT" name="storeName" size="45" 
 					 	value="<%= (storeVO==null)? "緯育餐廳" : storeVO.getStore_name()%>" />
-	<!-- 				<input type="hidden" name="action" value="insert"> -->
 					<span style="color: red ">${errorMsgs.error_name}</span>
 				</td>
 				

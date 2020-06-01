@@ -8,4 +8,5 @@ public interface Store_orderDAO_interface {
 	public void delete(String store_order_id);
 	public List<Store_orderVO> selectByStore(String store_id); 
 	public List<Store_orderVO> selectByMember(String member_id); 
+	public List<Store_orderVO> getAll();
 }
