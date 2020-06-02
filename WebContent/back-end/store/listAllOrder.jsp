@@ -29,7 +29,6 @@
 </style>
 </head>
 <body>
-<%-- 	<a><%=serviceSvc.selectByServiceID("SE07006").getService_detail()%></a> --%>
 	<a href='<%=request.getContextPath()%>/back-end/store/select_page.jsp'>回首頁</a>
 	<%@ include file="page1.file" %>
 	<span style="color: red ">${errorMsgs.error}</span>
@@ -49,6 +48,7 @@
 		<th>預約狀態</th>
 		<th>創建日期</th>
 		<th>修改</th>
+		<th>訂單明細</th>
 		<th>刪除</th>
 	</tr>
 	
@@ -67,12 +67,6 @@
 		<td>${store_orderVO.store_order_note}</td>
 		<td>${store_orderVO.store_order_state}</td>
 		<td>${store_orderVO.create_time}</td>
-<%-- 		<%for(int i=1;i<=3;i++){%> --%>
-<!-- 		<td> -->
-<%-- 			<img style="width:100px;height:100px;" src="<%=request.getContextPath()%> --%>
-<%-- 			/store/ShowImg?store_id=${storeVO.store_id}&store_image=<%=i%>"/> --%>
-<!-- 		</td> -->
-<%-- 		<%}%> --%>
 		<td>
 		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" style="margin-bottom: 0px;">
 		     <input type="submit" value="修改">
@@ -81,9 +75,15 @@
 		</td>
 		<td>
 		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/OrderController" style="margin-bottom: 0px;">
-		     <input type="submit" value="刪除">
+		     <input type="submit" value="訂單明細">
 		     <input type="hidden" name="storeId"  value="${store_orderVO.store_order_id}">
 		     <input type="hidden" name="action" value="getDetailList"></FORM>
+		</td>
+		<td>
+		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/OrderController" style="margin-bottom: 0px;">
+		     <input type="submit" value="刪除">
+		     <input type="hidden" name="storeId"  value="${store_orderVO.store_order_id}">
+		     <input type="hidden" name="action" value="delete"></FORM>
 		</td>
 	</tr>
 	</c:forEach>
