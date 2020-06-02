@@ -1,3 +1,5 @@
+<%@page import="com.service.model.ServiceVO"%>
+<%@page import="com.service.model.ServiceService"%>
 <%@page import="java.util.List"%>
 <%@page import="com.store_order.model.Store_orderVO"%>
 <%@page import="com.store_order.model.Store_orderService"%>
@@ -9,6 +11,11 @@
 	Store_orderService orderSvc = new Store_orderService();
     List<Store_orderVO> list = orderSvc.getAll();
     pageContext.setAttribute("list",list);
+
+ 	String store_id = (String)request.getAttribute("store_id");
+ 
+	ServiceService serviceSvc = new ServiceService();
+	pageContext.setAttribute("serviceSvc", serviceSvc);
 %>
 <!DOCTYPE html>
 <html>
@@ -22,6 +29,7 @@
 </style>
 </head>
 <body>
+<%-- 	<a><%=serviceSvc.selectByServiceID("SE07006").getService_detail()%></a> --%>
 	<a href='<%=request.getContextPath()%>/back-end/store/select_page.jsp'>回首頁</a>
 	<%@ include file="page1.file" %>
 	<span style="color: red ">${errorMsgs.error}</span>
@@ -72,14 +80,33 @@
 		     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 		</td>
 		<td>
-		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" style="margin-bottom: 0px;">
+		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/OrderController" style="margin-bottom: 0px;">
 		     <input type="submit" value="刪除">
 		     <input type="hidden" name="storeId"  value="${store_orderVO.store_order_id}">
-		     <input type="hidden" name="action" value="delete"></FORM>
+		     <input type="hidden" name="action" value="getDetailList"></FORM>
 		</td>
 	</tr>
 	</c:forEach>
 	</table>
 	<%@ include file="page2.file" %>
+	<br>
+	<table>
+		<caption>訂單編號-${store_id}</caption>
+		<tr>
+			<th>訂單明細編號</th>
+			<th>服務項目</th>
+			<th>寵物數</th>
+		</tr>
+<%-- 		<jsp:useBean id="serviceSvc" scope="page" class="com.service.model.ServiceService" /> --%>
+		<c:forEach var="Store_order_detailVO" items="${detailList}" >
+		<tr>
+			<td>${Store_order_detailVO.store_order_detail_id}</td>
+			<td>${Store_order_detailVO.service_id}-${serviceSvc.selectByServiceID(Store_order_detailVO.service_id).service_detail}</td>
+			<td>${Store_order_detailVO.order_detail_pets}</td>
+		</tr>
+	    </c:forEach>
+	</table>
+	
+	
 </body>
 </html>

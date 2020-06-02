@@ -16,7 +16,7 @@
 <!--  	Store_order_detailService detailSvc = new Store_order_detailService(); -->
 <!--    	List<Store_order_detailVO> detailList = detailSvc.selectByOrderId(); -->
 <%--  %> --%>
-<%-- <%  List<Store_order_detailVO> detailList = (List<Store_order_detailVO>)request.getAttribute("store_order_detailVO"); %> --%>
+<%  List<Store_order_detailVO> detailList = (List<Store_order_detailVO>)request.getAttribute("store_order_detailVO"); %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>

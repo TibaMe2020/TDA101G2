@@ -37,6 +37,8 @@ public class ServiceDAO implements ServiceDAO_interface {
 			"service_time=?, service_state=? where service_id=?";
 	public static final String DELETE=
 			"delete from service where service_id=? ";
+	public static final String SELECTBYPK=
+			"select *  from service where service_id=? ";
 	public static final String SELECT=
 			"select *  from service where store_id=? ";
 	
@@ -161,7 +163,40 @@ public class ServiceDAO implements ServiceDAO_interface {
 			}
 		}
 	}
-
+	
+// 用PK 取 服務名稱
+	@Override
+	public ServiceVO selectByServiceID(String service_id) {
+		ServiceVO serviceVO = new ServiceVO();
+		ResultSet rs = null;
+		try(Connection conn = datasource.getConnection();PreparedStatement ps = conn.prepareStatement(SELECTBYPK);){
+			ps.setString(1, service_id);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				serviceVO = new ServiceVO();
+				serviceVO.setService_id(rs.getString("service_id"));
+				serviceVO.setStore_id(rs.getString("store_id"));
+				serviceVO.setService_detail(rs.getString("service_detail"));
+				serviceVO.setService_price(rs.getInt("service_price"));
+				serviceVO.setService_limit(rs.getInt("service_limit"));
+				serviceVO.setService_time(rs.getInt("service_time"));
+				serviceVO.setService_state(rs.getInt("service_state"));
+			}
+			
+		}	catch (SQLException e) {
+			throw new RuntimeException("A database error occured： " + e.getMessage());
+		}	 finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return serviceVO;
+	}
+	
 	@Override
 	public List<ServiceVO> selectByStore(String store_id) {
 		List<ServiceVO> list = new ArrayList<ServiceVO>();

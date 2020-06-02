@@ -48,4 +48,7 @@ public class ServiceService {
 		service = dao.selectByStore(store_id);
 		return service;
 	}
+	public ServiceVO selectByServiceID(String service_id) {
+		return dao.selectByServiceID(service_id);
+	}
 }

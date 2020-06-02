@@ -56,6 +56,7 @@
 			<th>圖2</th>
 			<th>圖3</th>
 			<th>狀態</th>
+			<th>修改</th>
 		</tr>
 		<tr>
 			<td><%=storeVO.getStore_id()%></td>
@@ -77,6 +78,12 @@
 		      }
 		    %>
 			<td><%=storeVO.getStore_on()%></td>
+					<td>
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" style="margin-bottom: 0px;">
+		    	<input type="submit" value="修改">
+		    	<input type="hidden" name="storeId"  value="${storeVO.store_id}">
+		    	<input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+		</td>
 		
 		</tr>
 	</table>
