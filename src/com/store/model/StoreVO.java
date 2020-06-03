@@ -1,6 +1,7 @@
 package com.store.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Arrays;
 
 public class StoreVO {
@@ -23,15 +24,9 @@ public class StoreVO {
 	private byte[] store_image1;
 	private byte[] store_image2;
 	private byte[] store_image3;
-	private byte[] store_image4;
-	private byte[] store_image5;
-	private byte[] store_image6;
-	private byte[] store_menu1;
-	private byte[] store_menu2;
-	private byte[] store_menu3;
 	private Integer store_on;
-	private Date create_time;
-	private Date update_time;
+	private Timestamp create_time;
+	private Timestamp update_time;
 	
 	public String getStore_id() {
 		return store_id;
@@ -44,6 +39,18 @@ public class StoreVO {
 	}
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
+	}
+	public Timestamp getCreate_time() {
+		return create_time;
+	}
+	public void setCreate_time(Timestamp create_time) {
+		this.create_time = create_time;
+	}
+	public Timestamp getUpdate_time() {
+		return update_time;
+	}
+	public void setUpdate_time(Timestamp update_time) {
+		this.update_time = update_time;
 	}
 	public String getStore_class() {
 		return store_class;
@@ -141,75 +148,13 @@ public class StoreVO {
 	public void setStore_image3(byte[] store_image3) {
 		this.store_image3 = store_image3;
 	}
-	public byte[] getStore_image4() {
-		return store_image4;
-	}
-	public void setStore_image4(byte[] store_image4) {
-		this.store_image4 = store_image4;
-	}
-	public byte[] getStore_image5() {
-		return store_image5;
-	}
-	public void setStore_image5(byte[] store_image5) {
-		this.store_image5 = store_image5;
-	}
-	public byte[] getStore_image6() {
-		return store_image6;
-	}
-	public void setStore_image6(byte[] store_image6) {
-		this.store_image6 = store_image6;
-	}
-	public byte[] getStore_menu1() {
-		return store_menu1;
-	}
-	public void setStore_menu1(byte[] store_menu1) {
-		this.store_menu1 = store_menu1;
-	}
-	public byte[] getStore_menu2() {
-		return store_menu2;
-	}
-	public void setStore_menu2(byte[] store_menu2) {
-		this.store_menu2 = store_menu2;
-	}
-	public byte[] getStore_menu3() {
-		return store_menu3;
-	}
-	public void setStore_menu3(byte[] store_menu3) {
-		this.store_menu3 = store_menu3;
-	}
 	public Integer getStore_on() {
 		return store_on;
 	}
 	public void setStore_on(Integer store_on) {
 		this.store_on = store_on;
 	}
-	public Date getCreate_time() {
-		return create_time;
-	}
-	public void setCreate_time(Date create_time) {
-		this.create_time = create_time;
-	}
-	public Date getUpdate_time() {
-		return update_time;
-	}
-	public void setUpdate_time(Date update_time) {
-		this.update_time = update_time;
-	}
+
 	
-	@Override
-	public String toString() {
-		return "StoreVO [store_id=" + store_id + ", member_id=" + member_id + ", store_class=" + store_class
-				+ ", store_name=" + store_name + ", store_adress=" + store_adress + ", store_phone_number="
-				+ store_phone_number + ", store_introduction=" + store_introduction + ", store_clicks=" + store_clicks
-				+ ", store_firstbreak=" + store_firstbreak + ", store_secondbreak=" + store_secondbreak
-				+ ", store_openhours1=" + store_openhours1 + ", store_openhours2=" + store_openhours2
-				+ ", store_openhours3=" + store_openhours3 + ", store_timelimit=" + store_timelimit
-				+ ", store_maxcapacity=" + store_maxcapacity + ", store_image1=" + Arrays.toString(store_image1)
-				+ ", store_image2=" + Arrays.toString(store_image2) + ", store_image3=" + Arrays.toString(store_image3)
-				+ ", store_image4=" + Arrays.toString(store_image4) + ", store_image5=" + Arrays.toString(store_image5)
-				+ ", store_image6=" + Arrays.toString(store_image6) + ", store_menu1=" + Arrays.toString(store_menu1)
-				+ ", store_menu2=" + Arrays.toString(store_menu2) + ", store_menu3=" + Arrays.toString(store_menu3)
-				+ ", store_on=" + store_on + ", create_time=" + create_time + ", update_time=" + update_time + "]";
-	}
-	
+
 }

@@ -68,12 +68,6 @@
 		<td>${store_orderVO.store_order_state}</td>
 		<td>${store_orderVO.create_time}</td>
 		<td>
-		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" style="margin-bottom: 0px;">
-		     <input type="submit" value="修改">
-		     <input type="hidden" name="storeId"  value="${store_orderVO.store_order_id}">
-		     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-		</td>
-		<td>
 		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/OrderController" style="margin-bottom: 0px;">
 		     <input type="submit" value="訂單明細">
 		     <input type="hidden" name="storeId"  value="${store_orderVO.store_order_id}">
@@ -82,7 +76,7 @@
 		<td>
 		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/OrderController" style="margin-bottom: 0px;">
 		     <input type="submit" value="刪除">
-		     <input type="hidden" name="storeId"  value="${store_orderVO.store_order_id}">
+		     <input type="hidden" name="storeOrderId"  value="${store_orderVO.store_order_id}">
 		     <input type="hidden" name="action" value="delete"></FORM>
 		</td>
 	</tr>

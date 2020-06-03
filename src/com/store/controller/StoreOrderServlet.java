@@ -2,6 +2,7 @@ package com.store.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.store.model.StoreService;
 import com.store_order.model.Store_orderService;
 import com.store_order.model.Store_orderVO;
 import com.store_order_detail.model.Store_order_detailService;
@@ -74,7 +74,7 @@ public class StoreOrderServlet extends HttpServlet {
 		}
 		
 		
-// 查該筆訂單-訂單明細
+// 查訂單-訂單明細
 		if("getDetailList".equals(action)) {
 			Map<String, String> errorMsgs = new HashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -130,7 +130,7 @@ public class StoreOrderServlet extends HttpServlet {
 		if("insert".equals(action)) {
 			Map<String, String> errorMsgs = new HashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
-//			try {
+			try {
 				String store_id = req.getParameter("storeId");
 				String member_id = req.getParameter("memberId");
 				String member_idReg = "^[MB]{2}[0-9]{5}$";
@@ -154,36 +154,51 @@ public class StoreOrderServlet extends HttpServlet {
 				} else if(!store_order_email.trim().matches(emailReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.put("error_email","email: 請輸入正確的email格式");
 				}
-//				String store_order_phone_num = req.getParameter("bookerPhoneNumber").trim();
-//				String phoneReg = "^[0-9]{9,10}$";
-//				if (store_order_phone_num == null || store_order_phone_num.trim().length() == 0) {
-//					errorMsgs.put("error_phone","電話：請勿空白");
-//				}else if(!store_order_phone_num.matches(phoneReg))
-//					errorMsgs.put("error_phone","電話：請輸入數字且是9-10位數");
-//				
-//				Integer store_order_persons = null;
-//				try {
-//					store_order_persons = new Integer(req.getParameter("orderPersons").trim());
-//				} catch (NumberFormatException e) {
-//					errorMsgs.put("error_persons", "僅能輸入數字且不能空白");
-//				}
-//				
-//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//				String bookingDate = req.getParameter("bookingDate").trim();
-//				String checkOutDate = req.getParameter("checkOutDate").trim();
-//				Date store_order_date_time=null;
-//				Date store_order_end_date=null;
-//				if(bookingDate!=null)
-////					store_order_date_time = (Date) sdf.parse(bookingDate);
-//					store_order_date_time = new java.sql.Date(sdf.parse(bookingDate).getTime());
-//				if(checkOutDate!=null)
-////					store_order_end_date = (Date) sdf.parse(checkOutDate);
-//					store_order_end_date = new java.sql.Date(sdf.parse(checkOutDate).getTime());
-//				
-//				
-//				String store_order_payment = req.getParameter("orderPayment").trim();
-//				String store_order_note = req.getParameter("orderNote").trim();
-//				Integer store_order_state = new Integer(req.getParameter("orderState").trim());
+				String store_order_phone_num = req.getParameter("bookerPhoneNumber").trim();
+				String phoneReg = "^[0-9]{9,10}$";
+				if (store_order_phone_num == null || store_order_phone_num.trim().length() == 0) {
+					errorMsgs.put("error_phone","電話：請勿空白");
+				}else if(!store_order_phone_num.matches(phoneReg))
+					errorMsgs.put("error_phone","電話：請輸入數字且是9-10位數");
+				
+
+//				String bookingDateReg="^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$";
+				String bookingDate = req.getParameter("bookingDate").trim();
+				Timestamp store_order_date_time=null;
+				if(bookingDate!=null) {
+//					if(!bookingDate.matches(bookingDateReg))
+					try {
+						store_order_date_time = Timestamp.valueOf(bookingDate);
+					} catch (Exception e) {
+						errorMsgs.put("error_date","請填選正確格式:yyyy-mm-dd hh:mm:ss");
+						bookingDate="";
+						e.printStackTrace();
+					}
+				}
+				
+				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+				String checkOutDate = req.getParameter("checkOutDate").trim();
+				Date store_order_end_date=null;
+				if(checkOutDate!=null){
+					store_order_end_date = new java.sql.Date(sdf2.parse(checkOutDate).getTime());
+				}
+				
+				Integer store_order_persons = null;
+				String persons = req.getParameter("orderPersons").trim();
+				try {
+					if("".equals(persons)) {
+//						store_order_persons=0;
+						System.out.println("persons = null");
+					}else {
+						store_order_persons = new Integer(req.getParameter("orderPersons").trim());
+					}
+				} catch (NumberFormatException e) {
+					errorMsgs.put("error_persons", "僅能輸入數字");
+				}
+				
+				String store_order_payment = req.getParameter("orderPayment").trim();
+				String store_order_note = req.getParameter("orderNote").trim();
+				Integer store_order_state = new Integer(req.getParameter("orderState").trim());
 				
 			
 				
@@ -192,13 +207,13 @@ public class StoreOrderServlet extends HttpServlet {
 				store_orderVO.setMember_id(member_id);
 				store_orderVO.setStore_order_name(store_order_name);
 				store_orderVO.setStore_order_email(store_order_email);
-//				store_orderVO.setStore_order_phone_num(store_order_phone_num);
-//				store_orderVO.setStore_order_date_time(store_order_date_time);
-//				store_orderVO.setStore_order_end_date(store_order_end_date);
-//				store_orderVO.setStore_order_persons(store_order_persons);
-//				store_orderVO.setStore_order_payment(store_order_payment);
-//				store_orderVO.setStore_order_note(store_order_note);
-//				store_orderVO.setStore_order_state(store_order_state);
+				store_orderVO.setStore_order_phone_num(store_order_phone_num);
+				store_orderVO.setStore_order_date_time(store_order_date_time);
+				store_orderVO.setStore_order_end_date(store_order_end_date);
+				store_orderVO.setStore_order_persons(store_order_persons);
+				store_orderVO.setStore_order_payment(store_order_payment);
+				store_orderVO.setStore_order_note(store_order_note);
+				store_orderVO.setStore_order_state(store_order_state);
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -206,34 +221,55 @@ public class StoreOrderServlet extends HttpServlet {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/back-end/store/addOrder.jsp");
 					failureView.forward(req, res);
-					System.out.println("出現錯誤");
 					return;
 				}
 				/***************************2.開始新增資料***************************************/
 				Store_orderService orderSvc = new Store_orderService();
 				orderSvc.newOrder(store_orderVO);
-				System.out.println("新增成功");
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				errorMsgs.put("error","新增成功");
 				req.setAttribute("store_orderVO", store_id);
 				String url = "/back-end/store/listOrder.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
-				System.out.println("轉交成功");
 				
 				/***************************其他可能的錯誤處理**********************************/
-//			} catch (ParseException e) {
-//				errorMsgs.put("error_date","日期格式錯誤");
-//				e.printStackTrace();
-//			}
-//			} 	catch (Exception e) {
-//				errorMsgs.put("error","新增錯誤:" + e.getMessage());
-//				e.printStackTrace();
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/back-end/store/addOrder.jsp");
-//				failureView.forward(req, res);
-//			}
+			} 	catch (Exception e) {
+				errorMsgs.put("error","新增錯誤:" + e.getMessage());
+				e.printStackTrace();
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/store/addOrder.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+// 刪除
+		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+
+			Map<String, String> errorMsgs = new HashMap<>();
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+			try {
+				/***************************1.接收請求參數***************************************/
+				String store_order_id = req.getParameter("storeOrderId");
+				
+				/***************************2.開始刪除資料***************************************/
+				Store_orderService orderSvc = new Store_orderService();
+				orderSvc.deleteOrder(store_order_id);
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
+				errorMsgs.put("error",store_order_id+"刪除成功");
+				String url = "/back-end/store/listAllOrder.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.put("error","刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/store/listAllOrder.jsp");
+				failureView.forward(req, res);
+			}
 		}
 	}
 

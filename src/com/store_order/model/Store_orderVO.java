@@ -1,6 +1,7 @@
 package com.store_order.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Store_orderVO {
 	private String store_order_id;
@@ -9,13 +10,13 @@ public class Store_orderVO {
 	private String store_order_name;
 	private String store_order_email;
 	private String store_order_phone_num;
-	private Date store_order_date_time;
+	private Timestamp store_order_date_time;
 	private Date store_order_end_date;
 	private Integer store_order_persons;
 	private String store_order_payment;
 	private String store_order_note;
 	private Integer store_order_state;
-	private Date create_time;
+	private Timestamp create_time;
 	
 	public String getStore_order_id() {
 		return store_order_id;
@@ -53,12 +54,6 @@ public class Store_orderVO {
 	public void setStore_order_phone_num(String store_order_phone_num) {
 		this.store_order_phone_num = store_order_phone_num;
 	}
-	public Date getStore_order_date_time() {
-		return store_order_date_time;
-	}
-	public void setStore_order_date_time(Date store_order_date_time) {
-		this.store_order_date_time = store_order_date_time;
-	}
 	public Date getStore_order_end_date() {
 		return store_order_end_date;
 	}
@@ -89,10 +84,16 @@ public class Store_orderVO {
 	public void setStore_order_state(Integer store_order_state) {
 		this.store_order_state = store_order_state;
 	}
-	public Date getCreate_time() {
+	public Timestamp getStore_order_date_time() {
+		return store_order_date_time;
+	}
+	public void setStore_order_date_time(Timestamp store_order_date_time) {
+		this.store_order_date_time = store_order_date_time;
+	}
+	public Timestamp getCreate_time() {
 		return create_time;
 	}
-	public void setCreate_time(Date create_time) {
+	public void setCreate_time(Timestamp create_time) {
 		this.create_time = create_time;
 	}
 	

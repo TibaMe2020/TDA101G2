@@ -73,8 +73,7 @@ public class StoreDAO implements StoreDAO_interface {
 			ps.setBytes(16, storeVO.getStore_image2());
 			ps.setBytes(17, storeVO.getStore_image3());
 			ps.setObject(18, storeVO.getStore_on(), java.sql.Types.INTEGER);
-			ps.setDate(19, storeVO.getUpdate_time());
-
+			ps.setTimestamp(19, storeVO.getUpdate_time());
 			ps.executeUpdate();
 
 //		} catch (ClassNotFoundException e) {
@@ -130,7 +129,7 @@ public class StoreDAO implements StoreDAO_interface {
 			ps.setBytes(16, storeVO.getStore_image2());
 			ps.setBytes(17, storeVO.getStore_image3());
 			ps.setObject(18, storeVO.getStore_on(), java.sql.Types.INTEGER);
-			ps.setDate(19, storeVO.getUpdate_time());
+			ps.setTimestamp(19, storeVO.getUpdate_time());
 			ps.setString(20, storeVO.getStore_id());
 
 			ps.executeUpdate();
@@ -233,15 +232,9 @@ public class StoreDAO implements StoreDAO_interface {
 				storeVO.setStore_image1(rs.getBytes("store_image1"));
 				storeVO.setStore_image2(rs.getBytes("store_image2"));
 				storeVO.setStore_image3(rs.getBytes("store_image3"));
-				storeVO.setStore_image4(rs.getBytes("store_image4"));
-				storeVO.setStore_image5(rs.getBytes("store_image5"));
-				storeVO.setStore_image6(rs.getBytes("store_image6"));
-				storeVO.setStore_menu1(rs.getBytes("store_menu1"));
-				storeVO.setStore_menu2(rs.getBytes("store_menu2"));
-				storeVO.setStore_menu3(rs.getBytes("store_menu3"));
 				storeVO.setStore_on(rs.getInt("store_on"));
-				storeVO.setCreate_time(rs.getDate("create_time"));
-				storeVO.setUpdate_time(rs.getDate("update_time"));
+				storeVO.setCreate_time(rs.getTimestamp("create_time"));
+				storeVO.setUpdate_time(rs.getTimestamp("update_time"));
 			}
 
 //		} catch (ClassNotFoundException e) {
@@ -311,15 +304,9 @@ public class StoreDAO implements StoreDAO_interface {
 				storeVO.setStore_image1(rs.getBytes("store_image1"));
 				storeVO.setStore_image2(rs.getBytes("store_image2"));
 				storeVO.setStore_image3(rs.getBytes("store_image3"));
-				storeVO.setStore_image4(rs.getBytes("store_image4"));
-				storeVO.setStore_image5(rs.getBytes("store_image5"));
-				storeVO.setStore_image6(rs.getBytes("store_image6"));
-				storeVO.setStore_menu1(rs.getBytes("store_menu1"));
-				storeVO.setStore_menu2(rs.getBytes("store_menu2"));
-				storeVO.setStore_menu3(rs.getBytes("store_menu3"));
 				storeVO.setStore_on(rs.getInt("store_on"));
-				storeVO.setCreate_time(rs.getDate("create_time"));
-				storeVO.setUpdate_time(rs.getDate("update_time"));
+				storeVO.setCreate_time(rs.getTimestamp("create_time"));
+				storeVO.setUpdate_time(rs.getTimestamp("update_time"));
 			}
 			
 //		} catch (ClassNotFoundException e) {
@@ -390,15 +377,9 @@ public class StoreDAO implements StoreDAO_interface {
 				storeVO.setStore_image1(rs.getBytes("store_image1"));
 				storeVO.setStore_image2(rs.getBytes("store_image2"));
 				storeVO.setStore_image3(rs.getBytes("store_image3"));
-				storeVO.setStore_image4(rs.getBytes("store_image4"));
-				storeVO.setStore_image5(rs.getBytes("store_image5"));
-				storeVO.setStore_image6(rs.getBytes("store_image6"));
-				storeVO.setStore_menu1(rs.getBytes("store_menu1"));
-				storeVO.setStore_menu2(rs.getBytes("store_menu2"));
-				storeVO.setStore_menu3(rs.getBytes("store_menu3"));
 				storeVO.setStore_on(rs.getInt("store_on"));
-				storeVO.setCreate_time(rs.getDate("create_time"));
-				storeVO.setUpdate_time(rs.getDate("update_time"));
+				storeVO.setCreate_time(rs.getTimestamp("create_time"));
+				storeVO.setUpdate_time(rs.getTimestamp("update_time"));
 				list.add(storeVO);
 
 			}
@@ -470,15 +451,9 @@ public class StoreDAO implements StoreDAO_interface {
 				storeVO.setStore_image1(rs.getBytes("store_image1"));
 				storeVO.setStore_image2(rs.getBytes("store_image2"));
 				storeVO.setStore_image3(rs.getBytes("store_image3"));
-				storeVO.setStore_image4(rs.getBytes("store_image4"));
-				storeVO.setStore_image5(rs.getBytes("store_image5"));
-				storeVO.setStore_image6(rs.getBytes("store_image6"));
-				storeVO.setStore_menu1(rs.getBytes("store_menu1"));
-				storeVO.setStore_menu2(rs.getBytes("store_menu2"));
-				storeVO.setStore_menu3(rs.getBytes("store_menu3"));
 				storeVO.setStore_on(rs.getInt("store_on"));
-				storeVO.setCreate_time(rs.getDate("create_time"));
-				storeVO.setUpdate_time(rs.getDate("update_time"));
+				storeVO.setCreate_time(rs.getTimestamp("create_time"));
+				storeVO.setUpdate_time(rs.getTimestamp("update_time"));
 				list.add(storeVO);
 			}
 

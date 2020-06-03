@@ -63,7 +63,7 @@ public class Store_orderDAO implements Store_orderDAO_interface {
 			ps.setString(3, store_orderVO.getStore_order_name());
 			ps.setString(4, store_orderVO.getStore_order_email());
 			ps.setString(5, store_orderVO.getStore_order_phone_num());
-			ps.setDate(6, store_orderVO.getStore_order_date_time());
+			ps.setTimestamp(6, store_orderVO.getStore_order_date_time());
 			ps.setDate(7, store_orderVO.getStore_order_end_date());
 			ps.setObject(8, store_orderVO.getStore_order_persons(),java.sql.Types.INTEGER);
 			ps.setString(9, store_orderVO.getStore_order_payment());
@@ -110,7 +110,7 @@ public class Store_orderDAO implements Store_orderDAO_interface {
 			ps.setString(3, store_orderVO.getStore_order_name());
 			ps.setString(4, store_orderVO.getStore_order_email());
 			ps.setString(5, store_orderVO.getStore_order_phone_num());
-			ps.setDate(6, store_orderVO.getStore_order_date_time());
+			ps.setTimestamp(6, store_orderVO.getStore_order_date_time());
 			ps.setDate(7, store_orderVO.getStore_order_end_date());
 			ps.setObject(8, store_orderVO.getStore_order_persons(), java.sql.Types.INTEGER);
 			ps.setString(9, store_orderVO.getStore_order_payment());
@@ -201,13 +201,13 @@ public class Store_orderDAO implements Store_orderDAO_interface {
 				store_orderVO.setStore_order_name(rs.getString("store_order_name"));
 				store_orderVO.setStore_order_email(rs.getString("store_order_email"));
 				store_orderVO.setStore_order_phone_num(rs.getString("store_order_phone_num"));
-				store_orderVO.setStore_order_date_time(rs.getDate("store_order_date_time"));
+				store_orderVO.setStore_order_date_time(rs.getTimestamp("store_order_date_time"));
 				store_orderVO.setStore_order_end_date(rs.getDate("store_order_end_date"));
 				store_orderVO.setStore_order_persons(rs.getInt("store_order_persons"));
 				store_orderVO.setStore_order_payment(rs.getString("store_order_payment"));
 				store_orderVO.setStore_order_note(rs.getString("store_order_note"));
 				store_orderVO.setStore_order_state(rs.getInt("store_order_state"));
-				store_orderVO.setCreate_time(rs.getDate("create_time"));
+				store_orderVO.setCreate_time(rs.getTimestamp("create_time"));
 				
 				list.add(store_orderVO);
 			}
@@ -266,13 +266,13 @@ public class Store_orderDAO implements Store_orderDAO_interface {
 				store_orderVO.setStore_order_name(rs.getString("store_order_name"));
 				store_orderVO.setStore_order_email(rs.getString("store_order_email"));
 				store_orderVO.setStore_order_phone_num(rs.getString("store_order_phone_num"));
-				store_orderVO.setStore_order_date_time(rs.getDate("store_order_date_time"));
+				store_orderVO.setStore_order_date_time(rs.getTimestamp("store_order_date_time"));
 				store_orderVO.setStore_order_end_date(rs.getDate("store_order_end_date"));
 				store_orderVO.setStore_order_persons(rs.getInt("store_order_persons"));
 				store_orderVO.setStore_order_payment(rs.getString("store_order_payment"));
 				store_orderVO.setStore_order_note(rs.getString("store_order_note"));
 				store_orderVO.setStore_order_state(rs.getInt("store_order_state"));
-				store_orderVO.setCreate_time(rs.getDate("create_time"));
+				store_orderVO.setCreate_time(rs.getTimestamp("create_time"));
 				
 				list.add(store_orderVO);
 			}
@@ -325,13 +325,13 @@ public class Store_orderDAO implements Store_orderDAO_interface {
 				store_orderVO.setStore_order_name(rs.getString("store_order_name"));
 				store_orderVO.setStore_order_email(rs.getString("store_order_email"));
 				store_orderVO.setStore_order_phone_num(rs.getString("store_order_phone_num"));
-				store_orderVO.setStore_order_date_time(rs.getDate("store_order_date_time"));
+				store_orderVO.setStore_order_date_time(rs.getTimestamp("store_order_date_time"));
 				store_orderVO.setStore_order_end_date(rs.getDate("store_order_end_date"));
 				store_orderVO.setStore_order_persons(rs.getInt("store_order_persons"));
 				store_orderVO.setStore_order_payment(rs.getString("store_order_payment"));
 				store_orderVO.setStore_order_note(rs.getString("store_order_note"));
 				store_orderVO.setStore_order_state(rs.getInt("store_order_state"));
-				store_orderVO.setCreate_time(rs.getDate("create_time"));
+				store_orderVO.setCreate_time(rs.getTimestamp("create_time"));
 				
 				list.add(store_orderVO);
 			}

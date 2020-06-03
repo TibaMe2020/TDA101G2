@@ -326,6 +326,7 @@ public class StoreServlet extends HttpServlet {
 				storeVO.setStore_image2(store_image2);
 				storeVO.setStore_image3(store_image3);
 				storeVO.setStore_on(store_on);
+				storeVO.setUpdate_time(new java.sql.Timestamp(System.currentTimeMillis()));
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
