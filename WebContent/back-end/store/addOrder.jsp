@@ -16,7 +16,7 @@
 	<h3>新增訂單 :</h3><span style="color: red ">${errorMsgs.error}</span>
 	<jsp:useBean id="storeSvc" scope="page" class="com.store.model.StoreService" />
 	<form method="post" action="<%=request.getContextPath()%>/store/OrderController">
-		<table>
+		<table style="display:inline-table;">
 			<tr>
 				<td>店家:</td>
 				<td>
@@ -100,25 +100,12 @@
 				</td>
 			</tr>
 		</table>
-		<jsp:useBean id="serviceSvc" class="com.service.model.ServiceService"></jsp:useBean>
-		<table>
-			<tr>
-				<th>服務編號</th>
-				<th>服務項目</th>
-				<th>寵物數</th>
-			</tr>
-			<c:forEach var="ServiceVO" items="${serviceSvc.selectByStore(storeId)}" >
-				<tr>
-					<td>${ServiceVO.service_id}</td>
-					<td>${ServiceVO.service_detail}</td>
-					<td>${ServiceVO.service_price}</td>
-				</tr>
-		    </c:forEach>
+		<table id="stable" style="display:inline-table;">
 		</table>
 		<input type="hidden" name="action" value="insert">
 		<input type="submit" value="送出新增">
 	</form>
-	
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.5.0.main.js"></script>
 	<script>
 		var e = document.getElementById("storeVo.store_id");
 		var storeId = e.options[e.selectedIndex].value;
@@ -126,7 +113,49 @@
 		
 		function loadOrderId(event){
 			console.log(event.target.value);
-			storeId=event.target.value;
+			var store_id = event.target.value;
+            let td_html = "";
+			$.ajax({
+		        url: "<%=request.getContextPath()%>/ServiceController_Ajax?",
+		        type: "GET",                  // GET | POST | PUT | DELETE | PATCH
+		        data: { "action":"demo1",
+		        		"storeId": store_id },                  // 傳送資料到指定的 url
+		        dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+		        beforeSend: function () {       // 在 request 發送之前執行
+		        },
+		        statusCode: {                 // 狀態碼
+		            200: function (res) {
+		            	console.log("200")
+		            },
+		            404: function (res) {
+		            	console.log("400")
+		            },
+		            500: function (res) {
+		            	console.log("500")
+		            }
+		          },
+		          error: function(xhr){         // request 發生錯誤的話執行
+ 		        	  console.log(xhr.responseText);
+		        	  },
+		          
+		        success: function (data) {      // request 成功取得回應後執行
+		        	$("#stable").empty();
+		        	let stable="<tr class='service_list'>"
+								+"<td>服務編號</td>"
+								+"<td style='text-align:center'>服務項目</td>"
+								+"<td>價錢</td>"
+								+"</tr>";
+		        	$("#stable").prepend(stable);
+		        	$.each(data, function (index, item) {
+		                td_html +="<tr><th value="+item.service_id+">"+item.service_id+"</th>"+
+		                		 "<th value="+item.service_detail+">"+item.service_detail+"</th>"+
+		                		 "<th value="+item.service_price+">"+item.service_price+"</th></tr>";
+		            });
+		        
+		            $("tr.service_list").after(td_html);
+		            
+		        }
+			})
 		}
 	</script>
 </body>
