@@ -179,7 +179,7 @@ public class StoreOrderServlet extends HttpServlet {
 				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 				String checkOutDate = req.getParameter("checkOutDate").trim();
 				Date store_order_end_date=null;
-				if(checkOutDate!=null){
+				if(!"".equals(checkOutDate)){
 					store_order_end_date = new java.sql.Date(sdf2.parse(checkOutDate).getTime());
 				}
 				
@@ -215,6 +215,24 @@ public class StoreOrderServlet extends HttpServlet {
 				store_orderVO.setStore_order_note(store_order_note);
 				store_orderVO.setStore_order_state(store_order_state);
 				
+// 新增訂單明細 1對多
+				String[] service_id = req.getParameterValues("service_id");
+				String[] pets = req.getParameterValues("pets");
+System.out.println("-------------------------------------------");				
+System.out.println("service_id[0]="+service_id[0]);				
+System.out.println("pets[0]="+pets[0]);				
+System.out.println("-------------------------------------------");
+				List<Store_order_detailVO> detailList = new ArrayList<Store_order_detailVO>();
+				for(int i=0; i<service_id.length; i++) {
+					Store_order_detailVO detail = new Store_order_detailVO();
+					detail.setService_id(service_id[i]);
+					if("".equals(pets[i])) {
+						continue;
+					}
+					detail.setOrder_detail_pets(new Integer(pets[i]));
+					detailList.add(detail);
+				};
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("store_orderVO", store_orderVO); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -225,7 +243,8 @@ public class StoreOrderServlet extends HttpServlet {
 				}
 				/***************************2.開始新增資料***************************************/
 				Store_orderService orderSvc = new Store_orderService();
-				orderSvc.newOrder(store_orderVO);
+//				orderSvc.newOrder(store_orderVO);
+				orderSvc.insertWithDetail(store_orderVO, detailList);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("store_orderVO", store_id);

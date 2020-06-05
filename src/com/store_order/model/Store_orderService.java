@@ -3,6 +3,8 @@ package com.store_order.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.store_order_detail.model.Store_order_detailVO;
+
 public class Store_orderService {
 	private Store_orderDAO_interface dao;
 	
@@ -38,5 +40,8 @@ public class Store_orderService {
 		List<Store_orderVO> order = new ArrayList<Store_orderVO>();
 		order = dao.getAll();
 		return order; 
+	}
+	public void insertWithDetail(Store_orderVO store_orderVO, List<Store_order_detailVO> list) {
+		dao.insertWithDetail(store_orderVO, list);
 	}
 }

@@ -213,5 +213,40 @@ public class Store_order_detailDAO implements Store_order_detail_interface {
 		}
 		return list;
 	}
+	@Override
+	public void insert2(Store_order_detailVO store_order_detailVO, Connection conn) {
+		PreparedStatement ps = null;
+		try{
+			ps = conn.prepareStatement(INSERT);
+			ps.setString(1, store_order_detailVO.getStore_order_id());
+			ps.setString(2, store_order_detailVO.getService_id());
+			ps.setInt(3, store_order_detailVO.getOrder_detail_pets());
+
+			ps.executeUpdate();
+		}catch (SQLException se) {
+			if (conn != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-訂單明細");
+					conn.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 
 }

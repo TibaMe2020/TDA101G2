@@ -13,6 +13,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.store_order_detail.model.Store_order_detailDAO;
+import com.store_order_detail.model.Store_order_detailVO;
+
 import static com.common.Common.*;
 
 public class Store_orderDAO implements Store_orderDAO_interface {
@@ -341,6 +344,62 @@ public class Store_orderDAO implements Store_orderDAO_interface {
 //		throw new RuntimeException("Couldn't load database driver：" + e.getMessage());
 		}
 		return list;
+	}
+	@Override
+	public void insertWithDetail(Store_orderVO store_orderVO, List<Store_order_detailVO> list) {
+		PreparedStatement ps = null;
+		try(Connection conn = datasource.getConnection();){
+			// 1●設定於 pstm.executeUpdate()之前
+    		conn.setAutoCommit(false);
+    		// 先新增訂單
+    		String cols[] = {"STORE_ORDER_ID"};
+			ps = conn.prepareStatement(INSERT , cols);
+			ps.setString(1, store_orderVO.getStore_id());
+			ps.setString(2, store_orderVO.getMember_id());
+			ps.setString(3, store_orderVO.getStore_order_name());
+			ps.setString(4, store_orderVO.getStore_order_email());
+			ps.setString(5, store_orderVO.getStore_order_phone_num());
+			ps.setTimestamp(6, store_orderVO.getStore_order_date_time());
+			ps.setDate(7, store_orderVO.getStore_order_end_date());
+			ps.setObject(8, store_orderVO.getStore_order_persons(),java.sql.Types.INTEGER);
+			ps.setString(9, store_orderVO.getStore_order_payment());
+			ps.setString(10, store_orderVO.getStore_order_note());
+			ps.setObject(11, store_orderVO.getStore_order_state(),java.sql.Types.INTEGER);
+			ps.executeUpdate();
+			//掘取對應的自增主鍵值
+			String next_orderId = null;
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				next_orderId = rs.getString(1);
+				System.out.println("自增主鍵值= " + next_orderId +"(剛新增成功的部門編號)");
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+			// 再同時新增明細
+			Store_order_detailDAO dao = new Store_order_detailDAO();
+			System.out.println("list.size()-A="+list.size());
+			for (Store_order_detailVO detailVO : list) {
+				detailVO.setStore_order_id(next_orderId);
+				dao.insert2(detailVO,conn);
+			}
+			// 2●設定於 pstm.executeUpdate()之後
+			conn.commit();
+			conn.setAutoCommit(true);
+			System.out.println("list.size()-B="+list.size());
+			System.out.println("新增訂單編號" + next_orderId + "時,共有明細" + list.size()
+					+ "筆同時被新增");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 }

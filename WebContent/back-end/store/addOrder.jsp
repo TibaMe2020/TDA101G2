@@ -140,20 +140,25 @@
 		          
 		        success: function (data) {      // request 成功取得回應後執行
 		        	$("#stable").empty();
-		        	let stable="<tr class='service_list'>"
-								+"<td>服務編號</td>"
-								+"<td style='text-align:center'>服務項目</td>"
-								+"<td>價錢</td>"
-								+"</tr>";
-		        	$("#stable").prepend(stable);
-		        	$.each(data, function (index, item) {
-		                td_html +="<tr><th value="+item.service_id+">"+item.service_id+"</th>"+
-		                		 "<th value="+item.service_detail+">"+item.service_detail+"</th>"+
-		                		 "<th value="+item.service_price+">"+item.service_price+"</th></tr>";
-		            });
-		        
-		            $("tr.service_list").after(td_html);
-		            
+			        if(data.length!=0){
+			        	let stable="<tr class='service_list'>"
+									+"<td>服務編號</td>"
+									+"<td style='text-align:center'>服務項目</td>"
+									+"<td>價錢</td>"
+									+"<td style='text-align:center'>數量(1-999)</td>"
+									+"</tr>";
+			        	$("#stable").prepend(stable);
+			        	$.each(data, function (index, item) {
+			                td_html +="<tr><th value="+item.service_id+">"+item.service_id+"</th>"+
+			                		 	"<th value="+item.service_detail+">"+item.service_detail+"</th>"+
+			                		 	"<th value="+item.service_price+">"+item.service_price+"</th>"+
+			                		 	"<th>"+
+			                		 		"<input type='text' size='20' name='pets'></input>"+
+			                		 		"<input type='hidden' name='service_id' value="+item.service_id+"></input>"+
+			                		 	"</th></tr>";
+			            });
+			            $("tr.service_list").after(td_html);
+			        }
 		        }
 			})
 		}

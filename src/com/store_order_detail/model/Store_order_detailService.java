@@ -1,5 +1,6 @@
 package com.store_order_detail.model;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,5 +27,8 @@ public class Store_order_detailService {
 		List<Store_order_detailVO> detail = new ArrayList<Store_order_detailVO>();
 		detail = dao.selectByOrderId(store_order_id);
 		return detail;
+	}
+	public void insert2(Store_order_detailVO store_order_detailVO, Connection conn) {
+		dao.insert2(store_order_detailVO, conn);
 	}
 }
