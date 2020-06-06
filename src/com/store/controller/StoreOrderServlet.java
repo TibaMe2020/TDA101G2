@@ -188,7 +188,6 @@ public class StoreOrderServlet extends HttpServlet {
 				try {
 					if("".equals(persons)) {
 //						store_order_persons=0;
-						System.out.println("persons = null");
 					}else {
 						store_order_persons = new Integer(req.getParameter("orderPersons").trim());
 					}
@@ -218,10 +217,6 @@ public class StoreOrderServlet extends HttpServlet {
 // 新增訂單明細 1對多
 				String[] service_id = req.getParameterValues("service_id");
 				String[] pets = req.getParameterValues("pets");
-System.out.println("-------------------------------------------");				
-System.out.println("service_id[0]="+service_id[0]);				
-System.out.println("pets[0]="+pets[0]);				
-System.out.println("-------------------------------------------");
 				List<Store_order_detailVO> detailList = new ArrayList<Store_order_detailVO>();
 				for(int i=0; i<service_id.length; i++) {
 					Store_order_detailVO detail = new Store_order_detailVO();
