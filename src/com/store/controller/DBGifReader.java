@@ -48,18 +48,18 @@ public class DBGifReader extends HttpServlet {
 	public void init() throws ServletException {
 		try {
 			// JDBC
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userId, passWord);
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
 			// JNDI
-//			Context ctx = new javax.naming.InitialContext();
-//			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/PetBoxDB");
-//			conn = ds.getConnection();
-		} catch (ClassNotFoundException e) {
-			throw new UnavailableException("Couldn't load JdbcOdbcDriver");
+			Context ctx = new javax.naming.InitialContext();
+			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petbox");
+			conn = ds.getConnection();
+//		} catch (ClassNotFoundException e) {
+//			throw new UnavailableException("Couldn't load JdbcOdbcDriver");
 		} catch (SQLException e) {
 			throw new UnavailableException("Couldn't get db connection");
-//		} catch (NamingException e) {
-//			throw new UnavailableException("Couldn't get db connection");
+		} catch (NamingException e) {
+			throw new UnavailableException("Couldn't get db connection");
 		}
 	}
 
