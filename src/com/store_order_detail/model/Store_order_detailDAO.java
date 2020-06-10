@@ -23,7 +23,7 @@ public class Store_order_detailDAO implements Store_order_detail_interface {
 	static {
 		try {
 			Context context = new InitialContext();
-			datasource = (DataSource) context.lookup("java:comp/env/jdbc/PetBoxDB");
+			datasource = (DataSource) context.lookup("java:comp/env/jdbc/petbox");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

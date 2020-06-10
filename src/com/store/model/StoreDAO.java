@@ -21,7 +21,7 @@ public class StoreDAO implements StoreDAO_interface {
 	static {
 		try {
 			Context context = new InitialContext();
-			datasource = (DataSource) context.lookup("java:comp/env/jdbc/PetBoxDB");
+			datasource = (DataSource) context.lookup("java:comp/env/jdbc/petbox");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
