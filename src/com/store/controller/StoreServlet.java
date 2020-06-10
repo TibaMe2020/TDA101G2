@@ -138,6 +138,11 @@ public class StoreServlet extends HttpServlet {
 				Part update_image1 = req.getPart("storeImage1");
 				Part update_image2 = req.getPart("storeImage2");
 				Part update_image3 = req.getPart("storeImage3");
+				if (update_image1.getSize()>= 5 * 1024 * 1024 
+						|| update_image2.getSize()>= 5 * 1024 * 1024
+						|| update_image3.getSize()>= 5 * 1024 * 1024){
+					errorMsgs.put("error_image", "單張不能超過5MB");
+				}
 				InputStream in1 = update_image1.getInputStream();
 				InputStream in2 = update_image2.getInputStream();
 				InputStream in3 = update_image3.getInputStream();

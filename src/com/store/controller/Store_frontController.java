@@ -31,9 +31,10 @@ public class Store_frontController extends HttpServlet {
 		
 		System.out.println("有進入Controller");
 		PrintWriter out = response.getWriter();
-		String type = request.getParameter("type");
-
 		String action = request.getParameter("action");
+
+//		查店家分類
+		String type = request.getParameter("type");
 		if (action.equals("store_type")) {
 			Gson gson = new Gson();
 			ss = new StoreService();
@@ -61,8 +62,15 @@ public class Store_frontController extends HttpServlet {
 					out.print(gson.toJson(ss.findByClass(type)));
 					break;
 			}
-//			response.sendRedirect(url);
-			System.out.println(type);
+		}
+		
+//			查單一店家
+		String id = request.getParameter("storeId");
+		if (action.equals("getStoreVO")) {
+			System.out.println(id);
+			Gson gson = new Gson();
+			ss = new StoreService();
+			out.print(gson.toJson(ss.findByStoreId(id)));
 		}
 		
 		

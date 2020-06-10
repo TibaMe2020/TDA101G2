@@ -118,11 +118,11 @@
 		<input type="file" name="storeImage1" onchange="loadImageFile(event)">
 		<input type="file" name="storeImage2" onchange="loadImageFile(event)">
 		<input type="file" name="storeImage3" onchange="loadImageFile(event)">
+		<span style="color: red ">${errorMsgs.error_image}</span>
 		<br>
 		<input type="hidden" name="action" value="update">
 		<input type="hidden" name="storeId" value="<%=storeVO.getStore_id()%>">
 		<input type="submit" value="°e¥X­×§ï">
-		<img >
 	</FORM>
 	<div style="width:200px; height:200px; display:inline-block;">
 		<img id="image1" style="width:100%;"/>
