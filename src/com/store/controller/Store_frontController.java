@@ -35,7 +35,6 @@ public class Store_frontController extends HttpServlet {
 
 		String action = request.getParameter("action");
 		if (action.equals("store_type")) {
-			List<StoreVO> storelist = new ArrayList<StoreVO>();
 			Gson gson = new Gson();
 			ss = new StoreService();
 			switch (type) {
@@ -51,15 +50,15 @@ public class Store_frontController extends HttpServlet {
 					break;
 				case "grooming":
 					type = "美容";
-					url=url+"?store_type=grooming";
+					out.print(gson.toJson(ss.findByClass(type)));
 					break;
 				case "school":
 					type = "學校";
-					url=url+"?store_type=school";
+					out.print(gson.toJson(ss.findByClass(type)));
 					break;
 				case "hospital":
 					type = "醫院";
-					url=url+"?store_type=hospital";
+					out.print(gson.toJson(ss.findByClass(type)));
 					break;
 			}
 //			response.sendRedirect(url);
