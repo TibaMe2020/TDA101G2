@@ -31,10 +31,8 @@ public class ServiceController_Ajax extends HttpServlet {
 		Gson gson = new Gson();
 		ServiceService serviceSvc = new ServiceService();
 		String action = request.getParameter("action");
-		if (action.equals("demo1")) {
+		if (action.equals("getSerivceList")) {
 //			System.out.println(store_id);
-//			System.out.println(gson.toJson(serviceSvc.selectByStore(store_id)));
-//			out.write(gson.toJson(serviceSvc.selectByStore(store_id)));
 			out.print(gson.toJson(serviceSvc.selectByStore(store_id)));
 			out.flush();
 			out.close();

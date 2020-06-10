@@ -29,7 +29,7 @@ public class Store_frontController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		
-		System.out.println("有進入Controller");
+//		System.out.println("有進入Controller");
 		PrintWriter out = response.getWriter();
 		String action = request.getParameter("action");
 
@@ -41,12 +41,10 @@ public class Store_frontController extends HttpServlet {
 			switch (type) {
 				case "restaurant":
 					type = "餐廳";
-					System.out.println("回傳餐廳全部");
 					out.print(gson.toJson(ss.findByClass(type)));
 					break;
 				case "hostel":
 					type = "旅館";
-					System.out.println("回旅館全部");
 					out.print(gson.toJson(ss.findByClass(type)));
 					break;
 				case "grooming":
@@ -67,7 +65,7 @@ public class Store_frontController extends HttpServlet {
 //			查單一店家
 		String id = request.getParameter("storeId");
 		if (action.equals("getStoreVO")) {
-			System.out.println(id);
+//			System.out.println(id);
 			Gson gson = new Gson();
 			ss = new StoreService();
 			out.print(gson.toJson(ss.findByStoreId(id)));

@@ -116,9 +116,9 @@
 			var store_id = event.target.value;
             let td_html = "";
 			$.ajax({
-		        url: "<%=request.getContextPath()%>/ServiceController_Ajax?",
+		        url: "<%=request.getContextPath()%>/ServiceController_Ajax",
 		        type: "GET",                  // GET | POST | PUT | DELETE | PATCH
-		        data: { "action":"demo1",
+		        data: { "action":"getSerivceList",
 		        		"storeId": store_id },                  // 傳送資料到指定的 url
 		        dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
 		        beforeSend: function () {       // 在 request 發送之前執行
