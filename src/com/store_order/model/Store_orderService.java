@@ -44,4 +44,7 @@ public class Store_orderService {
 	public void insertWithDetail(Store_orderVO store_orderVO, List<Store_order_detailVO> list) {
 		dao.insertWithDetail(store_orderVO, list);
 	}
+	public String insertWithDetail_return(Store_orderVO store_orderVO, List<Store_order_detailVO> list) {
+		return dao.insertWithDetail_return(store_orderVO, list);
+	}
 }

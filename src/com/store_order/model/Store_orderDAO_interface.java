@@ -12,4 +12,5 @@ public interface Store_orderDAO_interface {
 	public List<Store_orderVO> selectByMember(String member_id); 
 	public List<Store_orderVO> getAll();
 	public void insertWithDetail(Store_orderVO store_orderVO, List<Store_order_detailVO> list);
+	public String insertWithDetail_return(Store_orderVO store_orderVO, List<Store_order_detailVO> list);
 }
