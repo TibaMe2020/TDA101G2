@@ -113,7 +113,10 @@ public class Store_frontController extends HttpServlet {
 //			日期處理
 			String timeStampReg = "^\\d{4}[\\-/\\.](0?[1-9]|1[012])[\\-/\\.](0?[1-9]|[12][0-9]|3[01])$";
 			Timestamp store_order_date_time = null;
-			if(datamap.get("store_order_date_time").matches(timeStampReg)) {
+			if("".equals(datamap.get("store_order_date_time"))){
+				out.print("預約失敗=預約日期不可空白");
+				return;
+			}else if(datamap.get("store_order_date_time").matches(timeStampReg)) {
 				store_order_date_time = Timestamp.valueOf(datamap.get("store_order_date_time")+" 00:00:00");
 			}else {
 				store_order_date_time = Timestamp.valueOf(datamap.get("store_order_date_time")+":00");
@@ -121,9 +124,13 @@ public class Store_frontController extends HttpServlet {
 			
 			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 			Date store_order_end_date = null;
-			if(datamap.get("store_order_end_date")!=null) {
+			if("".equals(datamap.get("store_order_end_date"))){
+				out.print("預約失敗=結束日期不可空白");
+				return;
+			}else {
 				store_order_end_date = new java.sql.Date(sdf2.parse(datamap.get("store_order_end_date")).getTime());
 			}
+			
 			String store_order_payment = datamap.get("store_order_payment");
 			String store_order_note = datamap.get("store_order_note");
 			
@@ -147,7 +154,7 @@ public class Store_frontController extends HttpServlet {
 			System.out.println(store_id);
 			System.out.println(stclass);
 			if (!(stclass.equals("餐廳") || stclass.equals("醫院"))) {
-				System.out.println("有進入if");
+				
 				//gson
 	//			List<Store_order_detailVO> products = gson.fromJson(json, new TypeToken<List<Store_order_detailVO>>(){}.getType());
 	//			  for(Store_order_detailVO list : products) {
@@ -188,10 +195,10 @@ public class Store_frontController extends HttpServlet {
 					return;
 				}
 			}
+			
 				String store_order_id = orderService.insertWithDetail_return(store_orderVO, detail_list);
 				out.print("預約成功="+store_order_id);
 				System.out.println("預約成功");
-			
 			
 			} catch (Exception e) {
 				e.printStackTrace();
