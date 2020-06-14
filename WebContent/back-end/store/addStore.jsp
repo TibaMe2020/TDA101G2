@@ -27,7 +27,7 @@
 			</tr>
 			<tr>
 				<td>分類:<font color=red><b>*</b></font></td>
-				<td><select size="1" name="storeClass">
+				<td><select size="1" name="storeClass" onchange="changeService(event)">
 						<option value="餐廳" <c:if test="${storeVO.store_class=='餐廳' }">selected</c:if>>餐廳</option>
 						<option value="旅館" <c:if test="${storeVO.store_class=='旅館' }">selected</c:if>>旅館</option>
 						<option value="美容" <c:if test="${storeVO.store_class=='美容' }">selected</c:if>>美容</option>
@@ -153,6 +153,9 @@
 					break;
 			}
 		}; 
+		function changeService(event){
+			console.log(event.target.value);
+		}
 	</script>
 	
 </body>
