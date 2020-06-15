@@ -12,6 +12,9 @@ public class Store_closedService {
 	public Store_closedService(){
 		dao = new Store_closedDAO();
 	}
+	public void newClosed(Store_closedVO store_closedVO) {
+		dao.insert(store_closedVO);
+	}
 	
 	public Store_closedVO newClosed(String store_id, Date store_closed_day) {
 		Store_closedVO closedVO = new Store_closedVO();

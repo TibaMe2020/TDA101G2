@@ -3,6 +3,9 @@ package com.store.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.List;
+
+import com.store_closed.model.Store_closedVO;
 
 public class StoreVO {
 
@@ -27,7 +30,27 @@ public class StoreVO {
 	private Integer store_on;
 	private Timestamp create_time;
 	private Timestamp update_time;
+	private List<Store_closedVO> store_closed; 
 	
+	@Override
+	public String toString() {
+		return "StoreVO [store_id=" + store_id + ", member_id=" + member_id + ", store_class=" + store_class
+				+ ", store_name=" + store_name + ", store_adress=" + store_adress + ", store_phone_number="
+				+ store_phone_number + ", store_introduction=" + store_introduction + ", store_clicks=" + store_clicks
+				+ ", store_firstbreak=" + store_firstbreak + ", store_secondbreak=" + store_secondbreak
+				+ ", store_openhours1=" + store_openhours1 + ", store_openhours2=" + store_openhours2
+				+ ", store_openhours3=" + store_openhours3 + ", store_timelimit=" + store_timelimit
+				+ ", store_maxcapacity=" + store_maxcapacity + ", store_image1=" + Arrays.toString(store_image1)
+				+ ", store_image2=" + Arrays.toString(store_image2) + ", store_image3=" + Arrays.toString(store_image3)
+				+ ", store_on=" + store_on + ", create_time=" + create_time + ", update_time=" + update_time
+				+ ", store_closed=" + store_closed + "]";
+	}
+	public List<Store_closedVO> getStore_closed() {
+		return store_closed;
+	}
+	public void setStore_closed(List<Store_closedVO> store_closed) {
+		this.store_closed = store_closed;
+	}
 	public String getStore_id() {
 		return store_id;
 	}
