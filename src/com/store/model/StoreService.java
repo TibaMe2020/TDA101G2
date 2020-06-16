@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.Part;
 
 import com.member.model.MemberVO;
+import com.store_closed.model.Store_closedVO;
 
 public class StoreService {
 	
@@ -56,6 +57,9 @@ public class StoreService {
 	public StoreVO updateStore(StoreVO storeVO) {
 		dao.update(storeVO);
 		return storeVO;
+	}
+	public void insertWithClosed(StoreVO storeVO, List<Store_closedVO> list) {
+		dao.insertWithClosed(storeVO, list);
 	}
 	// 未更新 不使用 - 圖片只剩三張
 //	public StoreVO newStore(				 String member_id, String store_class, String store_name,

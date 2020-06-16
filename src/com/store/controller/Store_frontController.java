@@ -238,15 +238,33 @@ public class Store_frontController extends HttpServlet {
 			System.out.println(storeVO);
 			System.out.println(storeVO.getStore_name());
 			ss = new StoreService();
-			ss.newStore(storeVO);
+//			ss.newStore(storeVO);
 			
-
-			Store_closedService sc = new Store_closedService();
-			for(Store_closedVO closed:storeVO.getStore_closed()) {
-				closed.setStore_id("S07010");
-				sc.newClosed(closed);
-				System.out.println("公休日新增成功");
+			List<Store_closedVO> cloesdList = storeVO.getStore_closed();
+//			Store_closedService sc = new Store_closedService();
+			for(Store_closedVO closed:cloesdList) {
+				System.out.println(closed.getStore_closed_day());
+//				sc.newClosed(closed);
+//				System.out.println("公休日新增成功");
+//				cloesdList.add(closed);
 			}
+			ss.insertWithClosed(storeVO, cloesdList);
+			
+//			上傳圖片 直接存成VO
+//			GsonBuilder builder = new GsonBuilder();
+//			   //D將給定的字串格式轉換成日期
+//			  builder.setDateFormat("yyyy-MM-dd");
+//			  //byte[] to base64
+//			  builder.registerTypeAdapter(byte[].class, 
+//			    (JsonSerializer<byte[]>) (src, typeOfSrc, context) -> 
+//			  new JsonPrimitive(Base64.getEncoder().encodeToString(src)));
+//			  
+//			  //base64 to byte[]
+//			  builder.registerTypeAdapter(byte[].class, 
+//			    (JsonDeserializer<byte[]>) (json, typeOfT, context) ->
+//			  Base64.getDecoder().decode(json.getAsString()));
+//			  
+//			  Gson gson = builder.create();
 			
 		}
 		

@@ -1,5 +1,6 @@
 package com.store_closed.model;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -32,6 +33,10 @@ public class Store_closedService {
 		Set<Store_closedVO> closed = new LinkedHashSet<Store_closedVO>();
 		closed = dao.selectByStore(store_id);
 		return closed;
+	}
+	
+	public void insert2(Store_closedVO store_closedVO,Connection conn) {
+		dao.insert2(store_closedVO, conn);
 	}
 	
 //	public static void main(String[] args) {

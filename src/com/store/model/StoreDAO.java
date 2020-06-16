@@ -491,7 +491,7 @@ public class StoreDAO implements StoreDAO_interface {
 	}
 	
 //	@Override
-	public void insert2(StoreVO storeVO, List<Store_closedVO> list) {
+	public void insertWithClosed(StoreVO storeVO, List<Store_closedVO> list) {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -503,7 +503,10 @@ public class StoreDAO implements StoreDAO_interface {
 			
 			conn.setAutoCommit(false);
 			
-			ps = conn.prepareStatement(INSERT);
+			String next_storeId;
+			ResultSet rs;
+			String cols[] = {"STORE_ID"};
+			ps = conn.prepareStatement(INSERT, cols);
 
 			ps.setString(1, storeVO.getMember_id());
 			ps.setString(2, storeVO.getStore_class());
@@ -526,11 +529,11 @@ public class StoreDAO implements StoreDAO_interface {
 			ps.setTimestamp(19, storeVO.getUpdate_time());
 			ps.executeUpdate();
 			
-			String next_storeId = null;
-			ResultSet rs = ps.getGeneratedKeys();
+			next_storeId = null;
+			rs = ps.getGeneratedKeys();
 			if(rs.next()) {
 				next_storeId = rs.getString(1);
-				System.out.println("自增主鍵值= " + next_storeId +"(剛新增成功的部門編號)");
+				System.out.println("自增主鍵值= " + next_storeId +"(剛新增成功的店家編號)");
 			} else {
 				System.out.println("未取得自增主鍵值");
 			}
@@ -551,14 +554,19 @@ public class StoreDAO implements StoreDAO_interface {
 //		} catch (ClassNotFoundException e) {
 //			throw new RuntimeException("Couldn't load database driver： " + e.getMessage());
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {
-			try {
-				conn.setAutoCommit(true);
-			} catch (SQLException e1) {
-				throw new RuntimeException("rollback error occured. "
-						+ e1.getMessage());
-			}
+//			try {
+//				
+//			} catch (SQLException e1) {
+//				throw new RuntimeException("rollback error occured. "
+//						+ e1.getMessage());
+//			}
 			if (ps != null) {
 				try {
 					ps.close();
