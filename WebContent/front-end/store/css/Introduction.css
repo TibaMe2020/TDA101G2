@@ -1,0 +1,253 @@
+body {
+    /* overflow-x: hidden; */
+    font-family: 'Noto Serif TC', serif;
+    background-color: #F3F2F2;
+}
+
+/* 麵包屑 */
+
+nav.my_breadcrumb ol.breadcrumb .breadcrumb-item+.breadcrumb-item::before {
+    content: ">";
+}
+
+.breadcrumb {
+    background-color: #F3F2F2;
+}
+
+nav.my_breadcrumb ol.breadcrumb .breadcrumb-item.active {
+    /* color: white; */
+    /* font-size: 24px; */
+}
+
+/* 骨頭 */
+
+img.bone {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+
+/* 下拉選單 */
+
+ul.dropdown-menu {
+    min-width: 5rem;
+}
+
+ul.dropdown-menu li {
+    text-align: center;
+}
+
+/* 改變超連結顏色 */
+
+a {
+    color: black;
+}
+
+a:hover {
+    COLOR: blue;
+}
+
+/* 導覽列 */
+
+.nav-pills .nav-link.active {
+    background-color: #D1D1D1;
+    color: #000;
+}
+
+.nav-pills .nav-link {
+    border-radius: .7rem;
+    margin: 0 30px;
+}
+
+/* 卡片 */
+
+.card {
+    /* border: 1px solid red; */
+    /* padding: 10px 10px; */
+    max-width: 270px;
+}
+
+.row {
+    /* border: 1px solid yellow; */
+    margin: 0 0;
+}
+
+.cardview {
+    min-width: 270px;
+    margin: 10px 0px;
+    padding: 0 0;
+}
+
+/* 卡片介紹文字縮排 */
+
+div.card-body {
+    width: 100%;
+    height: 100%;
+    /* padding: 10px; */
+}
+
+p.card-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
+/* 卡片圖高度限制 */
+
+div.card img {
+    max-height: 200px;
+}
+
+/* 滑滑的圈圈 */
+
+.carousel-indicators li {
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+}
+
+.nopadding {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+div.main_img {
+    padding: 20, 0px;
+    max-width: 800px;
+    /* height: 100%; */
+}
+
+/* div.carousel {
+    margin: 0 auto;
+} */
+
+/* 介紹頁面 */
+
+div.introduction {
+    max-width: 800px;
+    margin-top: 10px;
+    /* border: 1px solid red; */
+}
+
+div.main_img {
+    padding: 20, 0px;
+    max-width: 800px;
+}
+
+/* 店家圖高度限制 */
+
+img.w-100 {
+    max-height: 450px
+}
+
+/* 預約按鈕 */
+
+div.introduction button.btn-primary {
+    margin-right: 30px;
+}
+
+.btn-primary {
+    border: 0;
+}
+
+/* 預約頁面 */
+
+.storebox {
+    border: 2px solid #13406A;
+    min-height: 3rem;
+}
+
+.col-md-1, .col-md-2, .col-md-6, .col-md-7, .col-md-auto, .col-md-4 {
+    padding: 0px 0px;
+}
+
+/* 全按鈕 */
+
+button.btn-primary, a.btn-primary {
+    background-color: #13406A;
+}
+
+/* 預約表格 */
+
+div.reservation {
+    margin-top: 20px;
+}
+
+label {
+    margin-bottom: 0rem;
+}
+
+p {
+    margin: 0 0;
+}
+
+.form-control {
+    width: 90%;
+}
+
+div.newsletter {
+    min-height: 70px;
+    /* border-color: black; */
+}
+
+.text_title {
+    width: 100px;
+}
+
+/* 錯誤訊息 */
+
+.form-control.is-invalid {
+    padding-right: 0;
+}
+
+div.payment_table {
+    margin-top: 10px;
+}
+
+/* 按鈕-下一步 */
+
+button.nextstep {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+div.servicelist {
+    height: 300px;
+    border: 1px solid black;
+}
+
+#card-body {
+    width: 100%;
+    height: 100%;
+    /* padding: 10px; */
+}
+
+/* 店家條 介紹文字縮排 */
+
+#stline-content {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
+/* servicelist 橫向卷軸 */
+
+div.table-responsive {
+    height: 300px;
+    overflow-y: scroll;
+}
+
+/* input-spinner */
+
+div.input-group input {
+    max-width: 100px;
+}

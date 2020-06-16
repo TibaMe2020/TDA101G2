@@ -1,4 +1,6 @@
-package com.service.model;
+package com.store.service.model;
+
+import static com.store.common.Common.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,8 +16,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.store.model.StoreVO;
-
-import static com.common.Common.*;
 
 public class ServiceDAO implements ServiceDAO_interface {
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.Part;
 
-import com.abstractInterface.MemberVO;
+import com.member.model.MemberVO;
 
 public class StoreService {
 	

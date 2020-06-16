@@ -1,4 +1,4 @@
-package com.service.model;
+package com.store.service.model;
 
 public class ServiceVO {
 	private String service_id;

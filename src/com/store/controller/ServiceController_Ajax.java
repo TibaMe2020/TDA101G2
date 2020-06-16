@@ -13,7 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
-import com.service.model.ServiceService;
+import com.store.service.model.ServiceService;
 
 @WebServlet("/ServiceController_Ajax")
 public class ServiceController_Ajax extends HttpServlet {

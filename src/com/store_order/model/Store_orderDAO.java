@@ -1,5 +1,7 @@
 package com.store_order.model;
 
+import static com.store.common.Common.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,8 +17,6 @@ import javax.sql.DataSource;
 
 import com.store_order_detail.model.Store_order_detailDAO;
 import com.store_order_detail.model.Store_order_detailVO;
-
-import static com.common.Common.*;
 
 public class Store_orderDAO implements Store_orderDAO_interface {
 	

@@ -105,7 +105,7 @@
 		<input type="hidden" name="action" value="insert">
 		<input type="submit" value="送出新增">
 	</form>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.5.0.main.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/jquery.js"></script>
 	<script>
 		var e = document.getElementById("storeVo.store_id");
 		var storeId = e.options[e.selectedIndex].value;

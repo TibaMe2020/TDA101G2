@@ -1,0 +1,138 @@
+body {
+  overflow-x: hidden;
+  font-family: 'Noto Serif TC', serif;
+  background-color: #F3F2F2;
+}
+
+img {
+  /* max-width: 100%; */
+}
+
+div.container {
+  /* border: 1px solid red; */
+}
+
+div.title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* 滑滑的圈圈 */
+
+.carousel-indicators li {
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+}
+
+.nopadding {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+div.main_img {
+  padding: 20, 0px;
+  max-width: 1000px;
+}
+
+/* 宣傳圖高度限制 */
+
+img.w-100 {
+  max-height: 450px
+}
+
+div.carousel {
+  /* margin: 0 auto; */
+}
+
+/* 五種分類圖區域 置中.固定寬度 */
+
+div.imgbox {
+  text-align: center;
+  min-width: 100px;
+  height: 125px;
+  padding: 0 0;
+}
+
+img.class_img {
+  height: 100px;
+  width: 100px;
+  margin-bottom: 5px;
+}
+
+/* 上下排版時的間距20 */
+
+div.classrow {
+  margin-top: 20px;
+}
+
+span.class_text {
+  font-weight: bold;
+}
+
+p.introduction_text {
+  font-size: 14px;
+  margin-left: 5px;
+  margin-top: 15px;
+}
+
+/* 平均顯示五個 */
+
+.col-sm-5ths, .col-md-5ths, .col-lg-5ths {
+  position: relative;
+  min-height: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  /* border: 1px solid yellow; */
+}
+
+@media ( min-width: 768px) {
+  .col-sm-5ths {
+    width: 20%;
+    float: left;
+  }
+}
+
+@media ( min-width: 992px) {
+  .col-md-5ths {
+    width: 20%;
+  }
+}
+
+@media ( min-width: 1200px) {
+  .col-lg-5ths {
+    width: 20%;
+  }
+}
+
+/* 改變框格左右-15的問題 */
+
+.row {
+  margin: 0 0 0 0;
+}
+
+.col-3 {
+  height: 100px;
+}
+
+.col-3, .col-9 {
+  padding: 0 0;
+}
+
+/* 更改 960時的容器寬度 */
+
+@media (min-width: 768px) {
+  .container {
+    min-width: 768px;
+  }
+}
+
+/* 改變超連結顏色 */
+
+a {
+  color: black;
+}
+
+a:hover {
+  COLOR: blue;
+}

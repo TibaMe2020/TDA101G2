@@ -1,6 +1,6 @@
 package com.store.controller;
 
-import static com.common.Common.*;
+import static com.store.common.Common.*;
 
 import java.io.*;
 import java.sql.*;

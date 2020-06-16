@@ -1,4 +1,4 @@
-package com.service.model;
+package com.store.service.model;
 
 import java.util.ArrayList;
 import java.util.List;

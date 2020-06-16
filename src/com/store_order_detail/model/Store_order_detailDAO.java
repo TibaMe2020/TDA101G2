@@ -1,6 +1,6 @@
 package com.store_order_detail.model;
 
-import static com.common.Common.*;
+import static com.store.common.Common.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

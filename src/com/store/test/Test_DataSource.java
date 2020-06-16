@@ -1,4 +1,4 @@
-package com.test;
+package com.store.test;
 /** 自行取得DataSource的 servlet
 
 1.需配合 web.xml 如下:

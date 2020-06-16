@@ -1,4 +1,4 @@
-package com.abstractInterface;
+package com.member.model;
 
 public abstract interface MemberVO {
 	public String getMember_id();

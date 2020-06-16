@@ -1,7 +1,7 @@
 <%@page import="com.store_closed.model.Store_closedVO"%>
 <%@page import="com.store_closed.model.Store_closedService"%>
-<%@page import="com.service.model.ServiceService"%>
-<%@page import="com.service.model.ServiceVO"%>
+<%@page import="com.store.service.model.ServiceService"%>
+<%@page import="com.store.service.model.ServiceVO"%>
 <%@	page import="com.store.model.StoreVO"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.List"%>

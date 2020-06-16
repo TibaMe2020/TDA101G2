@@ -1,9 +1,9 @@
-package com.test;
+package com.store.test;
 
 import java.util.List;
 
-import com.service.model.ServiceDAO;
-import com.service.model.ServiceVO;
+import com.store.service.model.ServiceDAO;
+import com.store.service.model.ServiceVO;
 
 public class ServiceDAO_Test {
 	public static void main(String[] args) {

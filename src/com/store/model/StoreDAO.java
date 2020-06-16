@@ -1,5 +1,7 @@
 package com.store.model;
 
+import static com.store.common.Common.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,8 +14,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
-import static com.common.Common.*;
 
 public class StoreDAO implements StoreDAO_interface {
 	

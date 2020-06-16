@@ -1,5 +1,5 @@
-<%@page import="com.service.model.ServiceVO"%>
-<%@page import="com.service.model.ServiceService"%>
+<%@page import="com.store.service.model.ServiceVO"%>
+<%@page import="com.store.service.model.ServiceService"%>
 <%@page import="java.util.List"%>
 <%@page import="com.store_order.model.Store_orderVO"%>
 <%@page import="com.store_order.model.Store_orderService"%>

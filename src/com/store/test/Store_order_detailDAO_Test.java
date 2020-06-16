@@ -1,4 +1,4 @@
-package com.test;
+package com.store.test;
 
 import java.util.List;
 

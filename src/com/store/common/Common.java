@@ -1,4 +1,4 @@
-package com.common;
+package com.store.common;
 
 public class Common {
 
