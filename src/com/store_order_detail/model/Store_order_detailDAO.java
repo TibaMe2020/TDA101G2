@@ -31,7 +31,7 @@ public class Store_order_detailDAO implements Store_order_detail_interface {
 	
 	public final String INSERT=
 			"insert into store_order_detail(store_order_detail_id, store_order_id, service_id, order_detail_pets)"
-			+ " values('SD'||LPAD(seq_store_order_id.nextval,5,'0'), ?, ?, ?)";
+			+ " values('SD'||LPAD(seq_store_order_detail_id.nextval,5,'0'), ?, ?, ?)";
 	public final String UPDATE=
 			"update store_order_detail set store_order_id=?, service_id=?, order_detail_pets=? where store_order_detail_id=?";
 	public final String DELETE=

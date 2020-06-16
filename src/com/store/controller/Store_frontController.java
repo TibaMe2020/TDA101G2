@@ -108,6 +108,10 @@ public class Store_frontController extends HttpServlet {
 			try {
 				Map<String,String> datamap = gson.fromJson(json, Map.class);
 				String store_id = datamap.get("store_id");
+				
+				StoreService storeSvc = new StoreService();
+				String stclass = storeSvc.findByStoreId(store_id).getStore_class();
+				
 				String member_id = datamap.get("member_id");
 				String store_order_name = datamap.get("store_order_name");
 				String store_order_email = datamap.get("store_order_email");
@@ -131,11 +135,13 @@ public class Store_frontController extends HttpServlet {
 				
 				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 				Date store_order_end_date = null;
-				if("".equals(datamap.get("store_order_end_date"))){
-					out.print("預約失敗=結束日期不可空白");
-					return;
-				}else {
-					store_order_end_date = new java.sql.Date(sdf2.parse(datamap.get("store_order_end_date")).getTime());
+				if(stclass.equals("旅館")) {
+					if("".equals(datamap.get("store_order_end_date"))){
+						out.print("預約失敗=結束日期不可空白");
+						return;
+					}else {
+						store_order_end_date = new java.sql.Date(sdf2.parse(datamap.get("store_order_end_date")).getTime());
+					}
 				}
 				
 				String store_order_payment = datamap.get("store_order_payment");
@@ -156,8 +162,7 @@ public class Store_frontController extends HttpServlet {
 	//			orderService.newOrder(store_orderVO);
 	// 新增訂單明細 1對多
 				List<Store_order_detailVO> detail_list = new ArrayList<Store_order_detailVO>();
-				StoreService storeSvc = new StoreService();
-				String stclass = storeSvc.findByStoreId(store_id).getStore_class();
+				
 //				System.out.println(store_id);
 //				System.out.println(stclass);
 				if (!(stclass.equals("餐廳") || stclass.equals("醫院"))) {
