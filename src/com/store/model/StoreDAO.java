@@ -15,6 +15,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.store_closed.model.Store_closedDAO;
+import com.store_closed.model.Store_closedVO;
+
 public class StoreDAO implements StoreDAO_interface {
 	
 	private static DataSource datasource = null;
@@ -485,6 +488,93 @@ public class StoreDAO implements StoreDAO_interface {
 			}
 		}
 		return list;
+	}
+	
+//	@Override
+	public void insert2(StoreVO storeVO, List<Store_closedVO> list) {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
+			
+			conn.setAutoCommit(false);
+			
+			ps = conn.prepareStatement(INSERT);
+
+			ps.setString(1, storeVO.getMember_id());
+			ps.setString(2, storeVO.getStore_class());
+			ps.setString(3, storeVO.getStore_name());
+			ps.setString(4, storeVO.getStore_adress());
+			ps.setString(5, storeVO.getStore_phone_number());
+			ps.setString(6, storeVO.getStore_introduction());
+			ps.setObject(7, storeVO.getStore_clicks(), java.sql.Types.INTEGER);
+			ps.setObject(8, storeVO.getStore_firstbreak(), java.sql.Types.INTEGER);
+			ps.setObject(9, storeVO.getStore_secondbreak(), java.sql.Types.INTEGER);
+			ps.setString(10, storeVO.getStore_openhours1());
+			ps.setString(11, storeVO.getStore_openhours2());
+			ps.setString(12, storeVO.getStore_openhours3());
+			ps.setObject(13, storeVO.getStore_timelimit(), java.sql.Types.INTEGER);
+			ps.setObject(14, storeVO.getStore_maxcapacity(), java.sql.Types.INTEGER);
+			ps.setBytes(15, storeVO.getStore_image1());
+			ps.setBytes(16, storeVO.getStore_image2());
+			ps.setBytes(17, storeVO.getStore_image3());
+			ps.setObject(18, storeVO.getStore_on(), java.sql.Types.INTEGER);
+			ps.setTimestamp(19, storeVO.getUpdate_time());
+			ps.executeUpdate();
+			
+			String next_storeId = null;
+			ResultSet rs = ps.getGeneratedKeys();
+			if(rs.next()) {
+				next_storeId = rs.getString(1);
+				System.out.println("自增主鍵值= " + next_storeId +"(剛新增成功的部門編號)");
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+			
+			Store_closedDAO dao = new Store_closedDAO();
+			System.out.println("list.size()-A="+list.size());
+			for (Store_closedVO store_closedVO : list) {
+				store_closedVO.setStore_id(next_storeId);
+				dao.insert2(store_closedVO,conn);
+			}
+			
+			conn.commit();
+			conn.setAutoCommit(true);
+			System.out.println("新增店家" + next_storeId + "時,共有" + list.size()
+					+ "公休日被新增");
+			
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： " + e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured： " + e.getMessage());
+		} finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e1) {
+				throw new RuntimeException("rollback error occured. "
+						+ e1.getMessage());
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
 	}
 
 }

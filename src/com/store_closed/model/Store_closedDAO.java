@@ -165,5 +165,49 @@ public class Store_closedDAO implements Store_closedDAO_interface {
 		}
 		return set;
 	}
+	
+//	@Override
+	public void insert2(Store_closedVO store_closedVO,Connection conn) {
+		
+		PreparedStatement ps = null;
+		
+		try {
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
+			ps = conn.prepareStatement(INSERT);
+			
+			ps.setString(1, store_closedVO.getStore_id());
+			ps.setDate(2, store_closedVO.getStore_closed_day());
+			
+			ps.executeUpdate();
+		
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： " + e.getMessage()); 
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new RuntimeException("rollback error occured. "
+						+ e1.getMessage());
+			}
+			throw new RuntimeException("A database error occured： " + e.getMessage());
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 
 }
