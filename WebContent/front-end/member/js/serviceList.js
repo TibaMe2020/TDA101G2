@@ -16,7 +16,7 @@ FilePond.registerPlugin(
 // let base64={
 //     image1: 
 // };
-let base64=[];
+let base64 = {};
 
 const inputElement = document.querySelector('input[id="store_image_update"]');
 let firstTimeUpdate = false;
@@ -40,12 +40,12 @@ const pond = FilePond.create(inputElement, {
       <img src="${url}">
     </div>
     `);
-    base64.push(file.getFileEncodeBase64String());
-    
+    base64[file.id] = file.getFileEncodeBase64String();
   },
   onremovefile: (error, file) => {
     const img = $(`#${file.id}`);
     $(img).remove();
+    delete base64[file.id];
   }
 });
 
@@ -255,7 +255,7 @@ $('#cancel-update').on("click", function () {
 })
 // 宇宏覆寫 =============================================================================
 let path = window.location.pathname;
-const projectUrl = "http://"+window.location.host+path.substring(0,path.indexOf('/',1))
+const projectUrl = "http://" + window.location.host + path.substring(0, path.indexOf('/', 1))
 // const projectUrl = "http://localhost:8081/TDA101G2";
 
 $("input[type^='number']").inputSpinner();
@@ -328,9 +328,6 @@ $("#new-store").on('click', function () {
   let store_maxcapacity_val = $("#store_maxcapacity_update").val();
   let closed_array = $("#store_closed_update").val();
   var store_closed_val = closed_array.split(",");
-  let store_image1_val = $("new-store-image-update").val();
-  let store_image2_val = null;
-  let store_image3_val = null;
   // console.log(store_class_val)
   // console.log(store_name_val)
   // console.log(store_adress_val)
@@ -383,7 +380,7 @@ $("#new-store").on('click', function () {
     }
   });
   // console.log(store_closed)
-
+  let keys = Object.keys(base64);
   let obj = {
     store_class: store_class_val,
     store_name: store_name_val,
@@ -394,10 +391,11 @@ $("#new-store").on('click', function () {
     store_secondbreak: store_secondbreak_val,
     store_maxcapacity: store_maxcapacity_val,
     store_closed: store_closed,
-    store_image1: base64[0],
-    store_image2: base64[1],
-    store_image3: base64[2]
+    store_image1: base64[keys[0]],
+    store_image2: base64[keys[1]],
+    store_image3: base64[keys[2]]
   };
+
 
   // let obj = {
   //   store_adress: "臺北市萬華區平菁路四段201巷204弄",
@@ -430,10 +428,10 @@ $("#new-store").on('click', function () {
   //   }
   // })
 
-//   for (i of base64) console.log(i.length);
+  //   for (i of base64) console.log(i.length);
 
   $.ajax({
-    url: projectUrl+"/Store_frontController",
+    url: projectUrl + "/Store_frontController",
     type: "POST",                  // GET | POST | PUT | DELETE | PATCH
     data: {
       "action": "newStore",

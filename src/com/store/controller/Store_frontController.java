@@ -1,13 +1,12 @@
 package com.store.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -22,10 +21,9 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonDeserializer;
 import com.store.model.StoreService;
 import com.store.model.StoreVO;
-import com.store_closed.model.Store_closedService;
 import com.store_closed.model.Store_closedVO;
 import com.store_order.model.Store_orderService;
 import com.store_order.model.Store_orderVO;
@@ -99,10 +97,11 @@ public class Store_frontController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		PrintWriter out = response.getWriter();
-		Gson gson = new Gson();
+		
 		
 		String action = request.getParameter("action");
 		if (("Booking").equals(action)) {
+			Gson gson = new Gson();
 			String json = request.getParameter("data");
 			try {
 				Map<String,String> datamap = gson.fromJson(json, Map.class);
@@ -228,17 +227,32 @@ public class Store_frontController extends HttpServlet {
 //				System.out.println("original: " + json);
 //			}
 			
+//			上傳圖片 直接存成VO
+//			GsonBuilder builder = new GsonBuilder();
+//			//D將給定的字串格式轉換成日期
+//			builder.setDateFormat("yyyy-MM-dd");
+//			//byte[] to base64
+//			builder.registerTypeAdapter(byte[].class, 
+//			(JsonSerializer<byte[]>) (src, typeOfSrc, context) -> 
+//			new JsonPrimitive(Base64.getEncoder().encodeToString(src)));
+			
+			//D將給定的字串格式轉換成日期
 			GsonBuilder gsonBuilder = new GsonBuilder();
 		    gsonBuilder.setDateFormat("yyyy-MM-dd");
-		    Gson gsonbuilder = gsonBuilder.create();
 		    
-		    String json = request.getParameter("data");
-			StoreVO storeVO = gsonbuilder.fromJson(json,StoreVO.class);
-			System.out.println(storeVO);
-			System.out.println(storeVO.getStore_name());
-//接收圖片
-			String imagelist = request.getParameter("image");
-			System.out.println(imagelist);
+		    //base64 to byte[]
+			gsonBuilder.registerTypeAdapter(byte[].class,(JsonDeserializer<byte[]>) (json, typeOfT, context) ->
+			Base64.getDecoder().decode(json.getAsString()));
+			// 客製化設定後再create()創出gson物件
+			Gson gson = gsonBuilder.create();
+		    
+			String jsondata = request.getParameter("data");
+			StoreVO storeVO = gson.fromJson(jsondata,StoreVO.class);
+	
+			
+			//接收圖片				
+//			String imagelist = request.getParameter("image");
+//			System.out.println(imagelist);
 			
 			ss = new StoreService();
 			
@@ -250,21 +264,8 @@ public class Store_frontController extends HttpServlet {
 				ss.insertWithClosed(storeVO, cloesdList);
 			}
 			
-//			上傳圖片 直接存成VO
-//			GsonBuilder builder = new GsonBuilder();
-//			   //D將給定的字串格式轉換成日期
-//			  builder.setDateFormat("yyyy-MM-dd");
-//			  //byte[] to base64
-//			  builder.registerTypeAdapter(byte[].class, 
-//			    (JsonSerializer<byte[]>) (src, typeOfSrc, context) -> 
-//			  new JsonPrimitive(Base64.getEncoder().encodeToString(src)));
-//			  
-//			  //base64 to byte[]
-//			  builder.registerTypeAdapter(byte[].class, 
-//			    (JsonDeserializer<byte[]>) (json, typeOfT, context) ->
-//			  Base64.getDecoder().decode(json.getAsString()));
-//			  
-//			  Gson gson = builder.create();
+
+		
 			
 		}
 		
