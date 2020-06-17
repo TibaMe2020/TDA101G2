@@ -10,99 +10,24 @@ FilePond.registerPlugin(
   FilePondPluginImagePreview,
   FilePondPluginImageResize,
   FilePondPluginImageTransform,
-  FilePondPluginFileValidateType
+  FilePondPluginFileValidateType,
+  FilePondPluginFileEncode
 )
+// let base64={
+//     image1: 
+// };
+let base64=[];
 
-const inputElement = document.querySelector('input[id="description"]');
-let description_id;
+const inputElement = document.querySelector('input[id="store_image_update"]');
+let firstTimeUpdate = false;
 const pond = FilePond.create(inputElement, {
   labelIdle: '上傳圖片',
-  allowImagePreview: false,
-  acceptedFileTypes: ['image/*'],
-  imageResizeTargetWidth: 290,
-  imageResizeMode: 'contain',
-  maxFiles: 1,
-  name: 'description',
-  onpreparefile: (file, output) => {
-    // console.log("this is file id: " + file.id);
-    const holder = $('div#new-description');
-    let url = URL.createObjectURL(output);
-    description_id = file.id;
-    $(holder).append(`
-    <div class="description_holder d-flex justify-content-center shadow-sm p-3 mb-5 bg-white rounded" id="${file.id}">
-      <img src="${url}">
-    </div>`);
-  },
-  onremovefile: (error, file) => {
-    // console.log("this is file id: " + file.id);
-    const img = $(`div#${file.id}`);
-    $(img).remove();
-  }
-});
-
-
-
-const inputElement1 = document.querySelector('input[id="product_image"]');
-
-const pond1 = FilePond.create(inputElement1, {
-  labelIdle: '上傳圖片',
+  allowFileEncode: true,
   allowImagePreview: false,
   acceptedFileTypes: ['image/*'],
   imageResizeTargetWidth: 270,
   imageResizeMode: 'contain',
-  maxFiles: 4,
-  name: 'product_image',
-  onpreparefile: (file, output) => {
-    console.log("this is file id: " + file.id);
-    const holder = $('div#new-product-image');
-    let url = URL.createObjectURL(output);
-    $(holder).append(`
-    <div class="product_image_holder d-flex justify-content-center shadow-sm p-3 mb-5 bg-white rounded" id="${file.id}">
-      <img src="${url}">
-    </div>
-    `);
-  },
-  onremovefile: (error, file) => {
-    console.log("this is file id: " + file.id);
-    const img = $(`div#${file.id}`);
-    $(img).remove();
-  }
-});
-
-const inputElement2 = document.querySelector('input[id="description_update"]');
-
-const pond2 = FilePond.create(inputElement2, {
-  labelIdle: '上傳圖片',
-  allowImagePreview: false,
-  acceptedFileTypes: ['image/*'],
-  imageResizeTargetWidth: 290,
-  imageResizeMode: 'contain',
-  maxFiles: 1,
-  name: 'description',
-  onpreparefile: (file, output) => {
-    const holder = $('div#new-description-update');
-    let url = URL.createObjectURL(output);
-    $(holder).append(`
-    <div class="product_image_holder d-flex justify-content-center shadow-sm p-3 mb-5 bg-white rounded" id="${file.id}">
-      <img src="${url}">
-    </div>
-    `);
-  },
-  onremovefile: (error, file) => {
-    const img = $(`#${file.id}`);
-    $(img).remove();
-  }
-});
-
-const inputElement3 = document.querySelector('input[id="store_image_update"]');
-let firstTimeUpdate = false;
-const pond3 = FilePond.create(inputElement3, {
-  labelIdle: '上傳圖片',
-  allowImagePreview: false,
-  acceptedFileTypes: ['image/*'],
-  imageResizeTargetWidth: 270,
-  imageResizeMode: 'contain',
-  maxFiles: 4,
+  maxFiles: 3,
   name: 'store_image',
   onpreparefile: (file, output) => {
     firstTimeUpdate = true;
@@ -115,6 +40,8 @@ const pond3 = FilePond.create(inputElement3, {
       <img src="${url}">
     </div>
     `);
+    base64.push(file.getFileEncodeBase64String());
+    
   },
   onremovefile: (error, file) => {
     const img = $(`#${file.id}`);
@@ -327,6 +254,10 @@ $('#cancel-update').on("click", function () {
   }
 })
 // 宇宏覆寫 =============================================================================
+let path = window.location.pathname;
+const projectUrl = "http://"+window.location.host+path.substring(0,path.indexOf('/',1))
+// const projectUrl = "http://localhost:8081/TDA101G2";
+
 $("input[type^='number']").inputSpinner();
 
 $("#table-title-text").on('click', function () {
@@ -462,7 +393,10 @@ $("#new-store").on('click', function () {
     store_firstbreak: store_firstbreak_val,
     store_secondbreak: store_secondbreak_val,
     store_maxcapacity: store_maxcapacity_val,
-    store_closed: store_closed
+    store_closed: store_closed,
+    store_image1: base64[0],
+    store_image2: base64[1],
+    store_image3: base64[2]
   };
 
   // let obj = {
@@ -496,14 +430,14 @@ $("#new-store").on('click', function () {
   //   }
   // })
 
+//   for (i of base64) console.log(i.length);
 
   $.ajax({
-    url: "http://localhost:8081/TDA101G2/Store_frontController",
+    url: projectUrl+"/Store_frontController",
     type: "POST",                  // GET | POST | PUT | DELETE | PATCH
     data: {
       "action": "newStore",
-      data: myJson,
-        
+      data: myJson
     },
     dataType: "text",             // 預期會接收到回傳資料的格式： json | xml | html
     beforeSend: function () {       // 在 request 發送之前執行

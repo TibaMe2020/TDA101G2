@@ -34,7 +34,6 @@ import com.store_order_detail.model.Store_order_detailVO;
 @WebServlet("/Store_frontController")
 public class Store_frontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	String url = "http://127.0.0.1:5500/Introduction.html";
 	StoreService ss = null;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -237,18 +236,19 @@ public class Store_frontController extends HttpServlet {
 			StoreVO storeVO = gsonbuilder.fromJson(json,StoreVO.class);
 			System.out.println(storeVO);
 			System.out.println(storeVO.getStore_name());
+//接收圖片
+			String imagelist = request.getParameter("image");
+			System.out.println(imagelist);
+			
 			ss = new StoreService();
-//			ss.newStore(storeVO);
 			
 			List<Store_closedVO> cloesdList = storeVO.getStore_closed();
-//			Store_closedService sc = new Store_closedService();
-			for(Store_closedVO closed:cloesdList) {
-				System.out.println(closed.getStore_closed_day());
-//				sc.newClosed(closed);
-//				System.out.println("公休日新增成功");
-//				cloesdList.add(closed);
+			if(cloesdList==null) {
+				ss.newStore(storeVO);
 			}
-			ss.insertWithClosed(storeVO, cloesdList);
+			else {
+				ss.insertWithClosed(storeVO, cloesdList);
+			}
 			
 //			上傳圖片 直接存成VO
 //			GsonBuilder builder = new GsonBuilder();

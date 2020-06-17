@@ -555,6 +555,8 @@ public class StoreDAO implements StoreDAO_interface {
 //			throw new RuntimeException("Couldn't load database driver： " + e.getMessage());
 		} catch (SQLException e) {
 			try {
+				System.err.print("Transaction is being ");
+				System.err.println("rolled back-由-Store");
 				conn.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
