@@ -23,6 +23,9 @@ public class ServiceService {
 		
 		return service;
 	}
+	public void newSerivce(ServiceVO serviceVO) {
+		dao.insert(serviceVO);
+	}
 	
 	public ServiceVO updateService(String service_id, String store_id,  String service_detail, Integer service_price,
 			Integer service_limit, Integer service_time, Integer service_state) {
@@ -37,6 +40,10 @@ public class ServiceService {
 		dao.update(service);
 		
 		return service;
+	}
+	public void updateService(ServiceVO serviceVO) {
+		dao.update(serviceVO);
+		
 	}
 	
 	public void deleteService(String service_id) {

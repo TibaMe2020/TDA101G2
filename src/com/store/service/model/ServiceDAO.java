@@ -217,6 +217,7 @@ public class ServiceDAO implements ServiceDAO_interface {
 			while (rs.next()) {
 				serviceVO = new ServiceVO();
 				serviceVO.setService_id(rs.getString("service_id"));
+				serviceVO.setStore_id(rs.getString("store_id"));
 				serviceVO.setService_detail(rs.getString("service_detail"));
 				serviceVO.setService_price(rs.getInt("service_price"));
 				serviceVO.setService_limit(rs.getInt("service_limit"));

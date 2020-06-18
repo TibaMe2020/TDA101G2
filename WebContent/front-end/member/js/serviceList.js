@@ -13,19 +13,17 @@ FilePond.registerPlugin(
   FilePondPluginFileValidateType,
   FilePondPluginFileEncode
 )
-// let base64={
-//     image1: 
-// };
+
 let base64 = {};
 
 const inputElement = document.querySelector('input[id="store_image_update"]');
 let firstTimeUpdate = false;
 const pond = FilePond.create(inputElement, {
   labelIdle: '上傳圖片',
-  allowFileEncode: true,
+  // allowFileEncode: true,
   allowImagePreview: false,
   acceptedFileTypes: ['image/*'],
-  imageResizeTargetWidth: 270,
+  // imageResizeTargetWidth: 270,
   imageResizeMode: 'contain',
   maxFiles: 3,
   name: 'store_image',
@@ -253,6 +251,12 @@ $('#cancel-update').on("click", function () {
     $(modal).find('button.close').click();
   }
 })
+
+
+
+
+
+
 // 宇宏覆寫 =============================================================================
 let path = window.location.pathname;
 const projectUrl = "http://" + window.location.host + path.substring(0, path.indexOf('/', 1))
@@ -316,7 +320,7 @@ $("div.storeBreak").change(function () {
     }
   })
 })
-
+// 新增 店家 按鈕
 $("#new-store").on('click', function () {
   let store_class_val = $("#store_type_update").val();
   let store_name_val = $("#store_name_update").val();
@@ -339,25 +343,38 @@ $("#new-store").on('click', function () {
   // console.log(store_closed_val)
   // console.log(store_image1_val)
 
+  let checkcalss = false;
+  let checkname = false;
+  let checkcadress = false;
+  let checkphone = false;
+
   if (store_class_val == "") {
     $("#store_type_update").addClass("is-invalid")
+    checkcalss = false;
   } else {
     $("#store_type_update").removeClass("is-invalid")
+    checkcalss = true;
   }
   if (store_name_val == "") {
     $("#store_name_update").addClass("is-invalid")
+    checkname = false;
   } else {
     $("#store_name_update").removeClass("is-invalid")
+    checkname = true;
   }
   if (store_adress_val == "") {
     $("#store_adress_update").addClass("is-invalid")
+    checkcadress = false;
   } else {
     $("#store_adress_update").removeClass("is-invalid")
+    checkcadress = true;
   }
   if (store_phone_number_val == "") {
     $("#store_phone_update").addClass("is-invalid")
+    checkphone = false;
   } else {
     $("#store_phone_update").removeClass("is-invalid")
+    checkphone = true;
   }
 
   if (store_maxcapacity_val == "") {
@@ -416,26 +433,256 @@ $("#new-store").on('click', function () {
   var myJson = JSON.stringify(obj);
   console.log(JSON.parse(myJson));
 
-  // $.ajax({
-  //   url: "http://localhost:8081/TDA101G2/Store_frontController",
-  //   type: "POST",
-  //   // contentType: "application/json; charset=utf-8",
-  //   dataType: "json",
-  //   // data: JSON.stringify(list),
-  //   data: JSON.stringify(test),
-  //   success: function (data) {
-  //     console.log(data);
-  //   }
-  // })
-
   //   for (i of base64) console.log(i.length);
+  if (checkphone == true && checkcalss == true && checkname == true && checkcadress == true) {
+    $.ajax({
+      // url: projectUrl + "/Store_frontController",
+      url: "http://localhost:8081/TDA101G2/Store_frontController",
+      type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+      data: {
+        "action": "newStore",
+        data: myJson
+      },
+      dataType: "text",             // 預期會接收到回傳資料的格式： json | xml | html
+      beforeSend: function () {       // 在 request 發送之前執行
+      },
+      statusCode: {                 // 狀態碼
+        200: function (res) {
+          // console.log("200")
+        },
+        404: function (res) {
+          console.log("400")
+        },
+        500: function (res) {
+          console.log("500")
+        }
+      },
+      error: function (xhr) {         // request 發生錯誤的話執行
+        // console.log(xhr.responseText);
+      },
 
+      success: function (data) {
+        console.log(data)
+        if (data.search("新增成功") != -1) {
+          $("#staticBackdrop").find("div.modal-body").text("新增成功")
+          $('#staticBackdrop').modal('show');
+        } else {
+          $("#staticBackdrop").find("div.modal-body").text("新增失敗");
+          $('#staticBackdrop').modal('show');
+        }
+      }
+    });
+  }
+})
+
+// 服務列表顯示/隱藏
+
+$("#store_type_update").change(function () {
+  let sotre_type = $(this).val();
+  if (sotre_type == '旅館' || sotre_type == '美容' || sotre_type == '學校') {
+    $("#pills-profile-tab").removeClass("d-none")
+  } else {
+    $("#pills-profile-tab").addClass("d-none")
+  }
+})
+let member_id;
+$("#inputMemberId").change(function () {
+  console.log($(this).val())
+  showServiceList($(this).val())
+  member_id = $(this).val()
+})
+
+let store_id;
+function showServiceList(member_id) {
   $.ajax({
-    url: projectUrl + "/Store_frontController",
+    // url: projectUrl + "/Store_frontController",
+    url: "http://localhost:8081/TDA101G2/Store_frontController",
     type: "POST",                  // GET | POST | PUT | DELETE | PATCH
     data: {
-      "action": "newStore",
-      data: myJson
+      "action": "getListByMember",
+      memberId: member_id
+    },
+    dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+    beforeSend: function () {       // 在 request 發送之前執行
+    },
+    statusCode: {                 // 狀態碼
+      200: function (res) {
+        // console.log("200")
+      },
+      404: function (res) {
+        console.log("400")
+      },
+      500: function (res) {
+        console.log("500")
+      }
+    },
+    error: function (xhr) {         // request 發生錯誤的話執行
+      // console.log(xhr.responseText);
+    },
+
+    success: function (data) {
+      $("#service-table").empty();
+      let tr_html = "";
+      $.each(data, function (index, item) {
+        store_id = item.store_id;
+        tr_html +=
+          `<tr class="service_id" data-service_id="${item.service_id}" data-store_id="${item.store_id}">
+            <td class="service_detail">${item.service_detail}</td>
+            <td class="service_price">${item.service_price}</td>
+            <td class="service_limit">${item.service_limit}</td>
+            <td>
+              <div class="d-flex justify-content-center">
+                <label class="switch d-flex align-self-center">
+                  <input type="checkbox" name="product_state" checked>
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex justify-content-center">
+                <a href="#update-product" data-toggle="modal" class="product-update">
+                  <i class="fas fa-pen"></i>
+                </a>
+              </div>
+            </td>
+            <td>
+              <a href="#remove-product" data-toggle="modal" class="product-remove">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>`;
+      })
+      $("#service-table").append(tr_html);
+    }
+  });
+}
+
+// 新增服務
+$("#add-service-btn").on("click", function () {
+  let name = $(this).closest("#add-product").find("#service_name").val().trim()
+  let price = $(this).closest("#add-product").find("#price").val().trim()
+  let limit = $(this).closest("#add-product").find("#quantity").val().trim()
+  if (name == "") {
+    $(this).closest("#add-product").find("#service_name").addClass("is-invalid")
+  } else {
+    $(this).closest("#add-product").find("#service_name").removeClass("is-invalid")
+  }
+  if (price == "" || price == 0) {
+    $(this).closest("#add-product").find("#price").addClass("is-invalid")
+  } else {
+    $(this).closest("#add-product").find("#price").removeClass("is-invalid")
+  }
+  if (name != "" && price != "" && price != 0) {
+    let tr_html =
+      `<tr class="service_id newService" data-service_id="">
+        <td class="service_detail">${name}</td>
+        <td class="service_price">${price}</td>
+        <td class="service_limit">${limit}</td>
+        <td>
+          <div class="d-flex justify-content-center">
+            <label class="switch d-flex align-self-center">
+              <input type="checkbox" name="product_state" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-center">
+            <a href="#update-product" data-toggle="modal" class="product-update">
+              <i class="fas fa-pen"></i>
+            </a>
+          </div>
+        </td>
+        <td>
+          <a href="#remove-product" data-toggle="modal" class="product-remove">
+            <i class="fas fa-trash"></i>
+          </a>
+        </td>
+      </tr>`;
+    $("#service-table").append(tr_html);
+    $("#add-product").modal('hide')
+    $("#service_name").val("")
+    $("#price").val("")
+    $("#quantity").val("")
+    console.log(storeid)
+    let serviceObj = { store_id: store_id, service_detail: name, service_price: price, service_limit: limit }
+    var service = JSON.stringify(serviceObj);
+    $.ajax({
+      // url: projectUrl + "/Store_frontController",
+      url: "http://localhost:8081/TDA101G2/Store_frontController",
+      type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+      data: {
+        "action": "newService",
+        service_vo: service
+      },
+      dataType: "text",             // 預期會接收到回傳資料的格式： json | xml | html
+      beforeSend: function () {       // 在 request 發送之前執行
+      },
+      statusCode: {                 // 狀態碼
+        200: function (res) {
+          // console.log("200")
+        },
+        404: function (res) {
+          console.log("400")
+        },
+        500: function (res) {
+          console.log("500")
+        }
+      },
+      error: function (xhr) {         // request 發生錯誤的話執行
+        // console.log(xhr.responseText);
+      },
+
+      success: function (data) {
+        console.log(data)
+      }
+    })
+  }
+})
+// 更新服務
+$('#update-product-btn').on("click", function () {
+
+  let modal = $(this).closest('.modal-content');
+  let name = $('#product_name_update').val().trim();
+  let type = $('#product_type_update').val().trim();
+
+  let form = $(this).closest('form');
+})
+// 修改服務-1
+let serviceid;
+let storeid;
+let nameobj;
+let priceobj;
+let limitobj;
+$('#service-table').on('click', 'a.product-update', function () {
+  serviceid = $(this).closest("tr.service_id").data("service_id")
+  storeid = $(this).closest("tr.service_id").data("store_id")
+  nameobj = $(this).closest("tr.service_id").find("td.service_detail")
+  let name = nameobj.html()
+  priceobj = $(this).closest("tr.service_id").find("td.service_price")
+  let price = priceobj.html()
+  limitobj = $(this).closest("tr.service_id").find("td.service_limit")
+  let limit = limitobj.html()
+  $("#update-product").find("#service_name").val(name)
+  $("#update-product").find("#price").val(price)
+  $("#update-product").find("#quantity").val(limit)
+})
+// 修改服務-2
+$("#update-service-btn").on('click', function () {
+  let newname = $(this).closest("#update-product").find("#service_name").val()
+  let newprice = $(this).closest("#update-product").find("#price").val()
+  let newlimit = $(this).closest("#update-product").find("#quantity").val()
+  console.log(serviceid)
+  console.log(storeid)
+  let serviceObj = { service_id: serviceid, store_id: storeid, service_detail: newname, service_price: newprice, service_limit: newlimit }
+  var service = JSON.stringify(serviceObj);
+  $.ajax({
+    // url: projectUrl + "/Store_frontController",
+    url: "http://localhost:8081/TDA101G2/Store_frontController",
+    type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+    data: {
+      "action": "updateService",
+      service_vo: service
     },
     dataType: "text",             // 預期會接收到回傳資料的格式： json | xml | html
     beforeSend: function () {       // 在 request 發送之前執行
@@ -458,5 +705,52 @@ $("#new-store").on('click', function () {
     success: function (data) {
       console.log(data)
     }
-  });
+  })
+
+  nameobj.text(newname)
+  priceobj.text(newprice)
+  limitobj.text(newlimit)
+  $("#update-product").modal('hide')
+})
+
+// 刪除服務
+let remove_tr;
+$('#service-table').on('click', 'a.product-remove', function () {
+  serviceid = $(this).closest("tr.service_id").data("service_id")
+  remove_tr = $(this).closest("tr.service_id")
+})
+
+$("#remove").on('click', function () {
+  $.ajax({
+    // url: projectUrl + "/Store_frontController",
+    url: "http://localhost:8081/TDA101G2/Store_frontController",
+    type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+    data: {
+      "action": "deleteService",
+      serviceId: serviceid
+    },
+    dataType: "text",             // 預期會接收到回傳資料的格式： json | xml | html
+    beforeSend: function () {       // 在 request 發送之前執行
+    },
+    statusCode: {                 // 狀態碼
+      200: function (res) {
+        // console.log("200")
+      },
+      404: function (res) {
+        console.log("400")
+      },
+      500: function (res) {
+        console.log("500")
+      }
+    },
+    error: function (xhr) {         // request 發生錯誤的話執行
+      // console.log(xhr.responseText);
+    },
+
+    success: function (data) {
+      console.log(data)
+    }
+  })
+  remove_tr.remove();
+  $("#remove-product").modal('hide')
 })

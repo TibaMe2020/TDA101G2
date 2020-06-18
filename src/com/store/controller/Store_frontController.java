@@ -24,6 +24,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.store.model.StoreService;
 import com.store.model.StoreVO;
+import com.store.service.model.ServiceService;
+import com.store.service.model.ServiceVO;
 import com.store_closed.model.Store_closedVO;
 import com.store_order.model.Store_orderService;
 import com.store_order.model.Store_orderVO;
@@ -259,14 +261,47 @@ public class Store_frontController extends HttpServlet {
 			List<Store_closedVO> cloesdList = storeVO.getStore_closed();
 			if(cloesdList==null) {
 				ss.newStore(storeVO);
+				out.print("新增成功");
 			}
 			else {
 				ss.insertWithClosed(storeVO, cloesdList);
+				out.print("新增成功 (含其餘公休日)");
 			}
-			
-
+		}
 		
+		if (("getListByMember").equals(action)) {
+			String member_id = request.getParameter("memberId");
+			StoreService storeSvc = new StoreService();
+			StoreVO store = storeSvc.findByMemberId(member_id);
 			
+			ServiceService serviceSvc = new ServiceService();
+			Gson gson = new Gson();
+			out.print(gson.toJson(serviceSvc.selectByStore(store.getStore_id())));
+		}
+		
+		if (("updateService").equals(action)) {
+			String service = request.getParameter("service_vo");
+			Gson gson = new Gson();
+			ServiceVO serviceVO =gson.fromJson(service,ServiceVO.class);
+			ServiceService serviceSvc = new ServiceService();
+			serviceSvc.updateService(serviceVO);
+			out.print("service修改成功");
+		}
+		
+		if (("newService").equals(action)) {
+			String service = request.getParameter("service_vo");
+			Gson gson = new Gson();
+			ServiceVO serviceVO =gson.fromJson(service,ServiceVO.class);
+			ServiceService serviceSvc = new ServiceService();
+			serviceSvc.newSerivce(serviceVO);
+			out.print("service新增成功");
+		}
+		
+		if (("deleteService").equals(action)) {
+			String serviceId = request.getParameter("serviceId");
+			ServiceService serviceSvc = new ServiceService();
+			serviceSvc.deleteService(serviceId);
+			out.print("service刪除成功");
 		}
 		
 	}

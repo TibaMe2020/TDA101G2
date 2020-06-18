@@ -219,15 +219,39 @@
                         aria-controls="pills-home" aria-selected="true">店家資料</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-                        aria-controls="pills-profile" aria-selected="false">服務列表</a>
+                      <a class="nav-link d-none" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+                        role="tab" aria-controls="pills-profile" aria-selected="false">服務列表
+                      </a>
                     </li>
+                    <!-- for銜接meber -->
+                    <input type="text" id="inputMemberId" style="width: 100px;" />
+                    <!-- for銜接meber -->
                   </ul>
                 </div>
                 <div class="col-2 d-flex align-items-center justify-content-end">
                   <a href="#add-product" class="d-flex add-product-modal" data-toggle="modal">
                     <i class="fas fa-plus-circle add-product d-none"></i>
                   </a>
+                </div>
+              </div>
+            </div>
+            <!-- Modal 確認預約按鈕->跳出視窗 -->
+            <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+              aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">狀態</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    ...
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">好的</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -335,9 +359,6 @@
                       <div class="col-4">
                         <button type="submit" class="btn btn-primary" id="new-store">新增</button>
                       </div>
-                      <div class="col-4">
-                        <button type="button" class="btn btn-secondary" id="cancel-store">取消</button>
-                      </div>
 
                     </div>
                   </div>
@@ -375,7 +396,7 @@
                       <th>移除</th>
                     </tr>
                   </thead>
-                  <tbody id="product-table">
+                  <tbody id="service-table">
                     <tr>
                       <td>P00001</td>
                       <td>香蕉</td>
@@ -429,17 +450,6 @@
 
                   </tbody>
                 </table>
-                <div class="container-fluid">
-                  <div class="row justify-content-center">
-                    <div class="col-4">
-                      <button type="submit" class="btn btn-primary" id="update-store_service">更新</button>
-                    </div>
-                    <div class="col-4">
-                      <button type="button" class="btn btn-secondary" id="cancel-store_service">取消</button>
-                    </div>
-
-                  </div>
-                </div>
               </div>
               <!-- 服務列表 結束 -->
             </div>
@@ -456,7 +466,7 @@
                     disabled>&times;</button>
                 </div>
                 <div class="d-flex flex-grow-1 justify-content-center">
-                  <h4 class=" modal-title">移除商品</h4>
+                  <h4 class=" modal-title">移除服務</h4>
                 </div>
                 <div class="d-flex flex-grow-0">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -468,7 +478,7 @@
                   <div class="row">
                     <div class="col-12">
                       <p class="mb-0">
-                        <b><i>確定要移除此項商品?</i></b>
+                        <b><i>確定要移除此項服務?</i></b>
                       </p>
                     </div>
                   </div>
@@ -496,69 +506,62 @@
         <div id="add-product" class="modal fade">
           <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content mx-auto">
-              <form action="" method="post" class="main-form" enctype="multipart/form-data" id="add-product-form">
 
-                <div class="modal-header d-flex justify-content-center">
-                  <div class="d-flex flex-grow-0">
-                    <button type="button" class="close invisible" data-dismiss="modal" aria-hidden="true"
-                      disabled>&times;</button>
-                  </div>
-                  <div class="d-flex flex-grow-1 justify-content-center">
-                    <h4 class=" modal-title">新增服務</h4>
-                  </div>
-                  <div class="d-flex flex-grow-0">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <div class="modal-header d-flex justify-content-center">
+                <div class="d-flex flex-grow-0">
+                  <button type="button" class="close invisible" data-dismiss="modal" aria-hidden="true"
+                    disabled>&times;</button>
+                </div>
+                <div class="d-flex flex-grow-1 justify-content-center">
+                  <h4 class=" modal-title">新增服務</h4>
+                </div>
+                <div class="d-flex flex-grow-0">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+              </div>
+
+              <div class="modal-body">
+
+                <div class="row justify-content-around">
+
+                  <div class="col-lg-8 text-center">
+                    <div class="form-group">
+                      <label for="service_name">服務項目名稱</label>
+                      <input type="text" name="product_version" id="service_name" class="form-control">
+                      <div class="invalid-feedback">
+                        服務項目名稱不可空白
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="price">單價</label>
+                      <input type="number" name="price" id="price" class="form-control">
+                      <div class="invalid-feedback">
+                        單價不可空白 或 0
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="quantity">數量上限</label>
+                      <div>
+                        <input type="number" name="quantity" id="quantity" class="form-control">
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-
-                <div class="modal-body">
-
-                  <div class="row justify-content-around">
-
-                    <div class="col-lg-8 text-center">
-                      <div class="form-group">
-                        <label for="product_version">服務項目名稱</label>
-                        <input type="text" name="product_version" id="product_version" class="form-control">
-                      </div>
-                      <div class="form-group">
-                        <label for="price">單價</label>
-                        <input type="number" name="price" id="price" class="form-control">
-                      </div>
-                      <div class="form-group">
-                        <label for="quantity">數量上限</label>
-                        <div>
-                          <input type="number" name="quantity" id="quantity" class="form-control">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="quantity">服務時限(分)</label>
-                        <input type='number' class="num-spinner input-persons" value='' min='0' max='999' step='1'>
-                      </div>
-
-
-
-
+              </div>
+              <div class="modal-footer border-0">
+                <div class="container-fluid">
+                  <div class="row justify-content-center">
+                    <div class="col-4">
+                      <!-- 正式版 -->
+                      <button type="submit" class="btn btn-primary" id="add-service-btn">新增</button>
+                      <!-- 測試版 -->
+                      <!-- <button type="button" class="btn btn-primary" id="add-product-btn">新增</button> -->
                     </div>
                   </div>
                 </div>
-                <div class="modal-footer border-0">
-                  <div class="container-fluid">
-                    <div class="row justify-content-center">
-                      <div class="col-4">
-                        <!-- 正式版 -->
-                        <button type="submit" class="btn btn-primary" id="add-product-btn">新增</button>
-                        <!-- 測試版 -->
-                        <!-- <button type="button" class="btn btn-primary" id="add-product-btn">新增</button> -->
-                      </div>
-                      <div class="col-4">
-                        <button type="button" class="btn btn-secondary" id="cancel-product">取消</button>
-                      </div>
 
-                    </div>
-                  </div>
-
-                </div>
-              </form>
+              </div>
 
             </div>
           </div>
@@ -567,146 +570,64 @@
         <!-- Update Product -->
         <div id="update-product" class="modal fade">
           <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content">
-              <form action="" method="post" class="main-form" enctype="multipart/form-data" id="update-product-form">
+            <div class="modal-content mx-auto">
 
-                <div class="modal-header d-flex justify-content-center">
-                  <div class="d-flex flex-grow-0">
-                    <button type="button" class="close invisible" data-dismiss="modal" aria-hidden="true"
-                      disabled>&times;</button>
-                  </div>
-                  <div class="d-flex flex-grow-1 justify-content-center">
-                    <h4 class=" modal-title">更新商品</h4>
-                  </div>
-                  <div class="d-flex flex-grow-0">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  </div>
+              <div class="modal-header d-flex justify-content-center">
+                <div class="d-flex flex-grow-0">
+                  <button type="button" class="close invisible" data-dismiss="modal" aria-hidden="true"
+                    disabled>&times;</button>
                 </div>
+                <div class="d-flex flex-grow-1 justify-content-center">
+                  <h4 class=" modal-title">修改服務</h4>
+                </div>
+                <div class="d-flex flex-grow-0">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+              </div>
 
-                <div class="modal-body">
+              <div class="modal-body">
 
-                  <div class="row justify-content-around">
-                    <div class="col-lg-5 text-left">
+                <div class="row justify-content-around">
 
-                      <div class="form-group">
-                        <label for="product_name_update">商品名稱</label>
-                        <input type="text" name="name" id="product_name_update" class="form-control" required>
+                  <div class="col-lg-8 text-center">
+                    <div class="form-group">
+                      <label for="service_name">服務項目名稱</label>
+                      <input type="text" name="product_version" id="service_name" class="form-control">
+                      <div class="invalid-feedback">
+                        服務項目名稱不可空白
                       </div>
-
-                      <div class="form-group">
-                        <label for="product_type">商品類別</label>
-                        <select name="product_type" id="product_type_update" class="form-control">
-                          <option value="">選項...</option>
-                          <option value="食品">食品</option>
-                          <option value="服飾">服飾</option>
-                          <option value="住家">住家</option>
-                          <option value="用品">用品</option>
-                          <option value="其他">其他</option>
-                        </select>
-                      </div>
-
-                      <!-- <div class="form-group">
-                        <label for="product_price_update">商品價格</label>
-                        <input type="text" name="product_price" id="product_price_update" class="form-control">
-                      </div> -->
-
-                      <label for="description_update">商品介紹</label>
-                      <input type="file" id="description_update">
-                      <div id="new-description-update" class="d-flex justify-content-around"></div>
-
-                      <label for="product_image">商品圖片</label>
-                      <input type="file" id="product_image_update" multiple>
-                      <div class="d-flex justify-content-around flex-wrap" id="new-product-image-update">
-                      </div>
-
                     </div>
-                    <div class="col-lg-5 text-left">
-                      <div class="form-group">
-                        <label for="product_version">規格</label>
-                        <input type="text" name="product_version" id="product_version_update" class="form-control">
+                    <div class="form-group">
+                      <label for="price">單價</label>
+                      <input type="number" name="price" id="price" class="form-control">
+                      <div class="invalid-feedback">
+                        單價不可空白 或 0
                       </div>
-                      <div class="form-group">
-                        <label for="quantity">數量</label>
-                        <input type="text" name="quantity" id="quantity_update" class="form-control">
-                      </div>
-                      <div class="form-group">
-                        <label for="price">單價</label>
-                        <input type="text" name="price" id="price_update" class="form-control">
-                      </div>
-                      <div class="form-group">
-                        <button type="button" class="btn btn-outline-success"
-                          id="add-product-version-update">新增</button>
-                      </div>
-
+                    </div>
+                    <div class="form-group">
+                      <label for="quantity">數量上限</label>
                       <div>
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th scope="col">規格</th>
-                              <th scope="col">單價</th>
-                              <th scope="col">庫存</th>
-                              <th scope="col">移除</th>
-                            </tr>
-                          </thead>
-                          <tbody id="product-version-table-update">
-                            <!-- <tr>
-                              <td>紅色</td>
-                              <td>100</td>
-                              <td>100</td>
-                              <td>
-                                <a href="#" data-toggle="modal" class="product-remove">
-                                  <i class="fas fa-trash remove-product-version"></i>
-                                </a>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>藍色</td>
-                              <td>500</td>
-                              <td>50</td>
-                              <td>
-                                <a href="#" data-toggle="modal" class="product-remove">
-                                  <i class="fas fa-trash remove-product-version"></i>
-                                </a>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>黃色</td>
-                              <td>1,000</td>
-                              <td>99</td>
-                              <td>
-                                <a href="#" data-toggle="modal" class="product-remove">
-                                  <i class="fas fa-trash remove-product-version"></i>
-                                </a>
-                              </td>
-                            </tr> -->
-
-                          </tbody>
-                        </table>
-
+                        <input type="number" name="quantity" id="quantity" class="form-control">
                       </div>
-                      <input type="hidden" name="action" value="updateProduct">
-
                     </div>
+
                   </div>
                 </div>
-                <div class="modal-footer border-0">
-                  <div class="container-fluid">
-                    <div class="row justify-content-center">
-                      <div class="col-4">
-                        <!-- 正式版 -->
-                        <!-- <button type="submit" class="btn btn-primary" id="update-product">更新</button> -->
-                        <!-- 測試版 -->
-                        <button type="button" class="btn btn-primary" id="update-product-btn">更新</button>
-                      </div>
-                      <div class="col-4">
-                        <button type="button" class="btn btn-secondary" id="cancel-update">取消</button>
-                      </div>
-
+              </div>
+              <div class="modal-footer border-0">
+                <div class="container-fluid">
+                  <div class="row justify-content-center">
+                    <div class="col-4">
+                      <!-- 正式版 -->
+                      <button type="submit" class="btn btn-primary" id="update-service-btn">修改</button>
+                      <!-- 測試版 -->
+                      <!-- <button type="button" class="btn btn-primary" id="add-product-btn">新增</button> -->
                     </div>
-                  </div>
 
+                  </div>
                 </div>
-              </form>
+
+              </div>
 
             </div>
           </div>

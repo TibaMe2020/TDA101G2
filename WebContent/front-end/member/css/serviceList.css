@@ -188,10 +188,6 @@ div.table-title {
   background-color: #7E8291;
 }
 
-input.form-control, select.form-control {}
-
-div#add-product, div#edit-product {}
-
 .btn-primary {
   background-color: #13406A;
   border: none;
@@ -768,10 +764,6 @@ li:hover {
 
 /* 服務列表標題 */
 
-thead th a {
-  /* font-size: 16px; */
-}
-
 /* 公休日 */
 
 select.storeFirstbreak, select.storeSecondbreak {
@@ -805,4 +797,10 @@ div.halfdiv-2 {
   width: 50%;
   position: absolute;
   right: 20px;
+}
+
+/* 上傳圖片 顯示大小 */
+
+img[src^="blob"] {
+  max-width: 270px;
 }

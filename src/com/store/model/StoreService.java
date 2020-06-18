@@ -42,6 +42,15 @@ public class StoreService {
 			return null;
 		}
 	}
+	public StoreVO findByMemberId(String member_id) {
+		try {
+			// 回傳店家
+			return dao.findByMemberId(member_id);
+		}catch(NullPointerException e) {
+			// 店家尚未新增
+			return null;
+		}
+	}
 	
 	public void changeStoreOn(StoreVO storeVO) {
 		if(storeVO.getStore_on()==0) {
