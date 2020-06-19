@@ -17,35 +17,38 @@ FilePond.registerPlugin(
 let base64 = {};
 
 const inputElement = document.querySelector('input[id="store_image_update"]');
+const inputElement2 = document.querySelector('input[id="store_image_update2"]');
 let firstTimeUpdate = false;
-const pond = FilePond.create(inputElement, {
-  labelIdle: '上傳圖片',
-  // allowFileEncode: true,
-  allowImagePreview: false,
-  acceptedFileTypes: ['image/*'],
-  // imageResizeTargetWidth: 270,
-  imageResizeMode: 'contain',
-  maxFiles: 3,
-  name: 'store_image',
-  onpreparefile: (file, output) => {
-    firstTimeUpdate = true;
-    const holder = $('div#new-store-image-update');
-    let url = URL.createObjectURL(output);
-    if (firstTimeUpdate === false) $(holder).html('');
-
-    $(holder).append(`
-    <div class="store_image_holder d-flex justify-content-center shadow-sm p-3 mb-5 bg-white rounded" id="${file.id}">
-      <img src="${url}">
-    </div>
-    `);
-    base64[file.id] = file.getFileEncodeBase64String();
-  },
-  onremovefile: (error, file) => {
-    const img = $(`#${file.id}`);
-    $(img).remove();
-    delete base64[file.id];
-  }
-});
+let imageobj={
+    labelIdle: '上傳圖片',
+    // allowFileEncode: true,
+    allowImagePreview: false,
+    acceptedFileTypes: ['image/*'],
+    // imageResizeTargetWidth: 270,
+    imageResizeMode: 'contain',
+    maxFiles: 3,
+    name: 'store_image',
+    onpreparefile: (file, output) => {
+      firstTimeUpdate = true;
+      const holder = $('div#new-store-image-update');
+      let url = URL.createObjectURL(output);
+      if (firstTimeUpdate === false) $(holder).html('');
+  
+      $(holder).append(`
+      <div class="store_image_holder d-flex justify-content-center shadow-sm p-3 mb-5 bg-white rounded" id="${file.id}">
+        <img src="${url}">
+      </div>
+      `);
+      base64[file.id] = file.getFileEncodeBase64String();
+    },
+    onremovefile: (error, file) => {
+      const img = $(`#${file.id}`);
+      $(img).remove();
+      delete base64[file.id];
+    }
+}
+const pond = FilePond.create(inputElement, imageobj);
+const pond2 = FilePond.create(inputElement2, imageobj);
 
 
 
@@ -270,8 +273,11 @@ $("#table-title-text").on('click', function () {
 $("#pills-profile-tab").on('click', function () {
   $("i.add-product").removeClass("d-none");
 })
+
+let selectedDate=[];
 // 日期選擇器
 var myDatepicker = $('.datepicker-here').datepicker().data('datepicker');
+var myDatepicker2 = $('#store_closed_update2').datepicker().data('datepicker');
 // $.fn.datepicker.language['en'] = {
 //   days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 //   daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
@@ -284,6 +290,12 @@ var myDatepicker = $('.datepicker-here').datepicker().data('datepicker');
 //   timeFormat: 'hh:ii aa'
 // };
 $('.datepicker-here').datepicker({
+  multipleDates: true,
+  multipleDatesSeparator: ",",
+  firstDay: 0
+  // clearButton: true
+})
+$('#store_closed_update2').datepicker({
   multipleDates: true,
   multipleDatesSeparator: ",",
   firstDay: 0
@@ -313,6 +325,36 @@ $("div.storeBreak").change(function () {
       if (cellType == 'day') {
         var day = date.getDay(),
           isDisabled = disabledDays.indexOf(day) != -1;
+        return {
+          disabled: isDisabled
+        }
+      }
+    }
+  })
+})
+// 公休日 連動多選日2
+$("div.storeBreak2").change(function () {
+  myDatepicker2.clear();
+  let date3 = $("select.storeFirstbreak2").val();
+  let date4 = $("select.storeSecondbreak2").val();
+  if (date3 == 7) {
+    date3 = 0
+  } else if (date3 == 0) {
+    date3 = 7
+  }
+  if (date4 == 7) {
+    date4 = 0
+  } else if (date4 == 0) {
+    date4 = 7
+  }
+
+  // 多選日期 -> 整周不顯示2
+  disabledDays2 = [parseInt(date3), parseInt(date4)];
+  $('#store_closed_update2').datepicker({
+    onRenderCell: function (date, cellType) {
+      if (cellType == 'day') {
+        var day = date.getDay(),
+          isDisabled = disabledDays2.indexOf(day) != -1;
         return {
           disabled: isDisabled
         }
@@ -436,8 +478,8 @@ $("#new-store").on('click', function () {
   //   for (i of base64) console.log(i.length);
   if (checkphone == true && checkcalss == true && checkname == true && checkcadress == true) {
     $.ajax({
-      // url: projectUrl + "/Store_frontController",
-      url: "http://localhost:8081/TDA101G2/Store_frontController",
+       url: projectUrl + "/Store_frontController",
+//      url: "http://localhost:8081/TDA101G2/Store_frontController",
       type: "POST",                  // GET | POST | PUT | DELETE | PATCH
       data: {
         "action": "newStore",
@@ -474,6 +516,143 @@ $("#new-store").on('click', function () {
     });
   }
 })
+// 修改 店家 按鈕
+$("#new-store").on('click', function () {
+  let store_class_val = $("#store_type_update2").val();
+  let store_name_val = $("#store_name_update2").val();
+  let store_adress_val = $("#store_adress_update2").val();
+  let store_phone_number_val = $("#store_phone_update2").val();
+  let store_introduction_val = $("#store_introduction_update2").val();
+  let store_firstbreak_val = $("#store_firstbreak_update2").val();
+  let store_secondbreak_val = $("#store_secondbreak_update2").val();
+  let store_maxcapacity_val = $("#store_maxcapacity_update2").val();
+  let closed_array = $("#store_closed_update2").val();
+  var store_closed_val = closed_array.split(",");
+  console.log(store_class_val)
+  console.log(store_name_val)
+  console.log(store_adress_val)
+  console.log(store_phone_number_val)
+  console.log(store_introduction_val)
+  console.log(store_firstbreak_val)
+  console.log(store_secondbreak_val)
+  console.log(store_maxcapacity_val)
+  console.log(store_closed_val)
+  console.log(store_image1_val)
+
+  let checkcalss = false;
+  let checkname = false;
+  let checkcadress = false;
+  let checkphone = false;
+
+  if (store_class_val == "") {
+    $("#store_type_update").addClass("is-invalid")
+    checkcalss = false;
+  } else {
+    $("#store_type_update").removeClass("is-invalid")
+    checkcalss = true;
+  }
+  if (store_name_val == "") {
+    $("#store_name_update").addClass("is-invalid")
+    checkname = false;
+  } else {
+    $("#store_name_update").removeClass("is-invalid")
+    checkname = true;
+  }
+  if (store_adress_val == "") {
+    $("#store_adress_update").addClass("is-invalid")
+    checkcadress = false;
+  } else {
+    $("#store_adress_update").removeClass("is-invalid")
+    checkcadress = true;
+  }
+  if (store_phone_number_val == "") {
+    $("#store_phone_update").addClass("is-invalid")
+    checkphone = false;
+  } else {
+    $("#store_phone_update").removeClass("is-invalid")
+    checkphone = true;
+  }
+
+  if (store_maxcapacity_val == "") {
+    store_maxcapacity_val = null;
+  }
+  if (store_firstbreak_val == "") {
+    store_firstbreak_val = null;
+  }
+  if (store_secondbreak_val == "") {
+    store_secondbreak_val = null;
+  }
+  let store_closed = [];
+  $.each(store_closed_val, function (index, item) {
+    if (store_closed_val != "") {
+      store_closed.push(
+        { store_closed_day: item }
+      )
+    } else {
+      store_closed = null;
+    }
+  });
+  // console.log(store_closed)
+  let keys = Object.keys(base64);
+  let obj = {
+    store_class: store_class_val,
+    store_name: store_name_val,
+    store_adress: store_adress_val,
+    store_phone_number: store_phone_number_val,
+    store_introduction: store_introduction_val,
+    store_firstbreak: store_firstbreak_val,
+    store_secondbreak: store_secondbreak_val,
+    store_maxcapacity: store_maxcapacity_val,
+    store_closed: store_closed,
+    store_image1: base64[keys[0]],
+    store_image2: base64[keys[1]],
+    store_image3: base64[keys[2]]
+  };
+
+  var myJson = JSON.stringify(obj);
+  console.log(JSON.parse(myJson));
+
+  //   for (i of base64) console.log(i.length);
+  if (checkphone == true && checkcalss == true && checkname == true && checkcadress == true) {
+    $.ajax({
+       url: projectUrl + "/Store_frontController",
+//      url: "http://localhost:8081/TDA101G2/Store_frontController",
+      type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+      data: {
+        "action": "updateStore",
+        data: myJson
+      },
+      dataType: "text",             // 預期會接收到回傳資料的格式： json | xml | html
+      beforeSend: function () {       // 在 request 發送之前執行
+      },
+      statusCode: {                 // 狀態碼
+        200: function (res) {
+          // console.log("200")
+        },
+        404: function (res) {
+          console.log("400")
+        },
+        500: function (res) {
+          console.log("500")
+        }
+      },
+      error: function (xhr) {         // request 發生錯誤的話執行
+        // console.log(xhr.responseText);
+      },
+
+      success: function (data) {
+        console.log(data)
+        if (data.search("修改成功") != -1) {
+          $("#staticBackdrop").find("div.modal-body").text("修改成功")
+          $('#staticBackdrop').modal('show');
+        } else {
+          $("#staticBackdrop").find("div.modal-body").text("修改失敗");
+          $('#staticBackdrop').modal('show');
+        }
+      }
+    });
+  }
+})
 
 // 服務列表顯示/隱藏
 
@@ -485,18 +664,96 @@ $("#store_type_update").change(function () {
     $("#pills-profile-tab").addClass("d-none")
   }
 })
+
+// 暫 - 串membery 資料
 let member_id;
 $("#inputMemberId").change(function () {
   console.log($(this).val())
   showServiceList($(this).val())
   member_id = $(this).val()
+  showStoreData(member_id);
+  $("div.update_store").addClass("d-none");
+  $("div.input_store").removeClass("d-none");
+  selectedDate=[];
+  myDatepicker2.clear();
 })
+
+function showStoreData(member_id){
+
+    $.ajax({
+         url: projectUrl + "/Store_frontController",
+//        url: "http://localhost:8081/TDA101G2/Store_frontController",
+        type: "GET",                  // GET | POST | PUT | DELETE | PATCH
+        data: {
+          "action": "getStoreData",
+          memberId: member_id
+        },
+        dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+        beforeSend: function () {       // 在 request 發送之前執行
+        },
+        statusCode: {                 // 狀態碼
+          200: function (res) {
+            // console.log("200")
+          },
+          404: function (res) {
+            console.log("400")
+          },
+          500: function (res) {
+            console.log("500")
+          }
+        },
+        error: function (xhr) {         // request 發生錯誤的話執行
+          // console.log(xhr.responseText);
+        },
+    
+        success: function (data) {
+            console.log(data)
+            let st = JSON.parse(data[0]);
+            if(data!=null){
+                $("div.update_store").removeClass("d-none");
+                $("div.input_store").addClass("d-none");
+                $("#store_name_update2").val(st.store_name)
+                $("#store_type_update2").val(st.store_class)
+                $("#store_maxcapacity_update2").val(st.store_maxcapacity)
+                $("#store_adress_update2").val(st.store_adress)
+                $("#store_phone_update2").val(st.store_phone_number)
+                $("#store_introduction_update2").val(st.store_introduction)
+                let date1 = $("#store_firstbreak_update2").val(st.store_firstbreak)
+                let date2 = $("#store_secondbreak_update2").val(st.store_secondbreak)
+                disabledDays2 = [parseInt(date1.val()), parseInt(date2.val())];
+                console.log(disabledDays2)
+                 // 多選日期 -> 整周不顯示2
+                $('#store_closed_update2').datepicker({
+                    onRenderCell: function (date, cellType) {
+                        if (cellType == 'day') {
+                            var day = date.getDay(),
+                            isDisabled = disabledDays2.indexOf(day) != -1;
+                            return {
+                            disabled: isDisabled
+                            }
+                        }
+                    }
+                })
+                
+                let clo = JSON.parse(data[1]);
+                
+                for(i of clo){
+                    console.log(i.store_closed_day)
+                    selectedDate.push(new Date(i.store_closed_day));
+                }
+                console.log(myDatepicker);
+                myDatepicker2.selectDate(selectedDate);
+            }
+            
+        }
+    })
+}
 
 let store_id;
 function showServiceList(member_id) {
   $.ajax({
-    // url: projectUrl + "/Store_frontController",
-    url: "http://localhost:8081/TDA101G2/Store_frontController",
+     url: projectUrl + "/Store_frontController",
+//    url: "http://localhost:8081/TDA101G2/Store_frontController",
     type: "POST",                  // GET | POST | PUT | DELETE | PATCH
     data: {
       "action": "getListByMember",
@@ -608,8 +865,8 @@ $("#add-service-btn").on("click", function () {
     let serviceObj = { store_id: store_id, service_detail: name, service_price: price, service_limit: limit }
     var service = JSON.stringify(serviceObj);
     $.ajax({
-      // url: projectUrl + "/Store_frontController",
-      url: "http://localhost:8081/TDA101G2/Store_frontController",
+       url: projectUrl + "/Store_frontController",
+//      url: "http://localhost:8081/TDA101G2/Store_frontController",
       type: "POST",                  // GET | POST | PUT | DELETE | PATCH
       data: {
         "action": "newService",
@@ -677,8 +934,8 @@ $("#update-service-btn").on('click', function () {
   let serviceObj = { service_id: serviceid, store_id: storeid, service_detail: newname, service_price: newprice, service_limit: newlimit }
   var service = JSON.stringify(serviceObj);
   $.ajax({
-    // url: projectUrl + "/Store_frontController",
-    url: "http://localhost:8081/TDA101G2/Store_frontController",
+     url: projectUrl + "/Store_frontController",
+//    url: "http://localhost:8081/TDA101G2/Store_frontController",
     type: "POST",                  // GET | POST | PUT | DELETE | PATCH
     data: {
       "action": "updateService",
@@ -722,8 +979,8 @@ $('#service-table').on('click', 'a.product-remove', function () {
 
 $("#remove").on('click', function () {
   $.ajax({
-    // url: projectUrl + "/Store_frontController",
-    url: "http://localhost:8081/TDA101G2/Store_frontController",
+     url: projectUrl + "/Store_frontController",
+//    url: "http://localhost:8081/TDA101G2/Store_frontController",
     type: "POST",                  // GET | POST | PUT | DELETE | PATCH
     data: {
       "action": "deleteService",

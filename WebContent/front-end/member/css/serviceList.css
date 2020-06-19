@@ -766,13 +766,13 @@ li:hover {
 
 /* 公休日 */
 
-select.storeFirstbreak, select.storeSecondbreak {
+select.storeFirstbreak, select.storeSecondbreak, select.storeFirstbreak, select.storeSecondbreak {
   max-width: 80%;
   display: inline-block;
   /* margin: 0 10px; */
 }
 
-div.storeBreak div, div.storeBreak div label {
+div.storeBreak div, div.storeBreak div label, div.storeBreak2 div, div.storeBreak2 div label {
   display: inline-block;
 }
 

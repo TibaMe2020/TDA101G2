@@ -1,0 +1,1495 @@
+DROP TABLE shopping_cart;
+DROP TABLE product_order_detail;
+DROP TABLE product_order_master;
+DROP TABLE product_version;
+DROP TABLE product_score;
+DROP TABLE product;
+
+DROP TABLE store_order_detail;
+DROP TABLE store_order;
+DROP TABLE store_closed;
+DROP TABLE service;
+DROP TABLE store;
+
+DROP TABLE ADOPT_FORM_INFO;
+DROP TABLE DONATION_FORM_INFO;
+DROP TABLE DONATION_RESULT;
+DROP TABLE NPO_INFO;
+DROP TABLE ADOPT_INFO;
+
+DROP TABLE SAVED;
+DROP TABLE FOLLOW;
+DROP TABLE MESSAGE;
+DROP TABLE POST;
+
+DROP TABLE notification;
+DROP TABLE admin;
+DROP TABLE member;
+---------------------------------------------------------------------------
+CREATE TABLE member (
+	member_id VARCHAR2(10) PRIMARY KEY NOT NULL,
+	email VARCHAR2(50) NOT NULL UNIQUE,
+        password VARCHAR2(70) NOT NULL,
+        name VARCHAR2(20) NOT NULL,
+        sex VARCHAR2(10),
+        address VARCHAR2(200),
+    birthday DATE,
+      phone_num VARCHAR2(20),
+    profile_image BLOB,
+    nickname VARCHAR2(20),
+    pet_class VARCHAR2(20),
+    blog_cover_image BLOB,
+    blog_name VARCHAR2(50),
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    update_time TIMESTAMP,
+    member_state NUMBER(1),
+    id_number VARCHAR(10),
+    bank_account VARCHAR(30),
+    document_image BLOB,
+    application_time TIMESTAMP
+);
+
+CREATE TABLE notification (
+	notification_id VARCHAR2(10) PRIMARY KEY NOT NULL,
+	member_id VARCHAR2(10) NOT NULL,
+	notification_class NUMBER(2) NOT NULL,
+	create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT fk_noti_mb
+        FOREIGN KEY(member_id) REFERENCES member(member_id)
+);
+CREATE TABLE admin (
+	admin_id VARCHAR2(10) PRIMARY KEY NOT NULL,
+	admin_account VARCHAR(20) NOT NULL UNIQUE,
+	admin_password VARCHAR(70) NOT NULL,
+	suspension number(1),
+	create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	update_time TIMESTAMP
+);
+
+create table store (
+   store_id    varchar2(10) primary key not null,
+    member_id   varchar2(10) ,
+    store_class varchar2(10) not null,
+    store_name  varchar2(50) not null,
+    store_adress    varchar2(200),
+    store_phone_number  varchar2(20),
+    store_introduction  varchar2(1000),
+    store_clicks    number(10),
+    store_firstbreak	number(1),
+    store_secondbreak	number(1),
+    store_openhours1	varchar(20),
+    store_openhours2	varchar(20),
+    store_openhours3	varchar(20),
+    store_timelimit	number(3),
+    store_maxcapacity	number(3),
+    store_image1	blob,
+    store_image2	blob,
+    store_image3	blob,
+    store_on	number(2),
+    create_time	timestamp default current_timestamp,
+    update_time	timestamp,
+   foreign key (member_id) references member(member_id)
+);
+---------------------------------------------------------------------------
+--創建 公休追加日
+create table store_closed (
+    store_closed_id     varchar2(10)	primary key not null,
+    store_id	varchar2(10)	not null,
+    store_closed_day	date,
+    foreign key (store_id) references store(store_id)
+);
+---------------------------------------------------------------------------
+--創建 服務列表
+create table service (
+    service_id	varchar2(10)	primary key not null,
+    store_id	varchar2(10)	not null,
+    service_detail	varchar(50),	
+    service_price	number(10) check(service_price>0),	
+    service_limit	number(3),	
+    service_time	number(3),	
+    service_state	number(1),
+    foreign key (store_id) references store(store_id)
+);
+---------------------------------------------------------------------------
+--創建 店家訂單
+create table store_order (
+    store_order_id	varchar2(10)	primary key not null,
+    store_id	varchar2(10)	not null,
+    member_id	varchar2(10),	
+    store_order_name	varchar(20),	
+    store_order_email	varchar(50),
+    store_order_phone_num	varchar(20),	
+    store_order_date_time	timestamp,	
+    store_order_end_date	date,	
+    store_order_persons	number(3),	
+    store_order_payment	varchar(20),	
+    store_order_note	varchar(300),	
+    store_order_state	number(1),	
+    create_time	timestamp default current_timestamp,
+    foreign key (store_id) references store(store_id),
+  foreign key (member_id) references member(member_id)
+);
+---------------------------------------------------------------------------
+--創建 店家訂單明細
+create table store_order_detail (
+    store_order_detail_id	varchar2(10)	primary key not null,
+    store_order_id	varchar2(10)	not null,
+    service_id	varchar2(10)	not null,
+    order_detail_pets	number(3) check (order_detail_pets>0),
+    foreign key (store_order_id) references store_order(store_order_id),
+    foreign key (service_id) references service(service_id)
+);
+---------------------------------------------------------------------------
+--創建公益TABLE
+CREATE TABLE Npo_info(
+	npo_id VARCHAR2(10) PRIMARY KEY NOT NULL,
+	npo_image blob,
+	npo_name varchar2(20),
+	npo_description varchar2(1200),
+	create_time timestamp DEFAULT CURRENT_TIMESTAMP,
+	ipdate_time timestamp
+    );
+CREATE TABLE Adopt_info(
+	adopt_id varchar2(10) PRIMARY KEY NOT NULL,
+	adopt_image blob,
+	adopt_name varchar2(20),
+	adopt_description varchar2(1200),
+	adopt_money number(6),
+	create_time timestamp DEFAULT CURRENT_TIMESTAMP,
+	update_time timestamp
+    );
+CREATE TABLE Donation_form_info(
+	donation_form_id varchar2(10) PRIMARY KEY NOT NULL,
+	npo_id varchar2(10) NOT NULL,
+	MEMBER_ID varchar2(10),
+	donator_name varchar2(20),
+	donation_money number(6),
+	payment varchar2(20),
+        donator_phone_num varchar2(20),
+        receipt_type varchar2(200),
+        create_time timestamp DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (NPO_ID) REFERENCES NPO_INFO (NPO_ID),
+        FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID)
+); 
+
+CREATE TABLE Adopt_form_info(
+	adopt_form_id varchar2(10) PRIMARY KEY NOT NULL,
+	adopt_id varchar2(10) NOT NULL,
+        MEMBER_ID varchar2(10),
+        adopt_person varchar2(20),
+        adopt_talk varchar2(180),
+        payadopt_person varchar2(20),
+        adopt_phone_num varchar2(20),
+        adopt_payment varchar2(20),
+        adopt_certificate varchar2(6),
+        adopt_email varchar2(50),
+        address varchar2(200),
+        create_time timestamp DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (ADOPT_ID) REFERENCES ADOPT_INFO (ADOPT_ID),    
+        FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID)
+  ); 
+  
+CREATE TABLE Donation_result(
+	result_id varchar2(10) PRIMARY KEY NOT NULL,
+	npo_id varchar2(10) NOT NULL,
+    member_id varchar2(10),
+	result_month number(6),
+	result_image blob,
+        result_content varchar2(800),
+        create_time timestamp DEFAULT CURRENT_TIMESTAMP,
+        update_time timestamp,
+        FOREIGN KEY (NPO_ID) REFERENCES NPO_INFO (NPO_ID),    
+        FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (MEMBER_ID)
+); 
+---------------------------------------------------------------------------
+--創建部落格TABLE
+CREATE TABLE POST(
+	POST_ID VARCHAR2(10) PRIMARY KEY NOT NULL,
+	MEMBER_ID VARCHAR2(10) NOT NULL,
+	CONSTRAINT FK_POST_MEMBER
+	FOREIGN KEY(MEMBER_ID) REFERENCES MEMBER(MEMBER_ID),
+	POST_CLASS VARCHAR2(20) NOT NULL,
+	POST_IMAGE1 BLOB,
+	POST_IMAGE2 BLOB,
+	POST_IMAGE3 BLOB,
+	POST_IMAGE4 BLOB,
+	POST_IMAGE5 BLOB,
+	POST_CONTENT VARCHAR2(1500) NOT NULL,
+	POST_LIKE NUMBER(10),
+	POST_MESSAGE_COUNT NUMBER(10),
+	POST_SHARE NUMBER(10),
+	CREATE_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UPDATE_TIME TIMESTAMP
+);
+
+CREATE TABLE FOLLOW(
+	FOLLOW_ID VARCHAR2(10) PRIMARY KEY NOT NULL,
+	MEMBER_ID VARCHAR2(10) NOT NULL,
+	CONSTRAINT FK_FOLLOWER_MEMBER
+	FOREIGN KEY(MEMBER_ID) REFERENCES MEMBER(MEMBER_ID),
+	FOLLOWED_MEMBER_ID VARCHAR2(10) NOT NULL,
+	CONSTRAINT FK_FOLLOWED_MEMBER
+	FOREIGN KEY(FOLLOWED_MEMBER_ID) REFERENCES MEMBER(MEMBER_ID),
+	CREATE_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE SAVED(
+	SAVED_POST_ID VARCHAR2(10) PRIMARY KEY NOT NULL,
+	MEMBER_ID VARCHAR2(10) NOT NULL,
+	CONSTRAINT FK_SAVED_MEMBER
+	FOREIGN KEY(MEMBER_ID) REFERENCES MEMBER(MEMBER_ID),
+	POST_ID VARCHAR2(10) NOT NULL,
+	CONSTRAINT FK_SAVED_POST
+	FOREIGN KEY(POST_ID) REFERENCES POST(POST_ID),
+	CREATE_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE MESSAGE(
+	MESSAGE_ID VARCHAR2(10) PRIMARY KEY NOT NULL,
+	MEMBER_ID VARCHAR2(10) NOT NULL,
+	CONSTRAINT FK_MESSAGE_MEMBER
+	FOREIGN KEY(MEMBER_ID) REFERENCES MEMBER(MEMBER_ID),
+	POST_ID VARCHAR2(10) NOT NULL,
+	CONSTRAINT FK_MESSAGE_POST
+	FOREIGN KEY(POST_ID) REFERENCES POST(POST_ID),
+	MESSAGE_CONTENT VARCHAR2(200) NOT NULL,
+	CREATE_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UPDATE_TIME TIMESTAMP
+);
+---------------------------------------------------------------------------
+--創建商城TABLE
+CREATE TABLE product (
+    product_id      VARCHAR2(10) PRIMARY KEY NOT NULL,
+    member_id       VARCHAR2(10) NOT NULL,
+    name            VARCHAR2(200) NOT NULL,
+    class           VARCHAR2(50) NOT NULL,
+    description        BLOB,
+    image1          BLOB,
+    image2          BLOB,
+    image3          BLOB,
+    image4          BLOB,
+    product_state   NUMBER(1) NOT NULL,   --1代表上架，2代表下架
+    update_time     TIMESTAMP ,
+    create_time     TIMESTAMP DEFAULT current_timestamp, 
+  FOREIGN KEY (MEMBER_ID) REFERENCES member(MEMBER_ID)
+);
+
+--PRODUCT_VERSION產品規格
+CREATE TABLE product_version (
+    product_version_id   VARCHAR2(10) PRIMARY KEY NOT NULL,
+    product_id           VARCHAR2(10) NOT NULL,
+    version_name         VARCHAR2(50) NOT NULL,
+    price                NUMBER(6) ,
+    inventory            NUMBER(3),
+    FOREIGN KEY ( product_id )REFERENCES product ( product_id )
+);
+
+--PRODUCT_SCORET產品評分
+CREATE TABLE product_score (
+    product_score_id   VARCHAR2(10) PRIMARY KEY NOT NULL,
+    product_id          VARCHAR2(10) NOT NULL,
+    member_id          VARCHAR2(10) NOT NULL,
+    score               NUMBER(1) ,
+    create_time         TIMESTAMP DEFAULT current_timestamp,
+    FOREIGN KEY ( product_id )REFERENCES product ( product_id ),
+    FOREIGN KEY ( member_id )REFERENCES member ( member_id )
+);
+
+--shopping_cart 購物車
+CREATE TABLE shopping_cart (
+    shopping_cart_id     VARCHAR2(10) PRIMARY KEY NOT NULL,
+    product_version_id   VARCHAR2(10) NOT NULL,
+    member_id            VARCHAR2(10) NOT NULL,
+    quantity             NUMBER(2),
+    create_time          TIMESTAMP DEFAULT current_timestamp,
+    update_time          TIMESTAMP DEFAULT current_timestamp,
+    FOREIGN KEY ( product_version_id )REFERENCES product_version ( product_version_id ),
+    FOREIGN KEY ( member_id )REFERENCES member ( member_id )    
+);
+
+--product_order_master訂單主檔
+CREATE TABLE product_order_master (
+    product_order_id      VARCHAR2(10) PRIMARY KEY NOT NULL,
+    member_id             VARCHAR2(10) NOT NULL,
+    product_order_state    VARCHAR2(50),
+    payment               VARCHAR2(20),
+    develivery_location   VARCHAR2(200),
+    create_time           TIMESTAMP DEFAULT current_timestamp,
+    foreign key(member_id) REFERENCES member(member_id)
+);
+
+--product_order_DETAIL訂單明細
+CREATE TABLE product_order_detail (
+    product_order_detail_id   VARCHAR2(10) PRIMARY KEY NOT NULL,
+    product_order_id          VARCHAR2(10) NOT NULL,
+    product_version_id        VARCHAR2(10) NOT NULL,
+    quantity                  NUMBER(2) NOT NULL,
+    FOREIGN KEY ( product_order_id )REFERENCES product_order_master ( product_order_id ),
+    FOREIGN KEY ( product_version_id )REFERENCES product_version ( product_version_id )
+);
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+--公益
+DROP SEQUENCE npo_id_SEQ;
+DROP SEQUENCE adopt_id_SEQ;
+DROP SEQUENCE donation_form_id_SEQ;
+DROP SEQUENCE adopt_form_id_SEQ;
+DROP SEQUENCE result_id_SEQ;
+--商城
+DROP SEQUENCE Pid_SEQ;
+DROP SEQUENCE Podi_SEQ;
+DROP SEQUENCE Poi_SEQ;
+DROP SEQUENCE Sci_SEQ;
+DROP SEQUENCE Pvi_SEQ;
+DROP SEQUENCE Psi_SEQ;
+--部落格
+DROP SEQUENCE POST_ID_SEQ;
+DROP SEQUENCE FOLLOW_ID_SEQ;
+DROP SEQUENCE SAVED_ID_SEQ;
+DROP SEQUENCE MESSAGE_ID_SEQ;
+--店家
+DROP sequence seq_store_id;
+DROP sequence seq_store_closed_id;
+DROP sequence seq_service_id;
+DROP sequence seq_store_order_id;
+DROP sequence seq_store_order_detail_id;
+--會員
+DROP SEQUENCE mb_seq;
+DROP SEQUENCE noti_seq;
+DROP SEQUENCE admin_seq;
+
+---------------------------------------------------------------------------
+--公益
+CREATE SEQUENCE npo_id_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+CREATE SEQUENCE adopt_id_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+CREATE SEQUENCE donation_form_id_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+CREATE SEQUENCE adopt_form_id_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+CREATE SEQUENCE result_id_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+---------------------------------------------------------------------------
+--商城
+
+--建立 PRODUCT_id_SEQUENCE (商品編號)
+CREATE SEQUENCE Pid_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+--建立 product_order_detail_id _SEQUENCE (訂單明細編號)
+CREATE SEQUENCE Podi_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+--建立 product_order_id_SEQUENCE (商品訂單編號)
+CREATE SEQUENCE Poi_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+--建立 shopping_cart_id_SEQUENCE (購物車編號)
+CREATE SEQUENCE Sci_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+--建立 product_version_id_SEQUENCE (商品規格編號)
+CREATE SEQUENCE Pvi_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+--建立 	product_score_id_SEQUENCE (評分編號)
+CREATE SEQUENCE Psi_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+---------------------------------------------------------------------------
+--部落格
+CREATE SEQUENCE POST_ID_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+CREATE SEQUENCE FOLLOW_ID_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+CREATE SEQUENCE SAVED_ID_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+CREATE SEQUENCE MESSAGE_ID_SEQ
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+---------------------------------------------------------------------------
+--店家
+
+create sequence seq_store_id
+maxvalue 10000000;
+create sequence seq_store_closed_id
+maxvalue 10000000;
+create sequence seq_service_id
+maxvalue 10000000;
+create sequence seq_store_order_id
+maxvalue 10000000;
+create sequence seq_store_order_detail_id
+maxvalue 10000000;
+
+---------------------------------------------------------------------------
+--會員
+
+CREATE SEQUENCE mb_seq
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+CREATE SEQUENCE noti_seq
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+CREATE SEQUENCE admin_seq
+INCREMENT BY 1
+START WITH 1
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+---------------------------------------------------------------------------
+--product_trigger update_time 
+CREATE OR REPLACE TRIGGER product_update_time_trigger
+BEFORE UPDATE ON product
+  FOR EACH ROW
+BEGIN
+  :new.update_time := CURRENT_TIMESTAMP;
+END ;
+/
+
+CREATE OR REPLACE TRIGGER cart_update_time__trigger
+BEFORE UPDATE ON shopping_cart
+  FOR EACH ROW
+BEGIN
+  :new.update_time := CURRENT_TIMESTAMP;
+END ;
+/
+--------------------------------------------------------------------------------
+--創建FUNCTION讓INSERT ALL 正確執行SEQUENCE.NEXTVAL
+CREATE OR REPLACE FUNCTION get_Pid_SEQ RETURN NUMBER IS
+BEGIN
+ RETURN Pid_SEQ.NEXTVAL;
+END;
+/
+
+CREATE OR REPLACE FUNCTION get_Podi_SEQ RETURN NUMBER IS
+BEGIN
+ RETURN Podi_SEQ.NEXTVAL;
+END;
+/
+
+CREATE OR REPLACE FUNCTION get_Poi_SEQ RETURN NUMBER IS
+BEGIN
+ RETURN Podi_SEQ.NEXTVAL;
+END;
+/
+
+CREATE OR REPLACE FUNCTION get_Sci_SEQ RETURN NUMBER IS
+BEGIN
+ RETURN Sci_SEQ.NEXTVAL;
+END;
+/
+CREATE OR REPLACE FUNCTION get_Pvi_SEQ RETURN NUMBER IS
+BEGIN
+ RETURN Pvi_SEQ.NEXTVAL;
+END;
+/
+
+CREATE OR REPLACE FUNCTION get_Psi_SEQ RETURN NUMBER IS
+BEGIN
+ RETURN Psi_SEQ.NEXTVAL;
+END;
+/
+
+--------------------------------------------------------------------------------
+--ID裡面包含英數
+
+CREATE OR REPLACE TRIGGER Pid_trigger
+BEFORE INSERT ON Product
+  FOR EACH ROW
+BEGIN
+  :new.Product_id := 'PI' || lpad(Pid_SEQ.NEXTVAL, 5, '0');
+END;
+/
+
+CREATE OR REPLACE TRIGGER Podi_trigger
+BEFORE INSERT ON PRODUCT_ORDER_DETAIL
+  FOR EACH ROW
+BEGIN
+  :new.PRODUCT_ORDER_DETAIL_ID := 'PODI' || lpad(PODI_SEQ.NEXTVAL, 5, '0');
+END;
+/
+
+CREATE OR REPLACE TRIGGER Poi_trigger
+BEFORE INSERT ON PRODUCT_ORDER_MASTER
+  FOR EACH ROW
+BEGIN
+  :new.PRODUCT_ORDER_ID := 'POI' || lpad(POI_SEQ.NEXTVAL, 5, '0');
+END;
+/
+
+CREATE OR REPLACE TRIGGER Sci_trigger
+BEFORE INSERT ON PRODUCT_SCORE
+  FOR EACH ROW
+BEGIN
+  :new.product_score_id := 'SCI' || lpad(SCI_SEQ.NEXTVAL, 5, '0');
+END;
+/
+
+CREATE OR REPLACE TRIGGER Pvi_trigger
+BEFORE INSERT ON product_version
+  FOR EACH ROW
+BEGIN
+  :new.product_version_ID := 'PVI' || lpad(PVI_SEQ.NEXTVAL, 5, '0');
+END;
+/
+
+CREATE OR REPLACE TRIGGER Psi_trigger
+BEFORE INSERT ON product_score
+  FOR EACH ROW
+BEGIN
+  :new.PRODUCT_SCORE_ID := 'PSI' || lpad(PSI_SEQ.NEXTVAL, 5, '0');
+END;
+/
+
+CREATE OR REPLACE TRIGGER ad_update_trigger
+BEFORE UPDATE ON admin
+  FOR EACH ROW
+BEGIN
+  :new.update_time := CURRENT_TIMESTAMP;
+END;
+/
+
+CREATE OR REPLACE TRIGGER mb_update_trigger
+BEFORE UPDATE ON member
+  FOR EACH ROW
+BEGIN
+  :new.update_time := CURRENT_TIMESTAMP;
+END;
+/
+
+CREATE OR REPLACE TRIGGER add_apptime
+  BEFORE UPDATE ON member
+  FOR EACH ROW
+  BEGIN
+  IF :NEW.member_state = 2 THEN
+   :new.application_time := CURRENT_TIMESTAMP;
+  END IF;
+  END;
+/
+
+
+--創建FUNCTION讓INSERT ALL 正確執行SEQUENCE.NEXTVAL
+
+CREATE OR REPLACE FUNCTION get_mb_seq RETURN NUMBER IS
+BEGIN
+  RETURN mb_seq.NEXTVAL;
+END;
+/
+
+CREATE OR REPLACE TRIGGER mb_id_trigger
+BEFORE INSERT ON member
+  FOR EACH ROW
+BEGIN
+  :new.member_id := 'MB' || lpad(mb_seq.NEXTVAL, 5, '0');
+END;
+/
+
+CREATE OR REPLACE TRIGGER admin_id_trigger
+BEFORE INSERT ON ADMIN
+  FOR EACH ROW
+BEGIN
+  :new.admin_id := 'AD' || lpad(admin_seq.NEXTVAL, 5, '0');
+END;
+/
+
+CREATE OR REPLACE TRIGGER noti_id_trigger
+BEFORE INSERT ON notification
+  FOR EACH ROW
+BEGIN
+  :new.notification_id := 'NO' || lpad(noti_seq.NEXTVAL, 5, '0');
+END;
+/
+-------------------------------------------------------
+--部落格update_time trigger
+
+CREATE OR REPLACE TRIGGER post_trigger
+BEFORE UPDATE ON post
+    FOR EACH ROW
+BEGIN 
+    :new.update_time :=CURRENT_TIMESTAMP;
+END;
+/
+
+CREATE OR REPLACE TRIGGER message_trigger
+BEFORE UPDATE ON message
+    FOR EACH ROW
+BEGIN 
+    :new.update_time :=CURRENT_TIMESTAMP;
+END;
+/
+
+--公益product_trigger update_time 
+CREATE OR REPLACE TRIGGER Adopt_info_trigger
+BEFORE UPDATE ON Adopt_info
+  FOR EACH ROW
+BEGIN
+  :new.update_time := CURRENT_TIMESTAMP;
+END ;
+/
+
+CREATE OR REPLACE TRIGGER Donation_result_trigger
+BEFORE UPDATE ON Donation_result
+  FOR EACH ROW
+BEGIN
+  :new.update_time := CURRENT_TIMESTAMP;
+END ;
+/
+
+---------------------------------------------------------
+INSERT ALL
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('apple123@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','陳公志','女','台北市文山區政大里政大一街353號',TO_DATE('1981-11-17','YYYY-MM-DD'),'0926850008',NULL,'Dana','貓',NULL,'Confessions of a Walking Freak',NULL,4,'K276108508','80912345678912',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('banana123@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','林昱春','男','台北市大安區和安里信義路三段143號',TO_DATE('1999-01-11','YYYY-MM-DD'),'0995851109',NULL,'Danie','狗',NULL,'The Evans Post',NULL,4,'A110045272','052983069390109062',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('igwt97jc@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','吳威廷','男','臺南市東區民族路一段1號',TO_DATE('1955-05-07','YYYY-MM-DD'),'0972911120',NULL,'Danella','烏龜',NULL,'The T Word',NULL,4,'D145567695','101858926792655886',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('joey155343@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','李家堅','男','臺南市後壁區嘉苳里下茄苳132號',TO_DATE('1981-11-20','YYYY-MM-DD'),'0936830454',NULL,'Holma','兔子',NULL,'The Dubai Times',NULL,4,'D151968868','812628630451026260',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('sdlkfgnl546@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','徐蓉玉','女','宜蘭縣宜蘭市延平路50號',TO_DATE('1997-12-25','YYYY-MM-DD'),'0918519417',NULL,'Holmella','鳥',NULL,'The Daily Taura',NULL,4,'Q141053261','102122524900603553',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('3615sdf65@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','江毅旭','男','苗栗縣苗栗市至公路183號',TO_DATE('2000-07-12','YYYY-MM-DD'),'0912365435',NULL,'Holmie','鳥',NULL,'The Taura Journal',NULL,4,'D136084325','013288953731852563',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('publicstatic5665@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','簡先書','男','基隆市信義區東信路324號',TO_DATE('1969-11-03','YYYY-MM-DD'),'0982761553',NULL,'Danelle-Cakes','貓',NULL,'The Art of Walking',NULL,4,'Y140748178','812408229154996639',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('sleepbag123@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','何佳玲','女','澎湖縣馬公市民族路63號',TO_DATE('1991-11-30','YYYY-MM-DD'),'0917699080',NULL,'Anuj-nova','烏龜',NULL,'No Such Thing as Bad Publicity',NULL,4,'G262970217','101608556517575259',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('zy.yang96127@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','賴承翰','男','連江縣南竿鄉介壽村374號',TO_DATE('1999-02-25','YYYY-MM-DD'),'0955898029',NULL,'Yummy Baby','貓',NULL,'Smelly Compassionate Blog',NULL,4,'C151673612','808568804540595520',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('kid0900@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','黃啟屏','男','苗栗縣苗栗市電台街7號',TO_DATE('1988-01-12','YYYY-MM-DD'),'0911135419',NULL,'Entertaining Chip','狗',NULL,'Walk Is Cheap',NULL,4,'L112799585','8223064694043346',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('hello543@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','夏中冰','女','基隆市暖暖區源遠路20號',TO_DATE('1999-04-04','YYYY-MM-DD'),'0958106095',NULL,'Strong Muffin','貓',NULL,'exting Home the Bacon',NULL,4,'X257556430','05393793157453',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('apple0303@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','李以雄','男','金門縣金湖鎮復興路1-11號',TO_DATE('1961-08-02','YYYY-MM-DD'),'0959848029',NULL,'Anuj Bear','狗',NULL,'Learning Is Dangerous',NULL,4,'R179084071','10345528974495',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('fff3215@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','王南峰','男','宜蘭縣宜蘭市延平路50號',TO_DATE('1986-11-29','YYYY-MM-DD'),'0926850020',NULL,'Anujbug','狗',NULL,'Taura Evans Secret Diary',NULL,4,'A189140279','00681024557124',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('ss654@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','柯聿恬','男','基隆市七堵區東新街22號',TO_DATE('1981-11-30','YYYY-MM-DD'),'0926956421',NULL,'Anujkitten','兔子',NULL,'Travel Hopefully Is Better Than Arrive',NULL,4,'M123126759','8034762361896869',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('ddd6541@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','蔡富珮','女','花蓮縣花蓮市民權路42號',TO_DATE('1991-03-31','YYYY-MM-DD'),'0989742777',NULL,'Holmbob','兔子',NULL,'No Such Thing is Diary',NULL,4,'X257556430','00980158100539',NULL,NULL)
+  INTO member (email,password,name,sex,address,birthday,phone_num,profile_image,nickname,pet_class,blog_cover_image,blog_name,update_time,member_state,id_number,bank_account,document_image,application_time) 
+  VALUES ('ss54pop@gmail.com','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92','袁怡蓁','女','基隆市中正區祥豐街246號',TO_DATE('1971-10-22','YYYY-MM-DD'),'0917178365',NULL,'Anujbob','貓',NULL,'Taura Es Secret Diary',NULL,4,'B260971962','8224455294073517',NULL,NULL)
+SELECT 1 FROM DUAL;
+
+--創建FUNCTION讓INSERT ALL 正確執行SEQUENCE.NEXTVAL
+
+--CREATE OR REPLACE FUNCTION get_noti_seq RETURN NUMBER IS
+--BEGIN
+--  RETURN noti_seq.NEXTVAL;
+--END;
+--/
+
+-- NOTIFICATION TABLE
+
+INSERT ALL
+  INTO notification (member_id,notification_class) VALUES ('MB00003',1)
+  INTO notification (member_id,notification_class) VALUES ('MB00001',2)
+  INTO notification (member_id,notification_class) VALUES ('MB00002',1)
+  INTO notification (member_id,notification_class) VALUES ('MB00001',1)
+  INTO notification (member_id,notification_class) VALUES ('MB00002',5)
+  INTO notification (member_id,notification_class) VALUES ('MB00005',4)
+  INTO notification (member_id,notification_class) VALUES ('MB00004',5)
+  INTO notification (member_id,notification_class) VALUES ('MB00006',1)
+  INTO notification (member_id,notification_class) VALUES ('MB00012',1)
+  INTO notification (member_id,notification_class) VALUES ('MB00014',2)
+  INTO notification (member_id,notification_class) VALUES ('MB00013',3)
+  INTO notification (member_id,notification_class) VALUES ('MB00001',3)
+  INTO notification (member_id,notification_class) VALUES ('MB00003',2)
+  INTO notification (member_id,notification_class) VALUES ('MB00005',1)
+  INTO notification (member_id,notification_class) VALUES ('MB00006',5)
+  INTO notification (member_id,notification_class) VALUES ('MB00007',4)
+  INTO notification (member_id,notification_class) VALUES ('MB00009',4)
+  INTO notification (member_id,notification_class) VALUES ('MB00002',5)
+  INTO notification (member_id,notification_class) VALUES ('MB00007',3)
+SELECT 1 FROM DUAL;
+
+--創建FUNCTION讓INSERT ALL 正確執行SEQUENCE.NEXTVAL
+
+-- ADMIN TABLE
+
+INSERT ALL
+  INTO admin (admin_account,admin_password,suspension) VALUES ('admin1','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0)
+  INTO admin (admin_account,admin_password,suspension) VALUES ('admin2','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0)
+	INTO admin (admin_account,admin_password,suspension) VALUES ('admin3','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0)
+	INTO admin (admin_account,admin_password,suspension) VALUES ('admin4','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0)
+	INTO admin (admin_account,admin_password,suspension) VALUES ('admin5','8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92',0)  
+SELECT 1 FROM DUAL;
+
+-- 新增 店家
+insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07001','MB00001', '餐廳', '四目咖啡寵物美學', '嘉義市東區蘇港路九段381巷152弄996號', '0976762347', '曾經多情如斯，傷痕累累，才終於學會無情。有一天，沒那么年輕了，愛著的依然是你，但是，我總是跟自己說：我也可以過自己的日子。惟其如此，失望和孤單的時候，我才可以不掉眼淚，不起波動，微笑告訴自己，不是你對我不好，而是愛情本來就是虛妄的，它曾經有多熱烈，也就有多寂寞。——張小嫻', 300, 1, 2, '8:00~10:00', '12:00~14:30', null, 90, 30, 0);
+insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07002','MB00002', '旅館', 'Tiere堤禾 寵物住宿寵物SPA', '新北市金山區大華五路三段92號', '0935279603', '我們每個人都生活在各自的過去中，人們會用一分鐘的時間去認識一個人，用一小時的時間去喜歡一個人，再用一天的時間去愛上一個人，到最後呢，卻要用一輩子的時間去忘記一個人', 800, 1, null, null, null, null, null, null, 0);
+insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07003','MB00003', '美容', '優寶寵物美容', '桃園市蘆竹區富台東街672巷40號', '055039899', '從今天起，做一個簡單的人，踏實務實。不沉溺幻想，不庸人自擾。要快樂，要開朗，要堅韌，要溫暖，對人要真誠。要誠懇，要坦然，要慷慨，要寬容，要有平常心。永遠對生活充滿希望，對於困境與磨難，微笑面對。多看書，看好書。少吃點，吃好點。要有夢想，即使遙遠。', 5000, 5, null, '9:00~17:00', null, null, null, null, 0);
+insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07004','MB00004', '美容', '吠話寵物美容館', '臺北市萬華區平菁路四段201巷204弄', '0285880276', '每當疲憊的時候，那就停下腳步，遙想追逐的遠方，汲取力量再上路;每當困惑的時候，那就停下腳步，梳理紛亂的思緒，驅走迷茫再上路;每當痛苦的時候，那就停下腳步，撫摸流血的傷口，擦乾眼淚再上路;每當放棄的時候，那就停下腳步，作出艱難的取捨，振奮精神再上路。我們停下腳步，其實只為走得更遠。', 3000, 3, null, '10:00~18:00', null, null, null, null, 0);
+insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07005','MB00005', '學校', '台灣愛犬寵物美容學苑', '高雄市旗山區國盛三街863號', '0288988114', '人生，錯過太多，我們都在重複，所以，我們不必為自己錯過的悲哀，而應該為自己擁有的而喜悅。錯過了漂亮，你還擁有健康;錯過了健康，你還擁有智慧;錯過了智慧，你還擁有善良;錯過了財富，你還擁有安逸;錯過了安逸，你還擁有自由;錯過了自由，你還擁有人格……', 8750, 6, 5, '10:00~18:00', null, null, null, null, 1);
+insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07006','MB00006', '醫院', '路米動物醫院', '新竹縣關西鎮長樂五路四段847號', '039134015', '理解是一輪心靈的觸碰，是一次思想的交融，是一種錯誤的包容。理解就是無論他說了什麼，你都能心領神會;無論他想的什麼，你能夠心有感應，無論他做了什麼，你能夠站在他的角度去思考。理解需要交流，理解需要溝通，理解需要包容。理解是一種閱歷，理解是一種理念，理解更是一種境界', 54, 6, 7, '8:00~10:30', '12:00~15:30', '16:00~19:00', 15, 2, 1);
+insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07007','MB00007', '餐廳', 'Zoo Cafe 動物園野餐毛孩鮮食', '臺南市麻豆區中街路八段139巷515號', '0922035564', '走過一些路，才知道辛苦;登過一些山，才知道艱難;趟過一些河，才知道跋涉;跨過一些坎，才知道超越;經過一些事，才知道經驗;閱過一些人，才知道歷練;讀過一些書，才知道財富;過了一輩子，才知道幸福。多一點快樂，少一點煩惱，累了就睡覺，醒了就微笑，生活怎么樣，自己放調料。', 453, 1, 2, '11:30~20:00', null, null, 120, 20, 1);
+insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07008','MB00008', '旅館', '北歐寵物旅館 游泳館', '苗栗縣頭份鎮永榮二路一段978巷264弄890號', '0992499691', '緣份是什麼是心有靈犀的一種感覺;是一見如故的一種傾向;是相見恨晚的一種心情;是上天安排的最美的際遇;是深深的牽掛或隱隱的懷念!緣是一種自然而神秘的心靈力量：因為一些文字而引起共鳴;因為一種感覺而動人心弦;因為一次邂逅而難以忘懷;因為一次回眸而感慨萬千。', 5636, null, null, null, null, null, null, null, 1);
+insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07009','MB00009', '醫院', '中研動物醫院', '北市三重區勝利七街九段637巷920弄647號', '0972809828', '有時候生活像，一股甘甜的泉水，使沉浸在痛苦的人，忘記生活的苦澀;有時候生活像，一首動聽的歌謠，使生活枯燥的人，感受到生活的樂趣;有時候生活像，一把雨夜的小傘，使漂泊異鄉的人，得到親情的蔭庇;有時候生活像，一道天邊的彩虹，使落寞孤寂的人，看到世界的美麗。', 10000, 7, null, '9:00~11:30', '13:00~15:30', '16:00~18:00', 15, 5, 1);
+insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07010','MB00010', '旅館', 'Mibao寵物美容旅館', '基隆市中正區吉利四路281號', '0224593132', '牽掛是一種憂傷的幸福，當你牽掛一個人時，你就會想他是不是也在牽掛你。因為喜歡才牽掛，因為牽掛而憂傷，用心去感受對方的牽掛。牽掛是一份爛漫，一份深沉，一份純美，一份質樸', 600, null, null, null, null, null, null, null, 1);
+--------------------------------------------------------------------------
+-- 新增 公休追加日
+insert into store_closed(store_closed_id, store_id, store_closed_day) values('SC07001', 'S07001', to_date('2020/07/15', 'YYYY-MM-DD'));
+insert into store_closed(store_closed_id, store_id, store_closed_day) values('SC07002', 'S07003', to_date('2020/07/14', 'YYYY-MM-DD'));
+insert into store_closed(store_closed_id, store_id, store_closed_day) values('SC07003', 'S07002', to_date('2020/07/21', 'YYYY-MM-DD'));
+insert into store_closed(store_closed_id, store_id, store_closed_day) values('SC07004', 'S07001', to_date('2020/07/30', 'YYYY-MM-DD'));
+insert into store_closed(store_closed_id, store_id, store_closed_day) values('SC07005', 'S07005', to_date('2020/07/01', 'YYYY-MM-DD'));
+insert into store_closed(store_closed_id, store_id, store_closed_day) values('SC07006', 'S07009', to_date('2020/07/06', 'YYYY-MM-DD'));
+insert into store_closed(store_closed_id, store_id, store_closed_day) values('SC07007', 'S07009', to_date('2020/07/08', 'YYYY-MM-DD'));
+insert into store_closed(store_closed_id, store_id, store_closed_day) values('SC07008', 'S07009', to_date('2020/07/10', 'YYYY-MM-DD'));
+--------------------------------------------------------------------------
+-- 新增 服務列表
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07001', 'S07002', '寵物住宿', 1000, 50, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07002', 'S07002', '寵物SPA', 500, -1, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07003', 'S07003', '調理毛髮', 200, 3, 30, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07004', 'S07003', '寵物造型', 1000, 3, 90, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07005', 'S07003', '修剪指甲', 50, 3, 15, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07006', 'S07004', '屁屁清潔', 100, 5, 10, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07007', 'S07004', '修剪寵物毛髮', 500, 5, 30, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07008', 'S07004', '寵物造型', 1500, 5, 60, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07009', 'S07005', '訓練狗狗上廁所', 3000, 20, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07010', 'S07005', '吠叫矯正', 5000, 20, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07011', 'S07005', 'On/Off 情緒的掌控以及運用', 2000, 20, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07012', 'S07005', '才藝課程', 10000, 20, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07013', 'S07008', '喵公爵套房', 2500, 8, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07014', 'S07008', '喵騎士套房', 2000, 10, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07015', 'S07008', '喵皇室套房', 3000, 5, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07016', 'S07008', '喵武士套房', 2000, 15, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07017', 'S07010', 'SPS牛奶浴', 1000, -1, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07018', 'S07010', 'VIP 尊爵房', 2500, 30, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07019', 'S07010', '馬卡龍繽紛房', 1800, 30, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07020', 'S07010', '小型溫馨房', 1200, 30, null, 1);
+--------------------------------------------------------------------------
+-- 新增 店家 訂單
+insert into store_order(store_order_id, store_id, member_id, store_order_name, store_order_email, store_order_phone_num, store_order_date_time, store_order_end_date, store_order_persons, store_order_payment, store_order_note, store_order_state) values('SO05001', 'S07001', 'MB00001', '印瑋嘉', 'prosacco.norris@yahoo.com', '0299746299', to_date('2020/05/01', 'YYYY-MM-DD'), null, 2, null, '1人吃素', 1);
+insert into store_order(store_order_id, store_id, member_id, store_order_name, store_order_email, store_order_phone_num, store_order_date_time, store_order_end_date, store_order_persons, store_order_payment, store_order_note, store_order_state) values('SO05002', 'S07007', 'MB00003', '鄭文穎', 'leonard17@bayer.com', '034157365', to_date('2020/05/02', 'YYYY-MM-DD'), null, 5, null, null, 1);
+insert into store_order(store_order_id, store_id, member_id, store_order_name, store_order_email, store_order_phone_num, store_order_date_time, store_order_end_date, store_order_persons, store_order_payment, store_order_note, store_order_state) values('SO05003', 'S07004', 'MB00001', '洪婉', 'bins.walker@hotmail.com', '0931952103', to_date('2020/05/02', 'YYYY-MM-DD'), null, null, '信用卡', null, 1);
+insert into store_order(store_order_id, store_id, member_id, store_order_name, store_order_email, store_order_phone_num, store_order_date_time, store_order_end_date, store_order_persons, store_order_payment, store_order_note, store_order_state) values('SO05004', 'S07004', 'MB00008', '蔡君', 'vbosco@gmail.com', '0948524149', to_date('2020/05/10', 'YYYY-MM-DD'), null, null, '信用卡', null, 1);
+insert into store_order(store_order_id, store_id, member_id, store_order_name, store_order_email, store_order_phone_num, store_order_date_time, store_order_end_date, store_order_persons, store_order_payment, store_order_note, store_order_state) values('SO05005', 'S07008', 'MB00001', '貝欣馨', 'franz05@davis.com', '0940787520', to_date('2020/05/24', 'YYYY-MM-DD'), to_date('2020/05/25', 'YYYY-MM-DD'), null, '信用卡', '旺旺容易吠叫', 0);
+insert into store_order(store_order_id, store_id, member_id, store_order_name, store_order_email, store_order_phone_num, store_order_date_time, store_order_end_date, store_order_persons, store_order_payment, store_order_note, store_order_state) values('SO05006', 'S07008', 'MB00003', '郁芳', 'terrence10@zboncak.com', '0924913741', to_date('2020/05/30', 'YYYY-MM-DD'), to_date('2020/06/10', 'YYYY-MM-DD'), null, '信用卡', null, 0);
+insert into store_order(store_order_id, store_id, member_id, store_order_name, store_order_email, store_order_phone_num, store_order_date_time, store_order_end_date, store_order_persons, store_order_payment, store_order_note, store_order_state) values('SO05007', 'S07008', 'MB00001', '琴彥志', 'johnson.grant@little.biz', '020412-6752', to_date('2020/05/15', 'YYYY-MM-DD'), to_date('2020/05/20', 'YYYY-MM-DD'), null, 'paypal', null, 0);
+insert into store_order(store_order_id, store_id, member_id, store_order_name, store_order_email, store_order_phone_num, store_order_date_time, store_order_end_date, store_order_persons, store_order_payment, store_order_note, store_order_state) values('SO05008', 'S07009', 'MB00008', '潘萍', 'xkihn@gmail.com', '0919459261', to_date('2020/05/13', 'YYYY-MM-DD'), null, 2, null, '一直吐', 1);
+insert into store_order(store_order_id, store_id, member_id, store_order_name, store_order_email, store_order_phone_num, store_order_date_time, store_order_end_date, store_order_persons, store_order_payment, store_order_note, store_order_state) values('SO05009', 'S07010', 'MB00001', '熊婷', 'funk.tate@gmail.com', '0944218992', to_date('2020/05/11', 'YYYY-MM-DD'), null, null, 'paypal', '會流口水', 1);
+insert into store_order(store_order_id, store_id, member_id, store_order_name, store_order_email, store_order_phone_num, store_order_date_time, store_order_end_date, store_order_persons, store_order_payment, store_order_note, store_order_state) values('SO05010', 'S07010', 'MB00008', '侯霖俊', 'teresa.schaefer@yahoo.com', '0932719509', to_date('2020/05/11', 'YYYY-MM-DD'), null, null, '信用卡', null, 1);
+--------------------------------------------------------------------------
+-- 新增 店家 訂單明細
+insert into store_order_detail(store_order_detail_id, store_order_id, service_id, order_detail_pets) values('SD03001', 'SO05003', 'SE07008', 2);
+insert into store_order_detail(store_order_detail_id, store_order_id, service_id, order_detail_pets) values('SD03002', 'SO05004', 'SE07006', 1);
+insert into store_order_detail(store_order_detail_id, store_order_id, service_id, order_detail_pets) values('SD03003', 'SO05004', 'SE07008', 1);
+insert into store_order_detail(store_order_detail_id, store_order_id, service_id, order_detail_pets) values('SD03004', 'SO05005', 'SE07013', 3);
+insert into store_order_detail(store_order_detail_id, store_order_id, service_id, order_detail_pets) values('SD03005', 'SO05005', 'SE07014', 2);
+insert into store_order_detail(store_order_detail_id, store_order_id, service_id, order_detail_pets) values('SD03006', 'SO05006', 'SE07015', 1);
+insert into store_order_detail(store_order_detail_id, store_order_id, service_id, order_detail_pets) values('SD03007', 'SO05007', 'SE07016', 2);
+insert into store_order_detail(store_order_detail_id, store_order_id, service_id, order_detail_pets) values('SD03008', 'SO05009', 'SE07017', 2);
+insert into store_order_detail(store_order_detail_id, store_order_id, service_id, order_detail_pets) values('SD03009', 'SO05009', 'SE07018', 2);
+insert into store_order_detail(store_order_detail_id, store_order_id, service_id, order_detail_pets) values('SD03010', 'SO05010', 'SE07020', 5);
+
+
+
+
+
+INSERT INTO product (
+    member_id,
+    name,
+    class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00006',
+    '貓用除毛用品',
+    '用品',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00001',
+    '逗貓棒',
+    '用品',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    2
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00010',
+    '推毛器',
+    '用品',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00001',
+    '滾地龍貓',
+    '用品',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00009',
+    '跳跳智能球',
+    '用品',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    2
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00001',
+    '洗澡盆',
+    '食物',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00006',
+    '狗衣服',
+    '服飾',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    2
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00001',
+    '網球發射器',
+    '住家',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    2
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00005',
+    '冰墊寵物墊',
+    '玩具',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00003',
+    '瘋狂的骨頭',
+    '玩具',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+
+--規格資料
+INSERT INTO product_version (
+    product_id,
+    version_name,
+    price,
+    inventory
+) VALUES (
+    'PI00001',
+    '經典款',
+    10000,
+    10
+);																			
+
+
+INSERT INTO product_version (
+    product_id,
+    version_name,
+    price,
+    inventory
+) VALUES (
+    'PI00002',
+    '經典款',
+    2000,
+    20
+);																			
+
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00003','特仕款',5000,10);	
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00004','日本款',5000,10);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00005','卡通聯名款',4200,30);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00006','養生鴨',150,50);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00007','冬天款',300,10);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00008','加大型',600,10);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00009','一般款',320,10);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00010','特仕款',2560,99);
+
+--評分資料
+insert into product_score(product_id,member_id,score) 
+values('PI00002','MB00005',2);
+insert into product_score(product_id,member_id,score) 
+values('PI00003','MB00006',5);
+insert into product_score(product_id,member_id,score) 
+values('PI00004','MB00003',3);
+insert into product_score(product_id,member_id,score) 
+values('PI00005','MB00001',2);
+insert into product_score(product_id,member_id,score) 
+values('PI00006','MB00005',1);
+insert into product_score(product_id,member_id,score) 
+values('PI00007','MB00002',2);
+insert into product_score(product_id,member_id,score) 
+values('PI00008','MB00009',5);
+insert into product_score(product_id,member_id,score) 
+values('PI00009','MB00005',3);
+insert into product_score(product_id,member_id,score) 
+values('PI00010','MB00001',2);
+insert into product_score(product_id,member_id,score) 
+values('PI00001','MB00005',5);
+
+
+--訂單主檔資料
+insert into product_order_master( member_id,product_order_state,payment,DEVELIVERY_LOCATION)
+values('MB00004', 1, 2, '台北市中正區臨沂街1號1樓');
+insert into product_order_master( member_id,product_order_state,payment,DEVELIVERY_LOCATION)
+values('MB00007', 2, 2, '台北市中正區青島西路7號1樓');
+insert into product_order_master( member_id,product_order_state,payment,DEVELIVERY_LOCATION)
+values('MB00006', 3, 1, '台北市信義區吳興街156巷2弄2號4號1樓');
+insert into product_order_master( member_id,product_order_state,payment,DEVELIVERY_LOCATION)
+values('MB00010', 4, 1, '台北市信義區信義路五段5號1樓');
+insert into product_order_master( member_id,product_order_state,payment,DEVELIVERY_LOCATION)
+values('MB00005', 4, 1, '台北市信義區基隆路一段333號B3');
+insert into product_order_master( member_id,product_order_state,payment,DEVELIVERY_LOCATION)
+values('MB00006', 4,	2, '台北市信義區中坡北路11號1樓');
+insert into product_order_master( member_id,product_order_state,payment,DEVELIVERY_LOCATION)
+values('MB00007', 2,	2, '台北市中正區忠孝東路一段108號7樓');
+insert into product_order_master( member_id,product_order_state,payment,DEVELIVERY_LOCATION)
+values('MB00001', 3,	2, '台北市中正區杭州北路1號');
+insert into product_order_master( member_id,product_order_state,payment,DEVELIVERY_LOCATION)
+values('MB00004', 2, 1, '台北市中正區濟南路一段3-1號');
+insert into product_order_master( member_id,product_order_state,payment,DEVELIVERY_LOCATION)
+values('MB00003', 1, 2, '台北市中正區臨沂街1號1樓');
+
+--訂單明細資料
+insert into product_order_detail(product_order_id,product_version_id,quantity)
+values('POI00001','PVI00004',6);
+insert into product_order_detail(product_order_id,product_version_id,quantity)
+values('POI00002','PVI00005',12);
+insert into product_order_detail(product_order_id,product_version_id,quantity)
+values('POI00003','PVI00006',21);
+insert into product_order_detail(product_order_id,product_version_id,quantity)
+values('POI00004','PVI00007',54);
+insert into product_order_detail(product_order_id,product_version_id,quantity)
+values('POI00005','PVI00008',69);
+insert into product_order_detail(product_order_id,product_version_id,quantity)
+values('POI00006','PVI00009',25);
+insert into product_order_detail(product_order_id,product_version_id,quantity)
+values('POI00007','PVI00010',4);
+insert into product_order_detail(product_order_id,product_version_id,quantity)
+values('POI00008','PVI00009',23);
+insert into product_order_detail(product_order_id,product_version_id,quantity)
+values('POI00009','PVI00001',21);
+insert into product_order_detail(product_order_id,product_version_id,quantity)
+values('POI00010','PVI00006',56);
+
+--------------------------------------------------------------------------------------------------------------------------------
+--新增資料POST--
+INSERT INTO POST(POST_ID, MEMBER_ID, POST_CLASS, POST_CONTENT, POST_LIKE, POST_MESSAGE_COUNT, POST_SHARE)
+VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', '生活', '我養的貓，是我心中最柔軟的一塊。我經常這樣覺得。每每看見家貓的臉，便再度確認，世界有時千瘡百孔，唯獨他不變可愛，
+看見他，於是覺得心也蓬鬆起來，煩惱也跟著變得輕盈。沒想過生養小孩，對於母親一職還多有掙扎，卻經常覺得貓咪像孩子，於是深切理解曬娃的不可遏止，
+就是太可愛了，不要叫我忍住。也很少覺得貓咪是「寵物」，因為覺得，我也並不擁有他什麼，雖然親暱叫喊是我的貓，不過他其實也並不屬於我。他有他自己
+的生命，不屬於任何一個人。養貓的時候我經常想，不過是幸運，我們成為彼此的家人，彼此陪伴，去經歷這千錘百鍊又可親可愛的一生。後來想想，有血緣的
+家人，不也應該如此嗎，誰也不擁有誰，誰也不拖欠誰。', 520, 3, 57);
+
+INSERT INTO POST(POST_ID, MEMBER_ID, POST_CLASS, POST_CONTENT, POST_LIKE, POST_MESSAGE_COUNT, POST_SHARE)
+VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00005', '生活', '我們家小喵每次都在我工作時撒嬌，雖然常常讓我工作做不完QQ但是真的真的很可愛，尤其冬天時紛紛跳到腿上，絕對是最棒的
+暖爐。', 65, 1, 3);
+
+INSERT INTO POST(POST_ID, MEMBER_ID, POST_CLASS, POST_CONTENT, POST_LIKE, POST_MESSAGE_COUNT, POST_SHARE)
+VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', '美食', '波希米亞人咖啡：環繞古典咖啡香的波希米亞人這裡不是一個顯眼及好找的地方。雖然可以從當代藝術館旁的巷子裡走進去，但
+若沒有小心留意，則會錯過這個迷人的角落。在踏入往地下室的入口後，彷彿進入另一個世界。店裡泛著昏黃的燈光，伴隨著播放著的古典交響樂，以及空氣中
+迷漫著的磨豆咖啡香。雖然是個小小的空間，但閒靜的氣氛馬上能夠使人心情放鬆，可以完全地隔離外頭的喧囂世界。', 123, 3, 7);
+
+INSERT INTO POST(POST_ID, MEMBER_ID, POST_CLASS, POST_CONTENT, POST_LIKE, POST_MESSAGE_COUNT, POST_SHARE)
+VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00005', '美食', 'Le Chien 樂享森活」位於台中市南屯區，店內主要販售套餐、鬆餅、飲料、炸物與拼盤唷！整家店的經營以「環保、支持動保」
+的理念為主軸，大坪數寵物友善餐廳，還有游泳池根本是寵物的天堂，老闆營造出滿滿的親子舒適感，主要空間還是留給毛孩娛樂空間與二樓展覽空間，是個很自
+在的寵物友善環境，並採用半自助式，包含餐具、水杯、食用完的餐盤等都皆為自助式，如果是第一次到樂享森活寵物友善餐廳，服務人員也會細心的解說，並告
+知毛孩在店內的遊戲規則。', 273, 2, 13);
+
+INSERT INTO POST(POST_ID, MEMBER_ID, POST_CLASS, POST_CONTENT, POST_LIKE, POST_MESSAGE_COUNT, POST_SHARE)
+VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00009', '美食', '【台南安平。寵物餐廳】凱荳家庭寵物餐廳整家店的裝潢以「溫馨」為主軸，營造滿滿的家庭舒適感，加上溫暖的橘黃光及老闆娘
+親手打造的小吊燈，更添用餐氛圍，主要空間還是留給毛孩，因此凱荳姐不希望放太多桌子影響毛孩的娛樂空間，老闆娘也是超級狗控，非常喜歡狗狗，牆上可以
+發現有很多毛孩的照片和寵物相關書籍，帶毛孩去還可以和店狗互相交流一下。', 84, 3, 6);
+
+INSERT INTO POST(POST_ID, MEMBER_ID, POST_CLASS, POST_CONTENT, POST_LIKE, POST_MESSAGE_COUNT, POST_SHARE)
+VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00007', '旅遊', '【台灣沙漠景點推薦】帶寵物旅行必去「七股頂頭額沙洲」小青本身是在地台南七股人，常常有人問我七股有什麼好玩的！？我常
+常第一反應就說：「七股沙漠很好玩…很值得去拍照！就如同來到國外的沙漠一樣壯觀，很適合來這裡吹吹海風、品嚐沙子的滋味與鹹度，只是這裡少了駱駝而已
+！」', 542, 0, 29);
+
+INSERT INTO POST(POST_ID, MEMBER_ID, POST_CLASS, POST_CONTENT, POST_LIKE, POST_MESSAGE_COUNT, POST_SHARE)
+VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00004', '旅遊', '今年員工旅遊安排於花蓮瑞穗春天國際觀光酒店，一查發現它的親子別墅區設有寵物溫馨家庭房，當然加錢也要選擇寵物房帶Tila
+一起去啊！城堡莊園風格的瑞穗春天國際觀光酒店提供非常多的休閒設施，也是全台首座溫泉水樂園喲！有室內滑水道、PRIME ONE牛排館、親子房內更有旋轉溜
+滑梯、大人玩的跑跑卡丁車，加上有能帶狗狗入住的寵物房，寵物友善太棒啦！', 159, 2, 2);
+
+INSERT INTO POST(POST_ID, MEMBER_ID, POST_CLASS, POST_CONTENT, POST_LIKE, POST_MESSAGE_COUNT, POST_SHARE)
+VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00003', '旅遊', '今天帶我們家小望去迎風狗公園,那裏真的好適合帶寵物們去散步!!!加上今天天氣不錯,許多人都帶著毛小孩們來這裡踏青,讓我們
+小望又認識了很多新朋友', 34, 1, 0);
+
+INSERT INTO POST(POST_ID, MEMBER_ID, POST_CLASS, POST_CONTENT, POST_LIKE, POST_MESSAGE_COUNT, POST_SHARE)
+VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', '其他', '知道怎麼拍出寵物好照片嗎?在拍攝過程中，可以藉由寵物平常喜歡的物品或食物來讓動物注意力集中，讓拍攝過程中更加流暢有效
+率。', 53, 3, 1);
+
+INSERT INTO POST(POST_ID, MEMBER_ID, POST_CLASS, POST_CONTENT, POST_LIKE, POST_MESSAGE_COUNT, POST_SHARE)
+VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00006', '其他', '【寵物牙膏牙刷】如何挑選？市面上寵物牙膏非常多種，包含膏狀、液態、泡沫狀，真的有像廣告說的那麼神奇又好用嗎?選擇寵
+物牙膏時，要評估的面向包含成分安全性、除垢清潔效果、使用便捷性，其次才是留香程度。1. 選擇可以食用的成分：避免有過多化學成分，選擇不添加 ?防腐
+劑 ?三氯沙 ?氟等。2. 避免選擇含有「木糖醇」寵物牙膏：可能會使狗狗中毒。3. 挑選適口性佳：避免狗狗抗拒刷牙。', 26, 2, 3);
+--------------------------------------------------------------------------------------------------------------------------------
+--新增資料FOLLOW--
+INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'MB00003');
+INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00002', 'MB00001');
+INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'MB00005');
+INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00003', 'MB00007');
+INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00005', 'MB00006');
+INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'MB00005');
+INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00008', 'MB00004');
+INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00006', 'MB00008');
+INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00004', 'MB00009');
+INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'MB00004');
+--------------------------------------------------------------------------------------------------------------------------------
+--新增資料SAVED--
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00002', 'PID00001');
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00005', 'PID00001');
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00001');
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00002', 'PID00003');
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00003');
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00003', 'PID00004');
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00005');
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00007', 'PID00006');
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00004', 'PID00009');
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00010');
+--------------------------------------------------------------------------------------------------------------------------------
+--新增資料MESSAGE--
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00001', '說得很有道理!他們不是我們的物品,而是我們的家人');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00002', 'PID00001', '超級認同');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00002', '我們要彼此陪伴對方一輩子!!!!');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00005', 'PID00002', '我們家的貓咪也是,真的超級可愛,心都要被融化ㄌ');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00003', 'PID00003', '看起來很不錯?,下次也帶我們家寶貝一起去~~~');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00007', 'PID00003', '想問你那家店的低銷是多少?餐點好吃嗎??');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00004', 'PID00003', '老闆跟闆娘人超好~~上次去還多給我們一片蛋糕!!也很會跟客人們聊天~下次還會去的');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00004', '很棒!環境又大又寬敞,吃喝玩樂都可以一起搞定,推薦想跟寵物吃好吃的,同時又想讓寵物可以玩得盡興可以去這邊');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00009', 'PID00004', '讚');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00005', '很溫馨的一家店');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00007', 'PID00005', '我喜歡那裏的用餐環境,餐點也好吃');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00003', 'PID00005', '想去~~~');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00005', 'PID00007', '這間我也住過,蠻新的');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00003', 'PID00007', '居然有寵物房!!?下次也要帶我們家阿貓阿狗一起去');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00008', '不過這邊超級容易踩到大便哈哈哈XD');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00006', 'PID00009', '那如果寵物不被食物影響怎麼辦哈哈哈,我們家的就是永遠注意力不集中啊');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00010', 'PID00009', '我也都這樣幫我們寵物拍網美照的');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00004', 'PID00009', '這真的有用嗎?');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00010', '感謝你的說明~好清楚喔謝謝^ ^');
+
+INSERT INTO MESSAGE(MESSAGE_ID, MEMBER_ID, POST_ID, MESSAGE_CONTENT)
+VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00007', 'PID00010', '嗚哇…寵物用的感覺都比人用的還高級…');
+--------------------------------------------------------------------------------------------------------------------------------
+
+    INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'板橋動物之家','台北市流浪動物及野生動物之收容、認領、認養、絕育、救傷醫療、定期篩檢及管理，此外也對市內其他動物收容處所進行管理及生命教育推廣等工作。');
+       
+    INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'中和動物之家','地點偏僻適合安置動物的好地方，工作人員十分親切和有愛心，想要認養毛小孩決對不可錯過
+    有愛惜狗狗身心重修！為愛狗人們免費找到適合的狗兒！很多愛心志工！好棒棒!');
+    
+    INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'中山動物之家','這邊的志工及工作人員人都很好，環境乾淨，分類也很好。我也順利領養到我的寶貝貓咪們。');
+    
+    INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'高雄動物之家','那天去幫忙，但覺得有點冗，中間蠻多沒事做的時間。');
+    
+    INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'桃園動物之家','認養代替購買，這個口號不是說說而已，如果你真的愛動物，你的第一選擇就是這裡。');
+    
+    INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'台南動物之家','很用心對待貓貓跟整理環境，也會教新手照顧貓。');
+    
+    INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'新竹動物之家','以認養代替購買，為浪浪們找一個溫暖的家！');
+    
+    INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'彰化動物之家','帶喵來結紮，結紮完繼續養浪浪!');
+    
+    INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'嘉義動物之家','地點有點偏僻，但環境很好，空氣很棒。工作人員都很客氣又有愛心。');
+    
+    INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'屏東動物之家','整體環境維持得不錯，服務人員很親切且細心介紹浪浪們的狀態。
+    位置雖偏僻，但若是有心想認養毛小孩，這裡絕對值得前往!');
+
+
+--========================================================================================================================================
+
+    INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'瓜呆','它們的個性就像春天的第一道曙光，永遠充滿朝氣和活力，令人神清氣爽，它們調皮而且充滿好奇心，動物本能特強。主人必須嚴加管教。它們才不會太野。',1000);
+       
+    INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'阿雞','昨日凌晨發現倒在路邊,研判應該是喝太多所以宿醉在路邊,輕微擦傷。',500);
+    
+    INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'紅心','民眾發現這隻流浪狗，剛生產不久，就四處奔走覓食，狗的下腹部不慎遭到鐵絲劃破1道深深傷口，血流不止，向台灣動物緊急救援小組求救。',25000);
+    
+    INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'啾太郎','檢質顯示除了貧血，總蛋白濃度偏低，顯示營養不均衡，可能與受傷期間無好好進食有關，因此獸醫除了給予藥物治療，也在食物中添加需要的營養補充。',4000);
+    
+    INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'獅子丸','德國牧羊犬被當沙包15秒遭拳擊10次,頭顱出血目前急需治療。',10000);
+    
+    INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'豆芽菜','一隻老犬遭鄰居多次潑水後，又用掃帚狂戳狂打，導致身上多處皮肉傷、眼睛周圍紅腫,令人看了怵目驚心。',8050);
+    
+    INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'陶樂比','元朗牛潭尾日前有單車友發現一條紅頭蛇，正準備攻擊樹上這隻年幼的貓頭鷹，於是我們上前將牠們救起，並需要一筆治療費。',600);
+    
+    INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'汪醬','非法繁殖63隻品種犬，狗籠堆疊在戶外只用布料稍微遮住，飼養環境極度惡劣，排泄物堆積，且沒有乾淨水源和飲食。',30000);
+    
+    INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'柴之助','柴犬四肢無明顯外傷，但看上去真的很不舒服，整個晚上不願進食、只喝了一點水，隔天一早就把柴犬送醫。',2500);
+
+--=========================================================================================================================================
+
+    
+INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00001','MB00001','宋仲基',900000,'信用卡',976233145,'sleepbag111@gmail.com');
+
+INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00002','MB00002','中山王建民',6000,'信用卡',976211145,'oppoenlin@gmail.com');
+
+INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00003','MB00003','花蓮朴寶劍',860000,'信用卡',879411145,'engerlin11@gmail.com');
+
+INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00004','MB00004','林志玲',200,'paypal',974125789,'sleeplag222@gmail.com');
+
+INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00005','MB00005','蘆洲楊丞琳',87000,'信用卡',976211145,'qlin3@gmail.com');
+
+INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00006','MB00006','台大王心凌',400,'paypal',976211145,'kokoji11@gmail.com');
+
+INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00007','MB00007','中原梁朝偉',14000,'信用卡',976211145,'pigcu891@gmail.com');
+
+INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00008','MB00008','南投金城武',2020,'paypal',976211145,'papa520@gmail.com');
+
+INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00009','MB00009','文化李知恩',4500,'信用卡',976211145,'mama528@gmail.com');
+
+INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00010','MB00010','政大周子瑜',602000,'信用卡',976211145,'giroo99@gmail.com');
+
+--==============================================================================================================================================
+
+INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00001','MB00002','喬妹','今天沒什麼想說的話','宋慧喬',978787845,'信用卡','sleepbag123@.gmail.com','臺北市士林區 蘭雅里中山北路6段197號');
+
+INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00002','MB00003','祥祥','我會愛惜他','吳凱祥',987878744,'paypal','dpdp77@gmail.com','臺北市內湖區麗山里 內湖路1段411巷10號');
+
+INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00003','MB00004','香香','這隻貓是我生命中的第一隻,請為了我繼續活下去','林香婷',963214541,'信用卡','apple66@gmail.com','臺北市北投區 關渡里知行路75號');
+
+INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00004','MB00005','許芸芳','我養了很多隻動物,這是我的第50隻,顆顆','許芸芳',974151227,'信用卡','banana1@gmail.com','臺北市信義區雙和里吳興街284巷24弄19號');
+
+INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00005','MB00006','萌萌','這隻狗是我每一天的動力來源','陳雨萌',945788747,'信用卡','gugi9@gmail.com','臺北市士林區臨溪里至善路2段264號');
+
+INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00006','MB00007','寶兒','林寶兒',945788888,'信用卡','hand7@gmail.com','桃園文山區興福里景興街101號');
+
+INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00007','MB00008','天天','我的寵物是世界上最棒的!','胡一天',947725847,'信用卡','hanle9@gmail.com','臺北市文山區興業里辛亥路5段102號');
+
+INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00008','MB00009','花花','沒養過動物有點怕怕的','華宇晨',945008874,'paypal','rock7@gmail.com','花蓮縣豐濱鄉豐濱村光豐路48號');
+
+INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00009','MB00010','阿紫','把你養死了不要怪我,嗚嗚嗚','楊紫茵',944008747,'paypal','sushiyo330@gmail.com','彰化縣彰化市萬安里長順街170號');
+
+--===================================================================================================================================================
+
+
+ INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00001','NID00001','人逢知己千杯少，難得在漫漫人生路上能認識你，在一起走過的日子，非常的感謝你給我的幫助，我始終不能忘記我們友誼，不能忘記我們在一起的點點滴滴，很想說有你真好，祝福你我的朋友');
+
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00002','NID00002','我始終相信大部分的人在大部分的時候都是善的，很多話都是當下真誠的。');
+
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00003','NID00003','去分析他人的苦惱，能夠被人依賴、被人惦記、被人喜愛本身就是很幸福的事情，即使被人利用、被人戲弄、被人傷害也不一定是壞事，被人利用至少證明自己有用，被人戲弄至少證明自己還是有被人認同的存在，被人傷害至少證明自己還是有感情有生命的而且能夠學會如何不用同一種方法誤傷他人。');
+
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00004','NID00004','謝謝所有出現在我生命中的人。');
+
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00005','NID00005','今天，在遙遠的此處，我把你給予我的曾經，折起祝福的紙鶴，飛過千山和萬水，隻是為了告訴我的恩施你,謝謝你一直的栽培和照顧!');
+
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00006','NID00006','我的空間因你而美麗，感謝一路上有你!');
+
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00007','NID00007','感謝那些關心我的朋友們，是你們讓我知道我們彼此從未分開過');
+
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00008','NID00008','無論是助人還是助己，無論是大事還是小事，只要用心付出，一定會有所收獲的');
+
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00009','NID00009','你心底坦蕩善良呵護著我善感柔弱的心靈,你待人寬容真誠');
+
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00010','NID00010','如果我能在幾天之間獲得別人幾周幾個月甚至幾年的情緒波動，那其實我得到的是更多的');
+
+commit;
+
+

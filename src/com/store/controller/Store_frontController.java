@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +27,7 @@ import com.store.model.StoreService;
 import com.store.model.StoreVO;
 import com.store.service.model.ServiceService;
 import com.store.service.model.ServiceVO;
+import com.store_closed.model.Store_closedService;
 import com.store_closed.model.Store_closedVO;
 import com.store_order.model.Store_orderService;
 import com.store_order.model.Store_orderVO;
@@ -86,7 +88,31 @@ public class Store_frontController extends HttpServlet {
 			out.print(gson.toJson(ss.findByStoreId(id)));
 		}
 		
-		
+		if (("getStoreData").equals(action)) {
+			String member_id = request.getParameter("memberId");
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			gsonBuilder.setDateFormat("yyyy-MM-dd");
+			Gson gson = gsonBuilder.create();
+			StoreService storeSvc = new StoreService();
+			StoreVO storeVO = storeSvc.findByMemberId(member_id);
+			if(storeVO != null) {
+				String store = gson.toJson(storeVO);
+				Store_closedService closedSvc = new Store_closedService();
+				
+				Set<Store_closedVO> closed = closedSvc.selectByStore(storeVO.getStore_id()); 
+//				List<Store_closedVO> closed2 = new ArrayList<Store_closedVO>();
+//				closed2.addAll(closed);
+//				for(Store_closedVO c:closed2) {
+//					System.out.println(c.getStore_closed_day());
+//				}
+				
+				String clo = gson.toJson(closed);
+				List<String> obj = new ArrayList<String>();
+				obj.add(store);
+				obj.add(clo);
+				out.print(gson.toJson(obj));
+			}
+		}
 		
 
 	}
@@ -269,14 +295,56 @@ public class Store_frontController extends HttpServlet {
 			}
 		}
 		
+		if (("updateStore").equals(action)) {
+			
+			//D將給定的字串格式轉換成日期
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			gsonBuilder.setDateFormat("yyyy-MM-dd");
+			
+			//base64 to byte[]
+			gsonBuilder.registerTypeAdapter(byte[].class,(JsonDeserializer<byte[]>) (json, typeOfT, context) ->
+			Base64.getDecoder().decode(json.getAsString()));
+			// 客製化設定後再create()創出gson物件
+			Gson gson = gsonBuilder.create();
+			
+			String jsondata = request.getParameter("data");
+			StoreVO storeVO = gson.fromJson(jsondata,StoreVO.class);
+			
+			
+			//接收圖片				
+//			String imagelist = request.getParameter("image");
+//			System.out.println(imagelist);
+			
+			ss = new StoreService();
+			Store_closedService closed = new Store_closedService(); 
+			List<Store_closedVO> cloesdList = storeVO.getStore_closed();
+			if(cloesdList==null) {
+				ss.updateStore(storeVO);
+				out.print("修改成功");
+			}
+			else {
+				ss.updateStore(storeVO);
+				Set<Store_closedVO> set = closed.selectByStore(storeVO.getStore_id());
+				for(Store_closedVO s :set) {
+					closed.deleteClosed(s.getStore_closed_id());
+				}
+				List<Store_closedVO> newclosed = storeVO.getStore_closed();
+				for(Store_closedVO s :newclosed) {
+					closed.newClosed(s);
+				}
+				out.print("修改成功 (含其餘公休日)");
+			}
+		}
+		
 		if (("getListByMember").equals(action)) {
 			String member_id = request.getParameter("memberId");
 			StoreService storeSvc = new StoreService();
 			StoreVO store = storeSvc.findByMemberId(member_id);
-			
-			ServiceService serviceSvc = new ServiceService();
-			Gson gson = new Gson();
-			out.print(gson.toJson(serviceSvc.selectByStore(store.getStore_id())));
+			if(store!=null) {
+				ServiceService serviceSvc = new ServiceService();
+				Gson gson = new Gson();
+				out.print(gson.toJson(serviceSvc.selectByStore(store.getStore_id())));
+			}
 		}
 		
 		if (("updateService").equals(action)) {
