@@ -364,112 +364,112 @@
                   </div>
                   <!-- </form> -->
                 </div>
-                <div class="container update_store d-none">
-                    <!-- <form action="" method="post" class="main-form" enctype="multipart/form-data"> -->
-                    <div class="row justify-content-around">
-                      <div class="col-lg-6 text-left">
-                        <div class="form-group">
-                          <label for="store_name_update">店家名稱</label>
-                          <input type="text" name="name" id="store_name_update2" class="form-control" required="required">
-                          <div class="invalid-feedback">
-                            名稱不可空白
-                          </div>
+                <div class="container update_store d-none" id="update_store">
+                  <!-- <form action="" method="post" class="main-form" enctype="multipart/form-data"> -->
+                  <div class="row justify-content-around">
+                    <div class="col-lg-6 text-left">
+                      <div class="form-group">
+                        <label for="store_name_update">店家名稱</label>
+                        <input type="text" name="name" id="store_name_update2" class="form-control" required="required">
+                        <div class="invalid-feedback">
+                          名稱不可空白
                         </div>
-                        <div class="form-group halfdiv halfdiv-1">
-                          <label for="store_type">店家類別</label>
-                          <select name="store_type" id="store_type_update2" class="form-control" required>
-                            <option value="">選項...</option>
-                            <option value="餐廳">寵物餐廳</option>
-                            <option value="旅館">寵物旅館</option>
-                            <option value="美容">寵物美容</option>
-                            <option value="學校">寵物學校</option>
-                            <option value="醫院">寵物醫院</option>
+                      </div>
+                      <div class="form-group halfdiv halfdiv-1">
+                        <label for="store_type">店家類別</label>
+                        <select name="store_type" id="store_type_update2" class="form-control" required>
+                          <option value="">選項...</option>
+                          <option value="餐廳">寵物餐廳</option>
+                          <option value="旅館">寵物旅館</option>
+                          <option value="美容">寵物美容</option>
+                          <option value="學校">寵物學校</option>
+                          <option value="醫院">寵物醫院</option>
+                        </select>
+                        <div class="invalid-feedback">
+                          此選項必填
+                        </div>
+                      </div>
+                      <div class="form-group halfdiv halfdiv-2">
+                        <label for="store_maxcapacity_update">最大可預約人數</label>
+                        <input type="number" name="store_maxcapacity" id="store_maxcapacity_update2"
+                          class="form-control" value='' min='0' max='999' step='1' />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="store_adress_update">地址</label>
+                        <input type="text" name="adress" id="store_adress_update2" class="form-control" required />
+                        <div class="invalid-feedback">
+                          地址不可空白
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="store_phone_update">電話</label>
+                        <input type="text" name="phone" id="store_phone_update2" class="form-control" required />
+                        <div class="invalid-feedback">
+                          電話不可空白
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="store_introduction_update">簡介</label>
+                        <textarea type="text" name="introduction" id="store_introduction_update2" class="form-control"
+                          required></textarea>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 text-left">
+
+                      <div class="form-group storeBreak2">
+                        <div>
+                          <label for="storeFirstbreak">公休日1</label>
+                          <select size="1" name="storeFirstbreak" class="form-control storeFirstbreak2"
+                            id="store_firstbreak_update2">
+                            <option></option>
+                            <option value=1>周一</option>
+                            <option value=2>週二</option>
+                            <option value=3>週三</option>
+                            <option value=4>週四</option>
+                            <option value=5>週五</option>
+                            <option value=6>週六</option>
+                            <option value=7>週日</option>
                           </select>
-                          <div class="invalid-feedback">
-                            此選項必填
-                          </div>
                         </div>
-                        <div class="form-group halfdiv halfdiv-2">
-                          <label for="store_maxcapacity_update">最大可預約人數</label>
-                          <input type="number" name="store_maxcapacity" id="store_maxcapacity_update2" class="form-control"
-                            value='' min='0' max='999' step='1' />
-                        </div>
-  
-                        <div class="form-group">
-                          <label for="store_adress_update">地址</label>
-                          <input type="text" name="adress" id="store_adress_update2" class="form-control" required />
-                          <div class="invalid-feedback">
-                            地址不可空白
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="store_phone_update">電話</label>
-                          <input type="text" name="phone" id="store_phone_update2" class="form-control" required />
-                          <div class="invalid-feedback">
-                            電話不可空白
-                          </div>
-                        </div>
-  
-                        <div class="form-group">
-                          <label for="store_introduction_update">簡介</label>
-                          <textarea type="text" name="introduction" id="store_introduction_update2" class="form-control"
-                            required></textarea>
+                        <div>
+                          <label for="storeSecondbreak">公休日2</label>
+                          <select size="1" name="storeSecondbreak" class="form-control storeSecondbreak2"
+                            id="store_secondbreak_update2">
+                            <option></option>
+                            <option value=1>周一</option>
+                            <option value=2>週二</option>
+                            <option value=3>週三</option>
+                            <option value=4>週四</option>
+                            <option value=5>週五</option>
+                            <option value=6>週六</option>
+                            <option value=7>週日</option>
+                          </select>
                         </div>
                       </div>
-                      <div class="col-lg-6 text-left">
-  
-                        <div class="form-group storeBreak2">
-                          <div>
-                            <label for="storeFirstbreak">公休日1</label>
-                            <select size="1" name="storeFirstbreak" class="form-control storeFirstbreak2"
-                              id="store_firstbreak_update2">
-                              <option></option>
-                              <option value=1>周一</option>
-                              <option value=2>週二</option>
-                              <option value=3>週三</option>
-                              <option value=4>週四</option>
-                              <option value=5>週五</option>
-                              <option value=6>週六</option>
-                              <option value=7>週日</option>
-                            </select>
-                          </div>
-                          <div>
-                            <label for="storeSecondbreak">公休日2</label>
-                            <select size="1" name="storeSecondbreak" class="form-control storeSecondbreak2"
-                              id="store_secondbreak_update2">
-                              <option></option>
-                              <option value=1>周一</option>
-                              <option value=2>週二</option>
-                              <option value=3>週三</option>
-                              <option value=4>週四</option>
-                              <option value=5>週五</option>
-                              <option value=6>週六</option>
-                              <option value=7>週日</option>
-                            </select>
-                          </div>
-                        </div>
-  
-                        <div class="form-group">
-                          <label for="datepicker">其餘公休日</label>
-                          <div class="datepicker-here" data-language='zh' id="store_closed_update2"></div>
-                        </div>
-                        <div class="form-group">
-                          <label for="store_image">店家圖片</label>
-                          <input type="file" id="store_image_update2" multiple>
-                          <div class="d-flex justify-content-around flex-wrap" id="new-store-image-update2"></div>
-                        </div>
+
+                      <div class="form-group">
+                        <label for="datepicker">其餘公休日</label>
+                        <div class="datepicker-here" data-language='zh' id="store_closed_update2"></div>
+                      </div>
+                      <div class="form-group">
+                        <label for="store_image">店家圖片</label>
+                        <input type="file" id="store_image_update2" multiple>
+                        <div class="d-flex justify-content-around flex-wrap" id="new-store-image-update2"></div>
                       </div>
                     </div>
-                    <div class="container-fluid">
-                      <div class="row justify-content-center">
-                        <div class="col-4">
-                          <button type="submit" class="btn btn-primary" id="update-store">更新</button>
-                        </div>
-  
-                      </div>
-                    </div>
-                    <!-- </form> -->
                   </div>
+                  <div class="container-fluid">
+                    <div class="row justify-content-center">
+                      <div class="col-4">
+                        <button type="submit" class="btn btn-primary" id="update-store">更新</button>
+                      </div>
+
+                    </div>
+                  </div>
+                  <!-- </form> -->
+                </div>
               </div>
               <!-- 店家資料 結束 -->
               <!-- 服務列表 -->

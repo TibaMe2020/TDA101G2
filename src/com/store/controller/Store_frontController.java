@@ -80,12 +80,25 @@ public class Store_frontController extends HttpServlet {
 		}
 		
 //			查單一店家
-		String id = request.getParameter("storeId");
 		if (action.equals("getStoreVO")) {
-//			System.out.println(id);
-			Gson gson = new Gson();
+			String id = request.getParameter("storeId");
+			
+			GsonBuilder gsonBuilder = new GsonBuilder();
+		    gsonBuilder.setDateFormat("yyyy/MM/dd");
+		    Gson gson = gsonBuilder.create();
+		    
 			ss = new StoreService();
-			out.print(gson.toJson(ss.findByStoreId(id)));
+			
+			Store_closedService closed = new Store_closedService(); 
+			Set<Store_closedVO> closedlist = closed.selectByStore(id);
+			
+			String store = gson.toJson(ss.findByStoreId(id));
+			String clo = gson.toJson(closedlist);
+			
+			List<String> obj = new ArrayList<String>();
+			obj.add(store);
+			obj.add(clo);
+			out.print(gson.toJson(obj));
 		}
 		
 		if (("getStoreData").equals(action)) {
@@ -276,7 +289,7 @@ public class Store_frontController extends HttpServlet {
 		    
 			String jsondata = request.getParameter("data");
 			StoreVO storeVO = gson.fromJson(jsondata,StoreVO.class);
-	
+			System.out.println(storeVO);
 			
 			//接收圖片				
 //			String imagelist = request.getParameter("image");
@@ -330,6 +343,8 @@ public class Store_frontController extends HttpServlet {
 				}
 				List<Store_closedVO> newclosed = storeVO.getStore_closed();
 				for(Store_closedVO s :newclosed) {
+					System.out.println(storeVO.getStore_id());
+					s.setStore_id(storeVO.getStore_id());
 					closed.newClosed(s);
 				}
 				out.print("修改成功 (含其餘公休日)");

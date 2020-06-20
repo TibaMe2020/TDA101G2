@@ -2,8 +2,8 @@ let path = window.location.pathname;
 // console.log(window.location.host)
 // console.log(path)
 // console.log(path.substring(0,path.indexOf('/',1)))
-const projectUrl = "http://"+window.location.host+path.substring(0,path.indexOf('/',1))
-// const projectUrl = "http://localhost:8081/TDA101G2";
+// const projectUrl = "http://"+window.location.host+path.substring(0,path.indexOf('/',1))
+const projectUrl = "http://localhost:8081/TDA101G2";
 // console.log(projectUrl)
 
 window.onload = (event) => {
@@ -57,7 +57,7 @@ window.onload = (event) => {
         }
 
         $.ajax({
-            url: projectUrl+"/Store_frontController",
+            url: projectUrl + "/Store_frontController",
             // url: "http://localhost:8081/TDA101G2/Store_frontController",
             type: "GET",                  // GET | POST | PUT | DELETE | PATCH
             data: {
@@ -163,9 +163,14 @@ function pageBooking(e) {
     $("input.bookingTotal").val('0');
 }
 // 介紹頁籤
+// let selectedWeekday;
+// let selectedDate;
 function middlePage(store_id) {
+    let selectedWeekday = [];
+    let selectedDate = [];
+    // $('input.f_date1').datetimepicker({'disabledWeekDays', null});
     $.ajax({
-        url: projectUrl+"/Store_frontController",
+        url: projectUrl + "/Store_frontController",
         // url: "http://localhost:8081/TDA101G2/Store_frontController",
         type: "GET",                  // GET | POST | PUT | DELETE | PATCH
         data: {
@@ -191,9 +196,11 @@ function middlePage(store_id) {
         },
 
         success: function (data) {
+            console.log(data)
+            let st = JSON.parse(data[0]);
             if (data.length != 0) {
-                $("#showStore_introduction").html(`<a style="font-weight:bold;">${data.store_name}</a><br>${data.store_introduction}`);
-                let imgArray = [data.store_image1, data.store_image2, data.store_image3]
+                $("#showStore_introduction").html(`<a style="font-weight:bold;">${st.store_name}</a><br>${st.store_introduction}`);
+                let imgArray = [st.store_image1, st.store_image2, st.store_image3]
                 for (i = 0; i < 3; i++) {
                     let src = 'https://via.placeholder.com/1200x800';
                     if (imgArray[i] != null) {
@@ -207,10 +214,63 @@ function middlePage(store_id) {
                     $("#showStore_image" + (i + 1)).attr("src", src);
                 };
                 // 預約頁籤 - 店家條
-                $("#stline-name").text(data.store_name);
-                $("#stline-name").attr("data-store_id", data.store_id)
-                $("#stline-content").text(data.store_introduction);
-                $("#stline-clicks").text(data.store_clicks);
+                $("#stline-name").text(st.store_name);
+                $("#stline-name").attr("data-store_id", st.store_id)
+                $("#stline-content").text(st.store_introduction);
+                $("#stline-clicks").text(st.store_clicks);
+
+                st.store_firstbreak == 0 ? st.store_firstbreak = null : st.store_firstbreak;
+                st.store_secondbreak == 0 ? st.store_secondbreak = null : st.store_secondbreak;
+                st.store_firstbreak == 7 ? st.store_firstbreak = 0 : st.store_firstbreak;
+                st.store_secondbreak == 7 ? st.store_secondbreak = 0 : st.store_secondbreak;
+                if (st.store_firstbreak == st.store_secondbreak) {
+                    st.store_secondbreak = null;
+                }
+                if (st.store_firstbreak != null && st.store_secondbreak != null) {
+                    selectedWeekday = [st.store_firstbreak, st.store_secondbreak];
+                } else if (st.store_firstbreak == null && st.store_secondbreak != null) {
+                    selectedWeekday = [st.store_secondbreak];
+                } else if (st.store_firstbreak != null && st.store_secondbreak == null) {
+                    selectedWeekday = [st.store_firstbreak];
+                } else {
+                    selectedWeekday = [];
+                }
+                // 回填公休日
+                let clo = JSON.parse(data[1]);
+                for (i of clo) {
+                    selectedDate.push(i.store_closed_day);
+                }
+                console.log(selectedDate);
+
+                $.datetimepicker.setLocale('zh');
+                $('input.f_date1').datetimepicker({
+                    theme: '',              //theme: 'dark',
+                    timepicker: true,       //timepicker:true,(有時分秒)
+                    step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
+                    format: 'Y-m-d H:i',         //format:'Y-m-d H:i:s','Y-m-d',
+                    // value: '<%=hiredate%>', // value:   new Date(),
+                    // disabledDates: ['2020/06/08', '2020/06/09', '2020/06/10'], // 去除特定不含
+                    disabledDates: selectedDate,
+                    disabledWeekDays: selectedWeekday,
+                    // startDate: '2020/06/10',  // 起始日
+                    minDate: '-1970-01-01', // 去除今日(不含)之前
+                    // maxDate: '+2030-01-01'  // 去除今日(不含)之後
+                });
+                // $.datetimepicker.setLocale('zh');
+                $('input.f_date2').datetimepicker({
+                    theme: '',              //theme: 'dark',
+                    timepicker: false,       //timepicker:true,(有時分秒)
+                    step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
+                    format: 'Y-m-d',         //format:'Y-m-d H:i:s','Y-m-d',
+                    // value: '<%=hiredate%>', // value:   new Date(),
+                    // disabledDates: ['2020/06/08', '2020/06/09', '2020/06/10'], // 去除特定不含
+                    disabledDates: selectedDate,
+                    disabledWeekDays: selectedWeekday,
+                    // startDate: '2020/06/10',  // 起始日
+                    minDate: '-1970-01-01', // 去除今日(不含)之前
+                    // maxDate: '+2030-01-01'  // 去除今日(不含)之後
+                });
+                console.log("公休日=" + selectedWeekday);
             }
         }
     });
@@ -219,7 +279,7 @@ function middlePage(store_id) {
 // 預約頁籤
 function bookingPage(store_id) {
     $.ajax({
-        url: projectUrl+"/ServiceController_Ajax",
+        url: projectUrl + "/ServiceController_Ajax",
         // url: "http://localhost:8081/TDA101G2/ServiceController_Ajax",
         type: "GET",                  // GET | POST | PUT | DELETE | PATCH
         data: {
@@ -329,30 +389,34 @@ $("button.booking").on("click", function () {
 })
 
 // 大吳老師- 日期套件
-$.datetimepicker.setLocale('zh');
-$('input.f_date1').datetimepicker({
-    theme: '',              //theme: 'dark',
-    timepicker: true,       //timepicker:true,(有時分秒)
-    step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
-    format: 'Y-m-d H:i',         //format:'Y-m-d H:i:s','Y-m-d',
-    // value: '<%=hiredate%>', // value:   new Date(),
-    // disabledDates: ['2020/06/08', '2020/06/09', '2020/06/10'], // 去除特定不含
-    // startDate: '2020/06/10',  // 起始日
-    minDate: '-1970-01-01', // 去除今日(不含)之前
-    // maxDate: '+2030-01-01'  // 去除今日(不含)之後
-});
-$.datetimepicker.setLocale('zh');
-$('input.f_date2').datetimepicker({
-    theme: '',              //theme: 'dark',
-    timepicker: false,       //timepicker:true,(有時分秒)
-    step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
-    format: 'Y-m-d',         //format:'Y-m-d H:i:s','Y-m-d',
-    // value: '<%=hiredate%>', // value:   new Date(),
-    // disabledDates: ['2020/06/08', '2020/06/09', '2020/06/10'], // 去除特定不含
-    // startDate: '2020/06/10',  // 起始日
-    minDate: '-1970-01-01', // 去除今日(不含)之前
-    // maxDate: '+2030-01-01'  // 去除今日(不含)之後
-});
+// $.datetimepicker.setLocale('zh');
+// $('input.f_date1').datetimepicker({
+//     theme: '',              //theme: 'dark',
+//     timepicker: true,       //timepicker:true,(有時分秒)
+//     step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
+//     format: 'Y-m-d H:i',         //format:'Y-m-d H:i:s','Y-m-d',
+//     // value: '<%=hiredate%>', // value:   new Date(),
+//     // disabledDates: ['2020/06/08', '2020/06/09', '2020/06/10'], // 去除特定不含
+//     disabledDates: selectedDate,
+//     disabledWeekDays: selectedWeekday,
+//     // startDate: '2020/06/10',  // 起始日
+//     minDate: '-1970-01-01', // 去除今日(不含)之前
+//     // maxDate: '+2030-01-01'  // 去除今日(不含)之後
+// });
+// $.datetimepicker.setLocale('zh');
+// $('input.f_date2').datetimepicker({
+//     theme: '',              //theme: 'dark',
+//     timepicker: false,       //timepicker:true,(有時分秒)
+//     step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
+//     format: 'Y-m-d',         //format:'Y-m-d H:i:s','Y-m-d',
+//     // value: '<%=hiredate%>', // value:   new Date(),
+//     // disabledDates: ['2020/06/08', '2020/06/09', '2020/06/10'], // 去除特定不含
+//     disabledDates: selectedDate,
+//     disabledWeekDays: selectedWeekday,
+//     // startDate: '2020/06/10',  // 起始日
+//     minDate: '-1970-01-01', // 去除今日(不含)之前
+//     // maxDate: '+2030-01-01'  // 去除今日(不含)之後
+// });
 
 // 確認預約按鈕
 
@@ -428,7 +492,7 @@ $("button.btn_confirm").on("click", function () {
 
     if (checkmail == true && checkphone == true) {
         $.ajax({
-            url: projectUrl+"/Store_frontController",
+            url: projectUrl + "/Store_frontController",
             // url: "http://localhost:8081/TDA101G2/Store_frontController",
             type: "POST",                  // GET | POST | PUT | DELETE | PATCH
             data: {

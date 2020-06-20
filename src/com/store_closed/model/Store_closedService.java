@@ -30,9 +30,7 @@ public class Store_closedService {
 	}
 	
 	public Set<Store_closedVO> selectByStore(String store_id){
-		Set<Store_closedVO> closed = new LinkedHashSet<Store_closedVO>();
-		closed = dao.selectByStore(store_id);
-		return closed;
+		return dao.selectByStore(store_id);
 	}
 	
 	public void insert2(Store_closedVO store_closedVO,Connection conn) {

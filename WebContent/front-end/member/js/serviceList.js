@@ -47,8 +47,36 @@ let imageobj = {
     delete base64[file.id];
   }
 }
+let imageobj2 = {
+  labelIdle: '上傳圖片',
+  // allowFileEncode: true,
+  allowImagePreview: false,
+  acceptedFileTypes: ['image/*'],
+  // imageResizeTargetWidth: 270,
+  imageResizeMode: 'contain',
+  maxFiles: 3,
+  name: 'store_image',
+  onpreparefile: (file, output) => {
+    firstTimeUpdate = true;
+    const holder = $('div#new-store-image-update2');
+    let url = URL.createObjectURL(output);
+    if (firstTimeUpdate === false) $(holder).html('');
+
+    $(holder).append(`
+      <div class="store_image_holder d-flex justify-content-center shadow-sm p-3 mb-5 bg-white rounded" id="${file.id}">
+        <img src="${url}">
+      </div>
+      `);
+    base64[file.id] = file.getFileEncodeBase64String();
+  },
+  onremovefile: (error, file) => {
+    const img = $(`#${file.id}`);
+    $(img).remove();
+    delete base64[file.id];
+  }
+}
 const pond = FilePond.create(inputElement, imageobj);
-const pond2 = FilePond.create(inputElement2, imageobj);
+const pond2 = FilePond.create(inputElement2, imageobj2);
 
 
 
@@ -262,8 +290,8 @@ $('#cancel-update').on("click", function () {
 
 // 宇宏覆寫 =============================================================================
 let path = window.location.pathname;
-const projectUrl = "http://" + window.location.host + path.substring(0, path.indexOf('/', 1))
-// const projectUrl = "http://localhost:8081/TDA101G2";
+// const projectUrl = "http://" + window.location.host + path.substring(0, path.indexOf('/', 1))
+const projectUrl = "http://localhost:8081/TDA101G2";
 
 $("input[type^='number']").inputSpinner();
 
@@ -479,7 +507,7 @@ $("#new-store").on('click', function () {
   if (checkphone == true && checkcalss == true && checkname == true && checkcadress == true) {
     $.ajax({
       url: projectUrl + "/Store_frontController",
-      //      url: "http://localhost:8081/TDA101G2/Store_frontController",
+      // url: "http://localhost:8081/TDA101G2/Store_frontController",
       type: "POST",                  // GET | POST | PUT | DELETE | PATCH
       data: {
         "action": "newStore",
@@ -506,7 +534,7 @@ $("#new-store").on('click', function () {
       success: function (data) {
         console.log(data)
         if (data.search("新增成功") != -1) {
-          $("#staticBackdrop").find("div.modal-body").text("新增成功")
+          $("#staticBackdrop").find("div.modal-body").text(data)
           $('#staticBackdrop').modal('show');
         } else {
           $("#staticBackdrop").find("div.modal-body").text("新增失敗");
@@ -517,7 +545,9 @@ $("#new-store").on('click', function () {
   }
 })
 // 修改 店家 按鈕
-$("#new-store").on('click', function () {
+$("#update-store").on('click', function () {
+  let store_id_val = $("#update_store").data("store_id");
+  let member_id_val = $("#inputMemberId").val();
   let store_class_val = $("#store_type_update2").val();
   let store_name_val = $("#store_name_update2").val();
   let store_adress_val = $("#store_adress_update2").val();
@@ -528,6 +558,7 @@ $("#new-store").on('click', function () {
   let store_maxcapacity_val = $("#store_maxcapacity_update2").val();
   let closed_array = $("#store_closed_update2").val();
   var store_closed_val = closed_array.split(",");
+  console.log(member_id_val)
   console.log(store_class_val)
   console.log(store_name_val)
   console.log(store_adress_val)
@@ -537,7 +568,6 @@ $("#new-store").on('click', function () {
   console.log(store_secondbreak_val)
   console.log(store_maxcapacity_val)
   console.log(store_closed_val)
-  console.log(store_image1_val)
 
   let checkcalss = false;
   let checkname = false;
@@ -595,6 +625,8 @@ $("#new-store").on('click', function () {
   // console.log(store_closed)
   let keys = Object.keys(base64);
   let obj = {
+    store_id: store_id_val,
+    member_id: member_id_val,
     store_class: store_class_val,
     store_name: store_name_val,
     store_adress: store_adress_val,
@@ -616,7 +648,7 @@ $("#new-store").on('click', function () {
   if (checkphone == true && checkcalss == true && checkname == true && checkcadress == true) {
     $.ajax({
       url: projectUrl + "/Store_frontController",
-      //      url: "http://localhost:8081/TDA101G2/Store_frontController",
+      // url: "http://localhost:8081/TDA101G2/Store_frontController",
       type: "POST",                  // GET | POST | PUT | DELETE | PATCH
       data: {
         "action": "updateStore",
@@ -643,7 +675,7 @@ $("#new-store").on('click', function () {
       success: function (data) {
         console.log(data)
         if (data.search("修改成功") != -1) {
-          $("#staticBackdrop").find("div.modal-body").text("修改成功")
+          $("#staticBackdrop").find("div.modal-body").text(data)
           $('#staticBackdrop').modal('show');
         } else {
           $("#staticBackdrop").find("div.modal-body").text("修改失敗");
@@ -676,13 +708,15 @@ $("#inputMemberId").change(function () {
   $("div.input_store").removeClass("d-none");
   selectedDate = [];
   myDatepicker2.clear();
+  // 清空圖片
+  $("li.filepond--item").find("button.filepond--action-remove-item").click()
 })
 
 function showStoreData(member_id) {
 
   $.ajax({
-    // url: projectUrl + "/Store_frontController",
-    url: "http://localhost:8081/TDA101G2/Store_frontController",
+    url: projectUrl + "/Store_frontController",
+    // url: "http://localhost:8081/TDA101G2/Store_frontController",
     type: "GET",                  // GET | POST | PUT | DELETE | PATCH
     data: {
       "action": "getStoreData",
@@ -712,6 +746,7 @@ function showStoreData(member_id) {
       if (data != null) {
         $("div.update_store").removeClass("d-none");
         $("div.input_store").addClass("d-none");
+        $("#update_store").attr("data-store_id", st.store_id)
         $("#store_name_update2").val(st.store_name)
         $("#store_type_update2").val(st.store_class)
         $("#store_maxcapacity_update2").val(st.store_maxcapacity)
@@ -757,7 +792,7 @@ let store_id;
 function showServiceList(member_id) {
   $.ajax({
     url: projectUrl + "/Store_frontController",
-    //    url: "http://localhost:8081/TDA101G2/Store_frontController",
+    // url: "http://localhost:8081/TDA101G2/Store_frontController",
     type: "POST",                  // GET | POST | PUT | DELETE | PATCH
     data: {
       "action": "getListByMember",
@@ -870,7 +905,7 @@ $("#add-service-btn").on("click", function () {
     var service = JSON.stringify(serviceObj);
     $.ajax({
       url: projectUrl + "/Store_frontController",
-      //      url: "http://localhost:8081/TDA101G2/Store_frontController",
+      // url: "http://localhost:8081/TDA101G2/Store_frontController",
       type: "POST",                  // GET | POST | PUT | DELETE | PATCH
       data: {
         "action": "newService",
@@ -939,7 +974,7 @@ $("#update-service-btn").on('click', function () {
   var service = JSON.stringify(serviceObj);
   $.ajax({
     url: projectUrl + "/Store_frontController",
-    //    url: "http://localhost:8081/TDA101G2/Store_frontController",
+    // url: "http://localhost:8081/TDA101G2/Store_frontController",
     type: "POST",                  // GET | POST | PUT | DELETE | PATCH
     data: {
       "action": "updateService",
@@ -984,7 +1019,7 @@ $('#service-table').on('click', 'a.product-remove', function () {
 $("#remove").on('click', function () {
   $.ajax({
     url: projectUrl + "/Store_frontController",
-    //    url: "http://localhost:8081/TDA101G2/Store_frontController",
+    // url: "http://localhost:8081/TDA101G2/Store_frontController",
     type: "POST",                  // GET | POST | PUT | DELETE | PATCH
     data: {
       "action": "deleteService",
