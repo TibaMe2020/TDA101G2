@@ -219,7 +219,7 @@ CREATE TABLE POST(
 	POST_MESSAGE_COUNT NUMBER(10),
 	POST_SHARE NUMBER(10),
 	CREATE_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        UPDATE_TIME TIMESTAMP
+    UPDATE_TIME TIMESTAMP
 );
 
 CREATE TABLE FOLLOW(
@@ -254,7 +254,7 @@ CREATE TABLE MESSAGE(
 	FOREIGN KEY(POST_ID) REFERENCES POST(POST_ID),
 	MESSAGE_CONTENT VARCHAR2(200) NOT NULL,
 	CREATE_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        UPDATE_TIME TIMESTAMP
+    UPDATE_TIME TIMESTAMP
 );
 ---------------------------------------------------------------------------
 --創建商城TABLE
@@ -1202,11 +1202,11 @@ VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', '生活', '我養�
 看見他，於是覺得心也蓬鬆起來，煩惱也跟著變得輕盈。沒想過生養小孩，對於母親一職還多有掙扎，卻經常覺得貓咪像孩子，於是深切理解曬娃的不可遏止，
 就是太可愛了，不要叫我忍住。也很少覺得貓咪是「寵物」，因為覺得，我也並不擁有他什麼，雖然親暱叫喊是我的貓，不過他其實也並不屬於我。他有他自己
 的生命，不屬於任何一個人。養貓的時候我經常想，不過是幸運，我們成為彼此的家人，彼此陪伴，去經歷這千錘百鍊又可親可愛的一生。後來想想，有血緣的
-家人，不也應該如此嗎，誰也不擁有誰，誰也不拖欠誰。', 520, 3, 57);
+家人，不也應該如此嗎，誰也不擁有誰，誰也不拖欠誰。', 520, 2, 57);
 
 INSERT INTO POST(POST_ID, MEMBER_ID, POST_CLASS, POST_CONTENT, POST_LIKE, POST_MESSAGE_COUNT, POST_SHARE)
 VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00005', '生活', '我們家小喵每次都在我工作時撒嬌，雖然常常讓我工作做不完QQ但是真的真的很可愛，尤其冬天時紛紛跳到腿上，絕對是最棒的
-暖爐。', 65, 1, 3);
+暖爐。', 65, 2, 3);
 
 INSERT INTO POST(POST_ID, MEMBER_ID, POST_CLASS, POST_CONTENT, POST_LIKE, POST_MESSAGE_COUNT, POST_SHARE)
 VALUES('PID' || lpad(POST_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', '美食', '波希米亞人咖啡：環繞古典咖啡香的波希米亞人這裡不是一個顯眼及好找的地方。雖然可以從當代藝術館旁的巷子裡走進去，但
@@ -1253,7 +1253,7 @@ INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpa
 INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'MB00005');
 INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00003', 'MB00007');
 INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00005', 'MB00006');
-INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'MB00005');
+INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'MB00006');
 INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00008', 'MB00004');
 INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00006', 'MB00008');
 INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpad(FOLLOW_ID_SEQ.NEXTVAL, 5, '0'), 'MB00004', 'MB00009');
@@ -1262,12 +1262,12 @@ INSERT INTO FOLLOW(FOLLOW_ID, MEMBER_ID, FOLLOWED_MEMBER_ID) VALUES('FID' || lpa
 --新增資料SAVED--
 INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00002', 'PID00001');
 INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00005', 'PID00001');
-INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00001');
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00003', 'PID00001');
 INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00002', 'PID00003');
-INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00003');
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00006', 'PID00003');
 INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00003', 'PID00004');
 INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00005');
-INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00007', 'PID00006');
+INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00008', 'PID00006');
 INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00004', 'PID00009');
 INSERT INTO SAVED(SAVED_POST_ID, MEMBER_ID, POST_ID) VALUES('SID' || lpad(SAVED_ID_SEQ.NEXTVAL, 5, '0'), 'MB00001', 'PID00010');
 --------------------------------------------------------------------------------------------------------------------------------
@@ -1399,96 +1399,96 @@ VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00007', 'PID00010', '�
 
     
 INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
-VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00001','MB00001','宋仲基',900000,'信用卡',976233145,'sleepbag111@gmail.com');
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00001','MB00001','宋仲基',900000,'信用卡','0976023691','sleepbag111@gmail.com');
 
 INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
-VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00002','MB00002','中山王建民',6000,'信用卡',976211145,'oppoenlin@gmail.com');
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00002','MB00002','中山王建民',6000,'信用卡','0976211145','oppoenlin@gmail.com');
 
 INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
-VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00003','MB00003','花蓮朴寶劍',860000,'信用卡',879411145,'engerlin11@gmail.com');
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00003','MB00003','花蓮朴寶劍',860000,'信用卡','0879411145','engerlin11@gmail.com');
 
 INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
-VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00004','MB00004','林志玲',200,'paypal',974125789,'sleeplag222@gmail.com');
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00004','MB00004','林志玲',200,'paypal','0974125789','sleeplag222@gmail.com');
 
 INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
-VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00005','MB00005','蘆洲楊丞琳',87000,'信用卡',976211145,'qlin3@gmail.com');
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00005','MB00005','蘆洲楊丞琳',87000,'信用卡','0976219145','qlin3@gmail.com');
 
 INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
-VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00006','MB00006','台大王心凌',400,'paypal',976211145,'kokoji11@gmail.com');
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00006','MB00006','台大王心凌',400,'paypal','0976211845','kokoji11@gmail.com');
 
 INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
-VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00007','MB00007','中原梁朝偉',14000,'信用卡',976211145,'pigcu891@gmail.com');
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00007','MB00007','中原梁朝偉',14000,'信用卡','0976271145','pigcu891@gmail.com');
 
 INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
-VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00008','MB00008','南投金城武',2020,'paypal',976211145,'papa520@gmail.com');
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00008','MB00008','南投金城武',2020,'paypal','0976311145','papa520@gmail.com');
 
 INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
-VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00009','MB00009','文化李知恩',4500,'信用卡',976211145,'mama528@gmail.com');
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00009','MB00009','文化李知恩',4500,'信用卡','0906211145','mama528@gmail.com');
 
 INSERT INTO DONATION_FORM_INFO(DONATION_FORM_ID,NPO_ID,MEMBER_ID,DONATOR_NAME,DONATION_MONEY,PAYMENT,DONATOR_PHONE_NUM,RECEIPT_TYPE)
-VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00010','MB00010','政大周子瑜',602000,'信用卡',976211145,'giroo99@gmail.com');
+VALUES('DID' || lpad(donation_form_id_SEQ.nextval, 5, '0'),'NID00010','MB00010','政大周子瑜',602000,'信用卡','0976001145','giroo99@gmail.com');
 
 --==============================================================================================================================================
 
 INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
-VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00001','MB00002','喬妹','今天沒什麼想說的話','宋慧喬',978787845,'信用卡','sleepbag123@.gmail.com','臺北市士林區 蘭雅里中山北路6段197號');
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00001','MB00002','喬妹','今天沒什麼想說的話','宋慧喬','0978787845','信用卡','sleepbag123@.gmail.com','臺北市士林區 蘭雅里中山北路6段197號');
 
 INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
-VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00002','MB00003','祥祥','我會愛惜他','吳凱祥',987878744,'paypal','dpdp77@gmail.com','臺北市內湖區麗山里 內湖路1段411巷10號');
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00002','MB00003','祥祥','我會愛惜他','吳凱祥','0987878744','paypal','dpdp77@gmail.com','臺北市內湖區麗山里 內湖路1段411巷10號');
 
 INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
-VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00003','MB00004','香香','這隻貓是我生命中的第一隻,請為了我繼續活下去','林香婷',963214541,'信用卡','apple66@gmail.com','臺北市北投區 關渡里知行路75號');
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00003','MB00004','香香','這隻貓是我生命中的第一隻,請為了我繼續活下去','林香婷','0963214541','信用卡','apple66@gmail.com','臺北市北投區 關渡里知行路75號');
 
 INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
-VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00004','MB00005','許芸芳','我養了很多隻動物,這是我的第50隻,顆顆','許芸芳',974151227,'信用卡','banana1@gmail.com','臺北市信義區雙和里吳興街284巷24弄19號');
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00004','MB00005','許芸芳','我養了很多隻動物,這是我的第50隻,顆顆','許芸芳','0974151227','信用卡','banana1@gmail.com','臺北市信義區雙和里吳興街284巷24弄19號');
 
 INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
-VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00005','MB00006','萌萌','這隻狗是我每一天的動力來源','陳雨萌',945788747,'信用卡','gugi9@gmail.com','臺北市士林區臨溪里至善路2段264號');
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00005','MB00006','萌萌','這隻狗是我每一天的動力來源','陳雨萌','0945788747','信用卡','gugi9@gmail.com','臺北市士林區臨溪里至善路2段264號');
 
 INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
-VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00006','MB00007','寶兒','林寶兒',945788888,'信用卡','hand7@gmail.com','桃園文山區興福里景興街101號');
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00006','MB00007','寶兒','林寶兒','0945788888','信用卡','hand7@gmail.com','桃園文山區興福里景興街101號');
 
 INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
-VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00007','MB00008','天天','我的寵物是世界上最棒的!','胡一天',947725847,'信用卡','hanle9@gmail.com','臺北市文山區興業里辛亥路5段102號');
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00007','MB00008','天天','我的寵物是世界上最棒的!','胡一天','0947725847','信用卡','hanle9@gmail.com','臺北市文山區興業里辛亥路5段102號');
 
 INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
-VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00008','MB00009','花花','沒養過動物有點怕怕的','華宇晨',945008874,'paypal','rock7@gmail.com','花蓮縣豐濱鄉豐濱村光豐路48號');
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00008','MB00009','花花','沒養過動物有點怕怕的','華宇晨','0945008874','paypal','rock7@gmail.com','花蓮縣豐濱鄉豐濱村光豐路48號');
 
 INSERT INTO ADOPT_FORM_INFO(ADOPT_FORM_ID,ADOPT_ID,MEMBER_ID,ADOPT_PERSON,ADOPT_TALK,PAYADOPT_PERSON,ADOPT_PHONE_NUM,ADOPT_PAYMENT,ADOPT_EMAIL,ADDRESS)
-VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00009','MB00010','阿紫','把你養死了不要怪我,嗚嗚嗚','楊紫茵',944008747,'paypal','sushiyo330@gmail.com','彰化縣彰化市萬安里長順街170號');
+VALUES('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'),'AID00009','MB00010','阿紫','把你養死了不要怪我,嗚嗚嗚','楊紫茵','0944008747','paypal','sushiyo330@gmail.com','彰化縣彰化市萬安里長順街170號');
 
 --===================================================================================================================================================
 
 
- INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
-VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00001','NID00001','人逢知己千杯少，難得在漫漫人生路上能認識你，在一起走過的日子，非常的感謝你給我的幫助，我始終不能忘記我們友誼，不能忘記我們在一起的點點滴滴，很想說有你真好，祝福你我的朋友');
+ INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_MONTH,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00001','NID00001',1,'人逢知己千杯少，難得在漫漫人生路上能認識你，在一起走過的日子，非常的感謝你給我的幫助，我始終不能忘記我們友誼，不能忘記我們在一起的點點滴滴，很想說有你真好，祝福你我的朋友');
 
-INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
-VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00002','NID00002','我始終相信大部分的人在大部分的時候都是善的，很多話都是當下真誠的。');
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_MONTH,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00002','NID00002',2,'我始終相信大部分的人在大部分的時候都是善的，很多話都是當下真誠的。');
 
-INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
-VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00003','NID00003','去分析他人的苦惱，能夠被人依賴、被人惦記、被人喜愛本身就是很幸福的事情，即使被人利用、被人戲弄、被人傷害也不一定是壞事，被人利用至少證明自己有用，被人戲弄至少證明自己還是有被人認同的存在，被人傷害至少證明自己還是有感情有生命的而且能夠學會如何不用同一種方法誤傷他人。');
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_MONTH,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00003','NID00003',3,'去分析他人的苦惱，能夠被人依賴、被人惦記、被人喜愛本身就是很幸福的事情，即使被人利用、被人戲弄、被人傷害也不一定是壞事，被人利用至少證明自己有用，被人戲弄至少證明自己還是有被人認同的存在，被人傷害至少證明自己還是有感情有生命的而且能夠學會如何不用同一種方法誤傷他人。');
 
-INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
-VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00004','NID00004','謝謝所有出現在我生命中的人。');
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_MONTH,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00004','NID00004',4,'謝謝所有出現在我生命中的人。');
 
-INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
-VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00005','NID00005','今天，在遙遠的此處，我把你給予我的曾經，折起祝福的紙鶴，飛過千山和萬水，隻是為了告訴我的恩施你,謝謝你一直的栽培和照顧!');
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_MONTH,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00005','NID00005',5,'今天，在遙遠的此處，我把你給予我的曾經，折起祝福的紙鶴，飛過千山和萬水，隻是為了告訴我的恩施你,謝謝你一直的栽培和照顧!');
 
-INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
-VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00006','NID00006','我的空間因你而美麗，感謝一路上有你!');
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_MONTH,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00006','NID00006',6,'我的空間因你而美麗，感謝一路上有你!');
 
-INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
-VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00007','NID00007','感謝那些關心我的朋友們，是你們讓我知道我們彼此從未分開過');
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_MONTH,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00007','NID00007',7,'感謝那些關心我的朋友們，是你們讓我知道我們彼此從未分開過');
 
-INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
-VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00008','NID00008','無論是助人還是助己，無論是大事還是小事，只要用心付出，一定會有所收獲的');
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_MONTH,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00008','NID00008',8,'無論是助人還是助己，無論是大事還是小事，只要用心付出，一定會有所收獲的');
 
-INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
-VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00009','NID00009','你心底坦蕩善良呵護著我善感柔弱的心靈,你待人寬容真誠');
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_MONTH,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00009','NID00009',9,'你心底坦蕩善良呵護著我善感柔弱的心靈,你待人寬容真誠');
 
-INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_CONTENT)
-VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00010','NID00010','如果我能在幾天之間獲得別人幾周幾個月甚至幾年的情緒波動，那其實我得到的是更多的');
+INSERT INTO DONATION_RESULT(RESULT_ID,MEMBER_ID,NPO_ID,RESULT_MONTH,RESULT_CONTENT)
+VALUES('RID' || lpad(result_id_SEQ.nextval, 5, '0'),'MB00010','NID00010',10,'如果我能在幾天之間獲得別人幾周幾個月甚至幾年的情緒波動，那其實我得到的是更多的');
 
 commit;
 

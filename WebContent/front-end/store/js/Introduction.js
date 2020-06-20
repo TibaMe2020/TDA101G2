@@ -29,6 +29,8 @@ window.onload = (event) => {
                 $("#storeType1").addClass("d-none");
                 $("#storeType2").removeClass("d-none");
                 $("#storeType2-2").addClass("d-none");
+                $("#totalonly").addClass("d-none");
+                $("#hostelTotal").removeClass("d-none");
                 break;
             case 'grooming':
                 text.text("寵物美容");
@@ -38,6 +40,8 @@ window.onload = (event) => {
                 $("#storeType1").addClass("d-none");
                 $("#storeType2").removeClass("d-none");
                 $("#storeType2-2").addClass("d-none");
+                $("#totalonly").removeClass("d-none");
+                $("#hostelTotal").addClass("d-none");
                 break;
             case 'school':
                 text.text("寵物學校");
@@ -47,6 +51,8 @@ window.onload = (event) => {
                 $("#storeType1").addClass("d-none");
                 $("#storeType2").removeClass("d-none");
                 $("#storeType2-2").addClass("d-none");
+                $("#totalonly").removeClass("d-none");
+                $("#hostelTotal").addClass("d-none");
                 break;
             case 'hospital':
                 text.text("寵物醫院");
@@ -168,7 +174,9 @@ function pageBooking(e) {
 function middlePage(store_id) {
     let selectedWeekday = [];
     let selectedDate = [];
-    // $('input.f_date1').datetimepicker({'disabledWeekDays', null});
+    // $('input.f_date1').data('datetimepicker').clear();
+    // $('input.f_date1').datetimepicker('reset')
+    // $('input.f_date1').datetimepicker('disabledWeekDays', null);
     $.ajax({
         url: projectUrl + "/Store_frontController",
         // url: "http://localhost:8081/TDA101G2/Store_frontController",
@@ -256,6 +264,8 @@ function middlePage(store_id) {
                     minDate: '-1970-01-01', // 去除今日(不含)之前
                     // maxDate: '+2030-01-01'  // 去除今日(不含)之後
                 });
+
+                // let choosedate = "2020-7-1"
                 // $.datetimepicker.setLocale('zh');
                 $('input.f_date2').datetimepicker({
                     theme: '',              //theme: 'dark',
@@ -268,12 +278,14 @@ function middlePage(store_id) {
                     disabledWeekDays: selectedWeekday,
                     // startDate: '2020/06/10',  // 起始日
                     minDate: '-1970-01-01', // 去除今日(不含)之前
+                    // minDate: choosedate, // 去除今日(不含)之前
                     // maxDate: '+2030-01-01'  // 去除今日(不含)之後
                 });
                 console.log("公休日=" + selectedWeekday);
             }
         }
     });
+    // let choosedate = $('input.f_date1').val()
 }
 
 // 預約頁籤
@@ -357,8 +369,8 @@ function total() {
 
             // document.getElementById("add").value = sum;
         });
-
         $("input.bookingTotal").val("$ " + thousandComma(sum));
+        $("input.bookingTotal").attr("data-price", sum);
     });
 }
 // 金錢符號 每三位+,
@@ -373,6 +385,33 @@ var thousandComma = function (number) {
     return num;
 
 }
+// 計算天數
+$("input.input-date-checkout").change(function () {
+    var date1 = $("input.input-date-normal").val();
+    var date2 = $(this).val();
+    let count = days_between(new Date(date1), new Date(date2));
+    let price = $("input.bookingTotal").data("price")
+    $("input.dateCount").val(count)
+    $("input.getTotal").val("$ " + thousandComma(count * price));
+})
+
+function days_between(date1, date2) {
+
+    // The number of milliseconds in one day
+    var ONE_DAY = 1000 * 60 * 60 * 24
+
+    // Convert both dates to milliseconds
+    var date1_ms = date1.getTime()
+    var date2_ms = date2.getTime()
+
+    // Calculate the difference in milliseconds
+    var difference_ms = Math.abs(date1_ms - date2_ms)
+
+    // Convert back to days and return
+    return Math.round(difference_ms / ONE_DAY)
+
+}
+
 // 預約 上一步.下一步
 $("button.nextstep").on("click", function () {
     $("#storeType2").addClass("d-none");
