@@ -383,12 +383,13 @@
                         </div>
                         <div>
                             <label for="inputPersons">預約日期</label>
-                            <input type="text" class="form-control f_date2 input-date-normal input-date">
+                            <input type="text" class="form-control f_date2 input-date-normal input-date"
+                                id="checkinDate">
                             <!-- 大吳老師套件 f_date1 -->
                         </div>
                         <div>
                             <label for="inputPersons">結束日期</label>
-                            <input type="text" class="form-control f_date2 input-date-checkout">
+                            <input type="text" class="form-control f_date2 input-date-checkout" id="checkoutDate">
                             <!-- 大吳老師套件 f_date1 -->
                         </div>
                         <div>
@@ -420,7 +421,8 @@
                             <div class="form-group row">
                                 <label for="#" class="col-sm-4 col-form-label">合計</label>
                                 <div class="col-sm-6">
-                                    <input type="text" readonly class="form-control-plaintext getTotal" value="$ 0">
+                                    <input type="text" readonly class="form-control-plaintext getTotal" value="$ 0"
+                                        id="getTotal">
                                 </div>
                             </div>
                         </div>
@@ -495,7 +497,7 @@
     <script src="../../resources/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../resources/vendors/bootstrap/js/bootstrap-input-spinner.js"></script>
     <script src="../../resources/vendors/datetimepicker/jquery.datetimepicker.full.js"></script>
-    <!-- <script src="./vendors/datetimepicker/jquery.js"></script> -->
+    <!-- <script src="../../resources/vendors/datetimepicker/jquery.js"></script> -->
     <script src="./js/Introduction.js"></script>
 </body>
 

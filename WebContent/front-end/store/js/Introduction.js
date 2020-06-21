@@ -174,9 +174,9 @@ function pageBooking(e) {
 function middlePage(store_id) {
     let selectedWeekday = [];
     let selectedDate = [];
-    // $('input.f_date1').data('datetimepicker').clear();
-    // $('input.f_date1').datetimepicker('reset')
-    // $('input.f_date1').datetimepicker('disabledWeekDays', null);
+    $('input.f_date1').datetimepicker('destroy')
+    $('input.f_date2').datetimepicker('destroy')
+
     $.ajax({
         url: projectUrl + "/Store_frontController",
         // url: "http://localhost:8081/TDA101G2/Store_frontController",
@@ -204,7 +204,7 @@ function middlePage(store_id) {
         },
 
         success: function (data) {
-            console.log(data)
+            // console.log(data)
             let st = JSON.parse(data[0]);
             if (data.length != 0) {
                 $("#showStore_introduction").html(`<a style="font-weight:bold;">${st.store_name}</a><br>${st.store_introduction}`);
@@ -248,7 +248,7 @@ function middlePage(store_id) {
                 for (i of clo) {
                     selectedDate.push(i.store_closed_day);
                 }
-                console.log(selectedDate);
+                // console.log(selectedDate);
 
                 $.datetimepicker.setLocale('zh');
                 $('input.f_date1').datetimepicker({
@@ -265,7 +265,7 @@ function middlePage(store_id) {
                     // maxDate: '+2030-01-01'  // 去除今日(不含)之後
                 });
 
-                // let choosedate = "2020-7-1"
+                let choosedate = "2020-7-1"
                 // $.datetimepicker.setLocale('zh');
                 $('input.f_date2').datetimepicker({
                     theme: '',              //theme: 'dark',
@@ -278,14 +278,12 @@ function middlePage(store_id) {
                     disabledWeekDays: selectedWeekday,
                     // startDate: '2020/06/10',  // 起始日
                     minDate: '-1970-01-01', // 去除今日(不含)之前
-                    // minDate: choosedate, // 去除今日(不含)之前
                     // maxDate: '+2030-01-01'  // 去除今日(不含)之後
                 });
-                console.log("公休日=" + selectedWeekday);
+                // console.log("公休日=" + selectedWeekday);
             }
         }
     });
-    // let choosedate = $('input.f_date1').val()
 }
 
 // 預約頁籤
@@ -353,6 +351,10 @@ function bookingPage(store_id) {
             }
             $("div.table-responsive input[type='number']").inputSpinner();
             total();
+            // $("div.table-responsive input[type^='number']").change(function () {
+            //     console.log(123)
+            //     dateCounter()
+            // })
         }
     });
 }
@@ -386,13 +388,28 @@ var thousandComma = function (number) {
 
 }
 // 計算天數
-$("input.input-date-checkout").change(function () {
-    var date1 = $("input.input-date-normal").val();
-    var date2 = $(this).val();
-    let count = days_between(new Date(date1), new Date(date2));
-    let price = $("input.bookingTotal").data("price")
-    $("input.dateCount").val(count)
-    $("input.getTotal").val("$ " + thousandComma(count * price));
+function dateCounter() {
+    $("input[class*='input-date']").change(function () {
+        // $("input.input-date-checkout").change(function () {
+        var date1 = $("input.input-date-normal").val();
+        var date2 = $("input.input-date-checkout").val();
+        let count = days_between(new Date(date1), new Date(date2));
+        let price = $("input.bookingTotal").attr("data-price")
+
+        $("input.dateCount").val(count)
+        // $("input.getTotal").val("$ " + thousandComma(count * price));
+        $("#getTotal").val("$ " + thousandComma(count * price));
+    })
+}
+dateCounter()
+// 回填初始日
+$("#checkinDate").change(function () {
+    let day = new Date($(this).val())
+    let nextday = day.setDate(day.getDate() + 1)
+    $("#checkoutDate").datetimepicker({
+        minDate: nextday,
+        startDate: nextday
+    })
 })
 
 function days_between(date1, date2) {
@@ -416,10 +433,14 @@ function days_between(date1, date2) {
 $("button.nextstep").on("click", function () {
     $("#storeType2").addClass("d-none");
     $("#storeType2-2").removeClass("d-none");
+    dateCounter()
+    $("input[class*='input-date']").change()
 })
 $("button.previous-step").on("click", function () {
     $("#storeType2").removeClass("d-none");
     $("#storeType2-2").addClass("d-none");
+    dateCounter()
+    $("input[class*='input-date']").change()
 })
 
 // 介紹頁籤 - 預約按鈕
