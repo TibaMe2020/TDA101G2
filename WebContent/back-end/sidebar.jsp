@@ -23,6 +23,10 @@
               class="list-group-item list-group-item-action d-flex">
               <i class="fas fa-user-check sidebar-icon"></i>
               &nbsp賣家審核</a>
+            <a href="<%=request.getContextPath()%>/back-end/store/select_page.jsp"
+              class="list-group-item list-group-item-action d-flex">
+              <i class="fas fa-search sidebar-icon"></i>
+              &nbsp店家查詢</a>
 
             <a href="#submenu1" data-toggle="collapse" aria-expanded="false"
               class="list-group-item list-group-item-action flex-column justify-content-between ">
@@ -35,6 +39,7 @@
                 <i class="fas fa-caret-down"></i>
               </div>
             </a>
+            
             <!-- Submenu content -->
             <div id='submenu1' class="collapse sidebar-submenu">
               <a href="<%=request.getContextPath()%>/back-end/npo.jsp"
