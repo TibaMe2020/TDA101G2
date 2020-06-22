@@ -115,7 +115,7 @@
           </ul>
 
           <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab">
+            <div class="tab-pane fade show active order-holder" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab">
             
 							<c:forEach items="${orderList}" var="order">
               <div class="card bg-white border-0 product_order" data-orderState="${order.product_order_state}">
@@ -184,11 +184,22 @@
 </div>
     <%@ include file="footer.jsp"%>
     <script>
+    
+    	//check if order exists
+   		function checkIfEmpty() {
+   			let cards = $('.card'); 
+   			if($(cards).length === 0) {
+   				$('.order-holder').append('<div class="text-center">您還沒有購買任何商品請點選此' + 
+   						'<a href="<%=request.getContextPath()%>/front-end/product/Product.jsp"' +
+   						'style="color:blue; font-weight:900;">連結</a>去購物</div>'
+   				);
+   			}
+   		}
    		
-    	
-    	
     
     	$(function() {
+    		
+    		checkIfEmpty();
     		let starHolders = $('.star-holder');
     		$.each(starHolders, function(i, item) {
     			let stars = $(item).data("stars");
@@ -221,10 +232,10 @@
 	    			$(o).removeClass('d-none');
 	    			if($(o).attr('data-orderState') !== order_state) {
 	    				$(o).addClass('d-none');
-	    			} else {
-	    				
 	    			}
 	    		})
+	    		
+	    		
     		})
     		
     	})
