@@ -43,12 +43,12 @@ public class NotificationController extends HttpServlet {
 			try {
 				String notification_id = req.getParameter("notification_id");
 				notiSvc.delete(notification_id);
-				RequestDispatcher view = req.getRequestDispatcher("/front-end/notification/notifications.jsp");
+				RequestDispatcher view = req.getRequestDispatcher("/front-end/member/notiOverview.jsp");
 				view.forward(req, res);
 				return;
 			} catch (Exception e) {
 				e.printStackTrace();
-				RequestDispatcher view = req.getRequestDispatcher("/front-end/notification/notifications.jsp");
+				RequestDispatcher view = req.getRequestDispatcher("/front-end/member/notiOverview.jsp");
 				view.forward(req, res);
 				return;
 			}
@@ -65,13 +65,13 @@ public class NotificationController extends HttpServlet {
 			  Gson gson = new Gson();
 			  notiVO = gson.fromJson(json, NotiVO.class);
 			  notiSvc.insert(notiVO);
-			  RequestDispatcher view = req.getRequestDispatcher("/front-end/notification/notifications.jsp");
+			  RequestDispatcher view = req.getRequestDispatcher("/front-end/member/notiOverview.jsp");
 				view.forward(req, res);
 				return;
 			  
 			} catch(Exception e) {
 				e.printStackTrace();
-				RequestDispatcher view = req.getRequestDispatcher("/front-end/notification/notifications.jsp");
+				RequestDispatcher view = req.getRequestDispatcher("/front-end/member/notiOverview.jsp");
 				view.forward(req, res);
 				return;
 			}

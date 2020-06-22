@@ -122,11 +122,11 @@ public class MemberController extends HttpServlet {
 		if ("signup".equals(action)) {
 			Map<String, String> errorMsgs = new HashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String failurePath ="/front-end/member/signUp.jsp";
+			String failurePath ="/front-end/member/login.jsp";
 			String successPath = "/front-end/member/login.jsp";
 			HttpSession session = req.getSession();
-			String url = (String) session.getAttribute("location");
-			url = url.substring(url.indexOf('/', 1));
+//			String url = (String) session.getAttribute("location");
+//			url = url.substring(url.indexOf('/', 1));
 			try {
 				String name = req.getParameter("name").trim();
 				String email = req.getParameter("email").trim();
@@ -201,7 +201,7 @@ public class MemberController extends HttpServlet {
 				req.setAttribute("new_member", memberVO);
 
 				if (!errorMsgs.isEmpty()) {
-					fw.forward(url);
+					fw.forward(failurePath);
 					return;
 				}
 
@@ -209,7 +209,7 @@ public class MemberController extends HttpServlet {
 
 				if ("".equals(memberVO.getEmail())) {
 					errorMsgs.put("signupEmail", "This email has been registered");
-					fw.forward(url);
+					fw.forward(failurePath);
 					return;
 				}
 				
@@ -225,13 +225,13 @@ public class MemberController extends HttpServlet {
 				se.sendEmail(email, content);
 				session.removeAttribute("new_member");
 				session.invalidate();
-				fw.forward(url);
+				fw.forward(failurePath);
 				return;
 
 			} catch (Exception e) {
 				e.printStackTrace();
 				errorMsgs.put("error", e.getMessage());
-				fw.forward(url);
+				fw.forward(successPath);
 				return;
 			}
 		}

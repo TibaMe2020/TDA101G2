@@ -37,7 +37,7 @@
             <div class="table-title">
               <div class="row">
                 <div class="col-sm-6  text-left d-flex align-items-center">
-                  <h2 id="table-title-text">訂單列表</h2>
+                  <h2 id="table-title-text">商品訂單</h2>
                 </div>
               </div>
             </div>

@@ -39,7 +39,7 @@
 		order_states.put("1", "待付款");
 		order_states.put("2", "待出貨");
 		order_states.put("3", "已出貨");
-		order_states.put("4", "待收貨");
+		order_states.put("4", "待取貨");
 		order_states.put("5", "尚未評價");
 		order_states.put("6", "已完成");
 		pageContext.setAttribute("order_states", order_states);
@@ -88,6 +88,10 @@
         <div class="content-title">購買清單</div>
         <div class="content-container">
           <ul class="nav nav-pills mb-3 bg-white d-flex justify-content-center" id="pills-tab" role="tablist">
+          	<li class="nav-item flex-fill">
+              <a class="nav-link" id="show-all" data-toggle="pill" href="#" role="tab" aria-controls="pills-7"
+                aria-selected="false">所有訂單</a>
+            </li>
             <li class="nav-item flex-fill dropdown">
               <a class="nav-link dropdown-toggle active" id="pills" data-toggle="dropdown" href="#" role="button"
                 aria-haspopup="true" aria-expanded="false">已完成</a>
@@ -110,7 +114,7 @@
             </li>
             <li class="nav-item flex-fill">
               <a class="nav-link order-state-pill" id="pills-4" data-toggle="pill" href="#pills-10" role="tab" aria-controls="pills-10"
-                aria-selected="false" data-order-state="4">待收貨</a>
+                aria-selected="false" data-order-state="4">待取貨</a>
             </li>
           </ul>
 
@@ -225,7 +229,7 @@
     		$('.order-state-pill').on('click', function() {
 	    		let self = this;
 	    		let order_state = $(this).attr('data-order-state');
-	    		console.log(order_state);
+// 	    		console.log(order_state);
 	    		let orders = $('.product_order');
 	    		
 	    		$.each(orders, function(i, o) {
@@ -234,8 +238,13 @@
 	    				$(o).addClass('d-none');
 	    			}
 	    		})
-	    		
-	    		
+    		})
+    		
+    		$('#show-all').on('click', function() {
+    			let orders = $('.product_order');
+    			$.each(orders, function(i, o) {
+	    			$(o).removeClass('d-none');
+	    		})
     		})
     		
     	})

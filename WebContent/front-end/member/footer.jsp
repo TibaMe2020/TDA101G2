@@ -117,14 +117,28 @@
 					language : 'zh',
 					maxDate : new Date(),
 					autoClose : true
-			})
-			if(${not empty new_member.birthday ? 'true' : 'false'}) {
-				$('input#birthday').data('datepicker').selectDate(new Date("${new_member.birthday}"));
-			} else if(${not empty memberVO.birthday ? 'true' : 'false'}) {
-				$('input#birthday').data('datepicker').selectDate(new Date("${memberVO.birthday}"));
-			}
-		  $('div.datepicker').css('z-index', 1100);
+				})
+				if(${not empty new_member.birthday ? 'true' : 'false'}) {
+					$('input#birthday').data('datepicker').selectDate(new Date("${new_member.birthday}"));
+				} else if(${not empty memberVO.birthday ? 'true' : 'false'}) {
+					$('input#birthday').data('datepicker').selectDate(new Date("${memberVO.birthday}"));
+				}
+		  	$('div.datepicker').css('z-index', 1100);
 		  }
+			if(${not empty errorMsgs.loginEmail ? 'true' : 'false'} || 
+					${not empty errorMsgs.loginPassword ? 'true' : 'false'} ||
+					${not empty errorMsgs.loginAccount ? 'true' : 'false'}) {
+					$('#login-modal').click();
+				} else if (${not empty errorMsgs.loginEmail ? 'true' : 'false'} ||
+					${not empty errorMsgs.signupName ? 'true' : 'false'} ||
+					${not empty errorMsgs.signupEmail ? 'true' : 'false'} ||
+					${not empty errorMsgs.signupPhone_num ? 'true' : 'false'} ||
+					${not empty errorMsgs.signupPassword ? 'true' : 'false'} ||
+					${not empty errorMsgs.signupAddress ? 'true' : 'false'}
+				) {
+					$('#login-modal').click();
+					$('#signup-link').click();
+			}
 		})
 	<%} else { %>
 		let notibell = $('.fa-bell');
@@ -162,19 +176,6 @@
 			})
 		}
 		
-		if(${not empty errorMsgs.loginEmail ? 'true' : 'false'} || 
-			${not empty errorMsgs.loginPassword ? 'true' : 'false'} ||
-			${not empty errorMsgs.loginAccount ? 'true' : 'false'}) {
-			$('#login-modal').click();
-		} else if (${not empty errorMsgs.loginEmail ? 'true' : 'false'} ||
-			${not empty errorMsgs.signupName ? 'true' : 'false'} ||
-			${not empty errorMsgs.signupEmail ? 'true' : 'false'} ||
-			${not empty errorMsgs.signupPhone_num ? 'true' : 'false'} ||
-			${not empty errorMsgs.signupPassword ? 'true' : 'false'} ||
-			${not empty errorMsgs.signupAddress ? 'true' : 'false'}
-		) {
-			$('#login-modal').click();
-			$('#signup-link').click();
-		}
+		
 	<%}%>
 	</script>
