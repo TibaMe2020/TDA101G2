@@ -11,10 +11,46 @@
 <head>
 <meta charset="UTF-8">
 <title>店家資料修改 - update_store_input</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/adminStatistics.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
+<style type="text/css">
+div.myform a {
+	color: blue;
+}
+</style>
 </head>
 <body>
-	<a href='<%=request.getContextPath()%>/back-end/store/listAllStore.jsp'>回查全部</a>
-	<h3>店家修改</h3><span style="color: red ">${errorMsgs.error}</span>
+<header class="bg-white">
+		<div class="container-fluid">
+			<div class="row header">
+				<div
+					class="col-2 d-flex align-items-center justify-content-center border-right border-bottom">
+					<img src="<%=request.getContextPath()%>/resources/images/admin.svg"
+						alt="admin"> &nbsp;
+					<h5 class="text-center admin-tab">Admin</h5>
+				</div>
+				<div
+					class="col-10 d-flex align-items-center justify-content-center border-bottom">
+					<h3 class="title-tab">店家資料修改</h3>
+				</div>
+			</div>
+		</div>
+
+	</header>
+	<div class="container-fluid">
+		<div class="row content-height">
+			<div class="col-2">
+				<%@ include file="/back-end/sidebar.jsp"%>
+			</div>
+
+			<div class="col-10">
+				<div class="row justify-content-star myform">
+				<div class="col-1"></div>
+				<div class="col-10">
+	<a href='<%=request.getContextPath()%>/back-end/store/listAllStore.jsp'>回所有店家</a>
+	<span style="color: red ">${errorMsgs.error}</span>
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/store/Controller" name="form1" enctype="multipart/form-data" multiple>
 		<table>
 			<tr>
@@ -138,6 +174,13 @@
 <%-- 		<img id="image<%=i%>" style="width:100%;"src="<%=request.getContextPath()%>/store/ShowImg?store_id=${storeVO.store_id}&store_image=<%=i%>"/> --%>
 <!-- 	</div> -->
 <%-- 	<%}%> --%>
+							</div>
+		</div>
+
+	</div>
+
+	</div>
+	</div>
 	<script>
 		function loadImageFile(event){
 			switch(event.target.name){
