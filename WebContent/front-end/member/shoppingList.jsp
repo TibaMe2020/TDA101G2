@@ -42,13 +42,6 @@
 		order_states.put("4", "待收貨");
 		order_states.put("5", "尚未評價");
 		order_states.put("6", "已完成");
-// 		Map<Long, String> order_states = new HashMap<>();
-// 		order_states.put(1L, "待付款");
-// 		order_states.put(2L, "待出貨");
-// 		order_states.put(3L, "已出貨");
-// 		order_states.put(4L, "待收貨");
-// 		order_states.put(5L, "尚未評價");
-// 		order_states.put(6L, "已完成");
 		pageContext.setAttribute("order_states", order_states);
 		
 		List<Order_master_VO> orders = null;
@@ -94,53 +87,43 @@
       <div class="col-9">
         <div class="content-title">購買清單</div>
         <div class="content-container">
-<!--           <ul class="nav nav-pills mb-3 bg-white d-flex justify-content-center" id="pills-tab" role="tablist"> -->
-<!--             <li class="nav-item flex-fill dropdown "> -->
-<!--               <a class="nav-link dropdown-toggle active" id="pills-1" data-toggle="dropdown" href="#" role="button" -->
-<!--                 aria-haspopup="true" aria-expanded="false">已完成</a> -->
-<!--               <div class="dropdown-menu"> -->
-<!--                 <a class="dropdown-item" id="pills-1" data-toggle="pill" href="#pills-1" href="#">已評價</a> -->
-<!--                 <a class="dropdown-item" id="pills-2" data-toggle="pill" href="#pills-2" href="#">未評價</a> -->
-<!--               </div> -->
-<!--             </li> -->
-<!--             <li class="nav-item dropdown flex-fill"> -->
-<!--               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" -->
-<!--                 aria-expanded="false">預約</a> -->
-<!--               <div class="dropdown-menu"> -->
-<!--                 <a class="dropdown-item" id="pills-3" data-toggle="pill" href="#pills-3" href="#">已預約</a> -->
-<!--                 <a class="dropdown-item" id="pills-4" data-toggle="pill" href="#pills-4" href="#">服務中</a> -->
-<!--                 <a class="dropdown-item" id="pills-5" data-toggle="pill" href="#pills-5" href="#">服務完成</a> -->
-<!--                 <a class="dropdown-item" id="pills-6" data-toggle="pill" href="#pills-6" href="#">服務逾期</a> -->
-<!--               </div> -->
-<!--             </li> -->
-<!--             <li class="nav-item flex-fill"> -->
-<!--               <a class="nav-link" id="pills-7" data-toggle="pill" href="#pills-7" role="tab" aria-controls="pills-7" -->
-<!--                 aria-selected="false">待付款</a> -->
-<!--             </li> -->
-<!--             <li class="nav-item flex-fill"> -->
-<!--               <a class="nav-link" id="pills-8" data-toggle="pill" href="#pills-8" role="tab" aria-controls="pills-8" -->
-<!--                 aria-selected="false">待出貨</a> -->
-<!--             </li> -->
-<!--             <li class="nav-item flex-fill"> -->
-<!--               <a class="nav-link" id="pills-9" data-toggle="pill" href="#pills-9" role="tab" aria-controls="pills-9" -->
-<!--                 aria-selected="false">已出貨</a> -->
-<!--             </li> -->
-<!--             <li class="nav-item flex-fill"> -->
-<!--               <a class="nav-link" id="pills-10" data-toggle="pill" href="#pills-10" role="tab" aria-controls="pills-10" -->
-<!--                 aria-selected="false">待收貨</a> -->
-<!--             </li> -->
-<!--           </ul> -->
+          <ul class="nav nav-pills mb-3 bg-white d-flex justify-content-center" id="pills-tab" role="tablist">
+            <li class="nav-item flex-fill dropdown">
+              <a class="nav-link dropdown-toggle active" id="pills" data-toggle="dropdown" href="#" role="button"
+                aria-haspopup="true" aria-expanded="false">已完成</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item order-state-pill" id="pills-5" href="#" data-toggle="pill" data-order-state="5">未評價</a>
+                <a class="dropdown-item order-state-pill" id="pills-6" href="#" data-toggle="pill" data-order-state="6">已評價</a>
+              </div>
+            </li>
+            <li class="nav-item flex-fill">
+              <a class="nav-link order-state-pill" id="pills-1" data-toggle="pill" href="#pills-7" role="tab" aria-controls="pills-7"
+                aria-selected="false" data-order-state="1">待付款</a>
+            </li>
+            <li class="nav-item flex-fill">
+              <a class="nav-link order-state-pill" id="pills-2" data-toggle="pill" href="#pills-8" role="tab" aria-controls="pills-8"
+                aria-selected="false" data-order-state="2">待出貨</a>
+            </li>
+            <li class="nav-item flex-fill">
+              <a class="nav-link order-state-pill" id="pills-3" data-toggle="pill" href="#pills-9" role="tab" aria-controls="pills-9"
+                aria-selected="false" data-order-state="3">已出貨</a>
+            </li>
+            <li class="nav-item flex-fill">
+              <a class="nav-link order-state-pill" id="pills-4" data-toggle="pill" href="#pills-10" role="tab" aria-controls="pills-10"
+                aria-selected="false" data-order-state="4">待收貨</a>
+            </li>
+          </ul>
 
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab">
             
 							<c:forEach items="${orderList}" var="order">
-              <div class="card bg-white border-0">
+              <div class="card bg-white border-0 product_order" data-orderState="${order.product_order_state}">
                 <div class="card-header bg-white d-flex justify-content-between">
                   <div>
 <%--                     	賣家: ${order.getDetail_list().get(0).getVersionVO().getProductVO().getMember_id()}<br> --%>
-<%--                     	訂單編號: ${order.order_master_id}&nbsp&nbsp&nbsp&nbsp --%>
-                    	訂單狀態:  ${order_states[order.product_order_state]}
+                    	訂單編號: ${order.order_master_id}&nbsp&nbsp&nbsp&nbsp
+<!--                     	訂單狀態:  ${order_states[order.product_order_state]} -->
                   </div>
 
                   <div>
@@ -202,6 +185,8 @@
     <%@ include file="footer.jsp"%>
     <script>
    		
+    	
+    	
     
     	$(function() {
     		let starHolders = $('.star-holder');
@@ -226,6 +211,21 @@
     			$(t).text("$" +total);
     		}) 
     		
+    		$('.order-state-pill').on('click', function() {
+	    		let self = this;
+	    		let order_state = $(this).attr('data-order-state');
+	    		console.log(order_state);
+	    		let orders = $('.product_order');
+	    		
+	    		$.each(orders, function(i, o) {
+	    			$(o).removeClass('d-none');
+	    			if($(o).attr('data-orderState') !== order_state) {
+	    				$(o).addClass('d-none');
+	    			} else {
+	    				
+	    			}
+	    		})
+    		})
     		
     	})
     

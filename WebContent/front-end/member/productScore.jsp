@@ -216,9 +216,9 @@
 	  				  success: function(data){    
 	  					  console.log(data);
 	  					  if(data == "success") {
-	  					    window.location.href = "<%=request.getContextPath()%>/front-end/member/productList.jsp";
+	  					    window.location.href = "<%=request.getContextPath()%>/front-end/member/shoppingList.jsp";
 	  					  } else {
-	  						  	window.location.href = "<%=request.getContextPath()%>/front-end/member/productList.jsp";
+	  						  	window.location.href = "<%=request.getContextPath()%>/front-end/member/shoppingList.jsp";
 	  					  }
 	  				  },
 	  				  error: function(xhr){      
