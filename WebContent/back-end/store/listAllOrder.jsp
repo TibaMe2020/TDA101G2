@@ -22,6 +22,10 @@
 <head>
 <meta charset="UTF-8">
 <title>所有店家訂單 - listAllOrder.jsp</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/adminStatistics.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
 <style>
 	table, th, td {
 		border: 1px solid black;
@@ -29,7 +33,33 @@
 </style>
 </head>
 <body>
-	<a href='<%=request.getContextPath()%>/back-end/store/select_page.jsp'>回首頁</a>
+<header class="bg-white">
+		<div class="container-fluid">
+			<div class="row header">
+				<div
+					class="col-2 d-flex align-items-center justify-content-center border-right border-bottom">
+					<img src="<%=request.getContextPath()%>/resources/images/admin.svg"
+						alt="admin"> &nbsp;
+					<h5 class="text-center admin-tab">Admin</h5>
+				</div>
+				<div
+					class="col-10 d-flex align-items-center justify-content-center border-bottom">
+					<h3 class="title-tab">所有訂單</h3>
+				</div>
+			</div>
+		</div>
+
+	</header>
+	<div class="container-fluid">
+		<div class="row content-height">
+			<div class="col-2">
+				<%@ include file="/back-end/sidebar.jsp"%>
+			</div>
+
+			<div class="col-10">
+				<div class="row justify-content-star myform">
+				<div class="col-1"></div>
+				<div class="col-10">
 	<%@ include file="page1.file" %>
 	<span style="color: red ">${errorMsgs.error}</span>
 	<table>
@@ -47,7 +77,6 @@
 		<th>備註</th>
 		<th>預約狀態</th>
 		<th>創建日期</th>
-		<th>修改</th>
 		<th>訂單明細</th>
 		<th>刪除</th>
 	</tr>
@@ -100,7 +129,13 @@
 		</tr>
 	    </c:forEach>
 	</table>
-	
+				</div>
+		</div>
+
+	</div>
+
+	</div>
+	</div>
 	
 </body>
 </html>
