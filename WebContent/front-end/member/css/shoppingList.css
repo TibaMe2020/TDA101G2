@@ -1,0 +1,338 @@
+/* GENERAL */
+
+* {
+  /* border: 0.5px solid black; */
+  font-size: 18px;
+  font-family: 'Noto Serif TC', sans-serif;
+}
+
+a, a:link, a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  background-color: #F3F2F2;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+
+div.nav-holder {
+  height: 80px;
+  background-color: #13406A;
+}
+
+.i-white {
+  color: #ffffff;
+  font-size: 1.4em;
+}
+
+.i-white:hover {
+  color: rgb(241, 238, 238);
+}
+
+.em-md {
+  font-size: 1.3em;
+}
+
+.logo-container {
+  display: inline-block;
+  width: 70px;
+  height: 61.08px;
+}
+
+img.logo {
+  width: 100%;
+}
+
+.logo-text-container {
+  display: inline-block;
+}
+
+.logo-text {
+  color: #FFCC73;
+  font-size: 36px;
+  font-family: Perpetua;
+  text-decoration: none;
+}
+
+a.noti-more {
+  font-size: 0.8em;
+  color: #D1D1D1;
+}
+
+.noti-more:hover {
+  color: #565963;
+}
+
+div.nav-icon-holder {
+  flex: 0 0 330px;
+}
+
+div.nav {
+  background-color: white;
+}
+
+.nav-item {
+  color: #13406A;
+}
+
+.nav-item:hover, div.card:hover {
+  background-color: rgb(241, 238, 238);
+}
+
+a.nav-link {
+  padding: 5px 10px;
+}
+
+.row {
+  text-align: center;
+}
+
+.navbar-content {
+  margin: 10px 0;
+}
+
+.dropdown-toggle {
+  color: white;
+}
+
+.dropdown-toggle::after {
+  border: none;
+}
+
+#noti-dot {
+  color: #DC3545;
+  font-size: 0.5em;
+}
+
+.no-margin {
+  margin: 0px;
+}
+
+hr.hr-margin {
+  margin: 5px 0px 18px 0px;
+}
+
+#noti-number {
+  color: red;
+}
+
+/* SIDEBAR */
+
+div.avatar {
+  width: 100px;
+  height: 100px;
+  background: url(../../resources/images/triangle.png);
+  border-radius: 50%;
+  background-size: 100%;
+}
+
+.container-fluid {
+  padding: 0px;
+}
+
+a.list-group-item {
+  border: none;
+}
+
+#sidebar-wrapper {
+  height: 100%;
+  /* margin-left: -15rem; */
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper, .sidebar-heading {
+  padding: 0.875em 1.25em;
+  font-size: 1.2em;
+  font-weight: 1000;
+}
+
+.sidebar-icon {
+  font-size: 1.1em;
+}
+
+.fa-list, .fa-list-ol {
+  position: relative;
+  top: 1.5px;
+}
+
+a.list-group-item {
+  color: #565963;
+}
+
+/* CONTENT */
+
+.content-height {
+  height: 100%;
+  min-height: 1000px;
+}
+
+div.content-title {
+  font-size: 24px;
+  text-align: left;
+  margin: 20px 0;
+}
+
+.card {
+  text-align: left;
+  margin: 20px 0px;
+}
+
+input.form-control, select.form-control {
+  max-width: 500px;
+}
+
+.btn-primary {
+  background-color: #13406A;
+  border: none;
+  width: 150px;
+}
+
+.btn-primary:hover {
+  background-color: rgb(12, 41, 68);
+}
+
+label {
+  color: #565963;
+}
+
+.modal-header {
+  margin: 0px;
+}
+
+.modal {
+  text-align: center;
+}
+
+.modal-dialog {
+  text-align: left;
+  max-width: 1000px;
+  width: auto !important;
+  /* display: inline-block; */
+}
+
+.modal-footer {
+  border: none;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 1000px;
+  }
+}
+
+h5.modal-title {
+  font-size: 1.1em;
+  /* font-weight: 800; */
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.no-padding {
+  padding: 0px;
+}
+
+a#forgot-password {
+  color: #6e717e;
+  font-size: 1em;
+}
+
+a#forgot-password:hover {
+  color: black;
+}
+
+div.product-image {
+  height: 120px;
+  width: 200px;
+  background-color: white;
+}
+
+div.product-image img {
+  width: 100%;
+  height: 120px;
+}
+
+ul#pills-tab li {
+  color: black;
+}
+
+.dropdown-menu {
+  min-width: 12.5rem;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link, .dropdown-item.active, .dropdown-item:active {
+  background-color: #D1D1D1;
+  color: black;
+}
+
+.orange {
+	color: #EF8216;
+}
+
+/* FOOTER */
+
+/* div.fixed-height {
+  margin-bottom: 0;
+} */
+
+div.footer {
+  background-color: #13406A;
+  height: 270px;
+}
+
+ul.footer-info li {
+  color: white;
+  background-color: #13406A;
+}
+
+ul.footer-info {
+  padding-inline-start: 0px;
+  border-radius: 0;
+  background-color: #13406A;
+}
+
+.social-media-icon {
+  color: white;
+  font-size: 1.5em;
+}
+
+li.padding-bottom {
+  padding-bottom: 0px;
+}
+
+div.footer-copyright, div.footer-copyright a {
+  font-family: Perpetua;
+  background-color: rgb(233, 232, 232);
+  padding: 0px !important;
+}
+
+div.footer div {
+  padding: 0px;
+}
+
+span#footer-logo {
+  font-size: 90px;
+}
+
+div.footer-col {
+  height: 100%;
+}
+
+div.footer-col-blue {
+  background-color: #13406A;
+}
+
+ul.footer-info li.list-group-item {
+  border: 1px;
+}

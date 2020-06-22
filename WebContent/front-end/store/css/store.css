@@ -32,13 +32,13 @@ div.title {
 
 div.main_img {
   padding: 20, 0px;
-  max-width: 1000px;
+  max-width: 1600px;
 }
 
 /* 宣傳圖高度限制 */
 
 img.w-100 {
-  max-height: 450px
+  max-height: 650px
 }
 
 div.carousel {
@@ -111,7 +111,7 @@ p.introduction_text {
   margin: 0 0 0 0;
 }
 
-.col-3 {
+.imgbox {
   height: 100px;
 }
 

@@ -19,6 +19,10 @@ nav.my_breadcrumb ol.breadcrumb .breadcrumb-item.active {
     /* font-size: 24px; */
 }
 
+li.breadcrumb-item a.dropdown-toggle{
+	color: black;
+}
+
 /* 骨頭 */
 
 img.bone {
@@ -128,14 +132,14 @@ div.main_img {
 /* 介紹頁面 */
 
 div.introduction {
-    max-width: 800px;
+    max-width: 1000px;
     margin-top: 10px;
     /* border: 1px solid red; */
 }
 
 div.main_img {
     padding: 20, 0px;
-    max-width: 800px;
+    max-width: 1000px;
 }
 
 /* 店家圖高度限制 */
@@ -152,6 +156,7 @@ div.introduction button.btn-primary {
 
 .btn-primary {
     border: 0;
+    color:white!important;
 }
 
 /* 預約頁面 */

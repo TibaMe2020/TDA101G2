@@ -1,0 +1,123 @@
+/* GENERAL */
+
+* {
+  font-size: 18px;
+  color: #8A8F9C;
+  font-family: 'Noto Serif TC', sans-serif;
+}
+
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  background-color: #F3F2F2;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+
+.header {
+  min-height: 60px;
+}
+
+.admin-tab, .title-tab {
+  margin: 0;
+}
+
+.container-fluid, .col-2, .col-10 {
+  padding: 0px;
+}
+
+
+
+
+/* SIDEBAR */
+
+
+
+#admin-account-holder{
+  padding: 20px 0px;
+}
+
+a.list-group-item {
+   border: none; 
+}
+
+#sidebar-wrapper {
+  height: 100%;
+  background-color: #fff;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper,
+.sidebar-heading {
+  font-size: 1.2em;
+  /* font-weight: 1000; */
+}
+
+i.sidebar-icon {
+  /* font-size: 1.1em; */
+  width: 1.1em;
+  line-height: inherit;
+}
+
+.fa-list,
+.fa-list-ol {
+  position: relative;
+  top: 1.5px;
+}
+
+
+
+/* ================================================================================ */
+
+/* CONTENT */
+
+.content-height {
+  min-height: 100vh;
+}
+
+div.content-title {
+  font-size: 24px;
+  text-align: left;
+  margin: 20px 0;
+}
+
+
+
+.btn-primary {
+  background-color: #13406A;
+  border: none;
+  width: 150px;
+}
+
+#cancel-product.btn-secondary {
+  border: none;
+  width: 150px;
+}
+
+#cancel-update.btn-secondary {
+  border: none;
+  width: 150px;
+}
+
+.height-100{
+  min-height: 100vh;
+}
+
+.canvasjs-chart-canvas{
+  border-radius: .25rem;
+}
+
+div.chart-holder{
+  padding:25px;
+}
+
+

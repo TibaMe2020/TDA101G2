@@ -290,8 +290,8 @@ $('#cancel-update').on("click", function () {
 
 // 宇宏覆寫 =============================================================================
 let path = window.location.pathname;
-// const projectUrl = "http://" + window.location.host + path.substring(0, path.indexOf('/', 1))
-const projectUrl = "http://localhost:8081/TDA101G2";
+ const projectUrl = "http://" + window.location.host + path.substring(0, path.indexOf('/', 1))
+//const projectUrl = "http://localhost:8081/TDA101G2";
 
 $("input[type^='number']").inputSpinner();
 
@@ -712,6 +712,10 @@ $("#inputMemberId").change(function () {
   $("li.filepond--item").find("button.filepond--action-remove-item").click()
 })
 
+if($("#inputMemberId").val()!=null){
+	$("#inputMemberId").change();
+}
+
 function showStoreData(member_id) {
 
   $.ajax({
@@ -820,7 +824,6 @@ function showServiceList(member_id) {
       $("#service-table").empty();
       let tr_html = "";
       $.each(data, function (index, item) {
-        store_id = item.store_id;
         tr_html +=
           `<tr class="service_id" data-service_id="${item.service_id}" data-store_id="${item.store_id}">
             <td class="service_detail">${item.service_detail}</td>

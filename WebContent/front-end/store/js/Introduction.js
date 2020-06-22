@@ -2,8 +2,8 @@ let path = window.location.pathname;
 // console.log(window.location.host)
 // console.log(path)
 // console.log(path.substring(0,path.indexOf('/',1)))
-// const projectUrl = "http://"+window.location.host+path.substring(0,path.indexOf('/',1))
-const projectUrl = "http://localhost:8081/TDA101G2";
+ const projectUrl = "http://"+window.location.host+path.substring(0,path.indexOf('/',1))
+//const projectUrl = "http://localhost:8081/TDA101G2";
 // console.log(projectUrl)
 
 window.onload = (event) => {
@@ -13,7 +13,8 @@ window.onload = (event) => {
     for (let pair of params.entries()) {
         // console.log(`key: ${pair[0]}, value: ${pair[1]}`)
 
-        let text = $("a.dropdown-toggle")
+        let text = $("a.store-dropdown")
+//        console.log(text); 
         switch (pair[1]) {
             case 'restaurant':
                 text.text("寵物餐廳");
@@ -248,7 +249,8 @@ function middlePage(store_id) {
                 for (i of clo) {
                     selectedDate.push(i.store_closed_day);
                 }
-                // console.log(selectedDate);
+                console.log(selectedWeekday);
+                console.log(selectedDate);
 
                 $.datetimepicker.setLocale('zh');
                 $('input.f_date1').datetimepicker({
@@ -517,7 +519,7 @@ $("button.btn_confirm").on("click", function () {
     let nameval = name.val();
     let date = null;
     let dateval = null;
-    if ($("a.dropdown-toggle").html().search("寵物美容") != -1) {
+    if ($("a.store-dropdown").html().search("寵物美容") != -1) {
         date = current.find("input.input-date-gromming");
         dateval = date.val();
     } else {
