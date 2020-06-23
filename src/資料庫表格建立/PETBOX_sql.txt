@@ -816,7 +816,7 @@ insert into store_closed(store_closed_id, store_id, store_closed_day) values('SC
 --------------------------------------------------------------------------
 -- 新增 服務列表
 insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07001', 'S07002', '寵物住宿', 1000, 50, null, 1);
-insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07002', 'S07002', '寵物SPA', 500, -1, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07002', 'S07002', '寵物SPA', 500, 90, null, 1);
 insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07003', 'S07003', '調理毛髮', 200, 3, 30, 1);
 insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07004', 'S07003', '寵物造型', 1000, 3, 90, 1);
 insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07005', 'S07003', '修剪指甲', 50, 3, 15, 1);
@@ -831,7 +831,7 @@ insert into service(service_id, store_id, service_detail, service_price, service
 insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07014', 'S07008', '喵騎士套房', 2000, 10, null, 1);
 insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07015', 'S07008', '喵皇室套房', 3000, 5, null, 1);
 insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07016', 'S07008', '喵武士套房', 2000, 15, null, 1);
-insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07017', 'S07010', 'SPS牛奶浴', 1000, -1, null, 1);
+insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07017', 'S07010', 'SPS牛奶浴', 1000, 100, null, 1);
 insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07018', 'S07010', 'VIP 尊爵房', 2500, 30, null, 1);
 insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07019', 'S07010', '馬卡龍繽紛房', 1800, 30, null, 1);
 insert into service(service_id, store_id, service_detail, service_price, service_limit, service_time, service_state) values('SE07020', 'S07010', '小型溫馨房', 1200, 30, null, 1);
