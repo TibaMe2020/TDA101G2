@@ -376,8 +376,8 @@ public class Store_frontController extends HttpServlet {
 			Gson gson = new Gson();
 			ServiceVO serviceVO =gson.fromJson(service,ServiceVO.class);
 			ServiceService serviceSvc = new ServiceService();
-			serviceSvc.newSerivce(serviceVO);
-			out.print("service新增成功");
+			String serviceId = serviceSvc.newSerivce2(serviceVO);
+			out.print("service新增成功="+serviceId);
 		}
 		
 		if (("deleteService").equals(action)) {

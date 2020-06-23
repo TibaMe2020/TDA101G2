@@ -26,6 +26,9 @@ public class ServiceService {
 	public void newSerivce(ServiceVO serviceVO) {
 		dao.insert(serviceVO);
 	}
+	public String newSerivce2(ServiceVO serviceVO) {
+		return dao.insert2(serviceVO);
+	}
 	
 	public ServiceVO updateService(String service_id, String store_id,  String service_detail, Integer service_price,
 			Integer service_limit, Integer service_time, Integer service_state) {

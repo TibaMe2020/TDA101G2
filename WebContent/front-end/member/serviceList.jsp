@@ -18,8 +18,8 @@
 </head>
 
 <body>
-<%@ include file="header.jsp"%>
-  
+  <%@ include file="header.jsp"%>
+
 
 
   <div class="container-fluid">
@@ -46,7 +46,7 @@
                       </a>
                     </li>
                     <!-- for銜接meber -->
-                    <input type="text" id="inputMemberId" style="width: 100px;" value="<%=memberVO.getMember_id()%>"/>
+                    <input type="text" id="inputMemberId" style="width: 100px;" value="<%=memberVO.getMember_id()%>" />
                     <!-- for銜接meber -->
                   </ul>
                 </div>
@@ -471,6 +471,9 @@
                       <label for="quantity">數量上限</label>
                       <div>
                         <input type="number" name="quantity" id="quantity" class="form-control">
+                        <div class="invalid-feedback">
+                          數量上限不可空白 或 0
+                        </div>
                       </div>
                     </div>
 
@@ -567,12 +570,12 @@
 
     </div>
   </div>
-<br>
-<%@ include file="footer.jsp"%>
+  <br>
+  <%@ include file="footer.jsp"%>
 
-<!--   <script src="../../resources/vendors/jquery/jquery.js"></script> -->
-<!--   <script src="../../resources/vendors/popper/popper.min.js"></script> -->
-<!--   <script src="../../resources/vendors/bootstrap/js/bootstrap.min.js"></script> -->
+  <!--   <script src="../../resources/vendors/jquery/jquery.js"></script> -->
+  <!--   <script src="../../resources/vendors/popper/popper.min.js"></script> -->
+  <!--   <script src="../../resources/vendors/bootstrap/js/bootstrap.min.js"></script> -->
   <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
   <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
   <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>

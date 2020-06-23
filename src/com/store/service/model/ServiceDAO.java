@@ -54,7 +54,6 @@ public class ServiceDAO implements ServiceDAO_interface {
 			conn = datasource.getConnection();
 			ps = conn.prepareStatement(INSERT);
 			
-//			ps.setString(1, serviceVO.getService_id());
 			ps.setString(1, serviceVO.getStore_id());
 			ps.setString(2, serviceVO.getService_detail());
 			ps.setInt(3, serviceVO.getService_price());
@@ -63,6 +62,57 @@ public class ServiceDAO implements ServiceDAO_interface {
 			ps.setObject(6, serviceVO.getService_state(), java.sql.Types.INTEGER);
 			ps.executeUpdate();
 			
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： "+e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured： " + e.getMessage());
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	@Override
+	public String insert2(ServiceVO serviceVO) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
+			
+			String next_serviceId;
+			ResultSet rs;
+			String cols[] = {"SERVICE_ID"};
+			ps = conn.prepareStatement(INSERT, cols);
+			
+			ps.setString(1, serviceVO.getStore_id());
+			ps.setString(2, serviceVO.getService_detail());
+			ps.setInt(3, serviceVO.getService_price());
+			ps.setObject(4, serviceVO.getService_limit(), java.sql.Types.INTEGER);
+			ps.setObject(5, serviceVO.getService_time(), java.sql.Types.INTEGER);
+			ps.setObject(6, serviceVO.getService_state(), java.sql.Types.INTEGER);
+			ps.executeUpdate();
+			
+			next_serviceId = null;
+			rs = ps.getGeneratedKeys();
+			if(rs.next()) {
+				next_serviceId = rs.getString(1);
+			}
+			return next_serviceId;
 //		} catch (ClassNotFoundException e) {
 //			throw new RuntimeException("Couldn't load database driver： "+e.getMessage());
 		} catch (SQLException e) {

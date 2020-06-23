@@ -290,7 +290,7 @@ $('#cancel-update').on("click", function () {
 
 // 宇宏覆寫 =============================================================================
 let path = window.location.pathname;
- const projectUrl = "http://" + window.location.host + path.substring(0, path.indexOf('/', 1))
+const projectUrl = "http://" + window.location.host + path.substring(0, path.indexOf('/', 1))
 //const projectUrl = "http://localhost:8081/TDA101G2";
 
 $("input[type^='number']").inputSpinner();
@@ -712,10 +712,10 @@ $("#inputMemberId").change(function () {
   $("li.filepond--item").find("button.filepond--action-remove-item").click()
 })
 
-if($("#inputMemberId").val()!=null){
-	$("#inputMemberId").change();
+if ($("#inputMemberId").val() != null) {
+  $("#inputMemberId").change();
 }
-
+let storeid;
 function showStoreData(member_id) {
 
   $.ajax({
@@ -747,6 +747,7 @@ function showStoreData(member_id) {
     success: function (data) {
       console.log(data)
       let st = JSON.parse(data[0]);
+      storeid = st.store_id
       if (data != null) {
         $("div.update_store").removeClass("d-none");
         $("div.input_store").addClass("d-none");
@@ -792,7 +793,6 @@ function showStoreData(member_id) {
   })
 }
 
-let store_id;
 function showServiceList(member_id) {
   $.ajax({
     url: projectUrl + "/Store_frontController",
@@ -871,41 +871,16 @@ $("#add-service-btn").on("click", function () {
   } else {
     $(this).closest("#add-product").find("#price").removeClass("is-invalid")
   }
-  if (name != "" && price != "" && price != 0) {
-    let tr_html =
-      `<tr class="service_id newService" data-service_id="">
-        <td class="service_detail">${name}</td>
-        <td class="service_price">${price}</td>
-        <td class="service_limit">${limit}</td>
-        <td>
-          <div class="d-flex justify-content-center">
-            <label class="switch d-flex align-self-center">
-              <input type="checkbox" name="product_state" checked>
-              <span class="slider round"></span>
-            </label>
-          </div>
-        </td>
-        <td>
-          <div class="d-flex justify-content-center">
-            <a href="#update-product" data-toggle="modal" class="product-update">
-              <i class="fas fa-pen"></i>
-            </a>
-          </div>
-        </td>
-        <td>
-          <a href="#remove-product" data-toggle="modal" class="product-remove">
-            <i class="fas fa-trash"></i>
-          </a>
-        </td>
-      </tr>`;
-    $("#service-table").append(tr_html);
-    $("#add-product").modal('hide')
-    $("#service_name").val("")
-    $("#price").val("")
-    $("#quantity").val("")
-    console.log(storeid)
-    let serviceObj = { store_id: store_id, service_detail: name, service_price: price, service_limit: limit }
+  if (limit == "" || limit == 0) {
+    $(this).closest("#add-product").find("#quantity").addClass("is-invalid")
+  } else {
+    $(this).closest("#add-product").find("#quantity").removeClass("is-invalid")
+  }
+  if (name != "" && price != "" && price != 0 && limit != 0 && limit != "") {
+
+    let serviceObj = { store_id: storeid, service_detail: name, service_price: price, service_limit: limit }
     var service = JSON.stringify(serviceObj);
+    console.log(service)
     $.ajax({
       url: projectUrl + "/Store_frontController",
       // url: "http://localhost:8081/TDA101G2/Store_frontController",
@@ -934,22 +909,47 @@ $("#add-service-btn").on("click", function () {
 
       success: function (data) {
         console.log(data)
+        let reult = data.toString()
+        let text = reult.substr(data.indexOf("=") + 1);
+        let tr_html =
+          `<tr class="service_id newService" data-service_id="${text}" data-store_id="${storeid}">
+            <td class="service_detail">${name}</td>
+            <td class="service_price">${price}</td>
+            <td class="service_limit">${limit}</td>
+            <td>
+              <div class="d-flex justify-content-center">
+                <label class="switch d-flex align-self-center">
+                  <input type="checkbox" name="product_state" checked>
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex justify-content-center">
+                <a href="#update-product" data-toggle="modal" class="product-update">
+                  <i class="fas fa-pen"></i>
+                </a>
+              </div>
+            </td>
+            <td>
+              <a href="#remove-product" data-toggle="modal" class="product-remove">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>`;
+        $("#service-table").append(tr_html);
       }
     })
+    $("#add-product").modal('hide')
+    $("#service_name").val("")
+    $("#price").val("")
+    $("#quantity").val("")
   }
 })
-// 更新服務
-$('#update-product-btn').on("click", function () {
 
-  let modal = $(this).closest('.modal-content');
-  let name = $('#product_name_update').val().trim();
-  let type = $('#product_type_update').val().trim();
-
-  let form = $(this).closest('form');
-})
 // 修改服務-1
 let serviceid;
-let storeid;
+
 let nameobj;
 let priceobj;
 let limitobj;
@@ -962,6 +962,8 @@ $('#service-table').on('click', 'a.product-update', function () {
   let price = priceobj.html()
   limitobj = $(this).closest("tr.service_id").find("td.service_limit")
   let limit = limitobj.html()
+  console.log(storeid)
+  $("#update-product").find("#update-service-btn").attr("data-store_id", storeid)
   $("#update-product").find("#service_name").val(name)
   $("#update-product").find("#price").val(price)
   $("#update-product").find("#quantity").val(limit)
@@ -971,9 +973,10 @@ $("#update-service-btn").on('click', function () {
   let newname = $(this).closest("#update-product").find("#service_name").val()
   let newprice = $(this).closest("#update-product").find("#price").val()
   let newlimit = $(this).closest("#update-product").find("#quantity").val()
+  let storeID = $(this).data("store_id")
   console.log(serviceid)
-  console.log(storeid)
-  let serviceObj = { service_id: serviceid, store_id: storeid, service_detail: newname, service_price: newprice, service_limit: newlimit }
+  console.log(storeID)
+  let serviceObj = { service_id: serviceid, store_id: storeID, service_detail: newname, service_price: newprice, service_limit: newlimit }
   var service = JSON.stringify(serviceObj);
   $.ajax({
     url: projectUrl + "/Store_frontController",
