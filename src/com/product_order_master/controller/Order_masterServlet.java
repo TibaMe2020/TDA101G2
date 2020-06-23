@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.notification.model.NotiService;
+import com.notification.model.NotiVO;
 import com.product_order_master.model.Order_master_Service;
 import com.product_order_master.model.Order_master_VO;
 
@@ -213,6 +215,18 @@ public class Order_masterServlet extends HttpServlet {
 			try {
 				Order_master_Service orderSvc = new Order_master_Service();
 				orderSvc.updateState(order_id, order_state);
+				NotiService notiSvc = new NotiService();
+				Order_master_VO orderVO = orderSvc.getOneMaster(order_id);
+				String member_id = orderVO.getMember_id();
+				NotiVO notiVO = new NotiVO();
+				notiVO.setMember_id(member_id);
+				if("4".equals(order_state)) {
+					notiVO.setNotification_class(1);
+					notiSvc.insert(notiVO);
+				} else if("5".equals(order_state)) {
+					notiVO.setNotification_class(2);
+					notiSvc.insert(notiVO);
+				}
 				out.print("success");
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -43,12 +43,23 @@
 					<c:if test="${ not empty notiMap }">
 						<c:forEach var="noti" items="${ notiMap.entrySet() }">
 							<div class="card">
-								<a>
-									<div class="card-body">
-										<p class="card-text">${noti.getValue().get(1)}</p>
-										<p class="card-text noti-time">${noti.getValue().get(0)}</p>
-									</div>
-								</a>
+								<div>
+										<div class="card-body">
+											<p class="card-text">${noti.getValue().get(1)}</p>
+											<p class="card-text noti-time">${noti.getValue().get(0)}</p>
+											<form action="<%=request.getContextPath()%>/notification/controller" 
+											method="post">
+												<input type="hidden" name="action" value="delete">
+												<input type="hidden" name="notification_id" value="${noti.getKey()}">
+												<c:if test="${noti.getKey()!='NO00000'}">
+													<input type="submit" value="刪除" class="btn btn-outline-dark"> 
+												</c:if>
+											</form>
+										</div>
+								</div>
+								<div>
+									
+								</div>
 							</div>
 						</c:forEach>
 					</c:if>

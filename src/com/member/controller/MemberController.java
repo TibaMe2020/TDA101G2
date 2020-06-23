@@ -101,7 +101,9 @@ public class MemberController extends HttpServlet {
 				// Redirect to where user came from
 //				String location = (String) session.getAttribute("location");
 //				req.getSession().setAttribute("email", email);
-				fw.forward(successPath);
+				//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + successPath);
+//				fw.forward(successPath);
 				return;
 
 			} catch (Exception e) {
@@ -122,11 +124,11 @@ public class MemberController extends HttpServlet {
 		if ("signup".equals(action)) {
 			Map<String, String> errorMsgs = new HashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String failurePath ="/front-end/member/signUp.jsp";
+			String failurePath ="/front-end/member/login.jsp";
 			String successPath = "/front-end/member/login.jsp";
 			HttpSession session = req.getSession();
-			String url = (String) session.getAttribute("location");
-			url = url.substring(url.indexOf('/', 1));
+//			String url = (String) session.getAttribute("location");
+//			url = url.substring(url.indexOf('/', 1));
 			try {
 				String name = req.getParameter("name").trim();
 				String email = req.getParameter("email").trim();
@@ -201,7 +203,7 @@ public class MemberController extends HttpServlet {
 				req.setAttribute("new_member", memberVO);
 
 				if (!errorMsgs.isEmpty()) {
-					fw.forward(url);
+					fw.forward(failurePath);
 					return;
 				}
 
@@ -209,7 +211,7 @@ public class MemberController extends HttpServlet {
 
 				if ("".equals(memberVO.getEmail())) {
 					errorMsgs.put("signupEmail", "This email has been registered");
-					fw.forward(url);
+					fw.forward(failurePath);
 					return;
 				}
 				
@@ -225,13 +227,15 @@ public class MemberController extends HttpServlet {
 				se.sendEmail(email, content);
 				session.removeAttribute("new_member");
 				session.invalidate();
-				fw.forward(url);
+				//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + successPath);
+//				fw.forward(successPath);
 				return;
 
 			} catch (Exception e) {
 				e.printStackTrace();
 				errorMsgs.put("error", e.getMessage());
-				fw.forward(url);
+				fw.forward(failurePath);
 				return;
 			}
 		}
@@ -293,7 +297,7 @@ public class MemberController extends HttpServlet {
 					profile_image = memberVO.getProfile_image();
 				}
 
-				//D�撘萇���
+				
 //				try {
 //					Part part = req.getPart("profile_image");
 //					InputStream in = part.getInputStream();
@@ -307,7 +311,7 @@ public class MemberController extends HttpServlet {
 //					profile_image = null;
 //				}
 				
-				//D憭撐����
+				
 				
 				
 				java.sql.Date bday = null;
@@ -385,7 +389,9 @@ public class MemberController extends HttpServlet {
 					return;
 				}
 
-				fw.forward(successPath);
+				//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + successPath);
+//				fw.forward(successPath);
 				return;
 
 			} catch (Exception e) {
@@ -452,7 +458,9 @@ public class MemberController extends HttpServlet {
 					errorMsgs.put("database", "Something went wrong");
 				}
 
-				fw.forward(successPath);
+				//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + successPath);
+//				fw.forward(successPath);
 				return;
 
 			} catch (Exception e) {
@@ -556,7 +564,9 @@ public class MemberController extends HttpServlet {
 					return;
 				}
 
-				fw.forward(successPath);
+				//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + successPath);
+//				fw.forward(successPath);
 				return;
 
 			} catch (Exception e) {
@@ -577,7 +587,9 @@ public class MemberController extends HttpServlet {
 				String member_id = req.getParameter("member_id");
 				Integer member_state = new Integer(req.getParameter("member_state"));
 				mbSvc.updateState(member_id, member_state);
-				fw.forward(successPath);
+				//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + successPath);
+//				fw.forward(successPath);
 				return;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -622,7 +634,9 @@ public class MemberController extends HttpServlet {
 									"font-weight: bold;'>Change Password</a>";
 				SendEmail se = new SendEmail();
 				se.sendEmail(email, content);
-				fw.forward(successPath);
+				//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + successPath);
+//				fw.forward(successPath);
 				return;
 
 			} catch (Exception e) {
@@ -664,7 +678,9 @@ public class MemberController extends HttpServlet {
 					return;
 				}
 				
-				fw.forward(successPath);
+				//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + successPath);
+//				fw.forward(successPath);
 				return;
 			
 			} catch (Exception e) {
@@ -704,7 +720,9 @@ public class MemberController extends HttpServlet {
 						mbSvc.updateState(member_id, 1);	
 					}
 				}
-				fw.forward(successPath);
+				//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + successPath);
+//				fw.forward(successPath);
 				return;
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -161,6 +161,10 @@
   </script>
 
   <script>
+	//D避免重新整理的時候重新送出form表單
+// 		if ( window.history.replaceState ) {
+// 	 	 	window.history.replaceState( null, null, window.location.href );
+// 		}
     $(document).ready(function () {
 
       $('#myTable').DataTable({

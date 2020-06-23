@@ -250,6 +250,10 @@
 	</script>
 
 	<script>
+	//D避免重新整理的時候重新送出form表單
+// 		if ( window.history.replaceState ) {
+//     	window.history.replaceState( null, null, window.location.href );
+// 		}
 		if(${not empty errorMsgs.admin_password ? 'true' : 'false'} || ${not empty errorMsgs.admin_account ? 'true' : 'false'}) {
 			$('a.new-admin').click();
 			

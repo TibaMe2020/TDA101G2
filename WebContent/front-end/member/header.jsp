@@ -241,6 +241,7 @@
 					<li class="nav-item"><a class="nav-link"
 						href="<%=request.getContextPath()%>/front-end/donation/donation.jsp">公益</a>
 					</li>
+					
 			</div>
 			<div class="col-lg-2 text-center"></div>
 		</div>
