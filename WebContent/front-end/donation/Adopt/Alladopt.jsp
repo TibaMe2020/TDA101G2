@@ -5,8 +5,8 @@
     
 <%
    Adopt_infoService AdoptSvc = new Adopt_infoService();
-   List<Adopt_infoVO> list = AdoptSvc.getAll();
-   pageContext.setAttribute("list",list);
+   List<Adopt_infoVO> adoptlist = AdoptSvc.getAll();
+   pageContext.setAttribute("list",adoptlist);
 %>
 <!DOCTYPE html>
 
@@ -14,6 +14,9 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/member/css/headerNfooter.css">
 <style>
  /* Font */
   @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
@@ -26,21 +29,21 @@
   }
 
   html {
-    background-color: #ecf9ff;
   }
 
-  body {
+  body.background-blue {
+    background-color: #ecf9ff;
     color: #272727;
     font-family: 'Quicksand', serif;
     font-style: normal;
     font-weight: 400;
     letter-spacing: 0;
-    padding: 1rem;
+/*     padding: 1rem; */
   }
 
   .main{
     max-width: 1200px;
-    margin: 0 auto;
+/*     margin: 0 auto; */
   }
 
   h1 {
@@ -48,14 +51,23 @@
       font-weight: 400;
       text-align: center;
   }
+   h3{
+  	font-size: inherit;
+  }
+    .imageLink { 
+   	height: 200px; 
+  	width: 320px!important; 
+   } 
 
   img {
-    height: auto;
-    max-width: 100%;
+/*     height: auto; */
+/*     max-width: 100%; */
+	height:100%;
+	width: 100%;
     vertical-align: middle;
   }
 
-  .btn {
+a.btn.card_btn {
     color: #ffffff;
     padding: 0.8rem;
     font-size: 14px;
@@ -68,9 +80,10 @@
     border: 2px solid rgba(255, 255, 255, 0.2);
     background: transparent;
     outline:none; //hh
+    
   }
 
-  .btn:hover {
+  a.card_btn:hover {
     background-color: rgba(255, 255, 255, 0.12);
   }
 
@@ -186,7 +199,7 @@
 
   .header {
   font: 2.1em 'Oswald', sans-serif;
-  margin: 1.25rem 0;
+/*   margin: 1.25rem 0; */
   padding: 0 0.5rem;
   }
 
@@ -355,9 +368,14 @@
   <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+	
 </head>
+<body class="background-blue">
+
 <body>
-<div class="container" >
+<%@ include file="/front-end/member/header.jsp"%>
+
+<div class="container-fluid" >
 <div class="row1">
 <i class="fas fa-bone"></i>
 <a href="<%=request.getContextPath()%>/front-end/donation/myMain/donation.jsp">公益首頁</a><span> > 動物認養</span>
@@ -369,8 +387,8 @@
 
     <div class="main">
       <ul  class="cards">
-         <%@ include file="page1.file" %>
-	<c:forEach var="adopt_infoVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<%--          <%@ include file="page1.file" %> --%>
+	<c:forEach var="adopt_infoVO" items="${list}" >
         <li class="cards_item">
           <div class="card">
             <a class="imageLink" href="<%=request.getContextPath()%>/Adopt/DBGifReader3?adopt_id=${adopt_infoVO.adopt_id}" title="Dog data">
@@ -388,7 +406,7 @@
           </ul>
     </div>
 
-   <%@ include file="page2.file" %> 
+<%--    <%@ include file="page2.file" %>  --%>
 
 
     <div class="overlayContainer">
@@ -404,11 +422,11 @@
 </div>
 
   </section>
+  <%@ include file="/front-end/member/footer.jsp"%>
 
 </body>
 
 
-</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script type="text/javascript" src="../JS/lightbox.js" charset="utf-8"></script>
 </html>

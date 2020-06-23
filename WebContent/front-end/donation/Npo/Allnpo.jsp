@@ -97,7 +97,7 @@ Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");
     
   }
 
-  .card_btn:hover {
+  a.card_btn:hover {
     background-color: rgba(255, 255, 255, 0.12);
   }
 

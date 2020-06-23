@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
+     pageEncoding="UTF-8"%>
 <html>
 <head>
 <title>Insert title here</title>
@@ -7,7 +7,11 @@
 </head>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/member/css/headerNfooter.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <style>
+
       @import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
 
       * {
@@ -17,13 +21,13 @@
       }
 
       body {
-        height:100vh;
+/*         height:100vh; */
         font-family: 'Open Sans', Helvetica, Arial, sans-serif;
         font-weight: 300;
         letter-spacing: 0.05em;
-        /* background-image: linear-gradient(135deg, rgba(155, 89, 182,0.8) 0%,rgba(211, 84, 0,0.8) 100%), url("https://i.epochtimes.com/assets/uploads/2019/12/pets-3715733_1280-600x400.jpg"); */
-        /* background-image: linear-gradient(35deg,rgba(255, 227, 132,0.8) 0%,rgba(135, 206, 235, 0.7) 70%), url("https://i.epochtimes.com/assets/uploads/2019/12/pets-3715733_1280-600x400.jpg"); */
-        background-image: linear-gradient(rgba(255, 192, 203,0.8) 0%,rgba(135, 206, 235, 0.7) 70%), url("https://i.epochtimes.com/assets/uploads/2019/12/pets-3715733_1280-600x400.jpg");
+        background-image: linear-gradient(135deg, rgba(155, 89, 182,0.8) 0%,rgba(211, 84, 0,0.8) 100%), url("https://i.epochtimes.com/assets/uploads/2019/12/pets-3715733_1280-600x400.jpg"); 
+/*         background-image: linear-gradient(35deg,rgba(255, 227, 132,0.8) 0%,rgba(135, 206, 235, 0.7) 70%), url("https://i.epochtimes.com/assets/uploads/2019/12/pets-3715733_1280-600x400.jpg");  */
+        background-image: linear-gradient(rgba(255, 192, 203,0.8) 0%,rgba(135, 206, 235, 0.7) 70%), url("https://i.epochtimes.com/assets/uploads/2019/12/pets-3715733_1280-600x400.jpg"); 
 
         background-repeat: no-repeat;
         background-position: center center;
@@ -192,6 +196,7 @@
     }
     </style>
 <body>
+<%@ include file="/front-end/member/header.jsp"%>
 <div class="container" >
 		<div class="row1" >
 			<i class="fas fa-bone"></i>
@@ -223,8 +228,8 @@
             </dl>
           </div>
         </div>
+<%--  <%@ include file="/front-end/member/footer.jsp"%> --%>
 
-  <script src="<%=request.getContextPath()%>/front-end/donation/JS/test3.js"></script>
-
+ <script src="<%=request.getContextPath()%>/front-end/donation/JS/test3.js"></script>
 </body>
 </html>

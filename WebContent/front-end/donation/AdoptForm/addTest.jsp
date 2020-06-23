@@ -27,6 +27,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/member/css/headerNfooter.css">
 	
 <title>Insert title here</title>
 <style>
@@ -54,11 +56,18 @@ position: relative;
     right: 300px;}
     span.error{
     color:red;}
+
+body.background-white{
+	overflow-x: hidden;
+	background-color: white;
+}
 </style>
 
 
 </head>
 <body>
+<body class="background-white">
+<%@ include file="/front-end/member/header.jsp"%>
 <div class="container" >
 <div class="row1">
 <i class="fas fa-bone"></i>
@@ -143,7 +152,7 @@ position: relative;
 		</div>
 	</div>
 </div>
-	
+	<%@ include file="/front-end/member/footer.jsp"%>
 
 </body>
 </html>
