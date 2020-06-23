@@ -149,7 +149,15 @@ hr.hr-margin{
   /* font-weight: 800; */
 }
 
+.btn-primary {
+  background-color: #13406A;
+  border: none;
+  width: 150px;
+}
 
+.btn-primary:hover {
+  background-color: rgb(12, 41, 68);
+}
 
 
 /* CONTENT */

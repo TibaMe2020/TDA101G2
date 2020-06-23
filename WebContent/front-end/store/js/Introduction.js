@@ -502,7 +502,7 @@ $("button.btn_confirm").on("click", function () {
         checkmail = true;
     }
 
-    var phoneReg = /[0-9]{10}/
+    var phoneReg = /^[0-9]{10}$/
     let phone = current.find("input[type='phone-number']");
     let phoneval = phone.val();
     if (!phoneReg.test(phoneval)) {

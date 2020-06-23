@@ -2,6 +2,8 @@ package com.product_order_master.model;
 
 import java.util.List;
 
+import com.product_order_detail.model.Order_detail_VO;
+
 public class Order_master_Service {
 	private Order_master_DAO_interface dao;
 
@@ -9,8 +11,8 @@ public class Order_master_Service {
 		dao = new Order_master_DAO();
 	}
 
-	public Order_master_VO addOrder_master(Order_master_VO order_master_VO) {
-		dao.insert(order_master_VO);
+	public Order_master_VO addOrder_master(Order_master_VO order_master_VO, List<Order_detail_VO> list) {
+		dao.insertWithDetail(order_master_VO, list);
 		return order_master_VO;
 	}
 

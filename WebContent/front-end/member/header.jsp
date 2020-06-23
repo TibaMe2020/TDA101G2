@@ -181,10 +181,18 @@
 			<div class="col-lg-2 text-center"></div>
 			<div class="col-lg-8 col-sm-12  text-center">
 				<ul class="nav nav-pills nav-fill">
-					<li class="nav-item"><a class="nav-link " href="#">店家</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">商城</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">部落格</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">公益</a></li>
+					<li class="nav-item"><a class="nav-link "
+						href="<%=request.getContextPath()%>/front-end/store/store.jsp">店家</a>
+					</li>
+					<li class="nav-item"><a class="nav-link"
+						href="<%=request.getContextPath()%>/front-end/product/ProductHomepage.jsp">商城</a>
+					</li>
+					<li class="nav-item"><a class="nav-link"
+						href="<%=request.getContextPath()%>/front-end/blog/HomePage.jsp">部落格</a>
+					</li>
+					<li class="nav-item"><a class="nav-link"
+						href="<%=request.getContextPath()%>/front-end/donation/donation.jsp">公益</a>
+					</li>
 				</ul>
 			</div>
 			<div class="col-lg-2 text-center"></div>
@@ -230,10 +238,10 @@
 			<div class="col-lg-8 col-sm-12 text-center">
 				<ul class="nav nav-pills nav-fill">
 					<li class="nav-item"><a class="nav-link "
-						href="<%=request.getContextPath()%>/front-end/store/store.html">店家</a>
+						href="<%=request.getContextPath()%>/front-end/store/store.jsp">店家</a>
 					</li>
 					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/front-end/product/product.html">商城</a>
+						href="<%=request.getContextPath()%>/front-end/product/ProductHomepage.jsp">商城</a>
 					</li>
 					<li class="nav-item"><a class="nav-link"
 						href="<%=request.getContextPath()%>/front-end/blog/HomePage.jsp">部落格</a>
@@ -241,7 +249,6 @@
 					<li class="nav-item"><a class="nav-link"
 						href="<%=request.getContextPath()%>/front-end/donation/donation.jsp">公益</a>
 					</li>
-					
 			</div>
 			<div class="col-lg-2 text-center"></div>
 		</div>

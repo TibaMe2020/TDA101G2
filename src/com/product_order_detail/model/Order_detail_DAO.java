@@ -29,7 +29,7 @@ public class Order_detail_DAO implements Order_detail_DAO_interface {
 //	String userid = "PETBOX";
 //	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO product_order_detail (product_order_detail_id,product_order_id, product_version_id,quantity) VALUES(PODI_SEQ.NEXTVAL,?,?,?)";
+	private static final String INSERT_STMT = "INSERT INTO product_order_detail (product_order_id, product_version_id,quantity) VALUES(?,?,?)";
 	private static final String GET_ONE_STMT = "SELECT product_order_detail_id, product_order_id, product_version_id, quantity from product_order_detail WHERE product_order_detail_id=?";
 	private static final String GET_ALL_STMT = "SELECT product_order_detail_id, product_order_id, product_version_id, quantity from product_order_detail ORDER BY  product_order_detail_id";;
 	private static final String GET_BY_OMID_STMT = "select * from product_order_detail " + 

@@ -1,0 +1,78 @@
+body {
+    text-align: center;
+    font-family: 'Noto Serif TC',
+        serif;
+    ;
+}
+
+/* KEYWORD */
+
+div#keyword a {
+    color: orange;
+}
+
+/* CAROUSEL */
+
+.carousel-indicators li {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+#carousel-photo {
+    width: 100%;
+    height: 350px;
+}
+
+
+/* FACTORY */
+
+div#factory img {
+    width: 100%;
+}
+
+/* SpecialFood */
+
+div#SpecialFood img {
+    width: 100%;
+}
+
+/* 塞選 */
+
+div h3.select {
+    background-color: orange;
+    padding: 10px;
+}
+
+
+/* 各大精選廠牌 */
+
+img#brand_photo {
+    width: 255px;
+    height: 170px;
+}
+
+/* 精選食物 */
+
+#Cardimage {
+    width: 255px;
+    height: 180px;
+}
+
+#Cardimage1 {
+    width: 252px;
+    height: 189px;
+}
+
+
+
+/* DELETE */
+
+del {
+    color: red;
+}
+
+/*buy button*/
+a.btn-primary.stretched-link{
+	color: white;
+}

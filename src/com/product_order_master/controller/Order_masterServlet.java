@@ -2,6 +2,8 @@ package com.product_order_master.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,8 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dataObject.Order_master_DTO;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.notification.model.NotiService;
 import com.notification.model.NotiVO;
+import com.product_order_detail.model.Order_detail_VO;
 import com.product_order_master.model.Order_master_Service;
 import com.product_order_master.model.Order_master_VO;
 
@@ -29,7 +35,39 @@ public class Order_masterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		String jsonString = req.getParameter("SetOrder");
+		PrintWriter out = res.getWriter();
+		
+		Gson g = new Gson();
+		Type listType = new TypeToken<ArrayList<Order_master_DTO>>() {
+		}.getType();
+		List<Order_master_DTO> shopping_cart_master_details = g.fromJson(jsonString, listType);
+		if ("setOrderMaster".equals(action)) {
 
+			// insert Order_Master
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				
+				String json = req.getParameter("json");
+				Gson gson = new Gson();
+				Order_master_VO order = gson.fromJson(json, Order_master_VO.class);
+				System.out.println(order);
+
+				/*************************** 2.開始修改資料 *****************************************/
+				Order_master_Service order_master_Svc = new Order_master_Service();
+				List<Order_detail_VO> detail_list = order.getDetail_list();
+				order_master_Svc.addOrder_master(order, detail_list);
+				
+				out.print("success");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				out.print("error");
+				
+			}
+		}
+		
 		// One Display
 		if ("getOne_For_Display".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
@@ -155,63 +193,10 @@ public class Order_masterServlet extends HttpServlet {
 //					}
 //				}
 		
-		// insert Order_Master
-		if ("insert".equals(action)) {
-
-			List<String> errorMsgs = new LinkedList<String>();
-
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			try {
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String member_id = req.getParameter("member_id");
-				String product_order_state = req.getParameter("product_order_state");
-
-				String payment = req.getParameter("payment");
-				String delivery_location = req.getParameter("delivery_location");
-
-
-				
-
-				Order_master_VO order_master_VO = new Order_master_VO();
-				// 與Member串通之後才可使用
-				order_master_VO.setMember_id(member_id);
-				order_master_VO.setProduct_order_state(product_order_state);
-				order_master_VO.setPayment(payment);
-				order_master_VO.setLocation(delivery_location);
-				
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("order_master_VO", order_master_VO); // 含有輸入格式錯誤的empVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher("/order_master/addMaster.jsp");
-					failureView.forward(req, res);
-
-					return; // 程式中斷
-				}
-
-				/*************************** 2.開始修改資料 *****************************************/
-				Order_master_Service order_master_Svc = new Order_master_Service();
-				order_master_VO = order_master_Svc.addOrder_master(order_master_VO);
-
-				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("order_master_VO", order_master_VO);
-				String url = "/order_master/listAllMaster.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-
-				/*************************** 其他可能的錯誤處理 *************************************/
-			} catch (Exception e) {
-				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/order_master/addMaster.jsp");
-				failureView.forward(req, res);
-			}
-		}
-		
 		if("update_state".equals(action)) {
 			
 			String order_id = req.getParameter("product_order_id");
 			String order_state = req.getParameter("order_state");
-			PrintWriter out = res.getWriter();
 			try {
 				Order_master_Service orderSvc = new Order_master_Service();
 				orderSvc.updateState(order_id, order_state);

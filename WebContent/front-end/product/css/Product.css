@@ -1,0 +1,377 @@
+body {
+    text-align: center;
+    font-family: 'Noto Serif TC',
+        serif;
+    ;
+}
+
+/* 直接購買&購物車 */
+#shoppingcart {
+
+    background-color: rgb(255, 198, 92);
+    border: none;
+}
+
+#shoppingcart:hover {
+    background-color: rgb(255, 166, 0);
+    border: none;
+
+}
+
+#buy {
+    background-color: rgb(255, 104, 104);
+    border: none;
+}
+
+#buy:hover {
+    background-color: rgb(255, 0, 0);
+    border: none;
+}
+
+/* 版本 */
+#version {
+    border: none;
+}
+
+
+
+/* 商品介紹圖片 */
+
+#delete {
+    color: red;
+
+}
+
+#product_photo {
+    border: 2px solid #C8C6C6;
+    height: 500px;
+    padding: 10px;
+}
+
+div#product_photo1 img {
+
+    width: 100%;
+    height: 300px;
+}
+
+div#product_photo2 {
+
+    height: 104px;
+}
+
+div#product_photo2_1 img {
+
+    height: 100px;
+    width: 100%;
+
+}
+
+
+
+#product_select {
+    border: 2px solid #C8C6C6;
+    height: 500px;
+    padding: 10px;
+}
+
+.-on {
+    background-color: #9dabb8;
+    /* border: blue 10px solid; */
+}
+
+
+
+/* input number */
+* {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+
+.ctrl {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    /* display: flex; */
+    -webkit-box-align: center;
+    /* -webkit-align-items: center; */
+    /* -ms-flex-align: center; */
+    /* align-items: center; */
+    height: 50px;
+    border-bottom: 1px solid #D5DCE6;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: 30px;
+    ;
+}
+
+.ctrl__counter {
+    position: relative;
+    width: 200px;
+    /* height: 100px; */
+    color: #333C48;
+    text-align: center;
+    overflow: hidden;
+}
+
+.ctrl__counter.is-input .ctrl__counter-num {
+    /* visability: hidden; */
+    opacity: 0;
+    -webkit-transition: opacity 100ms ease-in;
+    transition: opacity 100ms ease-in;
+}
+
+.ctrl__counter.is-input .ctrl__counter-input {
+    /* visability: visible; */
+    opacity: 1;
+    -webkit-transition: opacity 100ms ease-in;
+    transition: opacity 100ms ease-in;
+}
+
+.ctrl__counter-input {
+    width: 100%;
+    /* margin: 0;
+    padding: 0; */
+    position: relative;
+    z-index: 2;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    color: #333C48;
+    font-size: 30px;
+    line-height: 0px;
+    text-align: center;
+    /* visability: hidden; */
+    opacity: 0;
+    -webkit-transition: opacity 100ms ease-in;
+    transition: opacity 100ms ease-in;
+}
+
+.ctrl__counter-num {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    line-height: 50px;
+    /* visability: visible; */
+    opacity: 1;
+    -webkit-transition: opacity 100ms ease-in;
+    transition: opacity 100ms ease-in;
+}
+
+.ctrl__counter-num.is-increment-hide {
+    opacity: 0;
+    -webkit-transform: translateY(-50px);
+    transform: translateY(-50px);
+    -webkit-animation: increment-prev 100ms ease-in;
+    animation: increment-prev 100ms ease-in;
+}
+
+.ctrl__counter-num.is-increment-visible {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation: increment-next 100ms ease-out;
+    animation: increment-next 100ms ease-out;
+}
+
+.ctrl__counter-num.is-decrement-hide {
+    opacity: 0;
+    -webkit-transform: translateY(50px);
+    transform: translateY(50px);
+    -webkit-animation: decrement-prev 100ms ease-in;
+    animation: decrement-prev 100ms ease-in;
+}
+
+.ctrl__counter-num.is-decrement-visible {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation: decrement-next 100ms ease-out;
+    animation: decrement-next 100ms ease-out;
+}
+
+.ctrl__button {
+    width: 100px;
+    /* line-height: 100px; */
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    background-color: #8498a7;
+    -webkit-transition: background-color 100ms ease-in;
+    transition: background-color 100ms ease-in;
+}
+
+.ctrl__button:hover {
+    background-color: #90a2b0;
+    -webkit-transition: background-color 100ms ease-in;
+    transition: background-color 100ms ease-in;
+}
+
+.ctrl__button:active {
+    background-color: #778996;
+    -webkit-transition: background-color 100ms ease-in;
+    transition: background-color 100ms ease-in;
+}
+
+.ctrl__button--decrement {
+    border-radius: 5px 0 0 5px;
+}
+
+.ctrl__button--increment {
+    border-radius: 0 5px 5px 0;
+}
+
+@-webkit-keyframes decrement-prev {
+    from {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes decrement-prev {
+    from {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes decrement-next {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(-50px);
+        transform: translateY(-50px);
+    }
+}
+
+@keyframes decrement-next {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(-50px);
+        transform: translateY(-50px);
+    }
+}
+
+@-webkit-keyframes increment-prev {
+    from {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes increment-prev {
+    from {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes increment-next {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(50px);
+        transform: translateY(50px);
+    }
+}
+
+@keyframes increment-next {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(50px);
+        transform: translateY(50px);
+    }
+}
+
+/* 商品介紹、規格、其他說明、商品評價  */
+h2 {
+    color: #000;
+    text-align: center;
+    font-size: 2em;
+}
+
+.warpper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tab {
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 0px 2px;
+    background: #000;
+    display: inline-block;
+    color: #fff;
+    border-radius: 3px 3px 0px 0px;
+    box-shadow: 0 0.5rem 0.8rem #00000080;
+}
+
+.panels {
+    background: #fffffff6;
+    box-shadow: 0 2rem 2rem #00000080;
+    min-height: 200px;
+    width: 100%;
+    border-radius: 3px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.panel {
+    display: none;
+    animation: fadein .8s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.panel-title {
+    font-size: 1.5em;
+    font-weight: bold
+}
+
+.radio {
+    display: none;
+}
+
+#one:checked~.panels #one-panel,
+#two:checked~.panels #two-panel,
+#three:checked~.panels #three-panel,
+#four:checked~.panels #four-panel {
+    display: block
+}
+
+#one:checked~.tabs #one-tab,
+#two:checked~.tabs #two-tab,
+#three:checked~.tabs #three-tab,
+#four:checked~.tabs #four-tab {
+    background: #fffffff6;
+    color: #000;
+    border-top: 3px solid #000;
+}
+
+
