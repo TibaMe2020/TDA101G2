@@ -11,9 +11,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <%
     Npo_infoService NpoSvc = new Npo_infoService(); //介面
-    List<Npo_infoVO> list = NpoSvc.getAllmon();
-    pageContext.setAttribute("list",list);
-    System.out.print(list);
+    List<Npo_infoVO> npoList = NpoSvc.getAllmon();
+    pageContext.setAttribute("list",npoList);
+    System.out.print(npoList);
 
 %>
 <%
@@ -24,6 +24,9 @@ Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/member/css/headerNfooter.css">
 <style>
   /* Font */
   @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
@@ -35,22 +38,23 @@ Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");
     box-sizing: border-box;
   }
 
-  html {
-    background-color: #ecf9ff;
-  }
+/*   html { */
+    
+/*   } */
 
-  body {
+  body.background-blue {
+  	background-color: #ecf9ff;
     color: #272727;
     font-family: 'Quicksand', serif;
     font-style: normal;
     font-weight: 400;
     letter-spacing: 0;
-    padding: 1rem;
+/*     padding: 1rem;  */
   }
 
   .main{
     max-width: 1200px;
-    margin: 0 auto;
+/*     margin: 0 auto; */
   }
 
   h1 {
@@ -59,13 +63,25 @@ Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");
       text-align: center;
   }
 
+  h3{
+  	font-size: inherit;
+  }
+  
+   .imageLink { 
+   	height: 200px; 
+  	width: 320px!important; 
+   } 
+  
   img {
-    height: auto;
-    max-width: 100%;
+/*     height: auto; */
+/*     max-width: 100%; */
+	height:100%;
+	width: 100%;
+    
     vertical-align: middle;
   }
 
-  .btn {
+  a.btn.card_btn {
     color: #ffffff;
     padding: 0.8rem;
     font-size: 14px;
@@ -78,9 +94,10 @@ Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");
     border: 2px solid rgba(255, 255, 255, 0.2);
     background: transparent;
     outline:none; //hh
+    
   }
 
-  .btn:hover {
+  .card_btn:hover {
     background-color: rgba(255, 255, 255, 0.12);
   }
 
@@ -172,7 +189,7 @@ Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");
 
   .body,
   .imageCaption {
-  line-height: 1.4;
+/*   line-height: 1.4; */
   }
 
   .clearfix::after {
@@ -196,7 +213,7 @@ Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");
 
   .header {
   font: 2.1em 'Oswald', sans-serif;
-  margin: 1.25rem 0;
+/*   margin: 1.25rem 0; */
   padding: 0 0.5rem;
   }
 
@@ -367,8 +384,10 @@ Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 </head>
-<body>
-<div class="container" >
+<body class="background-blue">
+
+<%@ include file="/front-end/member/header.jsp"%>
+<div class="container-fluid" >
 <div class="row1" >
 <i class="fas fa-bone"></i>
 <a href="<%=request.getContextPath()%>/front-end/donation/myMain/donation.jsp">公益首頁</a><span> > 公益團體捐款</span>
@@ -380,8 +399,8 @@ Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");
 
     <div class="main">
       <ul class="cards">
-         <%@ include file="page1.file" %>
-	<c:forEach var="npo_infoVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<%--          <%@ include file="page1.file" %> --%>
+	<c:forEach var="npo_infoVO" items="${list}">
 <%-- 	<%Integer total = NpoSvc.findByDonationMoney(npo_infoVO.npo_id); %> --%>
         <li class="cards_item">
           <div class="card">
@@ -401,7 +420,7 @@ Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");
           </ul>
     </div>
 
-   <%@ include file="page2.file" %> 
+<%--    <%@ include file="page2.file" %>  --%>
 
 
     <div class="overlayContainer">
@@ -416,6 +435,7 @@ Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");
     </div>  <!-- overlayContainer -->
 </div>
   </section>
+  <%@ include file="/front-end/member/footer.jsp"%>
 </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script type="text/javascript" src="../JS/lightbox.js" charset="utf-8"></script>

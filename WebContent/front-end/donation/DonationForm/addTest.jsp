@@ -26,11 +26,14 @@ pageContext.setAttribute("npo_infoVO",npo_infoVO);
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/member/css/headerNfooter.css">
 <title>Insert title here</title>
 <style>
 
-body{
-overflow-x: hidden;
+body.background-white{
+	overflow-x: hidden;
+	background-color: white;
 }
 div.bs-example {
 	margin: 100px;
@@ -60,7 +63,8 @@ div.container{
 
 
 </head>
-<body>
+<body class="background-white">
+<%@ include file="/front-end/member/header.jsp"%>
 <div class="container" >
 <div class="row1">
 <i class="fas fa-bone"></i>
@@ -108,6 +112,7 @@ div.container{
 		</div>
 	</div>
 </div>
+<%@ include file="/front-end/member/footer.jsp"%>
 	
 
 <%-- <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/DonationForm/donationform.do" name="form1"> --%>
