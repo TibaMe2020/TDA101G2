@@ -1,3 +1,8 @@
+<%@page import="com.donation.donation_form_info.model.Donation_form_infoVO"%>
+<%@page import="com.donation.donation_form_info.model.Donation_form_infoService"%>
+<%@page import="com.donation.adopt_form_info.model.Adopt_form_infoVO"%>
+<%@page import="com.donation.adopt_form_info.model.Adopt_form_infoService"%>
+<%@page import="java.util.stream.Collectors"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -23,9 +28,23 @@
 </head>
 
 <body>
+
   
 	
 	<%@ include file="header.jsp"%>
+	<%
+		Adopt_form_infoService afSvc = new Adopt_form_infoService();
+		List<Adopt_form_infoVO> adoptList = afSvc.getAll();	
+		
+		pageContext.setAttribute("adoptList", adoptList);
+		Donation_form_infoService doSvc = new Donation_form_infoService();
+		List<Donation_form_infoVO> donationList = doSvc.getAll();
+		pageContext.setAttribute("donationList", donationList);
+// 		adoptList = adoptList.stream()
+// 				.filter( a -> a.getMember_id().equals(member_id))
+// 				.collect(Collectors.toList());
+	
+	%>
   <div class="container-fluid">
     <div class="row content-height">
       <div class="col-2">
@@ -48,7 +67,7 @@
 
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="donation-record" role="tabpanel" aria-labelledby="pills-1-tab">
-
+<!-- 							捐款紀錄 -->
               <div class="card bg-white border-0">
                 <div class="card-body row">
                   <div class="product-image col-2">
@@ -67,28 +86,11 @@
                   </div>
                 </div>
               </div>
-              <div class="card bg-white border-0">
-                <div class="card-body row">
-                  <div class="product-image col-2">
-                    <img src="<%=request.getContextPath()%>/resources/images/triangle.png" class="rounded">
-                  </div>
-                  <div class="col-8 text-left">
-                    <h5 class="card-title">公益團體</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                    </p>
-                  </div>
-                  <div class="col-2 text-left align-self-center">
-                    <h5 class="card-title">$1,000</h5>
-                    <p class="card-text">
-                      2020/04/07
-                    </p>
-                  </div>
-                </div>
-              </div>
+              
 
             </div>
             <div class="tab-pane fade" id="adopt-record" role="tabpanel" aria-labelledby="pills-2-tab">
-
+<!-- 							領養 -->
               <div class="card bg-white border-0">
                 <div class="card-body row">
                   <div class="product-image col-2">
@@ -108,24 +110,7 @@
                 </div>
               </div>
 
-              <div class="card bg-white border-0">
-                <div class="card-body row">
-                  <div class="product-image col-2">
-                    <img src="<%=request.getContextPath()%>/resources/images/triangle.png" class="rounded">
-                  </div>
-                  <div class="col-8 text-left">
-                    <h5 class="card-title">動物名稱</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                    </p>
-                  </div>
-                  <div class="col-2 text-left align-self-center">
-                    <h5 class="card-title">$1,000</h5>
-                    <p class="card-text">
-                      2020/04/07
-                    </p>
-                  </div>
-                </div>
-              </div>
+              
 
             </div>
           </div>

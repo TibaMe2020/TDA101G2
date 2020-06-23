@@ -1,3 +1,8 @@
+<%@page import="com.store.model.StoreService"%>
+<%@page import="com.donation.donation_form_info.model.Donation_form_infoVO"%>
+<%@page import="com.donation.donation_form_info.model.Donation_form_infoService"%>
+<%@page import="com.donation.adopt_form_info.model.Adopt_form_infoVO"%>
+<%@page import="com.donation.adopt_form_info.model.Adopt_form_infoService"%>
 <%@page import="com.product.model.Product_Service"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -35,17 +40,39 @@
 </head>
 
 <%
+	//D會員總數
 	MemberService mbSvc = new MemberService();
 	List<MemberVO> mlist = mbSvc.getAll();
 	int totalMember = mlist.size();
 	pageContext.setAttribute("totalMember", totalMember);
-	
+	//D商城總消費金額
 	Product_Service pdSvc = new Product_Service(); 
 	Map<String, String> pmap = pdSvc.getByClass();
 	pageContext.setAttribute("salesTotal", pmap);
 	
-	
+	//D領養動物數量
+	Adopt_form_infoService afSvc = new Adopt_form_infoService();
+	List<Adopt_form_infoVO> adoptList = afSvc.getAll();
+	long adoptTotal = adoptList.stream()
+			.count();
 
+	pageContext.setAttribute("adoptTotal", adoptTotal);
+	
+	//D捐款總金額
+	Donation_form_infoService doSvc = new Donation_form_infoService();
+	List<Donation_form_infoVO> donationList = doSvc.getAll();
+	Integer donationTotal = donationList.stream()
+			.map(d -> d.getDonation_money())
+			.reduce(0, Integer::sum);
+	pageContext.setAttribute("donationTotal", donationTotal);
+
+	//D總文章數
+	
+	//D店家種類比例
+	StoreService stSvc = new StoreService();
+	Map<String, Integer> stores =  stSvc.getAllCalculated();
+	pageContext.setAttribute("stores", stores);
+	
 %>
 
 <body>
@@ -84,10 +111,10 @@
 						</div>
 						<div class="col-3 statistics align-self-center"
 							id="total-donation">
-							<h4 class="text-center">捐款總金額: ${totalDonation}</h4>
+							<h4 class="text-center">捐款總金額: ${donationTotal}</h4>
 						</div>
 						<div class="col-3 statistics align-self-center" id="total-adopt">
-							<h4 class="text-center">動物領養數量: ${totalAdopt}</h4>
+							<h4 class="text-center">動物領養數量: ${adoptTotal}</h4>
 						</div>
 						<div class="col-10 d-flex justify-content-between chart-holder">
 							<div id="product-chart" style="height: 500px; width: 500px;"
@@ -164,20 +191,20 @@
 				data : [ {
 					type : "doughnut",
 					dataPoints : [ {
-						label : "寵物學校",
-						y : 5000
+						label : "學校",
+						y : '${stores.get("學校")}'
 					}, {
-						label : "寵物醫院",
-						y : 3000
+						label : "醫院",
+						y : '${stores.get("醫院")}'
 					}, {
-						label : "寵物旅館",
-						y : 1200
+						label : "旅館",
+						y : '${stores.get("旅館")}'
 					}, {
-						label : "寵物美容",
-						y : 2500
+						label : "美容",
+						y : '${stores.get("美容")}'
 					}, {
-						label : "寵物餐廳",
-						y : 10500
+						label : "餐廳",
+						y : '${stores.get("餐廳")}'
 					} ]
 				} ]
 			});
