@@ -24,75 +24,75 @@
     <url-pattern>/DBPhoneLookup</url-pattern>
   </servlet-mapping>
   
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>NpoInfoServlet</servlet-name> -->
-<!-- 		<servlet-class>com.donation.npo_info.controller.NpoInfoServlet</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>NpoInfoServlet</servlet-name> -->
-<!-- 		<url-pattern>/Npo/npo.do</url-pattern>		 -->
-<!-- 	</servlet-mapping> -->
+	<servlet>
+		<servlet-name>NpoInfoServlet</servlet-name>
+		<servlet-class>com.donation.npo_info.controller.NpoInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NpoInfoServlet</servlet-name>
+		<url-pattern>/Npo/npo.do</url-pattern>		
+	</servlet-mapping>
 	
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>DBGifReader2</servlet-name> -->
-<!-- 		<servlet-class>com.donation.npo_info.controller.DBGifReader2</servlet-class> -->
-<!-- 	</servlet> -->
+	<servlet>
+		<servlet-name>DBGifReader2</servlet-name>
+		<servlet-class>com.donation.npo_info.controller.DBGifReader2</servlet-class>
+	</servlet>
 	
 	
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>DBGifReader2</servlet-name> -->
-<!-- 		<url-pattern>/Npo/DBGifReader2</url-pattern>	 -->
-<!-- 	</servlet-mapping> -->
+	<servlet-mapping>
+		<servlet-name>DBGifReader2</servlet-name>
+		<url-pattern>/Npo/DBGifReader2</url-pattern>	
+	</servlet-mapping>
 	
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>AdoptInfoServlet</servlet-name> -->
-<!-- 		<servlet-class>com.donation.adopt_info.controller.AdoptInfoServlet</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>AdoptInfoServlet</servlet-name> -->
-<!-- 		<url-pattern>/Adopt/adopt.do</url-pattern>		 -->
-<!-- 	</servlet-mapping> -->
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>DBGifReader3</servlet-name> -->
-<!-- 		<servlet-class>com.donation.adopt_info.controller.DBGifReader3</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>DBGifReader3</servlet-name> -->
-<!-- 		<url-pattern>/Adopt/DBGifReader3</url-pattern>	 -->
-<!-- 	</servlet-mapping> -->
+	<servlet>
+		<servlet-name>AdoptInfoServlet</servlet-name>
+		<servlet-class>com.donation.adopt_info.controller.AdoptInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdoptInfoServlet</servlet-name>
+		<url-pattern>/Adopt/adopt.do</url-pattern>		
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DBGifReader3</servlet-name>
+		<servlet-class>com.donation.adopt_info.controller.DBGifReader3</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DBGifReader3</servlet-name>
+		<url-pattern>/Adopt/DBGifReader3</url-pattern>	
+	</servlet-mapping>
 		
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>DonationResultServlet</servlet-name> -->
-<!-- 		<servlet-class>com.donation.result.controller.DonationResultServlet</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>DonationResultServlet</servlet-name> -->
-<!-- 		<url-pattern>/Result/result.do</url-pattern>		 -->
-<!-- 	</servlet-mapping> -->
+	<servlet>
+		<servlet-name>DonationResultServlet</servlet-name>
+		<servlet-class>com.donation.result.controller.DonationResultServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DonationResultServlet</servlet-name>
+		<url-pattern>/Result/result.do</url-pattern>		
+	</servlet-mapping>
 	
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>DBGifReader4</servlet-name> -->
-<!-- 		<servlet-class>com.donation.result.controller.DBGifReader4</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>DBGifReader4</servlet-name> -->
-<!-- 		<url-pattern>/Result/DBGifReader4</url-pattern>	 -->
-<!-- 	</servlet-mapping> -->
+	<servlet>
+		<servlet-name>DBGifReader4</servlet-name>
+		<servlet-class>com.donation.result.controller.DBGifReader4</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DBGifReader4</servlet-name>
+		<url-pattern>/Result/DBGifReader4</url-pattern>	
+	</servlet-mapping>
 	
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>AdoptFormServlet</servlet-name> -->
-<!-- 		<servlet-class>com.donation.adopt_form.controller.AdoptFormServlet</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>AdoptFormServlet</servlet-name> -->
-<!-- 		<url-pattern>/AdoptForm/adoptform.do</url-pattern>		 -->
-<!-- 	</servlet-mapping> -->
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>DonationFormServlet</servlet-name> -->
-<!-- 		<servlet-class>com.donation.donation_form.controller.DonationFormServlet</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>DonationFormServlet</servlet-name> -->
-<!-- 		<url-pattern>/DonationForm/donationform.do</url-pattern>		 -->
-<!-- 	</servlet-mapping> -->
+	<servlet>
+		<servlet-name>AdoptFormServlet</servlet-name>
+		<servlet-class>com.donation.adopt_form.controller.AdoptFormServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdoptFormServlet</servlet-name>
+		<url-pattern>/AdoptForm/adoptform.do</url-pattern>		
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DonationFormServlet</servlet-name>
+		<servlet-class>com.donation.donation_form.controller.DonationFormServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DonationFormServlet</servlet-name>
+		<url-pattern>/DonationForm/donationform.do</url-pattern>		
+	</servlet-mapping>
 </web-app>
