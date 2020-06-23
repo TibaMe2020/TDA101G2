@@ -89,7 +89,7 @@
         </div>
         <div class="col-10 d-flex align-items-center justify-content-center border-bottom">
           <h3 class="title-tab">
-            使用者管理
+            會員管理
           </h3>
         </div>
       </div>
