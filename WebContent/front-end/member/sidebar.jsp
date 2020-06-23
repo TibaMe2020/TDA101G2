@@ -7,7 +7,7 @@
 			style="background:url('<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}');
             background-position: center;background-size: 100px;"></div>
 	</div>
-	<div class="sidebar-heading">一般會員${memberVO.member_state}</div>
+	<div class="sidebar-heading">一般會員</div>
 	
 	<c:set var="member_state" value="${memberVO.member_state}" />
 	
@@ -43,6 +43,7 @@
 		test="${(member_state >= 3 && member_state <= 4) || not empty memberVO.bank_account}">
 		<div class="sidebar-heading">賣家中心</div>
 		<div class="list-group list-group-flush">
+<!-- 		一種是可以透過該會員是否有新增過商品來判斷，另一種是在送出申請後就可以新增商品，但必須經過審核，才可以在商品瀏覽畫面看到 -->
 			<c:if test="${member_state >= 3 || not empty memberVO.bank_account}">
 				<a
 					href="<%=request.getContextPath()%>/front-end/member/productList.jsp"
