@@ -120,7 +120,7 @@
 			<div
 				class="col-3 align-self-center d-flex justify-content-around align-content-center flex-wrap nav-icon-holder">
 
-				<a href="#" class="d-flex align-items-center text-white"><i
+				<a href="<%=request.getContextPath()%>/front-end/product/ShoppingCart.jsp" class="d-flex align-items-center text-white"><i
 					class="fas fa-shopping-cart i-white em-md text-white"></i></a> 
 					<a href="#" class="dropdown-toggle d-flex align-items-center text-white noti-drop-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"

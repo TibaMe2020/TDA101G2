@@ -554,7 +554,7 @@ public class MemberController extends HttpServlet {
 
 				boolean success = false;
 				success = mbSvc.submitApplication(memberVO, confirm);
-
+				memberVO.setMember_state(2);
 				if (success == false) {
 					errorMsgs.put("confirm", "Please make sure your password is correct");
 				}

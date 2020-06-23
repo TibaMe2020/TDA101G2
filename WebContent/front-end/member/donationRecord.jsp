@@ -42,17 +42,30 @@
 
 		<%@ include file="header.jsp"%>
 		<%
-			Adopt_form_infoService afSvc = new Adopt_form_infoService();
-			List<Adopt_form_infoVO> adoptList = afSvc.getAll();
-
-			pageContext.setAttribute("adoptList", adoptList);
-			Donation_form_infoService doSvc = new Donation_form_infoService();
-			List<Donation_form_infoVO> donationList = doSvc.getAll();
-			pageContext.setAttribute("donationList", donationList);
+// 			Adopt_form_infoService afSvc = new Adopt_form_infoService();
+// 			List<Adopt_form_infoVO> adoptList = afSvc.getAll();
 // 			adoptList = adoptList.stream()
 // 					.filter( a -> a.getMember_id().equals(member_id))
 // 					.collect(Collectors.toList());
+// 			List<Adopt_form_infoVO> adoptList = new ArrayList<>();
+			
+// 			for (Adopt_form_infoVO afVO : afSvc.getAll()) {
+// 				if(member_id.equals(afVO.getMember_id())) {
+// 					adoptList.add(afVO);
+// 				}
+// 			}
+// 			pageContext.setAttribute("adoptList", adoptList);
+			
+// 			Donation_form_infoService doSvc = new Donation_form_infoService();
+// 			List<Donation_form_infoVO> donationList = new ArrayList<>();
+// 			for (Donation_form_infoVO dfVO : doSvc.getAll()) {
+// 				if(member_id.equals(dfVO.getMember_id())) {
+// 					donationList.add(dfVO);
+// 				}
+// 			}
+// 			pageContext.setAttribute("donationList", donationList);
 // 			System.out.println(adoptList);
+// 			System.out.println(donationList);
 		%>
 		<div class="container-fluid">
 				<div class="row content-height">
