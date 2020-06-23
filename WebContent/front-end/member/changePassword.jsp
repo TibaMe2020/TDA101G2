@@ -22,7 +22,7 @@
 	href="<%=request.getContextPath()%>/front-end/member/css/changePassword.css">
 </head>
 <body>
-	<%@ include file="header.jsp"%>
+	<%@ include file="/front-end/member/header.jsp"%>
 
 
 	<%

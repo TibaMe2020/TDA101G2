@@ -95,4 +95,65 @@
 <!-- 		<servlet-name>DonationFormServlet</servlet-name> -->
 <!-- 		<url-pattern>/DonationForm/donationform.do</url-pattern>		 -->
 <!-- 	</servlet-mapping> -->
+
+
+
+	<!-- Post -->
+	<servlet>
+		<servlet-name>PostServlet</servlet-name>
+		<servlet-class>com.blog.post.controller.PostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PostServlet</servlet-name>
+		<url-pattern>/Post/Post.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DBGifReader2</servlet-name>
+		<servlet-class>com.blog.post.controller.DBGifReader2</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DBGifReader2</servlet-name>
+		<url-pattern>/Post/DBGifReader2</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AjaxServlet</servlet-name>
+		<servlet-class>com.blog.post.controller.AjaxServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AjaxServlet</servlet-name>
+		<url-pattern>/Post/AjaxServlet</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Follow -->
+	<servlet>
+		<servlet-name>FollowServlet</servlet-name>
+		<servlet-class>com.blog.follow.controller.FollowServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>FollowServlet</servlet-name>
+		<url-pattern>/Follow/Follow.do</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Message -->
+	<servlet>
+		<servlet-name>MessageServlet</servlet-name>
+		<servlet-class>com.blog.message.controller.MessageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MessageServlet</servlet-name>
+		<url-pattern>/Message/Message.do</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Saved -->
+	<servlet>
+		<servlet-name>SavedServlet</servlet-name>
+		<servlet-class>com.blog.saved.controller.SavedServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SavedServlet</servlet-name>
+		<url-pattern>/Saved/Saved.do</url-pattern>
+	</servlet-mapping>
 </web-app>
