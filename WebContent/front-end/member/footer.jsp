@@ -108,23 +108,30 @@
 		src="<%=request.getContextPath()%>/resources/vendors/air_datepicker/datepicker.zh.js"></script>
 		
 	<script>
+		//D避免重新整理的時候重新送出form表單
+// 		if ( window.history.replaceState ) {
+//         window.history.replaceState( null, null, window.location.href );
+//     }
+		
+		if($('input#birthday').length !== 0){
+			$('input#birthday').datepicker({
+				dateFormat : 'yyyy-mm-dd',
+				todayHighlight : true,
+				language : 'zh',
+				maxDate : new Date(),
+				autoClose : true
+			})
+			if(${not empty new_member.birthday ? 'true' : 'false'}) {
+				$('input#birthday').data('datepicker').selectDate(new Date("${new_member.birthday}"));
+			} else if(${not empty memberVO.birthday ? 'true' : 'false'}) {
+				$('input#birthday').data('datepicker').selectDate(new Date("${memberVO.birthday}"));
+			}
+	  	$('div.datepicker').css('z-index', 1100);
+	  }
 	<% if (memberVO == null) { %>
 		$(function() {
-			if($('input#birthday').length !== 0){
-				$('input#birthday').datepicker({
-					dateFormat : 'yyyy-mm-dd',
-					todayHighlight : true,
-					language : 'zh',
-					maxDate : new Date(),
-					autoClose : true
-				})
-				if(${not empty new_member.birthday ? 'true' : 'false'}) {
-					$('input#birthday').data('datepicker').selectDate(new Date("${new_member.birthday}"));
-				} else if(${not empty memberVO.birthday ? 'true' : 'false'}) {
-					$('input#birthday').data('datepicker').selectDate(new Date("${memberVO.birthday}"));
-				}
-		  	$('div.datepicker').css('z-index', 1100);
-		  }
+			
+			
 			if(${not empty errorMsgs.loginEmail ? 'true' : 'false'} || 
 					${not empty errorMsgs.loginPassword ? 'true' : 'false'} ||
 					${not empty errorMsgs.loginAccount ? 'true' : 'false'}) {

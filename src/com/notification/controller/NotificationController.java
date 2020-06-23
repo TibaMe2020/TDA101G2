@@ -41,10 +41,15 @@ public class NotificationController extends HttpServlet {
 		
 		if("delete".equals(action)) {
 			try {
+				String successPath = "/front-end/member/notiOverview.jsp";
 				String notification_id = req.getParameter("notification_id");
 				notiSvc.delete(notification_id);
-				RequestDispatcher view = req.getRequestDispatcher("/front-end/member/notiOverview.jsp");
-				view.forward(req, res);
+//				RequestDispatcher view = req.getRequestDispatcher(successPath);
+//				view.forward(req, res);
+//				return;
+				//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + successPath);
+//				view.forward(req, res);
 				return;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -65,8 +70,11 @@ public class NotificationController extends HttpServlet {
 			  Gson gson = new Gson();
 			  notiVO = gson.fromJson(json, NotiVO.class);
 			  notiSvc.insert(notiVO);
-			  RequestDispatcher view = req.getRequestDispatcher("/front-end/member/notiOverview.jsp");
-				view.forward(req, res);
+//			  RequestDispatcher view = req.getRequestDispatcher("/front-end/member/notiOverview.jsp");
+//				view.forward(req, res);
+//				return;
+				//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + "/front-end/member/notiOverview.jsp");
 				return;
 			  
 			} catch(Exception e) {

@@ -47,7 +47,8 @@
 										<div class="card-body">
 											<p class="card-text">${noti.getValue().get(1)}</p>
 											<p class="card-text noti-time">${noti.getValue().get(0)}</p>
-											<form action="<%=request.getContextPath()%>/notification/controller" method="post">
+											<form action="<%=request.getContextPath()%>/notification/controller" 
+											method="post">
 												<input type="hidden" name="action" value="delete">
 												<input type="hidden" name="notification_id" value="${noti.getKey()}">
 												<c:if test="${noti.getKey()!='NO00000'}">

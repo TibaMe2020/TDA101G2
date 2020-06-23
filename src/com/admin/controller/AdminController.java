@@ -70,8 +70,11 @@ public class AdminController extends HttpServlet {
 				HttpSession session = req.getSession();
 				session.setAttribute("adminVO", adminVO);
 				
-				RequestDispatcher view = req.getRequestDispatcher("/back-end/adminStatistics.jsp");
-				view.forward(req, res);
+//				RequestDispatcher view = req.getRequestDispatcher("/back-end/adminStatistics.jsp");
+//				view.forward(req, res);
+//				return;
+				//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + "/back-end/adminStatistics.jsp");
 				return;
 				
 			} catch (Exception e) {
@@ -120,8 +123,11 @@ public class AdminController extends HttpServlet {
 					return;
 				}
 				
-				RequestDispatcher view = req.getRequestDispatcher("/back-end/adminManagement.jsp");
-				view.forward(req, res);
+//				RequestDispatcher view = req.getRequestDispatcher("/back-end/adminManagement.jsp");
+//				view.forward(req, res);
+//				return;
+			//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + "/back-end/adminManagement.jsp");
 				return;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -148,19 +154,22 @@ public class AdminController extends HttpServlet {
 				
 				if(adminVO == null) {
 					errorMsgs.put("error", "Please try again");
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/adminAccounts.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/adminManagement.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				
 				errorMsgs.put("error", "Success");
- 				RequestDispatcher view = req.getRequestDispatcher("/back-end/adminAccounts.jsp");
-				view.forward(req, res);
+// 				RequestDispatcher view = req.getRequestDispatcher("/back-end/adminManagement.jsp");
+//				view.forward(req, res);
+//				return;
+			//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + "/back-end/adminManagement.jsp");
 				return;
 			} catch (Exception e) {
 				e.printStackTrace();
 				errorMsgs.put("error", "Please try again");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/adminAccounts.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/adminManagement.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -171,8 +180,11 @@ public class AdminController extends HttpServlet {
 				String admin_id = req.getParameter("admin_id");
 				boolean deleted = adSvc.delete(admin_id);
 				if(deleted == false) System.out.println("something wrong!");
-				RequestDispatcher view = req.getRequestDispatcher("/back-end/adminManagement.jsp");
-				view.forward(req, res);
+//				RequestDispatcher view = req.getRequestDispatcher("/back-end/adminManagement.jsp");
+//				view.forward(req, res);
+//				return;
+			//D成功的話避免重新送出表單
+				res.sendRedirect(req.getContextPath() + "/back-end/adminManagement.jsp");
 				return;
 			} catch(Exception e) {
 				e.printStackTrace();

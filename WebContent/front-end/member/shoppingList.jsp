@@ -89,11 +89,11 @@
         <div class="content-container">
           <ul class="nav nav-pills mb-3 bg-white d-flex justify-content-center" id="pills-tab" role="tablist">
           	<li class="nav-item flex-fill">
-              <a class="nav-link" id="show-all" data-toggle="pill" href="#" role="tab" aria-controls="pills-7"
+              <a class="nav-link active" id="show-all" data-toggle="pill" href="#" role="tab" aria-controls="pills-7"
                 aria-selected="false">所有訂單</a>
             </li>
             <li class="nav-item flex-fill dropdown">
-              <a class="nav-link dropdown-toggle active" id="pills" data-toggle="dropdown" href="#" role="button"
+              <a class="nav-link dropdown-toggle" id="pills" data-toggle="dropdown" href="#" role="button"
                 aria-haspopup="true" aria-expanded="false">已完成</a>
               <div class="dropdown-menu">
                 <a class="dropdown-item order-state-pill" id="pills-5" href="#" data-toggle="pill" data-order-state="5">未評價</a>
