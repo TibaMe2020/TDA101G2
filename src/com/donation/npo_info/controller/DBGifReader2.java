@@ -1,12 +1,20 @@
 package com.donation.npo_info.controller;
 
-import java.io.*;
-import java.sql.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 public class DBGifReader2 extends HttpServlet {
@@ -35,7 +43,7 @@ public class DBGifReader2 extends HttpServlet {
 				in.close();
 			} else {
 //				res.sendError(HttpServletResponse.SC_NOT_FOUND);
-				InputStream in = getServletContext().getResourceAsStream("/resources/images/null.jpg");
+				InputStream in = getServletContext().getResourceAsStream("/resources/images/triangle.png");
 				byte[] buf = new byte[in.available()];
 				in.read(buf);
 				out.write(buf);
@@ -45,7 +53,7 @@ public class DBGifReader2 extends HttpServlet {
 			stmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
-			InputStream in = getServletContext().getResourceAsStream("/resources/images/null.jpg");
+			InputStream in = getServletContext().getResourceAsStream("/resources/images/triangle.png");
 			byte[] buf = new byte[in.available()];
 			in.read(buf);
 			out.write(buf);

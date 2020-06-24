@@ -1,7 +1,6 @@
 package com.donation.adopt_form_info.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,8 +11,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
-import com.donation.adopt_info.model.Adopt_infoVO;
 
 
 public class Adopt_form_infoJDBCDAO implements Adopt_form_infoDAO_interface {
@@ -32,7 +29,7 @@ public class Adopt_form_infoJDBCDAO implements Adopt_form_infoDAO_interface {
 		}
 	}
 	private static final String INSERT_STMT = "INSERT INTO Adopt_form_info (adopt_form_id,adopt_id,adopt_talk,member_id,adopt_person,payadopt_person,adopt_phone_num,adopt_payment, adopt_certificate, adopt_email, address) VALUES ('AFD' || lpad(adopt_form_id_SEQ.nextval, 5, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT adopt_form_id , adopt_person , adopt_talk , payadopt_person , adopt_phone_num , adopt_payment ,adopt_certificate, adopt_email , address FROM Adopt_form_info";
+	private static final String GET_ALL_STMT = "SELECT adopt_form_id ,adopt_id, member_id, adopt_person , adopt_talk , payadopt_person , adopt_phone_num , adopt_payment ,adopt_certificate, adopt_email , address, create_time FROM Adopt_form_info";
     private static final String GET_ONE_ADOPTFORM = "SELECT * FROM adopt_form_info where adopt_form_id = ?";
 	
 
@@ -114,6 +111,8 @@ public class Adopt_form_infoJDBCDAO implements Adopt_form_infoDAO_interface {
 			while (rs.next()) {
 				adopt_form_infoVO = new Adopt_form_infoVO();
 				adopt_form_infoVO.setAdopt_form_id(rs.getString("adopt_form_id"));
+				adopt_form_infoVO.setAdopt_id(rs.getString("adopt_id"));
+				adopt_form_infoVO.setMember_id(rs.getString("member_id"));
 				adopt_form_infoVO.setAdopt_person(rs.getString("adopt_person"));
 				adopt_form_infoVO.setAdopt_talk(rs.getString("adopt_talk"));
 				adopt_form_infoVO.setPayadopt_person(rs.getString("payadopt_person"));
@@ -122,6 +121,7 @@ public class Adopt_form_infoJDBCDAO implements Adopt_form_infoDAO_interface {
 				adopt_form_infoVO.setAdopt_certificate(rs.getString("adopt_certificate"));
 				adopt_form_infoVO.setAdopt_email(rs.getString("adopt_email"));
 				adopt_form_infoVO.setAddress(rs.getString("address"));
+				adopt_form_infoVO.setCreate_time(rs.getTimestamp("create_time"));
 	
 				list.add(adopt_form_infoVO); // Store the row in the list
 			}
@@ -185,6 +185,7 @@ public class Adopt_form_infoJDBCDAO implements Adopt_form_infoDAO_interface {
 		for (Adopt_form_infoVO aFi : list) {
 			System.out.print(aFi.getAdopt_form_id() + ",");
 			System.out.print(aFi.getAdopt_id() + ",");
+			System.out.print(aFi.getMember_id() + ",");
 			System.out.print(aFi.getAdopt_person() + ",");
 			System.out.print(aFi.getAdopt_talk());
 			System.out.print(aFi.getAdopt_phone_num());
