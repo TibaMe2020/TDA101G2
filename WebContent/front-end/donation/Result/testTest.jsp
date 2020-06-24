@@ -24,8 +24,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <!-- <link rel="stylesheet" href="../JS/bootstrap/css/bootstrap.min.css"> -->
-<link rel="stylesheet" 
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/vendors/bootstrap/css/bootstrap.min.css">
 
 
@@ -238,7 +236,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          	}
         
          	</script>
-         	
+         	<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"></script>
     <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<%=basePath%>/JS/nine.js" charset="utf-8"></script>

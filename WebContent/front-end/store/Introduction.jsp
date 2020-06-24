@@ -307,7 +307,7 @@
                                         手機格式不正確
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mb-2">發送驗證碼</button>
+                                <button type="submit" class="btn btn-primary mb-2 d-none">發送驗證碼</button>
                             </form>
                         </div>
                         <div class="row newsletter">
@@ -461,7 +461,7 @@
                                         手機格式不正確
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mb-2">發送驗證碼</button>
+                                <button type="submit" class="btn btn-primary mb-2 d-none">發送驗證碼</button>
                             </form>
                         </div>
                         <div class="row newsletter">
