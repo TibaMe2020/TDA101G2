@@ -112,8 +112,12 @@
 // 		if ( window.history.replaceState ) {
 //         window.history.replaceState( null, null, window.location.href );
 //     }
+	<%
+		String login = request.getParameter("login");
+		pageContext.setAttribute("login", login);
+	%>
 		
-		if($('input#birthday').length !== 0){
+	if($('input#birthday').length !== 0){
 			$('input#birthday').datepicker({
 				dateFormat : 'yyyy-mm-dd',
 				todayHighlight : true,
@@ -131,7 +135,9 @@
 	<% if (memberVO == null) { %>
 		$(function() {
 			
-			
+			if("${login}" === "false") {
+				$('#login-modal').click();
+			}
 			if(${not empty errorMsgs.loginEmail ? 'true' : 'false'} || 
 					${not empty errorMsgs.loginPassword ? 'true' : 'false'} ||
 					${not empty errorMsgs.loginAccount ? 'true' : 'false'}) {

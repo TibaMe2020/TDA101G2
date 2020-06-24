@@ -48,16 +48,18 @@ public class MemberController extends HttpServlet {
 		ForwardView fw = new ForwardView(req, res);
 		ProcessBase64 b64 = new ProcessBase64();
 		if ("login".equals(action)) {
-			String failurePath ="/front-end/member/login.jsp";
+			String failurePath ="/front-end/store/store.jsp";
 			String successPath = "/front-end/member/updateInfo.jsp";
 			Map<String, String> errorMsgs = new HashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			HttpSession session = req.getSession();
-//			String url = (String) session.getAttribute("location");
-//			if(url != null) {
-//				url = url.substring(url.indexOf('/', 1));				
-//			}
-//			url = (url != null) ? url.substring(url.indexOf('/', 1)) : successPath;		
+			String url = (String) session.getAttribute("location");
+			if(!"".equals(url)) {
+				url = url.substring(url.indexOf('/', 1));				
+			} else {
+				url = "/front-end/store/store.jsp";
+			}
+			url = (url != null) ? url.substring(url.indexOf('/', 1)) : successPath;		
 			
 			try {
 				String email = req.getParameter("email").trim();
@@ -78,6 +80,8 @@ public class MemberController extends HttpServlet {
 //					fw.forward(failurePath);
 //					return;
 //				}
+				
+				System.out.println(errorMsgs.get("loginEmail"));
 				if(!errorMsgs.isEmpty()) {
 					fw.forward(failurePath);
 					return;
@@ -102,7 +106,8 @@ public class MemberController extends HttpServlet {
 //				String location = (String) session.getAttribute("location");
 //				req.getSession().setAttribute("email", email);
 				//D成功的話避免重新送出表單
-				res.sendRedirect(req.getContextPath() + successPath);
+//				res.sendRedirect(req.getContextPath() + successPath);
+				res.sendRedirect(req.getContextPath() + url);
 //				fw.forward(successPath);
 				return;
 
@@ -118,17 +123,17 @@ public class MemberController extends HttpServlet {
 			HttpSession session = req.getSession();
 			session.removeAttribute("memberVO");
 			session.invalidate();
-			res.sendRedirect(req.getContextPath() + "/front-end/member/login.jsp");
+			res.sendRedirect(req.getContextPath() + "/index.jsp");
 		}
 
 		if ("signup".equals(action)) {
 			Map<String, String> errorMsgs = new HashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String failurePath ="/front-end/member/login.jsp";
-			String successPath = "/front-end/member/login.jsp";
+			String failurePath ="/front-end/store/store.jsp";
+			String successPath = "/front-end/store/store.jsp";
 			HttpSession session = req.getSession();
-//			String url = (String) session.getAttribute("location");
-//			url = url.substring(url.indexOf('/', 1));
+			String url = (String) session.getAttribute("location");
+			url = url.substring(url.indexOf('/', 1));
 			try {
 				String name = req.getParameter("name").trim();
 				String email = req.getParameter("email").trim();
@@ -228,7 +233,8 @@ public class MemberController extends HttpServlet {
 				session.removeAttribute("new_member");
 				session.invalidate();
 				//D成功的話避免重新送出表單
-				res.sendRedirect(req.getContextPath() + successPath);
+//				res.sendRedirect(req.getContextPath() + successPath);
+				res.sendRedirect(req.getContextPath() + url);
 //				fw.forward(successPath);
 				return;
 
@@ -403,8 +409,8 @@ public class MemberController extends HttpServlet {
 		}
 
 		if ("update_blog_info".equals(action)) {
-			String failurePath ="/front-end/member/update_blog_info.jsp";
-			String successPath = "/front-end/member/update_blog_info.jsp";
+			String failurePath ="/front-end/blog/MyBlog.jsp";
+			String successPath = "/front-end/blog/MyBlog.jsp";
 			Map<String, String> errorMsgs = new HashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 

@@ -18,8 +18,7 @@ import com.member.model.MemberVO;
 
 
 @WebFilter(
-    urlPatterns={"/front-end/member/updateInfo.jsp","/front-end/notification/notiOverview.jsp",
-    		"/front-end/notification/notification.jsp","/front-end/member/submitApplication.jsp", "/front-end/notification/chat.jsp"}, 
+    urlPatterns={"/front-end/blog/*"}, 
     dispatcherTypes={
         DispatcherType.FORWARD, DispatcherType.INCLUDE, 
         DispatcherType.REQUEST, DispatcherType.ERROR, DispatcherType.ASYNC
@@ -53,7 +52,8 @@ public class Authentication implements Filter {
 		if(memberVO == null) {
 			
 			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath() + "/front-end/member/login.jsp");
+			System.out.println(req.getRequestURI());
+			res.sendRedirect(req.getContextPath()+"/front-end/store/store.jsp?login=false");
 			return; 
 		} else {
 			chain.doFilter(request, response);

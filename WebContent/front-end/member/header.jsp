@@ -218,7 +218,7 @@
 						</a>
 					</div>
 					<div class="logo-text-container">
-						<a href="#"> <span class="logo-text">PETBOX</span>
+						<a href="<%=request.getContextPath()%>/index.jsp"> <span class="logo-text">PETBOX</span>
 						</a>
 					</div>
 				</div>
@@ -249,7 +249,7 @@
 						href="<%=request.getContextPath()%>/front-end/blog/HomePage.jsp">部落格</a>
 					</li>
 					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/front-end/donation/donation.jsp">公益</a>
+						href="<%=request.getContextPath()%>/front-end/donation/myMain/donation.jsp">公益</a>
 					</li>
 			</div>
 			<div class="col-lg-2 text-center"></div>
