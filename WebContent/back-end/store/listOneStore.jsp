@@ -31,11 +31,15 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/adminStatistics.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
-<style>
+<style type="text/css">
 	table, th, td {
 		border: 1px solid black;
 	}
 
+
+div.myform a {
+	color: blue;
+}
 </style>
 </head>
 <body>
@@ -67,6 +71,7 @@
 				<div class="col-1"></div>
 				<div class="col-10">
 	<h4 style="display:inline-table;"><%=storeVO.getStore_name()%></h4>
+	<span><a href='<%=request.getContextPath()%>/back-end/store/listAllStore.jsp'>回所有店家</a></span>
 	<table>
 		<tr>
 			<th>店家編號</th>

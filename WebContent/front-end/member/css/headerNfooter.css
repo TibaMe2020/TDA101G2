@@ -149,7 +149,7 @@ hr.hr-margin{
   /* font-weight: 800; */
 }
 
-.btn-primary {
+#modalCenter .btn-primary {
   background-color: #13406A;
   border: none;
   width: 150px;
