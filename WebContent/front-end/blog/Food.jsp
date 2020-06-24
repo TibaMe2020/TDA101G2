@@ -3,8 +3,22 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.blog.post.model.*"%>
 
-<%
-    PostService postService = new PostService();
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Food</title>
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/blog/css/HomePage.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+</head>
+<body class="body">
+<%@ include file="/front-end/member/header.jsp"%>
+<%	
+//     String member_id = "MB00001";
+
+	PostService postService = new PostService();
     List<PostVO> list = postService.getByPostClass("美食");
     pageContext.setAttribute("list", list);
     
@@ -26,16 +40,6 @@
 	}
     pageContext.setAttribute("postContents2", postContents2); 
 %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Food</title>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/blog/css/HomePage.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-</head>
-<body class="body">
     <div class="container">
 
         <div class="row">
@@ -95,65 +99,177 @@
                     	<figure class="post_figure">
                         	<img class="post_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
                         </figure>
-                        <span class="nickname">Tom</span>
+                        <span class="nickname">${memberVO.nickname}</span>
                     </div>
                     <div class="wanted_post">
                         <textarea class="my_text" placeholder="我也想發文..." style="width: 585px; height: 50px"></textarea>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right; margin: 5px 10px;">
-                            	我要發文
-                        </button>
-                    </div>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right; margin: 5px 20px;">
+							我要發文
+						</button>
+					</div>
                             
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    	<span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="" class="post" method="POST" enctype="multipart/form-data">
-                                    	<div class="write_a_post">
-                                        	<div class="post">
-                                                <figure class="post_figure">
-                                                    <img class="post_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
-                                                </figure>
-                                                <span class="nickname">Tom</span>
-                                            </div>
-                                            <div class="wanted_post">
-                                                <textarea class="my_text" placeholder="我也想發文..." style="width: 100%; max-height: 500px; outline: none; border: 1px solid lightgray; border-radius: 3px;"></textarea>  
-                                            </div>
-                                            <div class="button">
-                                                <div class="" style="margin: 10px 0;">
-                                                    <div style="margin-top: 5px; width: 100%;">圖片1 : <input type="file" name="post_image1"></div>
-                                                    <div style="margin-top: 5px; width: 100%;">圖片2 : <input type="file" name="post_image2"></div>
-                                                    <div style="margin-top: 5px; width: 100%;">圖片3 : <input type="file" name="post_image3"></div>
-                                                    <div style="margin-top: 5px; width: 100%;">圖片4 : <input type="file" name="post_image4"></div>
-                                                    <div style="margin-top: 5px; width: 100%;">圖片5 : <input type="file" name="post_image5"></div>
-                                                </div>
-                                                <select class="choose_class" name="your_class">
-                                                    <option value="life">生活</option>
-                                                    <option value="shopping">購物</option>
-                                                    <option value="food">美食</option>
-                                                    <option value="travel">旅遊</option>
-                                                    <option value="others">其他</option>
-                                                </select>
-                                                <input class="confirm" type="button" value="確認發文">
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                	<button type="button" class="btn btn-secondary" data-dismiss="modal">取消發文</button>
-                                    <a href="HomePage.jsp"><button type="button" id="send_post" class="btn btn-primary">我要發文</button></a>
-                                    <!-- <button type="button" id="send_post" class="btn btn-primary">我要發文</button> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline:none;">
+							        	<span aria-hidden="true">&times;</span>
+							        </button>
+							    </div>
+								<div class="modal-body">
+									<form action="<%=request.getContextPath()%>/Post/Post.do" class="post" method="POST" enctype="multipart/form-data">
+										<div class="add_a_post">
+											<div class="post">
+												<figure class="post_figure">
+													<img class="post_blogger_picture"
+														src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">
+												</figure>
+												<span class="nickname">櫻桃小丸子</span>
+											</div>
+											<table class="table table-borderless">
+												<tbody>
+													<tr>
+														<td class="input">
+															<div class="d-flex align-items-center justify-content-end">
+																<span>會員編號 : </span>
+															</div>
+														</td>
+														<td>
+															<div class="input-group mb-3">
+																<input type="text" class="form-control" value="<%=member_id%>" aria-label="Username" name="member_id" readonly>
+																<div class="invalid-feedback">
+	 																會員編號請勿空白
+															    </div>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td class="input">
+															<div class="d-flex align-items-center justify-content-end">
+																<span>文章分類 : </span>
+															</div>
+														</td>
+														<td>
+															<div>
+																<select class="custom-select" name="post_class" id="post_class">
+																	<option selected value="生活">生活</option>
+																	<option value="購物">購物</option>
+																	<option value="美食">美食</option>
+																	<option value="旅遊">旅遊</option>
+																	<option value="其他">其他</option>
+																</select>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td class="input">
+															<div class="d-flex align-items-center justify-content-end">
+																<span>圖片1 : </span>
+															</div>
+														</td>
+														<td>
+															<div class="input-group mb-3">
+																<div class="custom-file">
+																	<input type="file" class="custom-file-input" id="inputGroupFile01" name="post_image1" id="post_image1"> 
+																	<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+																</div>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td class="input">
+															<div class="d-flex align-items-center justify-content-end">
+																<span>圖片2 : </span>
+															</div>
+														</td>
+														<td>
+															<div class="input-group mb-3">
+																<div class="custom-file">
+																	<input type="file" class="custom-file-input" id="inputGroupFile02" name="post_image2"> 
+																	<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+																</div>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td class="input">
+															<div class="d-flex align-items-center justify-content-end">
+																<span>圖片3 : </span>
+															</div>
+														</td>
+														<td>
+															<div class="input-group mb-3">
+																<div class="custom-file">
+																	<input type="file" class="custom-file-input" id="inputGroupFile03" name="post_image3"> 
+																	<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+																</div>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td class="input">
+															<div class="d-flex align-items-center justify-content-end">
+																<span>圖片4 : </span>
+															</div>
+														</td>
+														<td>
+															<div class="input-group mb-3">
+																<div class="custom-file">
+																	<input type="file" class="custom-file-input" id="inputGroupFile04" name="post_image4"> 
+																	<label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+																</div>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td class="input">
+															<div class="d-flex align-items-center justify-content-end">
+																<span>圖片5 : </span>
+															</div>
+														</td>
+														<td>
+															<div class="input-group mb-3">
+																<div class="custom-file">
+																	<input type="file" class="custom-file-input" id="inputGroupFile05" name="post_image5"> 
+																	<label class="custom-file-label" for="inputGroupFile05">Choose file</label>
+																</div>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td class="input">
+															<div class="d-flex align-items-center justify-content-end">
+																<span>文章內容 : </span>
+															</div>
+														</td>
+														<td>
+															<div class="input-group">
+																<textarea class="form-control" aria-label="With textarea" name="post_content" id="post_content"></textarea>
+																<div class="invalid-feedback">
+																	文章內容請勿空白且文章內容請勿低於20個字
+																</div>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td class="input"></td>
+														<td style="text-align: end;">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">取消發文</button>
+															<input type="hidden" name="action" value="memberInsert">
+															<input id="confirm_send" type="submit" class="btn btn-outline-dark edit-blog" value="確認送出">
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
 
                 </div>
 
@@ -295,10 +411,10 @@
         </div>
 
     </div>
+    <%@ include file="/front-end/member/footer.jsp"%>
 
-    <script src="<%=request.getContextPath()%>/resources/vendors/jquery/jquery.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/vendors/popper/popper.min.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/vendors/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<%=request.getContextPath()%>/front-end/blog/js/HomePage.js"></script>
+<%--     <script src="<%=request.getContextPath()%>/resources/vendors/jquery/jquery.js"></script> --%>
+<%--     <script src="<%=request.getContextPath()%>/resources/vendors/popper/popper.min.js"></script> --%>
+<%--     <script src="<%=request.getContextPath()%>/resources/vendors/bootstrap/js/bootstrap.min.js"></script> --%>
 </body>
 </html>

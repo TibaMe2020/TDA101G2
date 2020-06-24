@@ -7,7 +7,7 @@
 div.cover{
     border: 1px solid lightgray;
     border-radius: 5px;
-    background-image: url("https://cdn.pixabay.com/photo/2020/05/12/17/04/wind-turbine-5163993_1280.jpg");
+/*     background-image: url("https://cdn.pixabay.com/photo/2020/05/12/17/04/wind-turbine-5163993_1280.jpg"); */
     background-repeat:no-repeat;
     background-size: 100%;
     background-position: center;

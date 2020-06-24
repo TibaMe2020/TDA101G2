@@ -3,36 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.blog.post.model.*"%>
 
-<%
-// 	PostVO postVO = (PostVO) session.getAttribute("postVO");
-// 	String member_id = postVO.getMember_id();
-	
-	String post_id = request.getParameter("post_id");
-	
-	PostService postService = new PostService();
-	PostVO postVO = postService.getOnePost(post_id);
-	pageContext.setAttribute("postVO", postVO);
-	
-	String member_id = postVO.getMember_id();
-	
-	List<PostVO> list1 = postService.getFifthCreateTimeMemberId(member_id);
-	pageContext.setAttribute("list1", list1);
-	List<PostVO> postContents1 = new ArrayList<PostVO>();
-	for(PostVO mypostVO : list1){
-		PostVO postContent = postService.getPostContent(mypostVO.getPost_id());
-		postContents1.add(postContent);
-	}
-	pageContext.setAttribute("postContents1", postContents1);
-	
-	List<PostVO> list2 = postService.getFifthPostLikeMemberId(member_id);
-	pageContext.setAttribute("list2", list2);
-	List<PostVO> postContents2 = new ArrayList<PostVO>();
-	for(PostVO mypostVO : list2){
-		PostVO postContent = postService.getPostContent(mypostVO.getPost_id());
-		postContents2.add(postContent);
-	}
-	pageContext.setAttribute("postContents2", postContents2);
-%>
+
 
 <!DOCTYPE html>
 <html>
@@ -44,6 +15,37 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
 </head>
 <body class="body">
+<%@ include file="/front-end/member/header.jsp"%>
+<%
+// 	PostVO postVO = (PostVO) session.getAttribute("postVO");
+// 	String member_id = postVO.getMember_id();
+	
+	String post_id = request.getParameter("post_id");
+	
+	PostService postService = new PostService();
+	PostVO postVO = postService.getOnePost(post_id);
+	pageContext.setAttribute("postVO", postVO);
+	
+// 	String member_id = postVO.getMember_id();
+	
+	List<PostVO> list1 = postService.getFifthCreateTimeMemberId(postVO.getMember_id());
+	pageContext.setAttribute("list1", list1);
+	List<PostVO> postContents1 = new ArrayList<PostVO>();
+	for(PostVO mypostVO : list1){
+		PostVO postContent = postService.getPostContent(mypostVO.getPost_id());
+		postContents1.add(postContent);
+	}
+	pageContext.setAttribute("postContents1", postContents1);
+	
+	List<PostVO> list2 = postService.getFifthPostLikeMemberId(postVO.getMember_id());
+	pageContext.setAttribute("list2", list2);
+	List<PostVO> postContents2 = new ArrayList<PostVO>();
+	for(PostVO mypostVO : list2){
+		PostVO postContent = postService.getPostContent(mypostVO.getPost_id());
+		postContents2.add(postContent);
+	}
+	pageContext.setAttribute("postContents2", postContents2);
+%>
 	<div class="container">
         <div class="row cover">
             <input class="my_cover_title" type="text" value="柴犬先生的平凡生活||下輩子想當狗">
@@ -75,8 +77,8 @@
                 <div class="post_class">
                     <h4 class="post_class_title">文章分類</h4>
                     <ul class="categories">
-                        <li style="border-bottom: 1px solid #13406A;"><a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/HomePage.jsp" style="text-decoration: none; color:#13406A;">全部</a></li>
-                        <li style="border-bottom: 1px solid #13406A;"><a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/Life.jsp" style="text-decoration: none; color:#13406A;">生活</a></li>
+                        <li style="border-bottom: 1px solid #13406A;"><a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=<%=postVO.getMember_id()%>" style="text-decoration: none; color:#13406A;">全部</a></li>
+                        <li style="border-bottom: 1px solid #13406A;"><a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogLife.jsp?other_member_id=<%=postVO.getMember_id()%>" style="text-decoration: none; color:#13406A;">生活</a></li>
                         <li style="border-bottom: 1px solid #13406A;"><a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/Shopping.jsp" style="text-decoration: none; color:#13406A;">購物</a></li>
                         <li style="border-bottom: 1px solid #13406A;"><a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/Food.jsp" style="text-decoration: none; color:#13406A;">美食</a></li>
                         <li style="border-bottom: 1px solid #13406A;"><a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/Travel.jsp" style="text-decoration: none; color:#13406A;">旅遊</a></li>
@@ -210,8 +212,9 @@
             
         </div>
     </div>
-	<script src="<%=request.getContextPath()%>/resources/vendors/jquery/jquery.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/vendors/popper/popper.min.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <%@ include file="/front-end/member/footer.jsp"%>
+<%-- 	<script src="<%=request.getContextPath()%>/resources/vendors/jquery/jquery.js"></script> --%>
+<%--     <script src="<%=request.getContextPath()%>/resources/vendors/popper/popper.min.js"></script> --%>
+<%--     <script src="<%=request.getContextPath()%>/resources/vendors/bootstrap/js/bootstrap.min.js"></script> --%>
 </body>
 </html>

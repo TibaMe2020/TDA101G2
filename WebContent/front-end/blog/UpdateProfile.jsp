@@ -3,8 +3,19 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.blog.post.model.*"%>
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>UpdateProfile</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/blog/css/UpdateProfile.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+</head>
+<body class="body">
+<%@ include file="/front-end/member/header.jsp"%>
 <%
-	String member_id = (String) session.getAttribute("member_id");
+// 	String member_id = (String) session.getAttribute("member_id");
 	PostService postService = new PostService();
 	
 	List<PostVO> list = postService.getByMemberId(member_id);
@@ -28,19 +39,9 @@
 	}
 	pageContext.setAttribute("postContents2", postContents2);
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>UpdateProfile</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/blog/css/UpdateProfile.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-</head>
-<body class="body">
 	<div class="container">
-		<div class="row cover">
-			<input class="my_cover_title" type="text" value="櫻桃小丸子的懶惰人生 || 想冬眠一輩子">
+		<div class="row cover" style="background-image: url('<%=request.getContextPath()%>/member/coverImage?member_id=${memberVO.member_id}');">
+			<input class="my_cover_title" type="text" value="${memberVO.blog_name}">
 		</div>
 		<div class="row">
 			<!-- container左欄 -->
@@ -51,10 +52,10 @@
 					</figure>
 					<div class="profile_info">
 						<span class="profile_info"> 
-							暱稱:<span class="nickname_span">${member_id}</span>
+							暱稱:<span class="nickname_span">${memberVO.nickname}</span>
 						</span> 
 						<span class="profile_info"> 
-							寵物:<span class="class_span">柴犬</span>
+							寵物:<span class="class_span">${memberVO.pet_class}</span>
 						</span>
 					</div>
 				</div>
@@ -102,7 +103,7 @@
 			<!-- container中間 -->
 			<div id="middle" class="col-7 padding_middle">
 				<div class="update">
-					<form method="POST" class="updateform" action="<%=request.getContextPath()%>/front-end/blog/MyBlog.jsp" enctype="multipart/form-data">
+					<form method="POST" class="updateform" action="<%=request.getContextPath()%>/member/controller" enctype="multipart/form-data">
 						<table class="table table-borderless">
 							<tbody>
 								<tr>
@@ -113,7 +114,7 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="text" class="form-control" placeholder="${member_id}">
+											<input type="text" class="form-control" placeholder="${memberVO.nickname}" name="nickname">
 										</div>
 									</td>
 								</tr>
@@ -125,7 +126,7 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="text" class="form-control" placeholder="寵物">
+											<input type="text" class="form-control" placeholder="寵物" name="pet_class">
 										</div>
 									</td>
 								</tr>
@@ -137,7 +138,7 @@
 									</td>
 									<td>
 										<div class="form-group">
-											<input type="text" class="form-control" placeholder="部落格名稱">
+											<input type="text" class="form-control" placeholder="部落格名稱" name="blog_name">
 										</div>
 									</td>
 								</tr>
@@ -151,7 +152,7 @@
 										<!-- <input type="file" class="form-control" placeholder="圖片"> -->
 										<div class="input-group mb-3">
 											<div class="custom-file">
-												<input type="file" class="custom-file-input" id="inputGroupFile"> 
+												<input type="file" class="custom-file-input" id="inputGroupFile" name="blog_cover_image"> 
 												<label class="custom-file-label" for="inputGroupFile">Choose file</label>
 											</div>
 										</div>
@@ -161,6 +162,7 @@
 									<td class="input-label"></td>
 									<td style="text-align: end;">
 										<input id="submit" type="submit" class="btn btn-outline-dark edit-blog" value="修改">
+										<input type="hidden" name="action" value="update_blog_info">
 									</td>
 								</tr>
 							</tbody>
@@ -174,8 +176,8 @@
 					<h4 class="new_post_title">最新文章</h4>
 					<c:forEach var="postContent" items="${postContents1}">
 						<div class="each_new_post">
-							<a class="a_tag" href="#" style="text-decoration: none; color: #13406A;">
-								${postContent} 
+							<a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postContent.post_id}" style="text-decoration: none; color: #13406A;">
+								${postContent.post_content} 
 							</a>
 						</div>
 					</c:forEach>
@@ -185,8 +187,8 @@
 					<h4 class="hot_post_title">熱門文章</h4>
 					<c:forEach var="postContent" items="${postContents2}">
 						<div class="each_hot_post">
-							<a class="a_tag" href="#" style="text-decoration: none; color: #13406A;">
-								${postContent} 
+							<a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postContent.post_id}" style="text-decoration: none; color: #13406A;">
+								${postContent.post_content} 
 							</a>
 						</div>
 					</c:forEach>
@@ -194,9 +196,9 @@
 			</div>
 		</div>
 	</div>
-
-	<script src="<%=request.getContextPath()%>/resources/vendors/jquery/jquery.js"></script>
-	<script src="<%=request.getContextPath()%>/resources/vendors/popper/popper.min.js"></script>
-	<script src="<%=request.getContextPath()%>/resources/vendors/bootstrap/js/bootstrap.min.js"></script>
+	<%@ include file="/front-end/member/footer.jsp"%>
+<%-- 	<script src="<%=request.getContextPath()%>/resources/vendors/jquery/jquery.js"></script> --%>
+<%-- 	<script src="<%=request.getContextPath()%>/resources/vendors/popper/popper.min.js"></script> --%>
+<%-- 	<script src="<%=request.getContextPath()%>/resources/vendors/bootstrap/js/bootstrap.min.js"></script> --%>
 </body>
 </html>

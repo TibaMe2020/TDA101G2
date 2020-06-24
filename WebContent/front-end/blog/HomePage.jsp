@@ -138,17 +138,17 @@
 				<div class="write_a_post">
 					<div class="post">
 						<figure class="post_figure">
-							<img class="post_blogger_picture"
-								src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
+							<img class="post_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
 						</figure>
-						<span class="nickname">Tom</span>
+						<span class="nickname">${memberVO.nickname}</span>
 					</div>
 					<div class="wanted_post">
-						<textarea class="my_text" placeholder="我也想發文..."
-							style="width: 585px; height: 50px"></textarea>
+						<textarea class="my_text" placeholder="我也想發文..." style="width: 585px; height: 50px"></textarea>
 					</div>
 					<div>
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right; margin: 5px 20px;">我要發文</button>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right; margin: 5px 20px;">
+							我要發文
+						</button>
 					</div>
 
 					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -172,21 +172,21 @@
 											</div>
 											<table class="table table-borderless">
 												<tbody>
-													<tr>
-														<td class="input">
-															<div class="d-flex align-items-center justify-content-end">
-																<span>會員編號 : </span>
-															</div>
-														</td>
-														<td>
-															<div class="input-group mb-3">
-																<input id="memberid" type="text" class="form-control" placeholder="Member Id" aria-label="Username" name="member_id">
-																<div class="invalid-feedback">
-	 																會員編號請勿空白
-															    </div>
-															</div>	
-														</td>
-													</tr>
+<!-- 													<tr> -->
+<!-- 														<td class="input"> -->
+<!-- 															<div class="d-flex align-items-center justify-content-end"> -->
+<!-- 																<span>會員編號 : </span> -->
+<!-- 															</div> -->
+<!-- 														</td> -->
+<!-- 														<td> -->
+<!-- 															<div class="input-group mb-3"> -->
+<!-- 																<input id="memberid" type="text" class="form-control" placeholder="Member Id" aria-label="Username" name="member_id"> -->
+<!-- 																<div class="invalid-feedback"> -->
+<!-- 	 																會員編號請勿空白 -->
+<!-- 															    </div> -->
+<!-- 															</div>	 -->
+<!-- 														</td> -->
+<!-- 													</tr> -->
 												
 													<tr>
 														<td class="input">
@@ -197,8 +197,7 @@
 														</td>
 														<td>
 															<div>
-																<select class="custom-select" name="post_class"
-																	id="post_class">
+																<select class="custom-select" name="post_class" id="post_class">
 																	<option selected value="生活">生活</option>
 																	<option value="購物">購物</option>
 																	<option value="美食">美食</option>
@@ -282,7 +281,8 @@
 																</div>
 															</div>
 														</td>
-													</tr>													<tr>
+													</tr>													
+													<tr>
 														<td class="input">
 															<div class="d-flex align-items-center justify-content-end">
 																<span>文章內容 : </span>
@@ -303,6 +303,7 @@
 														<td style="text-align: end;">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">取消發文</button> 
 															<input type="hidden" name="action" value="insert"> 
+															<input type="hidden" name="member_id" value="${member_id}">
 															<input id="confirm_send" type="submit" class="btn btn-outline-dark edit-blog" value="確認送出">
 														</td>
 													</tr>
@@ -321,9 +322,12 @@
 <%-- 					<a href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}" style="text-decoration: none; color:#13406A;"> --%>
 						<div class="each_post" id="${postVO.post_id}">	
 							<div class="post">
-								<figure class="post_figure">									
-									<img class="post_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
-								</figure>
+								<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${postVO.member_id}">
+									<figure class="post_figure">									
+										<img class="post_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
+									</figure>
+								</a>
+								
 								<span class="nickname">${postVO.member_id}</span>
 								<button class="saved_button" style="outline: none;" value="${savedlist2.contains(postVO.post_id)?'1':'0'}">
 									<span class="saved_post_icon" style="color: ${savedlist2.contains(postVO.post_id)?'black':'lightgray'}"> 
@@ -374,8 +378,8 @@
 							<div class="post_functions">
 								<div class="post_like">
 									<button class="post_like_button" value="0">
-										<span class="post_like_icon"> <i id="unlike"
-											class="fas fa-thumbs-up"></i>
+										<span class="post_like_icon"> 
+											<i id="unlike" class="fas fa-thumbs-up"></i>
 										</span>
 									</button>
 									<br> <span class="post_like_count">${postVO.post_like}</span>
@@ -383,8 +387,8 @@
 	
 								<div class="post_message">
 									<button class="post_message_button" style="outline: none;" value="unslide">
-										<span class="post_message_icon"> <i
-											class="fas fa-comment-dots"></i>
+										<span class="post_message_icon"> 
+											<i class="fas fa-comment-dots"></i>
 										</span>
 									</button>
 									<br> <span class="post_message_count">${postVO.post_message_count}</span>

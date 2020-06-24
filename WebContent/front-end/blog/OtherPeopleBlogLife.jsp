@@ -2,34 +2,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.blog.post.model.*" %>
-<%@ page import="com.blog.follow.model.*" %>
-<%@ page import="com.blog.saved.model.*" %>
-
-
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>OtherPeopleBlog</title>
+	<title>OtherPeopleBlogLife</title>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/blog/css/OtherPeopleBlog.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
 </head>
 <body class="body">
 <%@ include file="/front-end/member/header.jsp"%>
-<%	
-
-// 	System.out.println("我的member_id:" + member_id);
-	String other_member_id = request.getParameter("member_id");
-// 	System.out.println("別人的member_id:" + other_member_id);
+<%
+	System.out.println("我的member_id:" + member_id);
+	
+	String other_member_id = request.getParameter("other_member_id");
 	pageContext.setAttribute("other_member_id", other_member_id);
+	System.out.println("別人的other_member_id:" + other_member_id);
 	
 	PostService postService = new PostService();
-	List<PostVO> list = postService.getByMemberId(other_member_id);
+	List<PostVO> list = postService.getByMemberId(other_member_id, "生活");
 	pageContext.setAttribute("list", list);
+	System.out.println(other_member_id + "生活分類的文章" + list);
 	
-	List<PostVO> list1 = postService.getFifthCreateTimeMemberId(other_member_id);
+	List<PostVO> list1 = postService.getFifthCreateTime("生活", other_member_id);
 	pageContext.setAttribute("list1", list1);
+	System.out.println(list1);
 	List<PostVO> postContents1 = new ArrayList<PostVO>();
     for(PostVO postVO : list1){
     	PostVO postContent = postService.getPostContent(postVO.getPost_id());
@@ -37,8 +35,9 @@
     }
     pageContext.setAttribute("postContents1", postContents1);
 	
-	List<PostVO> list2 = postService.getFifthPostLikeMemberId(other_member_id);
+	List<PostVO> list2 = postService.getFifthPostLike("生活", other_member_id);
 	pageContext.setAttribute("list2", list2);
+	System.out.println(list2);
 	List<PostVO> postContents2 = new ArrayList<PostVO>();
     for(PostVO postVO : list2){
     	PostVO postContent = postService.getPostContent(postVO.getPost_id());
@@ -46,25 +45,6 @@
     }
     pageContext.setAttribute("postContents2", postContents2);
 
-	//關注部落客判斷
-    FollowService followService = new FollowService();
-    List<String> list3 = followService.getFollowedMemberIdByMemberId(member_id);
-    pageContext.setAttribute("list3", list3);
-//     System.out.println("我關注的member_id:" + list3);
-    
-    List<FollowVO> list4 = followService.getByMemberId(member_id);
-    pageContext.setAttribute("list4", list4);
-//     System.out.println("我關注的followVO:" + list4);
-    
-    //收藏文章判斷
-    SavedService savedService = new SavedService();
-	List<SavedVO> savedlist = savedService.getByMemberId(member_id);
-	pageContext.setAttribute("savedlist", savedlist);
-// 	System.out.println(member_id + "收藏的文章" + savedlist);
-	
-	List<String> savedlist2 = savedService.getPost_idByMemberId(member_id);
-	pageContext.setAttribute("savedlist2", savedlist2);
-// 	System.out.println(member_id + "收藏的文章id" + savedlist2);
 %>
 	<div class="container">
         <div class="row cover">
@@ -253,11 +233,8 @@
         </div>
     </div>
     <%@ include file="/front-end/member/footer.jsp"%>
-<%-- 	<script src="<%=request.getContextPath()%>/resources/vendors/jquery/jquery.js"></script> --%>
-<%-- 	<script src="<%=request.getContextPath()%>/resources/vendors/popper/popper.min.js"></script> --%>
-<%-- 	<script src="<%=request.getContextPath()%>/resources/vendors/bootstrap/js/bootstrap.min.js"></script> --%>
-	<script>
-		window.addEventListener("load", function(){
+    <script>
+	    window.addEventListener("load", function(){
 			//關注或是取消關注
 			$(document).on("click", "button.follow_button", function(){	
 				let status = $(this).attr("value");
@@ -311,23 +288,23 @@
 			});
 			
 			// 點擊留言,留言才顯示
-    		$(document).on("click", "button.post_message_button", function(){    	    	
-    	    	let post_id = $(this).closest("div.each_post").attr("id");
-    	    	let it = $(this);
-    	    	console.log(post_id);
-    	        $.ajax({
-    	            url: "<%=request.getContextPath()%>/Post/AjaxServlet",
-    	            type: "GET",   
-    	            data: {                       
-    	                "action" : "getPostId", 
-    	                "post_id": post_id
-    	            },                              
-    	            dataType: "json",
-    	            error: function (xhr) {         
-    	                console.log("錯誤");
-    	            },
-    	            success: function(datas){    
-    	            	console.log($(datas));
+			$(document).on("click", "button.post_message_button", function(){    	    	
+		    	let post_id = $(this).closest("div.each_post").attr("id");
+		    	let it = $(this);
+		    	console.log(post_id);
+		        $.ajax({
+		            url: "<%=request.getContextPath()%>/Post/AjaxServlet",
+		            type: "GET",   
+		            data: {                       
+		                "action" : "getPostId", 
+		                "post_id": post_id
+		            },                              
+		            dataType: "json",
+		            error: function (xhr) {         
+		                console.log("錯誤");
+		            },
+		            success: function(datas){    
+		            	console.log($(datas));
 						it.parents("div.post_functions").next().empty();
 						$.each(datas, function(index, data){
 							let messagecontent = '<div class="each_message">' + 
@@ -368,161 +345,161 @@
 						                   '</div>'+         
 						                   '</div>';     
 						                   
-                    	it.parents("div.post_functions").next().append(leavemessage);
-                    	it.parents("div.post_functions").next().slideToggle(1000);
-    	            }
-    	        });
-    	    });
-    		
-    		// 留言送出 
-    		$(document).on("click", "button.send_button", function(e){
-    			let post_id = $(this).closest("div.each_post").attr("id");
-    			let message_content = $(this).parents("div.message_content").find("#content").val();
-    			let it = $(this);
-
-    			if(message_content.trim() != ""){
-    				$.ajax({
-        				url:"<%=request.getContextPath()%>/Post/AjaxServlet",
-        				type:"GET",
-        				data: {                       
-        	                "action": "addMessage", 
-        	                "post_id": post_id,
-        	                "member_id": "MB00001",
-        	                "message_content": message_content, 
-        	            },
-        	            dataType: "json",
-        	            error: function (xhr) {         
-        	                console.log("錯誤");
-        	            },
-        	            success: function(data){
-        	            	it.attr("value", "slide");
-        	            	let messagecontent = '<div class="each_message">' + 
-    					              			 '<figure class="message_figure">' +
-    					  	                   	 '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
-    					  	                   	 '</figure>' +
-    					  	                   	 '<div class="message_person">' +
-    					  	                   	 '<span class="message_nickname">'+ $(data).attr("member_id") +'</span>' +
-    					  	                   	 '<br>' +
-    					  	                   	 '<div class="message_content">' +
-    					  	                   	 '<span>' + $(data).attr("message_content") +'</span>' +
-    					  	                   	 '</div>' +
-    					  	                   	 '</div>' +
-    					  	                   	 '</div>';
-    						it.parents("div.post_functions").next().prepend(messagecontent);
-    						it.parents("div.message_content").find("#content").val("");
-//     						it.parents("div.message").prev().find("button.post_message_button").click().click();
-        	            }
-        			});
-    			}
-    		});
-    		
-    		// 留言數送出
-    		$(document).on("click", "button.send_button", function(){
-    			let message_count = $(this).parents("div.message").prev().find("span.post_message_count").text();
-    			let message_content = $(this).parents("div.message_content").find("#content").val();
-    			let post_id = $(this).attr("value");
-//     			console.log(post_id);
-    			let it = $(this);
-    			if(message_content.trim() != ""){
-    				$.ajax({
-        				url:"<%=request.getContextPath()%>/Post/AjaxServlet",
-        				type:"GET",
-        				data: {                       
-        	                "action": "postMessageCountChange", 
-        	                "post_id": post_id,
+	                	it.parents("div.post_functions").next().append(leavemessage);
+	                	it.parents("div.post_functions").next().slideToggle(1000);
+		            }
+		        });
+		    });
+			
+			// 留言送出 
+			$(document).on("click", "button.send_button", function(e){
+				let post_id = $(this).closest("div.each_post").attr("id");
+				let message_content = $(this).parents("div.message_content").find("#content").val();
+				let it = $(this);
+	
+				if(message_content.trim() != ""){
+					$.ajax({
+	    				url:"<%=request.getContextPath()%>/Post/AjaxServlet",
+	    				type:"GET",
+	    				data: {                       
+	    	                "action": "addMessage", 
+	    	                "post_id": post_id,
+	    	                "member_id": "MB00001",
+	    	                "message_content": message_content, 
+	    	            },
+	    	            dataType: "json",
+	    	            error: function (xhr) {         
+	    	                console.log("錯誤");
+	    	            },
+	    	            success: function(data){
+	    	            	it.attr("value", "slide");
+	    	            	let messagecontent = '<div class="each_message">' + 
+						              			 '<figure class="message_figure">' +
+						  	                   	 '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
+						  	                   	 '</figure>' +
+						  	                   	 '<div class="message_person">' +
+						  	                   	 '<span class="message_nickname">'+ $(data).attr("member_id") +'</span>' +
+						  	                   	 '<br>' +
+						  	                   	 '<div class="message_content">' +
+						  	                   	 '<span>' + $(data).attr("message_content") +'</span>' +
+						  	                   	 '</div>' +
+						  	                   	 '</div>' +
+						  	                   	 '</div>';
+							it.parents("div.post_functions").next().prepend(messagecontent);
+							it.parents("div.message_content").find("#content").val("");
+	// 						it.parents("div.message").prev().find("button.post_message_button").click().click();
+	    	            }
+	    			});
+				}
+			});
+			
+			// 留言數送出
+			$(document).on("click", "button.send_button", function(){
+				let message_count = $(this).parents("div.message").prev().find("span.post_message_count").text();
+				let message_content = $(this).parents("div.message_content").find("#content").val();
+				let post_id = $(this).attr("value");
+	// 			console.log(post_id);
+				let it = $(this);
+				if(message_content.trim() != ""){
+					$.ajax({
+	    				url:"<%=request.getContextPath()%>/Post/AjaxServlet",
+	    				type:"GET",
+	    				data: {                       
+	    	                "action": "postMessageCountChange", 
+	    	                "post_id": post_id,
 							"post_message_count": message_count
-        	            },
-        	            dataType: "json",
-        	            error: function (xhr) {         
-        	                console.log("錯誤");
-        	            },
-        	            success: function(data){
-        	            	console.log(data);
-    					  	let messagecount = '<span class="post_message_count">' + $(data).attr("post_message_count") + '</span>';
-    					  	console.log(messagecount);
-    					  	it.parents("div.message").prev().find("span.post_message_count").replaceWith(messagecount);
-        	            }
-        			});
-    			}
-    		});
-    		
-    		// 按讚數送出               
-    		$(document).on("click", "button.post_like_button", function(){
+	    	            },
+	    	            dataType: "json",
+	    	            error: function (xhr) {         
+	    	                console.log("錯誤");
+	    	            },
+	    	            success: function(data){
+	    	            	console.log(data);
+						  	let messagecount = '<span class="post_message_count">' + $(data).attr("post_message_count") + '</span>';
+						  	console.log(messagecount);
+						  	it.parents("div.message").prev().find("span.post_message_count").replaceWith(messagecount);
+	    	            }
+	    			});
+				}
+			});
+			
+			// 按讚數送出               
+			$(document).on("click", "button.post_like_button", function(){
 				let post_like = $(this).parents("div.post_like").find("span.post_like_count").text();
 				let post_id = $(this).closest("div.each_post").attr("id");
 				let it = $(this);
-    			if($(this).attr("value") == 0){
-    				it.attr("value", "1");
-    				it.find("span.post_like_icon").attr("style", "color: #13406A");
-    				$.ajax({
-    					url: "<%=request.getContextPath()%>/Post/AjaxServlet",
-    					type: "GET",
-    					data: {
-    						"action": "postLikeChange",
-    						"post_id": post_id,
-    						"value": "1",
-    						"post_like": post_like
-    					},
-    					dataType: "json",
-    					error: function(xhr){
-    						console.log("錯誤");
-    					},
-    					success: function(data){
-    						let like_count = '<span class="post_like_count">' + $(data).attr("post_like") + '</span>';
-    						it.parents("div.post_like").find("span.post_like_count").replaceWith(like_count);
-    					}    					
-    				});
-    			} else{
-    				$(this).attr("value", "0");
-    				$(this).find("span.post_like_icon").attr("style", "color:lightgray");
-    				$.ajax({
-    					url: "<%=request.getContextPath()%>/Post/AjaxServlet",
-    					type: "GET",
-    					data: {
-    						"action": "postLikeChange",
-    						"post_id": post_id,
-    						"value": "0",
-    						"post_like": post_like
-    					},
-    					dataType: "json",
-    					error: function(xhr){
-    						console.log("錯誤");
-    					},
-    					success: function(data){
-    						let like_count = '<span class="post_like_count">' + $(data).attr("post_like") + '</span>';
-    						it.parents("div.post_like").find("span.post_like_count").replaceWith(like_count);
-    					}    					
-    				});
-    			}
-    		});
-    		
-    		// 分享數送出
-    		$(document).on("click", "button.post_share_button", function(){
-    			let post_share = $(this).parents("div.post_share").find("span.post_share_count").text();
-    			let post_id = $(this).closest("div.each_post").attr("id");
-    			let it = $(this);
-    			$.ajax({
-    				url:"<%=request.getContextPath()%>/Post/AjaxServlet",
-    				type:"GET",
-    				data: {                       
-    	                "action": "postShareChange", 
-    	                "post_id": post_id,
+				if($(this).attr("value") == 0){
+					it.attr("value", "1");
+					it.find("span.post_like_icon").attr("style", "color: #13406A");
+					$.ajax({
+						url: "<%=request.getContextPath()%>/Post/AjaxServlet",
+						type: "GET",
+						data: {
+							"action": "postLikeChange",
+							"post_id": post_id,
+							"value": "1",
+							"post_like": post_like
+						},
+						dataType: "json",
+						error: function(xhr){
+							console.log("錯誤");
+						},
+						success: function(data){
+							let like_count = '<span class="post_like_count">' + $(data).attr("post_like") + '</span>';
+							it.parents("div.post_like").find("span.post_like_count").replaceWith(like_count);
+						}    					
+					});
+				} else{
+					$(this).attr("value", "0");
+					$(this).find("span.post_like_icon").attr("style", "color:lightgray");
+					$.ajax({
+						url: "<%=request.getContextPath()%>/Post/AjaxServlet",
+						type: "GET",
+						data: {
+							"action": "postLikeChange",
+							"post_id": post_id,
+							"value": "0",
+							"post_like": post_like
+						},
+						dataType: "json",
+						error: function(xhr){
+							console.log("錯誤");
+						},
+						success: function(data){
+							let like_count = '<span class="post_like_count">' + $(data).attr("post_like") + '</span>';
+							it.parents("div.post_like").find("span.post_like_count").replaceWith(like_count);
+						}    					
+					});
+				}
+			});
+			
+			// 分享數送出
+			$(document).on("click", "button.post_share_button", function(){
+				let post_share = $(this).parents("div.post_share").find("span.post_share_count").text();
+				let post_id = $(this).closest("div.each_post").attr("id");
+				let it = $(this);
+				$.ajax({
+					url:"<%=request.getContextPath()%>/Post/AjaxServlet",
+					type:"GET",
+					data: {                       
+		                "action": "postShareChange", 
+		                "post_id": post_id,
 						"post_share": post_share
-    	            },
-    	            dataType: "json",
-    	            error: function (xhr) {         
-    	                console.log("錯誤");
-    	            },
-    	            success: function(data){
-    	            	console.log(data);
+		            },
+		            dataType: "json",
+		            error: function (xhr) {         
+		                console.log("錯誤");
+		            },
+		            success: function(data){
+		            	console.log(data);
 					  	let sharecount = '<span class="post_share_count">' + $(data).attr("post_share") + '</span>';
 					  	console.log(sharecount);
 					  	it.parents("div.post_share").find("span.post_share_count").replaceWith(sharecount);
-    	            }
-    			});
-    		});
-    		
-    		$(document).on("click", "button.saved_button", function(event){
+		            }
+				});
+			});
+			
+			$(document).on("click", "button.saved_button", function(event){
 				event.stopPropagation();
 				let issaved = $(this).attr("value");
 				console.log(issaved);
@@ -546,7 +523,7 @@
 	    	            },
 	    	            success: function(data){
 	    	            	console.log(data);
-
+	
 	    	            }
 	    			});
 				}else{
@@ -575,13 +552,13 @@
 				}
 				
 			});
-    		
-    		//錯誤驗證
-    		$(document).on("click", "#confirm_send", function(){
-    			let member_id = $("#memberid").val().trim();
-    			let post_content = $("#post_content").val().trim();
+			
+			//錯誤驗證
+			$(document).on("click", "#confirm_send", function(){
+				let member_id = $("#memberid").val().trim();
+				let post_content = $("#post_content").val().trim();
 	
-    			if(member_id == ""){
+				if(member_id == ""){
 					$("#memberid").removeClass("is-valid");
 					$("#memberid").addClass("is-invalid");
 				}else{
@@ -605,7 +582,7 @@
 					$("#post_content").addClass("is-valid");
 				}
 				
-    		});
+			});
 			//驗證過才可以送出
 			$("#confirm_send").click(function(){
 				let member_id = $("#memberid").val();
@@ -616,6 +593,7 @@
 		        }
 		    });
 		});
-	</script>
+    </script>
+
 </body>
 </html>

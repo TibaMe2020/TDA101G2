@@ -3,12 +3,24 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.blog.post.model.*"%>
 
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>MyBlog</title>
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/blog/css/MyBlog.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+</head>
+<body class="body">
+<%@ include file="/front-end/member/header.jsp"%>
 <%
 //     MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 //     String member_id = memberVO.getMember_id();
     
-    String member_id = request.getParameter("member_id");
-    pageContext.setAttribute("member_id", member_id);
+//     String member_id = request.getParameter("member_id");
+//     pageContext.setAttribute("member_id", member_id);
     
 //     String forword_member_id = (String) request.getAttribute("member_id");
 //     pageContext.setAttribute("forword_member_id", forword_member_id);
@@ -25,7 +37,6 @@
 
 	List<PostVO> list1 = postService.getFifthCreateTimeMemberId(member_id);
 	pageContext.setAttribute("list1", list1);
-	System.out.println(list1);
 	List<PostVO> postContents1 = new ArrayList<PostVO>();
     for(PostVO postVO : list1){
     	PostVO postContent = postService.getPostContent(postVO.getPost_id());
@@ -42,19 +53,9 @@
     }
     pageContext.setAttribute("postContents2", postContents2); 
 %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>MyBlog</title>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/blog/css/MyBlog.css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
-	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-</head>
-<body class="body">
 	<div class="container">
-		<div class="row cover">
-			<input class="my_cover_title" type="text" value="櫻桃小丸子的懶惰人生 || 想冬眠一輩子">
+		<div class="row cover" style="background-image: url('<%=request.getContextPath()%>/member/coverImage?member_id=${memberVO.member_id}');">
+			<input class="my_cover_title" type="text" value="${memberVO.blog_name}">
 		</div>
 		<div class="row">
 			<!-- container左欄 -->
@@ -72,10 +73,10 @@
 					</figure>
 					<div class="profile_info">
 						<span class="profile_info"> 
-							暱稱:<span class="nickname_span"><%=member_id%></span>
+							暱稱:<span class="nickname_span">${memberVO.nickname}</span>
 						</span> 
 						<span class="profile_info"> 
-							寵物:<span class="class_span">柴犬</span>
+							寵物:<span class="class_span">${memberVO.pet_class}</span>
 						</span>
 					</div>
 				</div>
@@ -105,13 +106,13 @@
 				</div>
 
 				<div class="follow_blogger">
-					<a href="<%=request.getContextPath()%>/front-end/blog/MyBack.jsp?member_id=${member_id}" style="text-decoration: none; color: #13406A;">
+					<a href="<%=request.getContextPath()%>/front-end/blog/MyBack.jsp?member_id=<%=member_id%>" style="text-decoration: none; color: #13406A;">
 						<h4 class="follow_blogger_title">關注部落客</h4>
 					</a>
 				</div>
 
 				<div class="saved_post">
-					<a href="<%=request.getContextPath()%>/front-end/blog/MyBack.jsp?member_id=${member_id}" style="text-decoration: none; color: #13406A;">
+					<a href="<%=request.getContextPath()%>/front-end/blog/MyBack.jsp?member_id=<%=member_id%>" style="text-decoration: none; color: #13406A;">
 						<h4 class="saved_post_title">收藏文章</h4>
 					</a>
 				</div>
@@ -128,7 +129,7 @@
 						<figure class="post_figure">
 							<img class="post_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">
 						</figure>
-						<span class="nickname"><%=member_id%></span>
+						<span class="nickname">${memberVO.nickname}</span>
 					</div>
 					<div class="wanted_post">
 						<textarea class="my_text" placeholder="我也想發文..." style="width: 585px; height: 50px"></textarea>
@@ -152,25 +153,25 @@
 													<img class="post_blogger_picture"
 														src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">
 												</figure>
-												<span class="nickname">櫻桃小丸子</span>
+												<span class="nickname">${memberVO.nickname}</span>
 											</div>
 											<table class="table table-borderless">
 												<tbody>
-													<tr>
-														<td class="input">
-															<div class="d-flex align-items-center justify-content-end">
-																<span>會員編號 : </span>
-															</div>
-														</td>
-														<td>
-															<div class="input-group mb-3">
-																<input type="text" class="form-control" value="<%=member_id%>" aria-label="Username" name="member_id" readonly>
-																<div class="invalid-feedback">
-	 																會員編號請勿空白
-															    </div>
-															</div>
-														</td>
-													</tr>
+<!-- 													<tr> -->
+<!-- 														<td class="input"> -->
+<!-- 															<div class="d-flex align-items-center justify-content-end"> -->
+<!-- 																<span>會員編號 : </span> -->
+<!-- 															</div> -->
+<!-- 														</td> -->
+<!-- 														<td> -->
+<!-- 															<div class="input-group mb-3"> -->
+<%-- 																<input type="text" class="form-control" value="<%=member_id%>" aria-label="Username" name="member_id" readonly> --%>
+<!-- 																<div class="invalid-feedback"> -->
+<!-- 	 																會員編號請勿空白 -->
+<!-- 															    </div> -->
+<!-- 															</div> -->
+<!-- 														</td> -->
+<!-- 													</tr> -->
 													<tr>
 														<td class="input">
 															<div class="d-flex align-items-center justify-content-end">
@@ -284,6 +285,7 @@
 														<td style="text-align: end;">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">取消發文</button>
 															<input type="hidden" name="action" value="memberInsert">
+															<input type="hidden" name="member_id" value="<%=member_id%>">
 															<input id="confirm_send" type="submit" class="btn btn-outline-dark edit-blog" value="確認送出">
 														</td>
 													</tr>
@@ -306,7 +308,7 @@
 								<img class="post_blogger_picture"
 									src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">
 							</figure>
-							<span class="nickname">${postVO.member_id}</span>
+							<span class="nickname">${memberVO.nickname}</span>
 							<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg" style="outline: none;">
                                 <span class="update_post_icon"> 	
 									<a class="edit" href="#" style="text-decoration: none; color: black;">
@@ -543,7 +545,7 @@
 
 						<div class="post_functions">
 							<div class="post_like">
-								<button class="post_like_button" value="0">
+								<button class="post_like_button" style="outline: none;" value="0">
 									<span class="post_like_icon"> 
 										<i id="unlike" class="fas fa-thumbs-up"></i>
 									</span>
@@ -553,7 +555,7 @@
 							</div>
 
 							<div class="post_message">
-								<button class="post_message_button">
+								<button class="post_message_button" style="outline: none;">
 									<span class="post_message_icon"> 
 										<i class="fas fa-comment-dots"></i>
 									</span>
@@ -563,7 +565,7 @@
 							</div>
 
 							<div class="post_share">
-								<button class="post_share_button">
+								<button class="post_share_button" style="outline: none;">
 									<span class="post_share_icon"> 
 										<i class="fas fa-share-square"></i>
 									</span>
@@ -606,10 +608,10 @@
 			</div>
 		</div>
 	</div>
-
-	<script src="<%=request.getContextPath()%>/resources/vendors/jquery/jquery.js"></script>
-	<script src="<%=request.getContextPath()%>/resources/vendors/popper/popper.min.js"></script>
-	<script src="<%=request.getContextPath()%>/resources/vendors/bootstrap/js/bootstrap.min.js"></script>
+	<%@ include file="/front-end/member/footer.jsp"%>
+<%-- 	<script src="<%=request.getContextPath()%>/resources/vendors/jquery/jquery.js"></script> --%>
+<%-- 	<script src="<%=request.getContextPath()%>/resources/vendors/popper/popper.min.js"></script> --%>
+<%-- 	<script src="<%=request.getContextPath()%>/resources/vendors/bootstrap/js/bootstrap.min.js"></script> --%>
 	<script>
 		window.addEventListener("load", function(){
 			// 點擊留言,留言才顯示
