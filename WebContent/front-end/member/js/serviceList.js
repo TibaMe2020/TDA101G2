@@ -559,15 +559,15 @@ $("#update-store").on('click', function () {
   let closed_array = $("#store_closed_update2").val();
   var store_closed_val = closed_array.split(",");
   console.log(member_id_val)
-  console.log(store_class_val)
-  console.log(store_name_val)
-  console.log(store_adress_val)
-  console.log(store_phone_number_val)
-  console.log(store_introduction_val)
-  console.log(store_firstbreak_val)
-  console.log(store_secondbreak_val)
-  console.log(store_maxcapacity_val)
-  console.log(store_closed_val)
+  // console.log(store_class_val)
+  // console.log(store_name_val)
+  // console.log(store_adress_val)
+  // console.log(store_phone_number_val)
+  // console.log(store_introduction_val)
+  // console.log(store_firstbreak_val)
+  // console.log(store_secondbreak_val)
+  // console.log(store_maxcapacity_val)
+  // console.log(store_closed_val)
 
   let checkcalss = false;
   let checkname = false;
