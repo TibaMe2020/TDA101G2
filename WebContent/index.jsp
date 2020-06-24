@@ -189,7 +189,7 @@ i {
 		<div class="row">
 			<div class="col-lg-6">
 				<p style="font-size: 30px; text-align: center;">店家</p>
-				<p style="font-size: 25px; text-align: center;">日常所需各類生活，包括寵物餐廳、寵物旅館、寵物美容、寵物學校、寵物醫院，應有盡有，寵物愛好者閒暇之餘的好去處。
+				<p style="font-size: 25px; text-align: center;">日常所需的各類寵物實體店家<br>寵物餐廳、寵物旅館、寵物美容、寵物學校、寵物醫院
 				</p>
 			</div>
 			<div class="col-lg-6">
