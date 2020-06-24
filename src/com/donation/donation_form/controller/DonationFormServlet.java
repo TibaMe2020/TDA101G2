@@ -259,7 +259,7 @@ public class DonationFormServlet extends HttpServlet {
 				Donation_form_infoService donation_form_infoSvc = new Donation_form_infoService();
 				donation_form_infoVO = donation_form_infoSvc.addDonation_form(donator_name, donator_phone_num, donation_money, payment, receipt_type,npo_id);//���ǭn���k�@��		
 
-				String url = "/front-end/donation/DonationForm/listAllDonationForm.jsp";
+				String url = "/front-end/donation/myMain/successpage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}catch(Exception e) { //console的錯誤可顯示到畫面上

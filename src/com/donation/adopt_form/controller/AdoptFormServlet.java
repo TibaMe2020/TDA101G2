@@ -194,7 +194,7 @@ public class AdoptFormServlet extends HttpServlet {
 						adopt_form_infoVO =adoptFormSvc.addAdopt_form(adopt_id,adopt_person,adopt_talk, payadopt_person, adopt_phone_num, adopt_payment, adopt_certificate, adopt_email, address);
 						req.setAttribute("adopt_form_infoVO", adopt_form_infoVO);
 						System.out.println("adopt_form_infoVO");
-						String url = "/front-end/donation/AdoptForm/listAllAdoptForm.jsp";
+						String url = "/front-end/donation/myMain/successpage.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url);
 						successView.forward(req, res);
 				 			}catch(Exception e) {

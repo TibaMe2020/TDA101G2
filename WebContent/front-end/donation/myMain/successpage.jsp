@@ -12,12 +12,12 @@
 
 <body>
     <div class="jumbotron">
-    <h1 class="display-4">捐款成功</h1>
+    <h1 class="display-4">付款成功</h1>
     <p class="lead">感謝您,為了守護流浪動物們所盡的一份心力!!</p>
     <hr class="my-4">
     <p>接著您可以前往捐款頁面去查詢您剛剛所捐款的紀錄。</p>
     <a class="btn btn-primary btn-lg" href="<%=request.getContextPath()%>/front-end/donation/myMain/donation.jsp" role="button">返回公益首頁</a>
-    <a class="btn btn-primary btn-lg" href="<%=request.getContextPath()%>/front-end/donation/DonationForm/selectdata.jsp" role="button">前往捐款查詢</a>
+<%--     <a class="btn btn-primary btn-lg" href="<%=request.getContextPath()%>/front-end/donation/DonationForm/selectdata.jsp" role="button">前往捐款查詢</a> --%>
   </div>
 </body>
 </html>
