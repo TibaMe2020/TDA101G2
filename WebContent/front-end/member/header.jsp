@@ -14,7 +14,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/vendors/air_datepicker/datepicker.min.css">
-<link href="<%=request.getContextPath()%>/front-end/member/css/headerNfooter.css" rel="stylesheet">
+<%-- <link href="<%=request.getContextPath()%>/front-end/member/css/headerNfooter.css" rel="stylesheet"> --%>
 
 
 

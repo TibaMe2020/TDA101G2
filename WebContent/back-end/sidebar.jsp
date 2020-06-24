@@ -42,15 +42,15 @@
             
             <!-- Submenu content -->
             <div id='submenu1' class="collapse sidebar-submenu">
-              <a href="<%=request.getContextPath()%>/back-end/npo.jsp"
+              <a href="<%=request.getContextPath()%>/back-end/donationTest.jsp"
                 class="list-group-item list-group-item-action text-center">
                 <span class="menu-collapsed">公益團體</span>
               </a>
-              <a href="<%=request.getContextPath()%>/back-end/adopt.jsp"
+              <a href="<%=request.getContextPath()%>/back-end/adoptTest.jsp"
                 class="list-group-item list-group-item-action text-center">
                 <span class="menu-collapsed">動物認養</span>
               </a>
-              <a href="<%=request.getContextPath()%>/back-end/result.jsp"
+              <a href="<%=request.getContextPath()%>/back-end/resultTest.jsp"
                 class="list-group-item list-group-item-action text-center">
                 <span class="menu-collapsed">捐款成果</span>
               </a>
