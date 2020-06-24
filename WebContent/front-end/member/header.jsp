@@ -14,7 +14,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/vendors/air_datepicker/datepicker.min.css">
-<%-- <link href="<%=request.getContextPath()%>/front-end/member/css/headerNfooter.css" rel="stylesheet"> --%>
+<link href="<%=request.getContextPath()%>/front-end/member/css/headerNfooter.css" rel="stylesheet">
 
 
 
@@ -193,7 +193,7 @@
 						href="<%=request.getContextPath()%>/front-end/blog/HomePage.jsp">部落格</a>
 					</li>
 					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/front-end/donation/donation.jsp">公益</a>
+						href="<%=request.getContextPath()%>/front-end/donation/myMain/donation.jsp">公益</a>
 					</li>
 				</ul>
 			</div>

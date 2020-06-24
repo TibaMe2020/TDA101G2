@@ -14,35 +14,35 @@
               <a href="<%=request.getContextPath()%>/">主頁</a>
             </li>
             <li class="list-group-item">
-              <a href="<%=request.getContextPath()%>/front-end/product/product.jsp">商城</a>
+              <a href="<%=request.getContextPath()%>/front-end/product/ProductHomepage.jsp">商城</a>
             </li>
             <li class="list-group-item">
-              <a href="<%=request.getContextPath()%>/front-end/store/store.html">店家</a>
+              <a href="<%=request.getContextPath()%>/front-end/store/store.jsp">店家</a>
             </li>
             <li class="list-group-item">
               <a href="<%=request.getContextPath()%>/front-end/blog/HomePage.jsp">部落格</a>
             </li>
             <li class="list-group-item">
-              <a href="<%=request.getContextPath()%>/front-end/donation/donation.jsp">公益</a>
+              <a href="<%=request.getContextPath()%>/front-end/donation/myMain/donation.jsp">公益</a>
             </li>
           </ul>
         </div>
         <div class="col-sm-12 col-md-2 footer-col">
           <ul class="list-group footer-info">
             <li class="list-group-item">
-              <a href="<%=request.getContextPath()%>/front-end/store/instruction.html?type=hospital">寵物醫院</a>
+              <a href="<%=request.getContextPath()%>/front-end/store/Introduction.jsp?type=hospital">寵物醫院</a>
             </li>
             <li class="list-group-item">
-              <a href="<%=request.getContextPath()%>/front-end/store/instruction.html?type=school">寵物學校</a>
+              <a href="<%=request.getContextPath()%>/front-end/store/Introduction.jsp?type=school">寵物學校</a>
             </li>
             <li class="list-group-item">
-              <a href="<%=request.getContextPath()%>/front-end/store/instruction.html?type=restaurant">寵物餐廳</a>
+              <a href="<%=request.getContextPath()%>/front-end/store/Introduction.jsp?type=restaurant">寵物餐廳</a>
             </li>
             <li class="list-group-item">
-              <a href="<%=request.getContextPath()%>/front-end/store/instruction.html?type=hostel">寵物旅館</a>
+              <a href="<%=request.getContextPath()%>/front-end/store/Introduction.jsp?type=hostel">寵物旅館</a>
             </li>
             <li class="list-group-item">
-              <a href="<%=request.getContextPath()%>/front-end/store/instruction.html?type=grooming">寵物美容</a>
+              <a href="<%=request.getContextPath()%>/front-end/store/Introduction.jsp?type=grooming">寵物美容</a>
             </li>
           </ul>
         </div>

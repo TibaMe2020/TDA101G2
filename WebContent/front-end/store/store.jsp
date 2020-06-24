@@ -8,9 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PETBOX</title>
-    <link rel="stylesheet" href="../../resources/vendors/bootstrap/css/bootstrap.min.css">
-    <link href="./css/store.css" rel="stylesheet">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/front-end/store/css/store.css" rel="stylesheet">
 </head>
 
 <body>
