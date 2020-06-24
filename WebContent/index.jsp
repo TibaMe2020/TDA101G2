@@ -143,7 +143,7 @@ i {
 	color: rgb(250, 224, 107);
 }
 </style>
-<title>Video</title>
+<title>Homepage</title>
 </head>
 
 <body>

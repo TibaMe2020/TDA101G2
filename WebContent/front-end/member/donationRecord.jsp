@@ -1,3 +1,7 @@
+<%@page import="com.donation.adopt_info.model.Adopt_infoVO"%>
+<%@page import="com.donation.adopt_info.model.Adopt_infoService"%>
+<%@page import="com.donation.npo_info.model.Npo_infoVO"%>
+<%@page import="com.donation.npo_info.model.Npo_infoService"%>
 <%@page
 		import="com.donation.donation_form_info.model.Donation_form_infoVO"%>
 <%@page
@@ -16,6 +20,7 @@
 <%@page
 		import="java.util.List, java.util.ArrayList, java.util.Map, java.util.HashMap,java.util.Arrays"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -42,30 +47,36 @@
 
 		<%@ include file="header.jsp"%>
 		<%
-// 			Adopt_form_infoService afSvc = new Adopt_form_infoService();
-// 			List<Adopt_form_infoVO> adoptList = afSvc.getAll();
-// 			adoptList = adoptList.stream()
-// 					.filter( a -> a.getMember_id().equals(member_id))
-// 					.collect(Collectors.toList());
-// 			List<Adopt_form_infoVO> adoptList = new ArrayList<>();
-			
-// 			for (Adopt_form_infoVO afVO : afSvc.getAll()) {
-// 				if(member_id.equals(afVO.getMember_id())) {
-// 					adoptList.add(afVO);
-// 				}
-// 			}
-// 			pageContext.setAttribute("adoptList", adoptList);
-			
-// 			Donation_form_infoService doSvc = new Donation_form_infoService();
-// 			List<Donation_form_infoVO> donationList = new ArrayList<>();
-// 			for (Donation_form_infoVO dfVO : doSvc.getAll()) {
-// 				if(member_id.equals(dfVO.getMember_id())) {
-// 					donationList.add(dfVO);
-// 				}
-// 			}
-// 			pageContext.setAttribute("donationList", donationList);
-// 			System.out.println(adoptList);
-// 			System.out.println(donationList);
+			Adopt_form_infoService afSvc = new Adopt_form_infoService();
+			Npo_infoService npoSvc = new Npo_infoService();
+			List<Npo_infoVO> npos = npoSvc.getAll();
+			Adopt_infoService adoptSvc = new Adopt_infoService();
+			List<Adopt_infoVO> adopts = adoptSvc.getAll();
+
+			pageContext.setAttribute("npos", npos);
+			pageContext.setAttribute("adopts", adopts);
+			// 			adoptList = adoptList.stream()
+			// 					.filter( a -> a.getMember_id().equals(member_id))
+			// 					.collect(Collectors.toList());
+			List<Adopt_form_infoVO> adoptList = new ArrayList<>();
+
+			for (Adopt_form_infoVO afVO : afSvc.getAll()) {
+				if (member_id.equals(afVO.getMember_id())) {
+					adoptList.add(afVO);
+				}
+			}
+			pageContext.setAttribute("adoptList", adoptList);
+
+			Donation_form_infoService doSvc = new Donation_form_infoService();
+			List<Donation_form_infoVO> donationList = new ArrayList<>();
+			for (Donation_form_infoVO dfVO : doSvc.getAll()) {
+				if (member_id.equals(dfVO.getMember_id())) {
+					donationList.add(dfVO);
+				}
+			}
+			pageContext.setAttribute("donationList", donationList);
+			// 			System.out.println(adoptList);
+			// 			System.out.println(donationList);
 		%>
 		<div class="container-fluid">
 				<div class="row content-height">
@@ -91,55 +102,72 @@
 												<div class="tab-pane fade show active" id="donation-record"
 														role="tabpanel" aria-labelledby="pills-1-tab">
 														<!-- 							捐款紀錄 -->
-<%-- 														<c:forEach items="" var=""> --%>
-																<div class="card bg-white border-0">
-																		<div class="card-body row">
-																				<div class="product-image col-2">
-																						<img
-																								src="<%=request.getContextPath()%>/resources/images/triangle.png"
-																								class="rounded">
+														<c:forEach items="${donationList}" var="donation">
+																<c:forEach items="${npos}" var="npo">
+																		<c:if test="${npo.npo_id == donation.npo_id}">
+																				<div class="card bg-white border-0">
+																						<div class="card-body row">
+																								<div class="product-image col-2">
+																										<img
+																												src="<%=request.getContextPath()%>/Npo/DBGifReader2?npo_id=${donation.npo_id}"
+																												class="rounded">
+																								</div>
+																								<div class="col-8 text-left">
+																										<h5 class="card-title">${npo.npo_name}</h5>
+																										<p class="card-text">
+																												${npo.npo_description}</p>
+																								</div>
+																								<div class="col-2 text-left align-self-center">
+																										<h5 class="card-title">
+																												<fmt:formatNumber maxFractionDigits="0"
+																														value="${donation.donation_money}"
+																														type="currency" />
+																										</h5>
+																										<p class="card-text">
+																												<fmt:formatDate
+																														value="${donation.create_time}"
+																														pattern="yyyy-MM-dd" />
+																										</p>
+																								</div>
+																						</div>
 																				</div>
-																				<div class="col-8 text-left">
-																						<h5 class="card-title">公益團體</h5>
-																						<p class="card-text">Lorem ipsum dolor sit
-																								amet, consetetur sadipscing elitr, sed diam
-																								nonumy eirmod</p>
-																				</div>
-																				<div class="col-2 text-left align-self-center">
-																						<h5 class="card-title">$1,000</h5>
-																						<p class="card-text">2020/04/07</p>
-																				</div>
-																		</div>
-																</div>
-<%-- 														</c:forEach> --%>
+																		</c:if>
+																</c:forEach>
+														</c:forEach>
 
 												</div>
 
 												<div class="tab-pane fade" id="adopt-record" role="tabpanel"
 														aria-labelledby="pills-2-tab">
 														<!-- 							領養 -->
-<%-- 														<c:forEach items="" var=""> --%>
-																<div class="card bg-white border-0">
-																		<div class="card-body row">
-																				<div class="product-image col-2">
-																						<img
-																								src="<%=request.getContextPath()%>/resources/images/triangle.png"
-																								class="rounded">
+														<c:forEach items="${adoptList}" var="adopt">
+																<c:forEach items="${adopts}" var="ad">
+																		<c:if test="${adopt.adopt_id == ad.adopt_id}">
+																				<div class="card bg-white border-0">
+																						<div class="card-body row">
+																								<div class="product-image col-2">
+																										<img
+																												src="<%=request.getContextPath()%>/Adopt/DBGifReader3?adopt_id=${adopt.adopt_id}"
+																												class="rounded">
+																								</div>
+																								<div class="col-8 text-left">
+																										<h5 class="card-title">${ad.adopt_name}</h5>
+																										<p class="card-text">
+																										  ${ad.adopt_description}
+																										</p>
+																								</div>
+																								<div class="col-2 text-left align-self-center">
+																										<h5 class="card-title"></h5>
+																										<p class="card-text">
+																										<fmt:formatDate value="${adopt.create_time}"
+																														pattern="yyyy-MM-dd" />
+																										</p>
+																								</div>
+																						</div>
 																				</div>
-																				<div class="col-8 text-left">
-																						<h5 class="card-title">動物名稱</h5>
-																						<p class="card-text">Lorem ipsum dolor sit
-																								amet, consetetur sadipscing elitr, sed diam
-																								nonumy eirmod</p>
-																				</div>
-																				<div class="col-2 text-left align-self-center">
-																						<h5 class="card-title"></h5>
-																						<p class="card-text">2020/04/07</p>
-																				</div>
-																		</div>
-																</div>
-<%-- 														</c:forEach> --%>
-
+																		</c:if>
+																</c:forEach>
+														</c:forEach>
 												</div>
 										</div>
 

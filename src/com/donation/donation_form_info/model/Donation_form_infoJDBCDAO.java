@@ -115,6 +115,7 @@ public class Donation_form_infoJDBCDAO implements Donation_form_infoDAO_interfac
 				donation_form_infoVO = new Donation_form_infoVO();
 				donation_form_infoVO.setDonation_form_id(rs.getString("donation_form_id"));
 				donation_form_infoVO.setNpo_id(rs.getString("npo_id"));
+				donation_form_infoVO.setMember_id(rs.getString("member_id"));
 				donation_form_infoVO.setDonator_name(rs.getString("donator_name"));
 				donation_form_infoVO.setDonation_money(rs.getInt("donation_money"));
 				donation_form_infoVO.setPayment(rs.getString("payment"));
@@ -237,8 +238,21 @@ public class Donation_form_infoJDBCDAO implements Donation_form_infoDAO_interfac
 //
 //		dao.insert(donation_form_info1);
 		
-//		List<Donation_form_infoVO> list = dao.getAll();
-//		for (Donation_form_infoVO aDo : list) {
+		List<Donation_form_infoVO> list = dao.getAll();
+		for (Donation_form_infoVO aDo : list) {
+			System.out.print(aDo.getDonation_form_id() + ",");
+			System.out.print(aDo.getNpo_id() + ",");
+			System.out.print(aDo.getMember_id() + ",");
+			System.out.print(aDo.getDonator_name() + ",");
+			System.out.print(aDo.getDonation_money() + ",");
+			System.out.print(aDo.getDonator_phone_num() + ",");
+			System.out.print(aDo.getPayment()+ ",");
+			System.out.print(aDo.getReceipt_type()+ ",");
+			System.out.print(aDo.getCreate_time());
+			System.out.println(dao.getAll());
+	
+//		List<Donation_form_infoVO> listt = dao.getSelect("宋仲基", "0976023691");
+//		for (Donation_form_infoVO aDo : listt) {
 //			System.out.print(aDo.getDonation_form_id() + ",");
 //			System.out.print(aDo.getDonator_name() + ",");
 //			System.out.print(aDo.getDonation_money() + ",");
@@ -246,17 +260,6 @@ public class Donation_form_infoJDBCDAO implements Donation_form_infoDAO_interfac
 //			System.out.print(aDo.getPayment()+ ",");
 //			System.out.print(aDo.getReceipt_type()+ ",");
 //			System.out.print(aDo.getCreate_time());
-//			System.out.println(dao.getAll());
-	
-		List<Donation_form_infoVO> listt = dao.getSelect("宋仲基", "0976023691");
-		for (Donation_form_infoVO aDo : listt) {
-			System.out.print(aDo.getDonation_form_id() + ",");
-			System.out.print(aDo.getDonator_name() + ",");
-			System.out.print(aDo.getDonation_money() + ",");
-			System.out.print(aDo.getDonator_phone_num() + ",");
-			System.out.print(aDo.getPayment()+ ",");
-			System.out.print(aDo.getReceipt_type()+ ",");
-			System.out.print(aDo.getCreate_time());
 	
 			
 		}

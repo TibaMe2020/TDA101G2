@@ -1,5 +1,7 @@
 package com.donation.adopt_form_info.model;
 
+import java.sql.Timestamp;
+
 public class Adopt_form_infoVO implements java.io.Serializable {
 	private String adopt_form_id;
 	private String adopt_id;
@@ -12,6 +14,13 @@ public class Adopt_form_infoVO implements java.io.Serializable {
 	private String adopt_certificate;
 	private String adopt_email;
 	private String address;
+	public Timestamp getCreate_time() {
+		return create_time;
+	}
+	public void setCreate_time(Timestamp create_time) {
+		this.create_time = create_time;
+	}
+	private Timestamp create_time;
 	
 
 	public String getAdopt_id() {
