@@ -1,0 +1,141 @@
+/* MyBack的css */
+/* ==========container========== */
+div.padding_left{
+    margin-top: 20px;
+}
+div.padding_middle{
+    margin-top: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+div.padding_right{
+    margin-top: 20px;
+}
+/* ==========關注部落客========== */
+div.follow_blogger{
+    background-color:#F9EACB;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    margin-bottom: 20px;
+}
+h4.follow_blogger_title{
+    color: #13406A;
+    font-weight: bold;
+    text-align: center;
+    margin-top:20px; 
+    margin-bottom: 20px;
+}
+div.each_follow_blogger{
+    background-color:#fff;
+    height: 60px;
+    border-radius: 5px;
+    margin: 10px 20px;
+    line-height: 60px;
+}
+figure.follow_figure{
+    float:left; 
+    margin-bottom: 0px;
+}
+img.follow_blogger_picture{
+    width:40px;
+    border-radius: 50%;
+    margin: 10px;
+}
+span.nickname{
+    display: inline-block;
+}
+button.follow_button{
+    padding: 0px;
+    border: 0px;
+    background-color: transparent;
+    float: right; 
+}
+span.follow_icon{
+    font-size: 25px; 
+    margin: 0 20px;
+    color: #EE6464;;
+}
+/* ==========關注我的部落客========== */
+div.follow_me_blogger{
+    background-color:#F9EACB;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    margin-bottom: 20px;
+}
+h4.follow_me_blogger_title{
+    color: #13406A;
+    font-weight: bold;
+    text-align: center;
+    margin-top:20px; 
+    margin-bottom: 20px;
+}
+div.each_follow_me_blogger{
+    background-color:#fff;
+    height: 60px;
+    width: 209px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 0 10px 10px;
+    line-height: 60px;
+    display: inline-block;
+}
+figure.follow_me_figure{
+    float:left; 
+    margin-bottom: 0px;
+}
+img.follow_me_blogger_picture{
+    width:40px;
+    border-radius: 50%;
+    margin: 10px;
+}
+/* ==========收藏文章========== */
+div.saved_post{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    background-color: #F9EACB;
+    margin-bottom: 20px;
+}
+h4.saved_post_title{
+    color: #13406A;
+    font-weight: bold;
+    text-align: center;
+    margin-top:20px; 
+    margin-bottom: 20px;
+}
+div.each_saved_post{
+    border: 1px solid lightgray;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 10px;
+    min-height: 90px;
+}
+div.saved_post_blogger{
+    line-height: 60px;
+}
+figure.saved_post_figure{
+    height: 60px;
+    float: left;
+    margin-bottom: 0px;
+}
+img.saved_post_blogger_picture{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+}
+div.saved_post_content{
+    display: block;
+    font-size: 15px;
+    margin: 0 10px 5px;
+}
+button.saved_button{
+    padding: 0px;
+    border: 0px;
+    background-color: transparent;
+    float: right;
+    height: 45px;
+}
+span.saved_post_icon{
+    font-size: 25px; 
+    margin: 0 20px;
+}

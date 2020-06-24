@@ -1,0 +1,362 @@
+/* MyBlog的css*/
+.body{
+    background-color: #F3F2F2;
+    font-family: Noto Serif TC;
+}
+/* ==========上面cover========== */
+div.cover{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    background-image: url("http://i.imgur.com/nn3Zo.jpg");
+    background-repeat:no-repeat;
+    background-size: 100%;
+    background-position: center;
+    background-color: #F9EACB;
+    height: 200px;
+    margin-top: 20px;
+}
+input.my_cover_title{
+    width: 450px;
+    height: 50px;
+    font-size: 24px;
+    margin-top: 20px;
+    margin-left: 30px;
+    padding: 0 0 0 10px;
+    /* background-color: transparent; */
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #13406A;
+    font-weight: bold;
+    text-align: left;
+    border: 1px solid lightgray;
+}
+/* ==========container========== */
+div.padding_left {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 20px;
+}
+div.padding_middle {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 0px;
+}
+div.padding_right {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 20px;
+}
+/* ==========個人資料========== */
+div.personal_profile{
+    margin-bottom: 20px;
+    border: 1px solid #F9EACB;
+    border-radius: 5px;
+    height: 250px;
+    background-color: #F9EACB;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+}
+button.follow_button{
+    padding: 0px; 
+    border: 0px; 
+    background-color: transparent; 
+    outline: none;
+    float: right;
+}
+span.follow_blogger{
+    font-size: 30px;
+    margin: 10px 10px 0 0;
+}
+figure.profile_figure{
+    margin-bottom: 0px;
+}
+img.profile_image{
+    background-color: #fff;
+    border: 1px solid lightgray;
+    border-radius: 50%;
+    width: 140px;    
+    height: 140px;
+    display: block;
+    margin: 20px 24px;
+}
+div.profile_info{
+    margin:0 20px;
+}
+span.profile_info{
+    color: #13406A;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+/* ==========分類========== */
+div.post_class{
+    background-color:#F9EACB;
+    padding-bottom: 0px;
+    margin-bottom: 20px;  
+    border: 1px solid #F9EACB; 
+    border-radius: 5px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+}
+h4.post_class_title{
+    color: #13406A;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px; 
+    margin-bottom: 12.5px;
+}
+ul.categories {
+    padding-left: 10px;
+    padding-right: 10px;
+    list-style-type: none;
+    font-size: 18px;
+    margin-bottom: 7.5px;
+}
+ul.categories li{
+    text-align: center;
+    padding: 7.5px;
+    margin: 0px 15px;
+    display: list-item;
+}
+/* ==========按鈕========== */
+input.to_my_blog{
+    color: #13406A;
+    width: 120px; 
+    height: 34px; 
+    padding: 0px; 
+    border: 1px solid #13406A; 
+    border-radius: 3px;
+    background-color: #fff;
+    margin-bottom:10px; 
+}
+input.to_my_blog:hover{
+    color: #fff;
+    border: 1px solid #13406A; 
+    background-color:#13406A;
+}
+input.back_to_homepage{
+    color: #13406A;
+    width: 100px; 
+    height: 34px; 
+    padding:0px; 
+    border: 1px solid #13406A; 
+    border-radius: 3px;
+    background-color:#fff;
+    margin-bottom: 10px; 
+}
+input.back_to_homepage:hover{
+    color: #fff;
+    border: 1px solid #13406A; 
+    background-color:#13406A;
+}
+/* ==========文章========== */
+div.each_post{
+    background-color: #fff;
+    font-size: 0px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    margin-top: 20px; 
+    margin-bottom: 20px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3)
+}
+div.post{
+    display: flow-root; 
+    line-height: 120px;
+    font-size: 16px;
+}
+figure.post_figure{
+    float: left; 
+    margin-bottom: 0px;
+}
+img.post_blogger_picture{
+    width:80px;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+    margin: 20px;
+}
+button.saved_button{
+    padding: 0; 
+    border: 0px; 
+    background-color: transparent; 
+    float: right;
+}
+span.saved_post_icon{
+    font-size: 30px;
+    margin: 0 40px;
+}
+div.post_content{
+    margin: 10px 20px 0;
+    font-size: 16px;
+}
+p.post_content{
+    margin-bottom: 0px; 
+    border-bottom: 1px solid lightgray; 
+    padding-bottom: 5px;
+}
+
+/* ==========carousel輪播========== */
+div.carousel-inner{
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+ol.carousel-indicators li{
+    width: 10px; 
+    height:10px;
+    border-radius: 50%;
+}
+img.post_image{
+    display: block;
+    height: 400px;
+    margin: auto;
+}
+/* ==========控制carousel箭頭顏色========== */
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+.carousel-control-next-icon {
+background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+}  
+/* ==========按讚留言分享========== */
+div.post_functions{
+    /* border: 1px solid lightgray; */
+    display: inline-block;
+    width: 625px;
+    text-align: center;
+    font-size: 16px;
+}
+div.post_like{
+    /* border: 1px solid lightgray; */
+    float: left;
+    margin-left: 40px;
+}
+button.post_like_button{
+    padding: 0; 
+    border: 0px; 
+    background-color: transparent; 
+    outline: none;
+}
+span.post_like_icon{
+    font-size: 25px;
+    color: lightgray;
+}
+span.post_like_count{
+    text-align: center;
+}
+div.post_message{
+    /* border: 1px solid lightgray; */
+    float: left;
+    margin-left: 230px;
+}
+button.post_message_button{
+    padding: 0; 
+    border: 0px; 
+    background-color: transparent; 
+    outline: none;
+}
+span.post_message_icon{
+    font-size: 25px;
+}
+span.post_message_count{
+    text-align: center;
+}
+div.post_share{
+    /* border: 1px solid lightgray; */
+    float: right;
+    margin-right: 40px;
+}
+button.post_share_button{
+	padding: 0; 
+    border: 0px; 
+    background-color: transparent; 
+    outline: none;
+}
+span.post_share_icon{
+    font-size: 25px;
+}
+span.post_share_count{
+    display: inline-block;
+    text-align: center;
+}
+button.send_button{
+    padding: 0; 
+    border: 0px; 
+    background-color: transparent; 
+    outline: none;
+} 
+/* ==========留言========== */
+div.message{
+    border-top: 1px solid lightgray; 
+    background-color: #fff; 
+    display: inline-block; 
+    display: none;
+    width: 100%;
+    font-size: 0px;
+}
+div.each_message{
+    border: 1px solid black;
+    display: inline-block; 
+    width: 100%;
+    font-size: 16px;
+}
+figure.message_figure{
+    float: left; 
+    margin-bottom: 0px;
+}
+img.message_blogger_picture{
+    border: 1px solid lightgray;
+    width: 60px; 
+    margin: 10px; 
+    border-radius: 50%; 
+}
+div.message_person{
+    float: left; 
+    margin: 10px 10px 10px 0; 
+    width: 84%;
+}
+span.message_nickname{
+    margin: 3px 0;
+}
+div.message_content{
+    min-height: 30px; 
+    background-color: lightgray; 
+    border-radius: 10px; 
+    padding: 5px 10px;
+}
+/* ==========最新文章========== */
+div.new_post{
+    background-color: #F9EACB;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+h4.new_post_title{
+    color: #13406A;
+    font-weight: bold;
+    text-align: center;
+    margin:20px 0px;
+}
+div.each_new_post{
+    background-color: #fff;
+    max-height: 84px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px 5px 5px 7px;
+}
+/* ==========熱門文章========== */
+div.hot_post{
+    background-color: #F9EACB;
+    margin-top: 20px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+h4.hot_post_title{
+    color: #13406A;
+    font-weight: bold;
+    text-align: center;
+    margin:20px 0px;
+}
+div.each_hot_post{
+    background-color: #fff;
+    max-height: 84px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px 5px 5px 7px;
+}
