@@ -57,7 +57,6 @@ public class Adopt_form_infoJDBCDAO implements Adopt_form_infoDAO_interface {
 			ppst.setString(8, adopt_form_infoVO.getAdopt_certificate());
 			ppst.setString(9, adopt_form_infoVO.getAdopt_email());
 			ppst.setString(10, adopt_form_infoVO.getAddress());
-			
 			ppst.executeUpdate();
 
 			// Handle any driver errors

@@ -11,10 +11,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.donation.adopt_form_info.model.Adopt_form_infoService;
 import com.donation.adopt_form_info.model.Adopt_form_infoVO;
 import com.donation.donation_result.model.Donation_resultService;
+import com.member.model.MemberVO;
 
 
 
@@ -169,6 +171,10 @@ public class AdoptFormServlet extends HttpServlet {
 					 errors.put("address","長度必須在2~400之間");
 				 }
 				 
+				 HttpSession session = req.getSession();
+				 MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+				 String member_id = memberVO.getMember_id();
+				 
 						Adopt_form_infoVO adopt_form_infoVO = new Adopt_form_infoVO();
 						adopt_form_infoVO.setAdopt_id(adopt_id);
 						adopt_form_infoVO.setAdopt_person(adopt_person);
@@ -191,7 +197,7 @@ public class AdoptFormServlet extends HttpServlet {
 							return;
 						}
 						Adopt_form_infoService adoptFormSvc = new Adopt_form_infoService();
-						adopt_form_infoVO =adoptFormSvc.addAdopt_form(adopt_id,adopt_person,adopt_talk, payadopt_person, adopt_phone_num, adopt_payment, adopt_certificate, adopt_email, address);
+						adopt_form_infoVO =adoptFormSvc.addAdopt_form(adopt_id,adopt_person,adopt_talk, payadopt_person, adopt_phone_num, adopt_payment, adopt_certificate, adopt_email, address, member_id);
 						req.setAttribute("adopt_form_infoVO", adopt_form_infoVO);
 						System.out.println("adopt_form_infoVO");
 						String url = "/front-end/donation/myMain/successpage.jsp";

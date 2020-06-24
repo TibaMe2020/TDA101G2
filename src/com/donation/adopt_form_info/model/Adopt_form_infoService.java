@@ -11,7 +11,7 @@ public class Adopt_form_infoService {
 	public Adopt_form_infoService() {
 		dao = new Adopt_form_infoJDBCDAO();
 	}
-	public Adopt_form_infoVO addAdopt_form(String adopt_id, String adopt_person, String adopt_talk, String payadopt_person, String adopt_phone_num, String adopt_payment,String adopt_certificate, String adopt_email, String address) {
+	public Adopt_form_infoVO addAdopt_form(String adopt_id, String adopt_person, String adopt_talk, String payadopt_person, String adopt_phone_num, String adopt_payment,String adopt_certificate, String adopt_email, String address, String member_id) {
 	
 	Adopt_form_infoVO adopt_form_infoVO = new Adopt_form_infoVO();
 	
@@ -24,6 +24,7 @@ public class Adopt_form_infoService {
 	adopt_form_infoVO.setAdopt_phone_num(adopt_phone_num);
 	adopt_form_infoVO.setAdopt_email(adopt_email);
 	adopt_form_infoVO.setAddress(address);
+	adopt_form_infoVO.setMember_id(member_id);
 
 	dao.insert(adopt_form_infoVO);
 	

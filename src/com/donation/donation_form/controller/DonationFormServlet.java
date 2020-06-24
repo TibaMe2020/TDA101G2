@@ -12,12 +12,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.eclipse.jdt.internal.compiler.env.IModule.IService;
 
 import com.donation.donation_form_info.model.Donation_form_infoService;
 import com.donation.donation_form_info.model.Donation_form_infoVO;
+import com.member.model.MemberVO;
 
 public class DonationFormServlet extends HttpServlet {
 
@@ -239,8 +241,10 @@ public class DonationFormServlet extends HttpServlet {
 					 errors.put("onwhitch", "請選擇一種付款方式");
 					 onwhitch = "";
 				 }
-				 
-				
+				HttpSession session = req.getSession();
+				MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+				String member_id = memberVO.getMember_id();
+				System.out.println("memberID : " + member_id);
 				Donation_form_infoVO donation_form_infoVO = new Donation_form_infoVO();
 				donation_form_infoVO.setNpo_id(npo_id);
 				donation_form_infoVO.setDonator_name(donator_name);
@@ -248,6 +252,7 @@ public class DonationFormServlet extends HttpServlet {
 				donation_form_infoVO.setDonation_money(donation_money);
 				donation_form_infoVO.setPayment(payment);
 				donation_form_infoVO.setReceipt_type(receipt_type);
+				donation_form_infoVO.setMember_id(member_id);
 
 				if(!errors.isEmpty()) {
 					req.setAttribute("donation_form_infoVO", donation_form_infoVO);
@@ -257,7 +262,7 @@ public class DonationFormServlet extends HttpServlet {
 					return;
 				}
 				Donation_form_infoService donation_form_infoSvc = new Donation_form_infoService();
-				donation_form_infoVO = donation_form_infoSvc.addDonation_form(donator_name, donator_phone_num, donation_money, payment, receipt_type,npo_id);//���ǭn���k�@��		
+				donation_form_infoVO = donation_form_infoSvc.addDonation_form(donator_name, donator_phone_num, donation_money, payment, receipt_type,npo_id, member_id);//���ǭn���k�@��		
 
 				String url = "/front-end/donation/myMain/successpage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

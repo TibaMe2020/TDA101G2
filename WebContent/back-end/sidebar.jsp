@@ -76,7 +76,7 @@
               <i class="fas fa-user-cog sidebar-icon"></i>
               <div>&nbsp管理員帳號</div>
             </a>
-            <a href="<%=request.getContextPath()%>/member/controller?action=logout"
+            <a href="<%=request.getContextPath()%>/admin/controller?action=logout"
               class="list-group-item list-group-item-action d-flex flex-fill">
               <i class="fas fa-sign-out-alt sidebar-icon"></i>&nbsp登出
             </a>

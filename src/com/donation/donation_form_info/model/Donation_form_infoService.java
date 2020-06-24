@@ -15,7 +15,7 @@ public class Donation_form_infoService {
 		dao = new Donation_form_infoJDBCDAO();
 	}
 	
-	public Donation_form_infoVO addDonation_form(String donator_name, String donator_phone_num , Integer donation_money, String payment, String receipt_type, String npo_id) {
+	public Donation_form_infoVO addDonation_form(String donator_name, String donator_phone_num , Integer donation_money, String payment, String receipt_type, String npo_id,String member_id) {
 	
 	Donation_form_infoVO donation_form_infoVO = new Donation_form_infoVO();
 	
@@ -25,6 +25,8 @@ public class Donation_form_infoService {
 	donation_form_infoVO.setDonator_phone_num(donator_phone_num);
 	donation_form_infoVO.setReceipt_type(receipt_type);
 	donation_form_infoVO.setNpo_id(npo_id);
+	donation_form_infoVO.setMember_id(member_id);
+	
 
 	dao.insert(donation_form_infoVO);
 	
