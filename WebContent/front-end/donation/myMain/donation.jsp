@@ -297,7 +297,7 @@
             <br><a>昨天車禍急需治療</a>
           </li>
           <li>
-            <img src="https://lh3.googleusercontent.com/proxy/3vDhC6at-8g-h7lFSAyj3NxVgLln3iAskS19dZIAvIuId_QhVavkK5TNZjSTIidEpvIfIa1cQKukwQQJ57pZCY0XuJP0sbTIsg17hZDZyg">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTNRAfZUzXcryadpzYPjv9Qsb2OOCdBU_vt8tyZeWwtZ_Y-cN29&usqp=CAU">
             <a href="#">中布</a><br>
             <br><a>昨天車禍急需治療</a>
           </li>
