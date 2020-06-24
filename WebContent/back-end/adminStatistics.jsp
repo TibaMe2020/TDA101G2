@@ -1,3 +1,5 @@
+<%@page import="com.blog.post.model.PostVO"%>
+<%@page import="com.blog.post.model.PostService"%>
 <%@page import="com.store.model.StoreService"%>
 <%@page import="com.donation.donation_form_info.model.Donation_form_infoVO"%>
 <%@page import="com.donation.donation_form_info.model.Donation_form_infoService"%>
@@ -67,6 +69,12 @@
 	pageContext.setAttribute("donationTotal", donationTotal);
 
 	//D總文章數
+	PostService poSvc = new PostService();
+	List<PostVO> posts =  poSvc.getAll();
+	long postCount = posts.stream()
+			.count();
+	pageContext.setAttribute("postCount", postCount);
+	
 	
 	//D店家種類比例
 	StoreService stSvc = new StoreService();
@@ -107,7 +115,7 @@
 							<h4 class="text-center">總會員數: ${totalMember}</h4>
 						</div>
 						<div class="col-3 statistics align-self-center" id="total-posts">
-							<h4 class="text-center">總文章數: ${totalPost}</h4>
+							<h4 class="text-center">總文章數: ${postCount}</h4>
 						</div>
 						<div class="col-3 statistics align-self-center"
 							id="total-donation">

@@ -89,6 +89,7 @@ $('#Final_order').on('click', function () {
         reverseButtons: true
     }).then((result) => {
     	if (result.value) {
+    		
         	SetOrder();
 	    	  Swal.fire({
 	    	      position: 'center',
@@ -179,6 +180,7 @@ function SetOrder(){
          },
         success: function (response) { // request 成功取得回應後執行
         	console.log('success: ' + response);
+        	localStorage.clear();
         },
         error: function (xhr) { // request 發生錯誤的話執行
             console.log('error: ', xhr);

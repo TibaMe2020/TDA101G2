@@ -303,7 +303,7 @@
 														<td style="text-align: end;">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">取消發文</button> 
 															<input type="hidden" name="action" value="insert"> 
-															<input type="hidden" name="member_id" value="${member_id}">
+															<input type="hidden" name="member_id" value="<%=member_id %>">
 															<input id="confirm_send" type="submit" class="btn btn-outline-dark edit-blog" value="確認送出">
 														</td>
 													</tr>
@@ -721,16 +721,16 @@
     		
     		//錯誤驗證
     		$(document).on("click", "#confirm_send", function(){
-    			let member_id = $("#memberid").val().trim();
+//     			let member_id = $("#memberid").val().trim();
     			let post_content = $("#post_content").val().trim();
 	
-    			if(member_id == ""){
-					$("#memberid").removeClass("is-valid");
-					$("#memberid").addClass("is-invalid");
-				}else{
-					$("#memberid").removeClass("is-invalid");
-					$("#memberid").addClass("is-valid");
-				}
+//     			if(member_id == ""){
+// 					$("#memberid").removeClass("is-valid");
+// 					$("#memberid").addClass("is-invalid");
+// 				}else{
+// 					$("#memberid").removeClass("is-invalid");
+// 					$("#memberid").addClass("is-valid");
+// 				}
 				
 				if(post_content == ""){
 					$("#post_content").removeClass("is-valid");
@@ -751,10 +751,10 @@
     		});
 			//驗證過才可以送出
 			$("#confirm_send").click(function(){
-				let member_id = $("#memberid").val();
+// 				let member_id = $("#memberid").val();
 				let post_content = $("#post_content").val();
 				
-		        if(member_id != "" && post_content != "" && post_content.length >= 20){
+		        if(post_content != "" && post_content.length >= 20){
 		            $("#insertform").submit();
 		        }
 		    });

@@ -146,7 +146,7 @@
 							        </button>
 							    </div>
 								<div class="modal-body">
-									<form action="<%=request.getContextPath()%>/Post/Post.do" class="post" method="POST" enctype="multipart/form-data">
+									<form id="insertform" action="<%=request.getContextPath()%>/Post/Post.do" class="post" method="POST" enctype="multipart/form-data" onclick="return false">
 										<div class="add_a_post">
 											<div class="post">
 												<figure class="post_figure">
@@ -828,16 +828,16 @@
     		
     		//錯誤驗證
     		$(document).on("click", "#confirm_send", function(){
-    			let member_id = $("#memberid").val().trim();
+//     			let member_id = $("#memberid").val().trim();
     			let post_content = $("#post_content").val().trim();
 	
-    			if(member_id == ""){
-					$("#memberid").removeClass("is-valid");
-					$("#memberid").addClass("is-invalid");
-				}else{
-					$("#memberid").removeClass("is-invalid");
-					$("#memberid").addClass("is-valid");
-				}
+//     			if(member_id == ""){
+// 					$("#memberid").removeClass("is-valid");
+// 					$("#memberid").addClass("is-invalid");
+// 				}else{
+// 					$("#memberid").removeClass("is-invalid");
+// 					$("#memberid").addClass("is-valid");
+// 				}
 				
 				if(post_content == ""){
 					$("#post_content").removeClass("is-valid");
@@ -859,10 +859,10 @@
     		
     		//驗證過才可以送出
 			$("#confirm_send").click(function(){
-				let member_id = $("#memberid").val();
+// 				let member_id = $("#memberid").val();
 				let post_content = $("#post_content").val();
 				
-		        if(member_id != "" && post_content != "" && post_content.length >= 20){
+		        if(post_content != "" && post_content.length >= 20){
 		            $("#insertform").submit();
 		        }
 		    });

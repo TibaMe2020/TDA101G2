@@ -18,7 +18,7 @@ import com.admin.model.AdminVO;
 
 
 @WebFilter(
-    urlPatterns={"/back-end/*"}, 
+    urlPatterns={}, 
     dispatcherTypes={
         DispatcherType.FORWARD, DispatcherType.INCLUDE, 
         DispatcherType.REQUEST, DispatcherType.ERROR, DispatcherType.ASYNC

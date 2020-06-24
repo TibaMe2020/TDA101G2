@@ -54,13 +54,13 @@ public class MemberController extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			HttpSession session = req.getSession();
 			String url = (String) session.getAttribute("location");
-			if(!"".equals(url)) {
+			if(url != null) {
 				url = url.substring(url.indexOf('/', 1));				
 			} else {
 				url = "/front-end/store/store.jsp";
 			}
-			url = (url != null) ? url.substring(url.indexOf('/', 1)) : successPath;		
-			
+//			url = (!"".equals(url)) ? url.substring(url.indexOf('/', 0)) : successPath;		
+			System.out.println("login: " + url);
 			try {
 				String email = req.getParameter("email").trim();
 				String password = req.getParameter("password").trim();
@@ -81,7 +81,6 @@ public class MemberController extends HttpServlet {
 //					return;
 //				}
 				
-				System.out.println(errorMsgs.get("loginEmail"));
 				if(!errorMsgs.isEmpty()) {
 					fw.forward(failurePath);
 					return;
@@ -133,7 +132,12 @@ public class MemberController extends HttpServlet {
 			String successPath = "/front-end/store/store.jsp";
 			HttpSession session = req.getSession();
 			String url = (String) session.getAttribute("location");
-			url = url.substring(url.indexOf('/', 1));
+			if(url != null) {
+				url = url.substring(url.indexOf('/', 0));				
+			} else {
+				url = "/front-end/store/store.jsp";
+			}
+			System.out.println("signup: " + url);
 			try {
 				String name = req.getParameter("name").trim();
 				String email = req.getParameter("email").trim();
@@ -608,7 +612,7 @@ public class MemberController extends HttpServlet {
 
 		if ("forgot_password".equals(action)) {
 			String failurePath ="/front-end/member/forgotPassword.jsp";
-			String successPath = "/front-end/member/login.jsp";
+			String successPath = "/index.jsp";
 			Map<String, String> errorMsgs = new HashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
@@ -655,7 +659,7 @@ public class MemberController extends HttpServlet {
 		
 		if("change_password".equals(action)) {
 			String failurePath ="/front-end/member/changePassword.jsp";
-			String successPath = "/front-end/member/login.jsp";
+			String successPath = "/index.jsp";
 			Map<String, String> errorMsgs = new HashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			

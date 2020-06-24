@@ -21,9 +21,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta charset="utf-8">
 <title>donation result</title>
-
-<!-- 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <!-- <link rel="stylesheet" href="../JS/bootstrap/css/bootstrap.min.css"> -->
+<link rel="stylesheet" 
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/vendors/bootstrap/css/bootstrap.min.css">
 
 
@@ -88,16 +90,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 }
 
 </style>
-
-<a href="<%=request.getContextPath()%>/front-end/donation/myMain/donation.jsp">回到主頁</a>
-
 </head>
 <body>
 	<jsp:useBean id="ResultSvc" scope="page"
 		class="com.donation.donation_result.model.Donation_resultService" />
 
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Result/result.do">
-		<select size="1" name="result_id" onchange="ss(event);">
+<%-- 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Result/result.do"> --%>
+<!-- 		<select size="1" name="result_id" onchange="ss(event);"> -->
+<%-- 			<%--  		<c:forEach var="donation_resultVO" items="${ResultSvc.all}" >  --%> 
+<%-- 			<%--  			<option value="${donation_resultVO.result_month}">${donation_resultVO.result_month} --%> 
+<%-- 			<%--  		</c:forEach>    --%>
+<!-- 			<option value="1">1</option> -->
+<!-- 			<option value="2">2</option> -->
+<!-- 			<option value="3">3</option> -->
+<!-- 			<option value="4">4</option> -->
+<!-- 			<option value="5">5</option> -->
+<!-- 			<option value="6">6</option> -->
+<!-- 			<option value="7">7</option> -->
+<!-- 			<option value="8">8</option> -->
+<!-- 			<option value="9">9</option> -->
+<!-- 			<option value="10">10</option> -->
+<!-- 			<option value="11">11</option> -->
+<!-- 			<option value="12">12</option> -->
+
+<!-- 		</select> -->
+<!-- 	</FORM> -->
+	<div class="container">
+		<div class="well well-sm" style="background-color: #FFCBB3;">
+			<strong>瀏覽方式</strong>
+			<div class="btn-group">
+				<a href="#" id="list" class="btn btn-default btn-sm"><span
+					class="glyphicon glyphicon-th-list"> </span>橫式</a> <a href="#"
+					id="grid" class="btn btn-default btn-sm"><span
+					class="glyphicon glyphicon-th"></span>直式</a>
+						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Result/result.do">
+		選擇成果月份:<select size="1" name="result_id" onchange="ss(event);">
 			<%--  		<c:forEach var="donation_resultVO" items="${ResultSvc.all}" >  --%>
 			<%--  			<option value="${donation_resultVO.result_month}">${donation_resultVO.result_month} --%>
 			<%--  		</c:forEach>    --%>
@@ -116,14 +143,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		</select>
 	</FORM>
-	<div class="container">
-		<div class="well well-sm" style="background-color: #FFCBB3;">
-			<strong>瀏覽方式</strong>
-			<div class="btn-group">
-				<a href="#" id="list" class="btn btn-default btn-sm"><span
-					class="glyphicon glyphicon-th-list"> </span>橫式</a> <a href="#"
-					id="grid" class="btn btn-default btn-sm"><span
-					class="glyphicon glyphicon-th"></span>直式</a>
 			</div>
 		</div>
 		<%@ include file="page1.file"%>
@@ -152,7 +171,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</c:forEach>
 		</div>
-		<%@ include file="page2.file"%>
+<%-- 		<%@ include file="page2.file"%> --%>
+<a href="<%=request.getContextPath()%>/front-end/donation/myMain/donation.jsp">回到主頁</a>
+
 	</div>
 	<script>
          	function ss(event){
@@ -205,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div> `;
               		});
               			$('div.list-group').html(a);  
-              			alert(data[0].result_content);
+//               			alert(data[0].result_content);
                     },
               		  error: function(xhr){         // request 發生錯誤的話執行
               		    console.log(xhr);
@@ -218,10 +239,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
          	</script>
          	
-<!-- 	<script>src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"></script> -->
-<!--     <script -->
-<!-- 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
-<%--     <script type="text/javascript" src="<%=basePath%>/JS/nine.js" charset="utf-8"></script> --%>
+    <script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%=basePath%>/JS/nine.js" charset="utf-8"></script>
 </body>
 </html>
-

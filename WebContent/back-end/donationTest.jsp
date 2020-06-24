@@ -113,7 +113,7 @@ span.error{
                   </th>
                
                   <th>修改</th>
-                  <th>移除</th>
+<!--                   <th>移除</th> -->
                 </tr>
               </thead>
               <tbody id="product-table">
@@ -143,11 +143,11 @@ span.error{
 			     
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
                   </td>
-                  <td>
-                    <a href="#remove-product" data-toggle="modal" class="product-remove">
-                      <i class="fas fa-trash"></i>
-                    </a>
-                  </td>
+<!--                   <td> -->
+<!--                     <a href="#remove-product" data-toggle="modal" class="product-remove"> -->
+<!--                       <i class="fas fa-trash"></i> -->
+<!--                     </a> -->
+<!--                   </td> -->
                 </tr>
                 </c:forEach>
               </tbody>
