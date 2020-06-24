@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemberService"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.ArrayList"%>
@@ -19,13 +20,14 @@
 
 <%
 	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-
+	MemberService mbSvc = new MemberService();
 	Map<String, List<String>> notiMap = new HashMap<>();
 	String member_id = null;
 	int read = 1;
 	if (memberVO != null) {
 		member_id = memberVO.getMember_id();
-
+		memberVO = mbSvc.getOne(member_id);
+		session.setAttribute("memberVO", memberVO);
 		try {
 			NotiService nSvc = new NotiService();
 			List<NotiVO> notifications = nSvc.findByMembId(member_id);
@@ -120,7 +122,7 @@
 			<div
 				class="col-3 align-self-center d-flex justify-content-around align-content-center flex-wrap nav-icon-holder">
 
-				<a href="#" class="d-flex align-items-center text-white"><i
+				<a href="<%=request.getContextPath()%>/front-end/product/ShoppingCart.jsp" class="d-flex align-items-center text-white"><i
 					class="fas fa-shopping-cart i-white em-md text-white"></i></a> 
 					<a href="#" class="dropdown-toggle d-flex align-items-center text-white noti-drop-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"

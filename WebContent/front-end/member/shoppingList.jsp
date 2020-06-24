@@ -194,7 +194,7 @@
    			let cards = $('.card'); 
    			if($(cards).length === 0) {
    				$('.order-holder').append('<div class="text-center">您還沒有購買任何商品請點選此' + 
-   						'<a href="<%=request.getContextPath()%>/front-end/product/Product.jsp"' +
+   						'<a href="<%=request.getContextPath()%>/front-end/product/ProductHomepage.jsp"' +
    						'style="color:blue; font-weight:900;">連結</a>去購物</div>'
    				);
    			}

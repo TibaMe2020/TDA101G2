@@ -27,7 +27,6 @@
 
 	<%
 		member_id = request.getParameter("member_id");
-		MemberService mbSvc = new MemberService();
 		MemberVO memberVO1 = mbSvc.getOne(member_id);
 		pageContext.setAttribute("memberVO", memberVO1);
 	%>
