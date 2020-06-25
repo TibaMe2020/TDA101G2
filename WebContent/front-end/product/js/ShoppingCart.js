@@ -193,7 +193,7 @@ $(document).ready(function () {
                             <div class="name">
                                 <p>${Item.product_name}</p>
                                
-                                <p style="margin-top:0px">${Item.version_name}</p>
+                                <p style="margin-top:0px;font-size:19px;color:red;">${Item.version_name}</p>
                                
                             </div>
                         </td>
