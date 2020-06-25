@@ -23,10 +23,22 @@ public class Product_VO implements java.io.Serializable {
 	private Date create_time;
 	private Integer price;
 	private Double score;
-	private List<Version_VO> versions;
-	
+	private List<Version_VO> versions;	
 	private Integer memberScore; 
+
 	
+	
+	
+	@Override
+	public String toString() {
+		return "Product_VO [product_id=" + product_id + ", member_id=" + member_id + ", name=" + name
+				+ ", product_class=" + product_class + ", description=" + Arrays.toString(description) + ", image1="
+				+ Arrays.toString(image1) + ", image2=" + Arrays.toString(image2) + ", image3="
+				+ Arrays.toString(image3) + ", image4=" + Arrays.toString(image4) + ", product_state=" + product_state
+				+ ", create_time=" + create_time + ", price=" + price + ", score=" + score + ", versions=" + versions
+				+ ", memberScore=" + memberScore + ", scores=" + scores + "]";
+	}
+
 	public Integer getMemberScore() {
 		return memberScore;
 	}
@@ -58,19 +70,7 @@ public class Product_VO implements java.io.Serializable {
 	public void setVersions(List<Version_VO> versions) {
 		this.versions = versions;
 	}
-
 	
-
-	@Override
-	public String toString() {
-		return "Product_VO [product_id=" + product_id + ", member_id=" + member_id + ", name=" + name
-				+ ", product_class=" + product_class + ", description=" + Arrays.toString(description) + ", image1="
-				+ Arrays.toString(image1) + ", image2=" + Arrays.toString(image2) + ", image3="
-				+ Arrays.toString(image3) + ", image4=" + Arrays.toString(image4) + ", product_state=" + product_state
-				+ ", create_time=" + create_time + ", price=" + price + ", score=" + score + ", versions=" + versions
-				+ "]";
-	}
-
 	public String getProduct_id() {
 		return product_id;
 	}
