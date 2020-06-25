@@ -157,8 +157,8 @@
                             <div class="col-sm-12 col-md-4" style="margin-top: 20px; ">
                             
                                 <a href="<%=request.getContextPath()%>/front-end/product/ShoppingCart.jsp" class="btn btn-primary stretched-link" id="buy" 
-                                data-memberId = "MB00001">直接購買</a>
-<!--                                 data-memberId = "${memberVO.member_id}">直接購買</a> -->
+                                data-memberId = "${memberVO.member_id}">直接購買</a>
+
                                 
                             </div>
 
