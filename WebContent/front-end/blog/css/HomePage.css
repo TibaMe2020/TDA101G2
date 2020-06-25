@@ -266,15 +266,12 @@ background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.
 /* ==========«öÆg¯d¨¥¤À¨É========== */
 div.post_functions{
     /* border: 1px solid lightgray; */
-    display: inline-block;
-    width: 625px;
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
     text-align: center;
     font-size: 16px;
-}
-div.post_like{
-    /* border: 1px solid lightgray; */
-    float: left;
-    margin-left: 40px;
+    padding: 0 40px;
 }
 button.post_like_button{
     padding: 0; 
@@ -286,14 +283,6 @@ span.post_like_icon{
     font-size: 25px;
     color: lightgray;
 }
-span.post_like_count{
-    text-align: center;
-}
-div.post_message{
-    /* border: 1px solid lightgray; */
-    float: left;
-    margin-left: 230px;
-}
 button.post_message_button{
     padding: 0; 
     border: 0px; 
@@ -303,16 +292,8 @@ button.post_message_button{
 span.post_message_icon{
     font-size: 25px;
 }
-span.post_message_count{
-    text-align: center;
-}
-div.post_share{
-    /* border: 1px solid lightgray; */
-    float: right;
-    margin-right: 40px;
-}
 button.post_share_button{
-	padding: 0; 
+		padding: 0; 
     border: 0px; 
     background-color: transparent; 
     outline: none;
@@ -320,16 +301,12 @@ button.post_share_button{
 span.post_share_icon{
     font-size: 25px;
 }
-span.post_share_count{
-    display: inline-block;
-    text-align: center;
-}
 button.send_button{
     padding: 0; 
     border: 0px; 
     background-color: transparent; 
     outline: none;
-} 
+}
 /* ==========¯d¨¥========== */
 div.message{
     border-top: 1px solid lightgray; 
@@ -350,7 +327,7 @@ figure.message_figure{
     margin-bottom: 0px;
 }
 img.message_blogger_picture{
-    border: 1px solid lightgray;
+    border: 0.5px solid lightgray;
     width: 60px; 
     margin: 10px; 
     border-radius: 50%; 
@@ -374,7 +351,7 @@ div.new_post{
     background-color: #F9EACB;
     border: 1px solid #F9EACB;
     border-radius: 5px;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3)
 }
 h4.new_post_title{
     color: #13406A;
@@ -395,7 +372,7 @@ div.hot_post{
     margin-top: 20px;
     border: 1px solid #F9EACB;
     border-radius: 5px;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3)
 }
 h4.hot_post_title{
     color: #13406A;

@@ -352,7 +352,7 @@
 						</div>
 						
 						<div class="post_share">
-							<button class="post_share_button" data-toggle="popover" data-placement="right" data-content="連結">
+							<button class="post_share_button" data-toggle="tooltip" title="copy" data-placement="right" data-src="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}">
 								<span class="post_share_icon"> 
 									<i class="fas fa-share-square"></i>
 								</span>
@@ -532,7 +532,7 @@
                 <div class="modal-footer" style="border-top: 0px;">
                 	<input type="hidden" name="action" value="delete">
                   <input type="hidden" name="member_id" value="${member_id}">
-                  <input type="hidden" name="post_id" value="${postVO.post_id}">
+                  <input id="delete_post_id" type="hidden" name="post_id">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                   <button type="submit" class="btn btn-primary" id="delete">刪除</button>
                 </div>
@@ -897,7 +897,34 @@
 					return false;
 				}
 			});		
-		
+			
+			
+			//刪除文章
+			$(document).on("click", "button.delete_button", function(){
+				let post_id = $(this).parents("div.each_post").attr("id");
+				console.log(post_id);
+				$("#delete_post_id").attr("value", post_id);
+			})
+			
+			//複製連結
+			function copyToClipboard(element){
+				var copy = $("<input>");
+				$("body").append(copy);
+				copy.val($(element).attr("data-src")).select();
+				document.execCommand("copy");
+				copy.remove();
+			};
+			//出現copy
+			$("[data-toggle='tooltip']").tooltip();
+			$("button.post_share_button").on("click", function(){
+				copyToClipboard(this);
+				$(this).tooltip('show');
+				$("button.post_share_button").mouseleave(function(){
+					event.stopPropagation();
+					$(this).tooltip('hide');
+				});
+			});
+			
 		});
 	</script>
 </body>

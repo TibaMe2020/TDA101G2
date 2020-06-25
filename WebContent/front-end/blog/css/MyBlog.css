@@ -3,7 +3,11 @@
     background-color: #F3F2F2;
     font-family: Noto Serif TC;
 }
-input:focus, textarea:focus{
+input, input:focus{
+	outline: none;
+	border: 0px;
+}
+textarea:focus{
 	outline: none;
 }
 a:link, a:visited{
@@ -11,8 +15,12 @@ a:link, a:visited{
 	color: #13406A;
 }
 button:active, button:focus{
-	outline: none; !important
+	outline: none; !important;
 	border: none;
+}
+.tooltip-inner {
+	width: 60px;
+	font-size: 16px;
 }
 /* ==========¤W­±cover========== */
 div.cover{
@@ -27,7 +35,6 @@ div.cover{
     margin-top: 20px;
 }
 input.my_cover_title{
-    max-width: 450px;
     height: 50px;
     font-size: 24px;
     margin-top: 20px;

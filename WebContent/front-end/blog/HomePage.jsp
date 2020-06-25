@@ -695,7 +695,7 @@
 				document.execCommand("copy");
 				copy.remove();
 			};
-			//
+			//出現copy
 			$("[data-toggle='tooltip']").tooltip();
 			$("button.post_share_button").on("click", function(){
 				copyToClipboard(this);

@@ -67,6 +67,14 @@ public class SavedService {
 		return result;
 	}
 	
+	public List<SavedVO> getByPostId(String post_id){
+		List<SavedVO> result = null;
+		if(post_id != null) {
+			result = dao.getByPostId(post_id);
+		}
+		return result;
+	}
+	
 	public static void main(String[] args) {
 		SavedService test = new SavedService();
 		
