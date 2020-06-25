@@ -1,7 +1,11 @@
 package com.product.model;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.product_version.model.Version_VO;
 
@@ -39,26 +43,85 @@ public class Product_Service {
 	public List<Product_VO> getbykeyword() {
 		return dao.getbykeyword();
 	}
-// yaosheng
+//yaosheng
 	public List<Product_VO> all() {
 		return dao.all();
 	}
 
 //最新日期
-	public List<Product_VO> getAll() {
-		return dao.getAll();
+	public List<Product_VO> newDate() {
+		return dao.newDate();
 	}
-
+//抓取食品最低價錢
 	public List<Product_VO> lowPrice() {
-		return dao.lowPrice();
+		List<Product_VO> all = dao.FinalALL();
+		List<Product_VO> list = new ArrayList<>();
+		for(Product_VO product_VO : all) {
+			String product_id = product_VO.getProduct_id();
+			Optional<Product_VO> findFirst = dao.highPrice().stream()
+												.filter(p -> p.getProduct_id().equals(product_id))
+												.filter(p -> p.getProduct_class().equals("food"))
+												.findFirst();
+			if(findFirst.isPresent()) {
+				list.add(findFirst.get());
+			}
+		}
+		
+		List<Product_VO> collect = list.stream().sorted(Comparator.comparing(Product_VO::getPrice))
+												.collect(Collectors.toList());
+		if(collect.isEmpty()) {
+			return null;
+		}
+		
+		return collect;
 	}
 
+//Yaosheng//抓取食品最高價錢
 	public List<Product_VO> highPrice() {
-		return dao.highPrice();
+		List<Product_VO> all = dao.FinalALL();
+		List<Product_VO> list = new ArrayList<>();
+		for(Product_VO product_VO : all) {
+			String product_id = product_VO.getProduct_id();
+			Optional<Product_VO> findFirst = dao.highPrice().stream()
+												.filter(p -> p.getProduct_id().equals(product_id))
+												.filter(p -> p.getProduct_class().equals("food"))
+												.findFirst();
+			if(findFirst.isPresent()) {
+				list.add(findFirst.get());
+			}
+		}
+		
+		List<Product_VO> collect = list.stream().sorted(Comparator.comparing(Product_VO::getPrice).reversed())
+												.collect(Collectors.toList());
+		if(collect.isEmpty()) {
+			return null;
+		}
+		
+		return collect;
 	}
 
+//抓取食品最高評價
 	public List<Product_VO> highScore() {
-		return dao.highScore();
+		List<Product_VO> all = dao.FinalALL();
+		List<Product_VO> list = new ArrayList<>();
+		for(Product_VO product_VO : all) {
+			String product_id = product_VO.getProduct_id();
+			Optional<Product_VO> findFirst = dao.highPrice().stream()
+												.filter(p -> p.getProduct_id().equals(product_id))
+												.filter(p -> p.getProduct_class().equals("food"))
+												.findFirst();
+			if(findFirst.isPresent()) {
+				list.add(findFirst.get());
+			}
+		}
+		
+		List<Product_VO> collect = list.stream().sorted(Comparator.comparing(Product_VO::getScore).reversed())
+												.collect(Collectors.toList());
+		if(collect.isEmpty()) {
+			return null;
+		}
+		
+		return collect;
 	}
 
 	// 萬用查詢
@@ -73,21 +136,6 @@ public class Product_Service {
 	public Map<String, String> getByClass() {
 		return dao.getByClass();
 	}
-	//食品最新上架
-	public List<Product_VO> getbyNewdatefood() {
-		return dao.getbyNewdatefood();
-	}
-	//食品最低價錢
-	public List<Product_VO> getbylowPricefood() {
-		return dao.getbylowPricefood();
-	}
-	//食品最高價錢
-	public List<Product_VO> getbyhighPricefood() {
-		return dao.getbyhighPricefood();
-	}
-	//食品最高評分
-	public List<Product_VO> getbyhighscorefood() {
-		return dao.getbyhighscorefood();
-	}
+
 
 }
