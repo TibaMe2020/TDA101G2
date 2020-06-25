@@ -37,27 +37,43 @@ public class Product_DAO implements Product_DAO_interface {
 //	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 //	String userid = "PETBOX";
 //	String passwd = "123456";
-
-	private static final String INSERT_STMT = "INSERT INTO product (member_id, name, class, description, image1, image2, image3, image4, product_state) VALUES(?,?,?,?,?,?,?,?,?)";
-	private static final String UPDATE = "UPDATE product SET name=?, class=?, description=?, image1=?, image2=?, image3=?, image4=?, product_state=? WHERE product_id=? ";
+		private static final String getbyNewdatefood="";
+		private static final String getbylowPricefood=" ";
+		private static final String getbyhighPricefood="SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID = PS.PRODUCT_ID " + 
+				"JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID = PV.PRODUCT_ID where p.product_class = 'food' order by pv.price desc";
+		private static final String getbyhighscorefood="SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID = PS.PRODUCT_ID " + 
+				"JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID = PV.PRODUCT_ID where p.product_class = 'food' order by ps.score desc";
+		
+    private static final String All="SELECT * FROM " + 
+    		"PRODUCT P " + 
+    		"JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID " + 
+    		"JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID " + 
+    		"order by  p.create_time ";
+    private static final String getbykeyword="SELECT * FROM " + 
+    		"PRODUCT P " + 
+    		"JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID " + 
+    		"JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID " + 
+    		"order by  pv.product_version_id "; 
+	private static final String INSERT_STMT = "INSERT INTO product (member_id, name, product_class, description, image1, image2, image3, image4, product_state) VALUES(?,?,?,?,?,?,?,?,?)";
+	private static final String UPDATE = "UPDATE product SET name=?, product_class=?, description=?, image1=?, image2=?, image3=?, image4=?, product_state=? WHERE product_id=? ";
 	private static final String DELETE = "DELETE FROM product WHERE product_id=?";
-	private static final String GET_ONE_STMT = "SELECT product_id, member_id, name, class, description, image1, image2, image3, image4, product_state, update_time, create_time FROM PRODUCT WHERE product_id=?";
+	private static final String GET_ONE_STMT = "SELECT product_id, member_id, name, product_class, description, image1, image2, image3, image4, product_state, update_time, create_time FROM PRODUCT WHERE product_id=?";
 	//最新日期
-	private static final String GET_ALL_STMT = "SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID WHERE ROWNUM < 9 ORDER BY P.CREATE_TIME DESC";
+	private static final String GET_ALL_STMT = "SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P  LEFT JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  ORDER BY P.CREATE_TIME DESC";
 	//價錢最低
-	private static final String LOW_PRICE="SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID WHERE ROWNUM < 9 ORDER BY PV.PRICE ";
+	private static final String LOW_PRICE="SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  ORDER BY PV.PRICE ";
 	//價錢最高
-	private static final String HIGH_PRICE="SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID WHERE ROWNUM < 9 ORDER BY PV.PRICE DESC ";
+	private static final String HIGH_PRICE="SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  ORDER BY PV.PRICE DESC ";
 	//最高評分
-	private static final String HIGH_SCORE="SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID WHERE ROWNUM < 9 ORDER BY SCORE DESC ";
+	private static final String HIGH_SCORE="SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  ORDER BY SCORE DESC ";
 	
 	private static final String GET_BY_MID = "select * from product where member_id = ?";
 	
-	private static final String GET_BY_CLASS = "select sum(price*quantity) as total, class " + 
+	private static final String GET_BY_CLASS = "select sum(price*quantity) as total, product_class " + 
 			"from product_order_detail pod " + 
 			"join product_version pv on pv.product_version_id = pod.product_version_id " + 
 			"join product p on p.product_id = pv.product_id " + 
-			"group by class";
+			"group by product_class";
 	
 	@Override
 	public Map<String, String> getByClass() {
@@ -73,7 +89,7 @@ public class Product_DAO implements Product_DAO_interface {
 			Map<String, String> map = new HashMap<>();
 
 			while (rs.next()) {
-				map.put(rs.getString("class"), rs.getString("total"));
+				map.put(rs.getString("product_class"), rs.getString("total"));
 			}
 			return map;
 		} catch(Exception e) {
@@ -186,7 +202,7 @@ public class Product_DAO implements Product_DAO_interface {
 				product_VO.setProduct_id(rs.getString("product_id"));
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
-				product_VO.setProduct_class(rs.getString("Class"));
+				product_VO.setProduct_class(rs.getString("product_class"));
 				product_VO.setDescription(rs.getBytes("description"));
 				product_VO.setImage1(rs.getBytes("image1"));
 				product_VO.setImage2(rs.getBytes("image2"));
@@ -383,7 +399,7 @@ public class Product_DAO implements Product_DAO_interface {
 				product_VO.setProduct_id(rs.getString("Product_id"));
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
-				product_VO.setProduct_class(rs.getString("Class"));
+				product_VO.setProduct_class(rs.getString("product_class"));
 				product_VO.setDescription(rs.getBytes("description"));
 				product_VO.setImage1(rs.getBytes("image1"));
 				product_VO.setImage2(rs.getBytes("image2"));
@@ -446,7 +462,7 @@ public class Product_DAO implements Product_DAO_interface {
 				product_VO.setProduct_id(rs.getString("product_id"));
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
-				product_VO.setProduct_class(rs.getString("Class"));
+				product_VO.setProduct_class(rs.getString("product_class"));
 				product_VO.setDescription(rs.getBytes("description"));
 				product_VO.setImage1(rs.getBytes("image1"));
 				product_VO.setImage2(rs.getBytes("image2"));
@@ -513,7 +529,7 @@ public class Product_DAO implements Product_DAO_interface {
 				product_VO.setProduct_id(rs.getString("product_id"));
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
-				product_VO.setProduct_class(rs.getString("Class"));
+				product_VO.setProduct_class(rs.getString("product_class"));
 				product_VO.setDescription(rs.getBytes("description"));
 				product_VO.setImage1(rs.getBytes("image1"));
 				product_VO.setImage2(rs.getBytes("image2"));
@@ -576,7 +592,7 @@ public class Product_DAO implements Product_DAO_interface {
 				product_VO.setProduct_id(rs.getString("product_id"));
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
-				product_VO.setProduct_class(rs.getString("Class"));
+				product_VO.setProduct_class(rs.getString("product_class"));
 				product_VO.setDescription(rs.getBytes("description"));
 				product_VO.setImage1(rs.getBytes("image1"));
 				product_VO.setImage2(rs.getBytes("image2"));
@@ -641,7 +657,7 @@ public class Product_DAO implements Product_DAO_interface {
 				product_VO.setProduct_id(rs.getString("product_id"));
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
-				product_VO.setProduct_class(rs.getString("Class"));
+				product_VO.setProduct_class(rs.getString("product_class"));
 				product_VO.setDescription(rs.getBytes("description"));
 				product_VO.setImage1(rs.getBytes("image1"));
 				product_VO.setImage2(rs.getBytes("image2"));
@@ -706,7 +722,7 @@ public class Product_DAO implements Product_DAO_interface {
 				product_VO.setProduct_id(rs.getString("product_id"));
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
-				product_VO.setProduct_class(rs.getString("Class"));
+				product_VO.setProduct_class(rs.getString("product_class"));
 				product_VO.setDescription(rs.getBytes("description"));
 				product_VO.setImage1(rs.getBytes("image1"));
 				product_VO.setImage2(rs.getBytes("image2"));
@@ -826,8 +842,272 @@ public class Product_DAO implements Product_DAO_interface {
 		}
 	}
 
-	
 
-	
+
+	@Override
+	public List<Product_VO> all() {
+		List<Product_VO> list = new ArrayList<Product_VO>();
+		Product_VO product_VO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(All);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				product_VO = new Product_VO();
+				product_VO.setProduct_id(rs.getString("product_id"));
+				product_VO.setMember_id(rs.getString("member_id"));
+				product_VO.setName(rs.getString("name"));
+				product_VO.setProduct_class(rs.getString("product_class"));
+				product_VO.setDescription(rs.getBytes("description"));
+				product_VO.setImage1(rs.getBytes("image1"));
+				product_VO.setImage2(rs.getBytes("image2"));
+				product_VO.setImage3(rs.getBytes("image3"));
+				product_VO.setImage4(rs.getBytes("image4"));
+				product_VO.setProduct_state(rs.getInt("product_state"));
+				product_VO.setCreate_time(rs.getDate("create_time"));
+				list.add(product_VO);
+			}
+
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+
+
+	@Override
+	public List<Product_VO> getbykeyword() {
+		List<Product_VO> list = new ArrayList<Product_VO>();
+		Product_VO product_VO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(getbykeyword);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				product_VO = new Product_VO();
+				product_VO.setProduct_id(rs.getString("product_id"));
+				product_VO.setMember_id(rs.getString("member_id"));
+				product_VO.setName(rs.getString("name"));
+				product_VO.setProduct_class(rs.getString("product_class"));
+				product_VO.setDescription(rs.getBytes("description"));
+				product_VO.setImage1(rs.getBytes("image1"));
+				product_VO.setImage2(rs.getBytes("image2"));
+				product_VO.setImage3(rs.getBytes("image3"));
+				product_VO.setImage4(rs.getBytes("image4"));
+				product_VO.setProduct_state(rs.getInt("product_state"));
+				product_VO.setCreate_time(rs.getDate("create_time"));
+				list.add(product_VO);
+			}
+
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+
+
+	@Override
+	public List<Product_VO> getbyNewdatefood() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public List<Product_VO> getbylowPricefood() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public List<Product_VO> getbyhighPricefood() {
+		List<Product_VO> list = new ArrayList<Product_VO>();
+		Product_VO product_VO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(getbyhighPricefood);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				product_VO = new Product_VO();
+				product_VO.setProduct_id(rs.getString("product_id"));
+				product_VO.setMember_id(rs.getString("member_id"));
+				product_VO.setName(rs.getString("name"));
+				product_VO.setProduct_class(rs.getString("product_class"));
+				product_VO.setDescription(rs.getBytes("description"));
+				product_VO.setImage1(rs.getBytes("image1"));
+				product_VO.setImage2(rs.getBytes("image2"));
+				product_VO.setImage3(rs.getBytes("image3"));
+				product_VO.setImage4(rs.getBytes("image4"));
+				product_VO.setProduct_state(rs.getInt("product_state"));
+				product_VO.setCreate_time(rs.getDate("create_time"));
+				product_VO.setPrice(rs.getInt("price"));
+				product_VO.setScore(rs.getDouble("score"));
+				list.add(product_VO);
+			}
+
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+
+
+	@Override
+	public List<Product_VO> getbyhighscorefood() {
+		List<Product_VO> list = new ArrayList<Product_VO>();
+		Product_VO product_VO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(getbyhighscorefood);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				product_VO = new Product_VO();
+				product_VO.setProduct_id(rs.getString("product_id"));
+				product_VO.setMember_id(rs.getString("member_id"));
+				product_VO.setName(rs.getString("name"));
+				product_VO.setProduct_class(rs.getString("product_class"));
+				product_VO.setDescription(rs.getBytes("description"));
+				product_VO.setImage1(rs.getBytes("image1"));
+				product_VO.setImage2(rs.getBytes("image2"));
+				product_VO.setImage3(rs.getBytes("image3"));
+				product_VO.setImage4(rs.getBytes("image4"));
+				product_VO.setProduct_state(rs.getInt("product_state"));
+				product_VO.setCreate_time(rs.getDate("create_time"));
+				product_VO.setPrice(rs.getInt("price"));
+				product_VO.setScore(rs.getDouble("score"));
+				list.add(product_VO);
+			}
+
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 
 }

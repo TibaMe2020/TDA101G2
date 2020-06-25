@@ -29,15 +29,32 @@ public interface Product_DAO_interface {
 
 //最高評分
 	public List<Product_VO> highScore();
-	
-	//D查單一會員購買的訂單
+
+	//查單一會員購買的訂單
 	public List<Product_VO> getByMId(String member_id);
-	
-//D同時增加產品跟規格
-	public void insertWithVersion(Product_VO product_VO,List<Version_VO> list);
-	
+
+//同時增加產品跟規格
+	public void insertWithVersion(Product_VO product_VO, List<Version_VO> list);
+
 	public Map<String, String> getByClass();
-	
-	
+
+//全部查詢最新日期
+	public List<Product_VO> all();
+
+//關鍵字
+	public List<Product_VO> getbykeyword();
+
+//食品最新上架
+	public List<Product_VO> getbyNewdatefood();
+
+// 食品價錢最低
+	public List<Product_VO> getbylowPricefood();
+
+// 食品價錢最高
+	public List<Product_VO> getbyhighPricefood();
+
+// 食品最高評分
+	public List<Product_VO> getbyhighscorefood();
+
 
 }
