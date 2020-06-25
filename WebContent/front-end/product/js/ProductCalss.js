@@ -144,3 +144,4 @@ $("#HighScore").on("click", function () {
         }
     });
 });
+
