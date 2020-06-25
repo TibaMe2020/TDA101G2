@@ -37,6 +37,7 @@ public class PostServlet extends HttpServlet {
 //		System.out.println("PostServlet");
 		
 		if("insert".equals(action)) {
+			System.out.println("進入PostServlet insert!");
 			Map errorMessage = new HashMap();
 			req.setAttribute("errorMessage", errorMessage);
 			
@@ -84,7 +85,7 @@ public class PostServlet extends HttpServlet {
 				if(post_content == null || (post_content.trim()).length() == 0) {
 					errorMessage.put("noPostContent", "文章內容請勿空白");
 //					errorMsgs.add("文章內容請勿空白");
-				} else if((post_content.trim()).length() <= 20) {
+				} else if((post_content.trim()).length() < 20) {
 					errorMessage.put("noEnoughWords", "文章內容請勿低於20個字");
 //					errorMsgs.add("文章內容請勿低於20個字");
 				}
@@ -168,7 +169,7 @@ public class PostServlet extends HttpServlet {
 				if(post_content == null || (post_content.trim()).length() == 0) {
 					errorMessage.put("noPostContent", "文章內容請勿空白");
 //					errorMsgs.add("文章內容請勿空白");
-				} else if((post_content.trim()).length() <= 20) {
+				} else if((post_content.trim()).length() < 20) {
 					errorMessage.put("noEnoughWords", "文章內容請勿低於20個字");
 //					errorMsgs.add("文章內容請勿低於20個字");
 				}
@@ -243,7 +244,7 @@ public class PostServlet extends HttpServlet {
 				String post_content = req.getParameter("post_content");
 				if(post_content == null || (post_content.trim()).length() == 0) {
 					errorMsgs.add("文章內容請勿空白");
-				} else if((post_content.trim()).length() <= 20) {
+				} else if((post_content.trim()).length() < 20) {
 					errorMsgs.add("文章內容請勿低於20個字");
 				}
 										
@@ -285,6 +286,7 @@ public class PostServlet extends HttpServlet {
 		
 		
 		if("memberUpdate".equals(action)) {
+			System.out.println("進入PostServlet memberUpdate");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);			
 			try {
@@ -323,7 +325,7 @@ public class PostServlet extends HttpServlet {
 				String post_content = req.getParameter("post_content");
 				if(post_content == null || (post_content.trim()).length() == 0) {
 					errorMsgs.add("文章內容請勿空白");
-				} else if((post_content.trim()).length() <= 20) {
+				} else if((post_content.trim()).length() < 20) {
 					errorMsgs.add("文章內容請勿低於20個字");
 				}
 										

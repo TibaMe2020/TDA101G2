@@ -3,6 +3,17 @@
     background-color: #F3F2F2;
     font-family: Noto Serif TC;
 }
+input:focus, textarea:focus{
+	outline: none;
+}
+a:link, a:visited{
+	text-decoration: none; 
+	color: #13406A;
+}
+button:active, button:focus{
+	outline: none; !important
+	border: none;
+}
 /* ==========上面cover========== */
 div.cover{
     border: 1px solid lightgray;
@@ -16,7 +27,7 @@ div.cover{
     margin-top: 20px;
 }
 input.my_cover_title{
-    width: 450px;
+    max-width: 450px;
     height: 50px;
     font-size: 24px;
     margin-top: 20px;
@@ -27,7 +38,7 @@ input.my_cover_title{
     color: #13406A;
     font-weight: bold;
     text-align: left;
-    border: 1px solid lightgray;
+    border: 1px solid white;
 }
 /* ==========container========== */
 div.padding_left {
@@ -107,7 +118,7 @@ h4.post_class_title{
     color: #13406A;
     text-align: center;
     font-weight: bold;
-    margin-top: 20px; 
+    margin: 20px 10px 0 10px; 
     margin-bottom: 12.5px;
 }
 ul.categories {
@@ -135,7 +146,7 @@ h4.follow_blogger_title{
     color: #13406A;
     text-align: center;
     font-weight: bold;
-    margin: 10px 0;
+    margin: 10px;
 }
 /* ==========收藏文章========== */
 div.saved_post{
@@ -149,7 +160,7 @@ h4.saved_post_title{
     color: #13406A;
     text-align: center;
     font-weight: bold;
-    margin: 10px 0;
+    margin: 10px;
 }
 /* ==========按鈕========== */
 input.back_to_homepage{
@@ -173,14 +184,19 @@ input.back_to_homepage:hover{
 div.write_a_post{
     background-color: #fff;
     min-height: 235px;
-    border: 1px solid lightgrey;
+/*     border: 1px solid lightgrey; */
     border-radius: 5px;
     position: relative;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
 }
 div.wanted_post{
-    margin: 0 20px;
+    padding: 0 20px;
     font-size: 18px; 
     color: lightslategray;
+}
+textarea.my_text{
+	width: 100%; 
+	height: 50px;
 }
 span.nickname{
     display: inline-block;
@@ -190,25 +206,11 @@ div.button{
 }
 div.add_a_post{
     background-color: #fff;
-    min-height: 210px;
+    min-height: 235px;
     border: 1px solid lightgrey;
     border-radius: 5px;
     position: relative;
     padding-right: 50px;
-}
-input.add_picture{
-    color: #13406A;
-    width: 100px; 
-    height: 34px; 
-    padding: 0px; 
-    border: 1px solid #13406A; 
-    border-radius: 3px;
-    background-color:#fff;
-}
-input.add_picture:hover{
-    color: #fff;
-    border: 1px solid #13406A; 
-    background-color:#13406A;
 }
 select.choose_class{
     color: #13406A;
@@ -233,8 +235,20 @@ input.confirm:hover{
     border: 1px solid #13406A; 
     background-color:#13406A;
 }
-.input div{
-	min-height: 38px;
+button.wanted_post{
+	color: #13406A;
+    width: 100px; 
+    height: 34px; 
+    padding: 0px; 
+    border: 1px solid #13406A; 
+    border-radius: 3px;
+    background-color: #fff;
+    margin-bottom: 10px; 
+}
+button.wanted_post:hover{
+	color: #fff;
+    border: 1px solid #13406A; 
+    background-color:#13406A;
 }
 /* ==========文章========== */
 div.each_post{
@@ -263,7 +277,7 @@ img.post_blogger_picture{
     margin: 20px;
 }
 button.delete_button{
-    padding: 0; 
+    padding: 0px; 
     border: 0px; 
     background-color: transparent; 
     float: right;
@@ -273,7 +287,7 @@ span.delete_post_icon{
     margin: 0 20px;
 }
 button.update_button{
-    padding: 0; 
+    padding: 0px; 
     border: 0px; 
     background-color: transparent; 
     float: right;
@@ -316,15 +330,12 @@ background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.
 /* ==========按讚留言分享========== */
 div.post_functions{
     /* border: 1px solid lightgray; */
-    display: inline-block;
-    width: 625px;
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
     text-align: center;
     font-size: 16px;
-}
-div.post_like{
-    /* border: 1px solid lightgray; */
-    float: left;
-    margin-left: 40px;
+    padding: 0 40px;
 }
 button.post_like_button{
     padding: 0; 
@@ -336,14 +347,6 @@ span.post_like_icon{
     font-size: 25px;
     color: lightgray;
 }
-span.post_like_count{
-    text-align: center;
-}
-div.post_message{
-    /* border: 1px solid lightgray; */
-    float: left;
-    margin-left: 230px;
-}
 button.post_message_button{
     padding: 0; 
     border: 0px; 
@@ -353,25 +356,14 @@ button.post_message_button{
 span.post_message_icon{
     font-size: 25px;
 }
-span.post_message_count{
-    text-align: center;
-}
-div.post_share{
-    /* border: 1px solid lightgray; */
-    float: right;
-    margin-right: 40px;
-}
 button.post_share_button{
-	padding: 0; 
+		padding: 0; 
     border: 0px; 
     background-color: transparent; 
     outline: none;
 }
 span.post_share_icon{
     font-size: 25px;
-}
-span.post_share_count{
-    text-align: center;
 }
 button.send_button{
     padding: 0; 
@@ -433,8 +425,7 @@ h4.new_post_title{
 }
 div.each_new_post{
     background-color: #fff;
-    max-height: 84px;
-    border: 1px solid lightgray;
+    border: 1px solid #fff;
     border-radius: 5px;
     margin: 10px;
     padding: 5px 5px 5px 7px;
@@ -455,8 +446,7 @@ h4.hot_post_title{
 }
 div.each_hot_post{
     background-color: #fff;
-    max-height: 84px;
-    border: 1px solid lightgray;
+    border: 1px solid #fff;
     border-radius: 5px;
     margin: 10px;
     padding: 5px 5px 5px 7px;
