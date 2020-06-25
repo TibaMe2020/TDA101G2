@@ -16,7 +16,7 @@ button:active, button:focus{
 }
 /* ==========上面cover========== */
 div.cover{
-    border: 1px solid lightgray;
+/*     border: 1px solid lightgray; */
     border-radius: 5px;
 /*     background-image: url("https://cdn.pixabay.com/photo/2020/05/12/17/04/wind-turbine-5163993_1280.jpg"); */
     background-repeat:no-repeat;
@@ -38,7 +38,7 @@ input.my_cover_title{
     color: #13406A;
     font-weight: bold;
     text-align: left;
-    border: 1px solid white;
+/*     border: 1px solid white; */
 }
 /* ==========container========== */
 div.padding_left {
@@ -61,7 +61,7 @@ div.personal_profile{
     margin-bottom: 20px;
     border: 1px solid #F9EACB;
     border-radius: 5px;
-    height: 250px;
+/*     height: 250px; */
     background-color: #F9EACB;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3)
 }
@@ -81,7 +81,7 @@ figure.profile_figure{
 }
 img.profile_image{
     background-color: #fff;
-    border: 1px solid lightgray;
+/*     border: 1px solid lightgray; */
     border-radius: 50%;
     width: 140px;    
     height: 140px;
@@ -255,7 +255,6 @@ div.each_post{
     background-color: #fff;
     /*為了讓div之間不要有間距*/ 
     font-size: 0px;			
-    border: 1px solid #fff;
     border-radius: 5px;
     margin-top: 20px; 
     margin-bottom: 20px;
@@ -381,7 +380,7 @@ div.message{
     font-size: 0px;
 }
 div.each_message{
-    border: 1px solid black;
+/*     border: 1px solid black; */
     display: inline-block; 
     width: 100%;
     font-size: 16px;
@@ -391,7 +390,7 @@ figure.message_figure{
     margin-bottom: 0px;
 }
 img.message_blogger_picture{
-    border: 1px solid lightgray;
+    border: 0.5px solid lightgray;
     width: 60px; 
     margin: 10px; 
     border-radius: 50%; 

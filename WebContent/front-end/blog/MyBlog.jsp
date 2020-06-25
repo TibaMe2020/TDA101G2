@@ -71,7 +71,7 @@
 					<h4 class="post_class_title">文章分類</h4>
 						<ul class="categories">
 							<li class="categories_li" style="border-bottom: 1px solid #13406A;">
-								<a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/MyBlog.jsp?member_id=<%=member_id%>" style="text-decoration: none; color: #13406A">全部</a>
+								<a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/MyBlog.jsp?member_id=<%=member_id%>">全部</a>
 							</li>
 							<li class="categories_li" style="border-bottom: 1px solid #13406A;">
 								<a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/MyBlogLife.jsp?member_id=<%=member_id%>">生活</a>
@@ -283,7 +283,7 @@
 						</a>
 						<span class="nickname">${postVO.member_id}</span>
 						
-						<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg">
+						<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg" id="${postVO.post_id}">
             	<span class="update_post_icon"> 	
 								<a class="edit" href="#">
 									<i id="edit" class="fas fa-edit"></i>
@@ -415,8 +415,8 @@
 													<td>
 														<div class="input-group mb-3">
 															<div class="custom-file">
-																<input type="file" class="custom-file-input" id="inputGroupFile01" name="post_image1"> 
-																<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+																<input type="file" class="custom-file-input" id="inputGroupFile1" name="post_image1"> 
+																<label class="custom-file-label" for="inputGroupFile1">Choose file</label>
 															</div>
 														</div>
 													</td>
@@ -430,8 +430,8 @@
 													<td>
 														<div class="input-group mb-3">
 															<div class="custom-file">
-																<input type="file" class="custom-file-input" id="inputGroupFile02" name="post_image2"> 
-																<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+																<input type="file" class="custom-file-input" id="inputGroupFile2" name="post_image2"> 
+																<label class="custom-file-label" for="inputGroupFile2">Choose file</label>
 															</div>
 														</div>
 													</td>
@@ -445,8 +445,8 @@
 													<td>
 														<div class="input-group mb-3">
 															<div class="custom-file">
-																<input type="file" class="custom-file-input" id="inputGroupFile03" name="post_image3"> 
-																<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+																<input type="file" class="custom-file-input" id="inputGroupFile3" name="post_image3"> 
+																<label class="custom-file-label" for="inputGroupFile3">Choose file</label>
 															</div>
 														</div>
 													</td>
@@ -460,8 +460,8 @@
 													<td>
 														<div class="input-group mb-3">
 															<div class="custom-file">
-																<input type="file" class="custom-file-input" id="inputGroupFile04" name="post_image4"> 
-																<label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+																<input type="file" class="custom-file-input" id="inputGroupFile4" name="post_image4"> 
+																<label class="custom-file-label" for="inputGroupFile4">Choose file</label>
 															</div>
 														</div>
 													</td>
@@ -475,8 +475,8 @@
 													<td>
 														<div class="input-group mb-3">
 															<div class="custom-file">
-																<input type="file" class="custom-file-input" id="inputGroupFile05" name="post_image5"> 
-																<label class="custom-file-label" for="inputGroupFile05">Choose file</label>
+																<input type="file" class="custom-file-input" id="inputGroupFile5" name="post_image5"> 
+																<label class="custom-file-label" for="inputGroupFile5">Choose file</label>
 															</div>
 														</div>
 													</td>
@@ -489,7 +489,7 @@
 													</td>
 													<td>
 														<div class="input-group">
-															<textarea class="form-control" aria-label="With textarea" name="post_content" id="post_content"></textarea>
+															<textarea class="form-control" aria-label="With textarea" name="post_content" id="update_content"></textarea>
 															<div class="invalid-feedback">
 																文章內容請勿空白且文章內容請勿低於20個字
 															</div>
@@ -503,6 +503,7 @@
 														<button type="button" class="btn btn-secondary" data-dismiss="modal">取消修改</button> 
 														<input type="hidden" name="action" value="memberUpdate"> 
 														<input type="hidden" name="member_id" value="<%=member_id%>">
+														<input id="pid" type="hidden" name="post_id">
 														<input id="update_send" type="submit" class="btn btn-outline-dark edit-blog" value="確認修改">
 													</td>
 												</tr>
@@ -820,7 +821,7 @@
 // 					});
 // 				}		
 // 			});
-			//錯誤驗證
+			//新增文章錯誤驗證
 			$(document).on("click", "#confirm_send", function(){
 				let post_content = $("#post_content").val().trim();
 				
@@ -846,10 +847,49 @@
 				
 			});
 			
-			//驗證過才可以送出
+			//新增文章驗證過才可以送出
 			$(document).on("click", "#confirm_send", function(){
 				let post_content = $("#post_content").val().trim();
 				if(post_content != "" && post_content.length >= 20){
+					alert("驗證通過");
+					return true;
+				}else{
+					alert("驗證不通過");
+					return false;
+				}
+			});
+			
+			//修改文章錯誤驗證
+			$(document).on("click", "#update_send", function(){
+				let update_content = $("#update_content").val().trim();
+				if(update_content == ""){
+					$("#update_content").removeClass("is-valid");
+					$("#update_content").addClass("is-invalid");
+					console.log("沒內容");
+				}else{
+					$("#update_content").removeClass("is-invalid");
+					$("#update_content").addClass("is-valid");
+					console.log("有內容");
+				}
+				
+				if(update_content.length < 20){
+					$("#update_content").removeClass("is-valid");
+					$("#update_content").addClass("is-invalid");
+					console.log("內容不夠");
+				}else{
+					$("#update_content").removeClass("is-invalid");
+					$("#update_content").addClass("is-valid");
+					console.log("內容夠");
+				}
+				
+			});
+			
+			//修改文章驗證過才可以送出
+			$(document).on("click", "#update_send", function(){
+				let update_content = $("#update_content").val().trim();
+				let post_id = $("button.update_button").attr("id");
+				if(update_content != "" && update_content.length >= 20){
+					$("#pid").attr("value", post_id);
 					alert("驗證通過");
 					return true;
 				}else{

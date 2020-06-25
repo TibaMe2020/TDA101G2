@@ -346,7 +346,7 @@ public class PostServlet extends HttpServlet {
 
 				if(!errorMsgs.isEmpty()) {
 					req.setAttribute("postVO", postVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/Post/updatePost.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/MyBlog.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -360,7 +360,7 @@ public class PostServlet extends HttpServlet {
 			} catch(Exception e) {
 				errorMsgs.add("修改失敗:" + e.getMessage());
 				e.printStackTrace();
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/Post/updatePost.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/MyBlog.jsp");
 				failureView.forward(req, res);
 			}
 		}

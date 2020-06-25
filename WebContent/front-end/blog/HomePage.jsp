@@ -351,7 +351,7 @@
 						</div>
 						
 						<div class="post_share">
-							<button class="post_share_button" data-toggle="popover" data-placement="right" data-content="連結">
+							<button class="post_share_button" data-toggle="tooltip" title="copy" data-placement="right" data-src="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}">
 								<span class="post_share_icon"> 
 									<i class="fas fa-share-square"></i>
 								</span>
@@ -685,7 +685,26 @@
 					alert("驗證不通過");
 					return false;
 				}
-			});		
+			});	
+			
+			//複製連結
+			function copyToClipboard(element){
+				var copy = $("<input>");
+				$("body").append(copy);
+				copy.val($(element).attr("data-src")).select();
+				document.execCommand("copy");
+				copy.remove();
+			};
+			//
+			$("[data-toggle='tooltip']").tooltip();
+			$("button.post_share_button").on("click", function(){
+				copyToClipboard(this);
+				$(this).tooltip('show');
+				$("button.post_share_button").mouseleave(function(){
+					event.stopPropagation();
+					$(this).tooltip('hide');
+				});
+			});
 		
 		});
 	</script>
