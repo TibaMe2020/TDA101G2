@@ -57,190 +57,21 @@ public class ProductServlet extends HttpServlet {
 		Product_DAO product_DAO = new Product_DAO();
 		switch (action) {
 			case "NewDate":
-				out.print(gson.toJson(product_DAO.getAll()));
+				out.print(gson.toJson(product_DAO.newDate()));
 				break;
 			case "HighPrice":
-				out.print(gson.toJson(product_DAO.highPrice()));
+				out.print(gson.toJson(new Product_Service().highPrice()));
 				break;
-			case "LowPrice":
-				out.print(gson.toJson(product_DAO.lowPrice()));
+			case "LowPrice":			
+				out.print(gson.toJson(new Product_Service().lowPrice()));
 				break;
 			case "HighScore":
-				out.print(gson.toJson(product_DAO.highScore()));
+				out.print(gson.toJson(new Product_Service().highScore()));
 				break;
 		}
 		
 
-		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			try {
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String str = req.getParameter("product_id");
-				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("請輸入商品編號");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/product_page.jsp");
-					failureView.forward(req, res);
-					return;// 程式中斷
-				}
-
-				String product_id = null;
-				try {
-					product_id = new String(str);
-				} catch (Exception e) {
-					errorMsgs.add("商品編號不對");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/product_page.jsp");
-					failureView.forward(req, res);
-					return;// 程式中斷
-				}
-
-				/*************************** 2.開始查詢資料 *****************************************/
-				Product_Service product_Svc = new Product_Service();
-				Product_VO product_VO = product_Svc.getOneProduct(product_id);
-				if (product_VO == null) {
-					errorMsgs.add("查無資料");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/product_page.jsp");
-					failureView.forward(req, res);
-					return;// 程式中斷
-				}
-
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("product_VO", product_VO); // 資料庫取出的empVO物件,存入req
-				String url = "/pro/listOneProduct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-				successView.forward(req, res);
-
-				/*************************** 其他可能的錯誤處理 *************************************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/product_page.jsp");
-				failureView.forward(req, res);
-			}
-		}
-
-		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			try {
-				/*************************** 1.接收請求參數 ****************************************/
-				String product_id = req.getParameter("product_id");
-				/*************************** 2.開始查詢資料 ****************************************/
-				Product_Service product_Svc = new Product_Service();
-				Product_VO product_VO = product_Svc.getOneProduct(product_id);
-
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				req.setAttribute("product_VO", product_VO); // 資料庫取出的empVO物件,存入req
-				String url = "/pro/updateProduct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
-				successView.forward(req, res);
-
-				/*************************** 其他可能的錯誤處理 **********************************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/pro/listAllProduct.jsp");
-				failureView.forward(req, res);
-			}
-		}
-
-		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
-
-			try {
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				GsonGenerator g = new GsonGenerator();
-				Gson gs = g.getGson();
-				String json = req.getParameter("data");
-			
-				Product_VO product_VO = gs.fromJson(json, Product_VO.class);
-				String product_id = product_VO.getProduct_id();
-				/*************************** 2.開始修改資料 *****************************************/
-				Product_Service product_Svc = new Product_Service();
-				product_Svc.updateProduct(product_VO);
-				List<Version_VO> versions = product_VO.getVersions();
-				for(Version_VO v: versions) {
-					if("".equals(v.getProduct_version_id())) {
-						v.setProduct_id(product_id);
-						versionSvc.addVersion(v);
-					} else {
-						versionSvc.updateVersion(v);
-					}
-				}
-				
-				product_VO = product_Svc.updateProduct(product_VO);
-
-				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-				out.print("success");
-				/*************************** 其他可能的錯誤處理 *************************************/
-			} catch (Exception e) {
-				out.print("fail");
-			}
-		}
-
-		if ("insert".equals(action)) { // 來自addEmp.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			try {
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				
-				
-				GsonGenerator g = new GsonGenerator();
-				Gson gs = g.getGson();
-				String json = req.getParameter("data");
-			
-				Product_VO productVO = gs.fromJson(json, Product_VO.class);
-				
-
-				List<Version_VO> list = productVO.getVersions();
-
-				/*************************** 2.開始新增資料 ***************************************/
-				Product_Service product_Svc = new Product_Service();
-				product_Svc.insertWithVersion(productVO, list);
-
-				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				out.write("success");
-
-				/*************************** D其他可能的錯誤處理 **********************************/
-			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());
-				out.write("fail");
-			}
-		}
-
-		if ("delete".equals(action)) { // 來自listAllEmp.jsp
-
-			out = res.getWriter();
-			try {
-				/*************************** 1.接收請求參數 ***************************************/
-				String product_id = req.getParameter("pid");
-
-				/*************************** 2.開始刪除資料 ***************************************/
-				Product_Service product_Svc = new Product_Service();
-				product_Svc.deleteProduct(product_id);
-
-				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-				out.print("success");
-				/*************************** 其他可能的錯誤處理 **********************************/
-			} catch (Exception e) {
-				out.print("fail");
-			}
-		}
 		// 萬用查詢
 		if ("listProduct_ByName".equals(action)) { // 來自select_page.jsp的複合查詢請求
 			List<String> errorMsgs = new LinkedList<String>();
