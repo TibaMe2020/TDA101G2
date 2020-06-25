@@ -1,7 +1,12 @@
 package com.product_version.model;
 
 import java.sql.Connection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.product.model.Product_Service;
+import com.product.model.Product_VO;
 
 public class Version_Service {
 	private Version_DAO_interface dao;
@@ -33,7 +38,7 @@ public class Version_Service {
 
 	public List<Version_VO> getAll() {
 		return dao.getAll();
-
+		
 	}
 	
 	public List<Version_VO> getbyProductID(String product_id) {
@@ -47,11 +52,11 @@ public class Version_Service {
 
 	}
 	
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
 //		List<Version_VO> getbyProductID = new Version_Service().getbyProductID("PID00001");
 //		System.out.println(getbyProductID.size());
 //		getbyProductID.forEach(System.out::println);
-//		
-//	}
+		
+	}
 	
 }
