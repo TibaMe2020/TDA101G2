@@ -16,7 +16,7 @@ public interface Product_DAO_interface {
 	public Product_VO findByPrimaryKey(String Product_id);
 
 //最新日期
-	public List<Product_VO> getAll();
+	public List<Product_VO> newDate();
 
 //萬用查詢
 	public List<Product_VO> getAll(Map<String, String[]> map);
@@ -30,7 +30,7 @@ public interface Product_DAO_interface {
 //最高評分
 	public List<Product_VO> highScore();
 
-	//查單一會員購買的訂單
+//查單一會員購買的訂單
 	public List<Product_VO> getByMId(String member_id);
 
 //同時增加產品跟規格
@@ -44,17 +44,7 @@ public interface Product_DAO_interface {
 //關鍵字
 	public List<Product_VO> getbykeyword();
 
-//食品最新上架
-	public List<Product_VO> getbyNewdatefood();
-
-// 食品價錢最低
-	public List<Product_VO> getbylowPricefood();
-
-// 食品價錢最高
-	public List<Product_VO> getbyhighPricefood();
-
-// 食品最高評分
-	public List<Product_VO> getbyhighscorefood();
-
+//拿全部商品
+	public List<Product_VO> FinalALL();
 
 }
