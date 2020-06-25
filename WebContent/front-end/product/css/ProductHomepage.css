@@ -205,3 +205,15 @@ del {
     width: 100%;
     height: 200px;
 }
+
+/* 新品上架*/
+img#new_product{
+	width:253px; 
+	height:200px;
+}
+
+/*熱門商品*/
+img#hotimage{
+	width:253px; 
+	height:186px;
+}
