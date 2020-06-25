@@ -262,7 +262,7 @@ CREATE TABLE product (
     product_id      VARCHAR2(10) PRIMARY KEY NOT NULL,
     member_id       VARCHAR2(10) NOT NULL,
     name            VARCHAR2(200) NOT NULL,
-    class           VARCHAR2(50) NOT NULL,
+    product_class           VARCHAR2(50) NOT NULL,
     description        BLOB,
     image1          BLOB,
     image2          BLOB,
@@ -867,7 +867,7 @@ insert into store_order_detail(store_order_detail_id, store_order_id, service_id
 INSERT INTO product (
     member_id,
     name,
-    class,
+    product_class,
     description,
     image1,
     image2,
@@ -877,7 +877,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00006',
     '貓用除毛用品',
-    '用品',
+    'product',
     NULL,
     NULL,
     NULL,
@@ -889,7 +889,7 @@ INSERT INTO product (
 INSERT INTO product (
     member_id,
     name,
-    class,
+    product_class,
     description,
     image1,
     image2,
@@ -899,7 +899,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00001',
     '逗貓棒',
-    '用品',
+    'product',
     NULL,
     NULL,
     NULL,
@@ -911,7 +911,7 @@ INSERT INTO product (
 INSERT INTO product (
     member_id,
     name,
-    class,
+    product_class,
     description,
     image1,
     image2,
@@ -921,7 +921,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00010',
     '推毛器',
-    '用品',
+    'product',
     NULL,
     NULL,
     NULL,
@@ -933,7 +933,7 @@ INSERT INTO product (
 INSERT INTO product (
     member_id,
     name,
-    class,
+    product_class,
     description,
     image1,
     image2,
@@ -943,7 +943,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00001',
     '滾地龍貓',
-    '用品',
+    'product',
     NULL,
     NULL,
     NULL,
@@ -955,7 +955,7 @@ INSERT INTO product (
 INSERT INTO product (
     member_id,
     name,
-    class,
+    product_class,
     description,
     image1,
     image2,
@@ -965,7 +965,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00009',
     '跳跳智能球',
-    '用品',
+    'product',
     NULL,
     NULL,
     NULL,
@@ -977,7 +977,7 @@ INSERT INTO product (
 INSERT INTO product (
     member_id,
     name,
-    class,
+    product_class,
     description,
     image1,
     image2,
@@ -986,8 +986,8 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00001',
-    '洗澡盆',
-    '食物',
+    '鮮肉糧食飼料',
+    'food',
     NULL,
     NULL,
     NULL,
@@ -999,7 +999,7 @@ INSERT INTO product (
 INSERT INTO product (
     member_id,
     name,
-    class,
+    product_class,
     description,
     image1,
     image2,
@@ -1008,8 +1008,8 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00006',
-    '狗衣服',
-    '服飾',
+    '寵物防寒羽絨衣',
+    'cloth',
     NULL,
     NULL,
     NULL,
@@ -1021,7 +1021,7 @@ INSERT INTO product (
 INSERT INTO product (
     member_id,
     name,
-    class,
+    product_class,
     description,
     image1,
     image2,
@@ -1030,8 +1030,8 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00001',
-    '網球發射器',
-    '住家',
+    '經典益生菌',
+    'food',
     NULL,
     NULL,
     NULL,
@@ -1043,7 +1043,7 @@ INSERT INTO product (
 INSERT INTO product (
     member_id,
     name,
-    class,
+    product_class,
     description,
     image1,
     image2,
@@ -1053,7 +1053,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00005',
     '冰墊寵物墊',
-    '玩具',
+    'product',
     NULL,
     NULL,
     NULL,
@@ -1065,7 +1065,7 @@ INSERT INTO product (
 INSERT INTO product (
     member_id,
     name,
-    class,
+    product_class,
     description,
     image1,
     image2,
@@ -1075,7 +1075,160 @@ INSERT INTO product (
 ) VALUES (
     'MB00003',
     '瘋狂的骨頭',
-    '玩具',
+    'product',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    product_class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00013',
+    '貓用薄荷薯片',
+    'food',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    product_class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00011',
+    '好幸福零食',
+    'food',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    product_class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00012',
+    '貓倍麗',
+    'food',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    product_class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00001',
+    '寵物機能食品',
+    'food',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    product_class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00015',
+    '柏克恩狗食',
+    'food',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    product_class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00015',
+    '牛磺酸大補鐵',
+    'food',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+INSERT INTO product (
+    member_id,
+    name,
+    product_class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00015',
+    '下利恩貓食',
+    'food',
     NULL,
     NULL,
     NULL,
@@ -1109,26 +1262,45 @@ INSERT INTO product_version (
     '經典款',
     2000,
     20
-);																			
-
+);		
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00003','特仕款',5000,10);	
+VALUES ('PI00003','特仕款',1000,10);		
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00004','日本款',5000,10);
+VALUES ('PI00004','日本款',1500,10);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00005','卡通聯名款',4200,30);
+VALUES ('PI00005','卡通聯名款',2500,30);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00006','養生鴨',150,50);
+VALUES ('PI00006','雞肉口味',3000,2);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00007','冬天款',300,10);
+VALUES ('PI00006','牛肉口味',150000,1);	
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00008','加大型',600,10);
+VALUES ('PI00007','冬天款',4000,10);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00009','一般款',320,10);
+VALUES ('PI00008','一般型',4200,10);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00010','特仕款',2560,99);
+VALUES ('PI00009','一般款',5000,10);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00010','特仕款',5200,99);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00011','一般款',6540,29);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00012','一般款',6200,29);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00013','香烤鮭魚',8500,29);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00013','香嫩考雞',1500,29);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00014','香烤鮮燴',8000,29);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00015','一般款',10000,29);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00016','一般款',5600,29);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00017','一般款',7450,29);
 
 --評分資料
+insert into product_score(product_id,member_id,score) 
+values('PI00017','MB00005',5);
 insert into product_score(product_id,member_id,score) 
 values('PI00002','MB00005',2);
 insert into product_score(product_id,member_id,score) 
@@ -1142,13 +1314,26 @@ values('PI00006','MB00005',1);
 insert into product_score(product_id,member_id,score) 
 values('PI00007','MB00002',2);
 insert into product_score(product_id,member_id,score) 
-values('PI00008','MB00009',5);
+values('PI00008','MB00009',3);
 insert into product_score(product_id,member_id,score) 
 values('PI00009','MB00005',3);
 insert into product_score(product_id,member_id,score) 
 values('PI00010','MB00001',2);
 insert into product_score(product_id,member_id,score) 
 values('PI00001','MB00005',5);
+insert into product_score(product_id,member_id,score) 
+values('PI00011','MB00001',5);
+insert into product_score(product_id,member_id,score) 
+values('PI00012','MB00001',4);
+insert into product_score(product_id,member_id,score) 
+values('PI00013','MB00001',2);
+insert into product_score(product_id,member_id,score) 
+values('PI00014','MB00001',4);
+insert into product_score(product_id,member_id,score) 
+values('PI00015','MB00001',4);
+insert into product_score(product_id,member_id,score) 
+values('PI00016','MB00001',5);
+
 
 
 --訂單主檔資料
