@@ -72,7 +72,8 @@
                     ...
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">好的</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                      id="btn_newstore_reload">好的</button>
                   </div>
                 </div>
               </div>
@@ -587,7 +588,6 @@
   <script src="<%=request.getContextPath()%>/resources/vendors/air_datepicker/datepicker.min.js"></script>
   <script src="<%=request.getContextPath()%>/resources/vendors/air_datepicker/datepicker.zh.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/member/js/serviceList.js"></script>
-
 </body>
 
 </html>
