@@ -3,12 +3,17 @@
     background-color: #F3F2F2;
     font-family: Noto Serif TC;
 }
+a:link, a:visited{
+	 text-decoration: none; 
+	 color: #13406A;"
+}
 /* ==========¤W­±cover========== */
 div.cover{
     border: 1px solid lightgray;
     border-radius: 5px;
-    background-image: url("https://s2.best-wallpaper.net/wallpaper/1920x1080/1407/Sunset-lake-red-sky_1920x1080.jpg");
+/*     background-image: url("https://s2.best-wallpaper.net/wallpaper/1920x1080/1407/Sunset-lake-red-sky_1920x1080.jpg"); */
     background-repeat:no-repeat;
+    background-size: 100%;
     background-position: center;
     background-color: #F9EACB;
     height: 200px;
@@ -203,8 +208,7 @@ h4.new_post_title{
 }
 div.each_new_post{
     background-color: #fff;
-    max-height: 84px;
-    border: 1px solid lightgray;
+    border: 1px solid #fff;
     border-radius: 5px;
     margin: 10px;
     padding: 5px 5px 5px 7px;
@@ -225,8 +229,7 @@ h4.hot_post_title{
 }
 div.each_hot_post{
     background-color: #fff;
-    max-height: 84px;
-    border: 1px solid lightgray;
+    border: 1px solid #fff;
     border-radius: 5px;
     margin: 10px;
     padding: 5px 5px 5px 7px;
