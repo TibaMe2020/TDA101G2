@@ -16,11 +16,11 @@
 <body class="body">
 <%@ include file="/front-end/member/header.jsp"%>
 <%
-	PostService postService = new PostService();
-	System.out.println(member_id);
-	
+	PostService postService = new PostService();	
 	List<PostVO> postList = postService.getByMemberId(member_id, "旅遊");
 	pageContext.setAttribute("postList", postList);
+	MemberVO member = mbSvc.getOne(member_id);
+	pageContext.setAttribute("member", member);
 
 	List<PostVO> list1 = postService.getFifthCreateTime("旅遊", member_id);
 	pageContext.setAttribute("list1", list1);
@@ -94,13 +94,13 @@
 
 				<div class="follow_blogger">
 					<a href="<%=request.getContextPath()%>/front-end/blog/MyBack.jsp?member_id=<%=member_id%>">
-						<h4 class="follow_blogger_title">關注部落客</h4>
+						<h4 class="follow_blogger_title">我的關注</h4>
 					</a>
 				</div>
 
 				<div class="saved_post">
 					<a href="<%=request.getContextPath()%>/front-end/blog/MyBack.jsp?member_id=<%=member_id%>">
-						<h4 class="saved_post_title">收藏文章</h4>
+						<h4 class="saved_post_title">我的收藏</h4>
 					</a>
 				</div>
 
@@ -282,7 +282,7 @@
 								<img class="post_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
 							</figure>
 						</a>
-						<span class="nickname">${postVO.member_id}</span>
+						<span class="nickname">${member.nickname}</span>
 						
 						<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg" id="${postVO.post_id}">
             	<span class="update_post_icon"> 	

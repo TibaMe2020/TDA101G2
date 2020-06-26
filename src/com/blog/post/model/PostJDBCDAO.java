@@ -43,7 +43,7 @@ public class PostJDBCDAO implements PostDAOInterface{
 	private static final String get_by_post_id = "update post set post_like = ? where post_id = ?";
 	private static final String updateMessageCount = "update post set post_message_count = ? where post_id = ?";
 	private static final String updateShareCount = "update post set post_share = ? where post_id = ?";
-	private static final String getPostContent = "select substr(post_content, 1, 20) as postcontent20, post_id from post where post_id = ?";
+	private static final String getPostContent = "select substr(post_content, 1, 25) as postcontent20, post_id from post where post_id = ?";
 	private static final String getPostCount = "select count(post_id) from post";
 	
 	@Override

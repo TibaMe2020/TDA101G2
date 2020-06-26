@@ -27,6 +27,10 @@
 	List<PostVO> postList = postService.getAll();
 	pageContext.setAttribute("postList", postList);
 	
+	List<MemberVO> memberList = mbSvc.getAll();
+	pageContext.setAttribute("memberList", memberList);
+	System.out.println(memberList);
+	
 	List<PostVO> list1 = postService.getFifthCreateTime();
 	pageContext.setAttribute("list1", list1);
 	List<PostVO> postContents1 = new ArrayList<PostVO>();
@@ -288,7 +292,6 @@
 							</figure>
 						</a>
 						<span class="nickname">${postVO.member_id}</span>
-						
 						<button class="saved_button" style="outline: none;" value="${savedList.contains(postVO.post_id)?'1':'0'}">
 							<span class="saved_post_icon" style="color: ${savedList.contains(postVO.post_id)?'black':'lightgray'}"> 
 								<i class="fas fa-bookmark"></i>

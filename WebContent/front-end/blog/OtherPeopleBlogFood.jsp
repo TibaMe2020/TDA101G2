@@ -25,10 +25,10 @@
 		pageContext.setAttribute("otherMember", otherMember);
 
 		PostService postService = new PostService();
-		List<PostVO> list = postService.getByMemberId(other_member_id, "生活");
+		List<PostVO> list = postService.getByMemberId(other_member_id, "美食");
 		pageContext.setAttribute("list", list);
 
-		List<PostVO> list1 = postService.getFifthCreateTime("生活", other_member_id);
+		List<PostVO> list1 = postService.getFifthCreateTime("美食", other_member_id);
 		pageContext.setAttribute("list1", list1);
 		List<PostVO> postContents1 = new ArrayList<PostVO>();
 		for (PostVO postVO : list1) {
@@ -37,7 +37,7 @@
 		}
 		pageContext.setAttribute("postContents1", postContents1);
 
-		List<PostVO> list2 = postService.getFifthPostLike("生活", other_member_id);
+		List<PostVO> list2 = postService.getFifthPostLike("美食", other_member_id);
 		pageContext.setAttribute("list2", list2);
 		List<PostVO> postContents2 = new ArrayList<PostVO>();
 		for (PostVO postVO : list2) {
