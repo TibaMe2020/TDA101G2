@@ -2,7 +2,7 @@ let path = window.location.pathname;
 // console.log(window.location.host)
 // console.log(path)
 // console.log(path.substring(0,path.indexOf('/',1)))
- const projectUrl = "http://"+window.location.host+path.substring(0,path.indexOf('/',1))
+const projectUrl = "http://" + window.location.host + path.substring(0, path.indexOf('/', 1))
 //const projectUrl = "http://localhost:8081/TDA101G2";
 // console.log(projectUrl)
 
@@ -14,7 +14,7 @@ window.onload = (event) => {
         // console.log(`key: ${pair[0]}, value: ${pair[1]}`)
 
         let text = $("a.store-dropdown")
-//        console.log(text); 
+        //        console.log(text); 
         switch (pair[1]) {
             case 'restaurant':
                 text.text("寵物餐廳");
@@ -597,3 +597,57 @@ $("button.btn_confirm").on("click", function () {
         });
     }
 })
+$("input[name='payment']").change(function () {
+    if ($(this).val() == "linepay") {
+        linepayReq()
+        $("#linepay").removeClass("d-none")
+    } else {
+        $("#linepay").addClass("d-none")
+    }
+})
+
+function linepayReq() {
+    var url = 'https://sandbox-api-pay.line.me/v2/payments/request';
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        data: {
+            "productName": "test",
+            "productImageUrl": "https://via.placeholder.com/84x84",
+            "amount": 1,
+            "currency": "TWD",
+            "confirmUrl": "www.google.com",
+            "orderId": "P0001"
+        },
+        type: 'POST',
+        dataType: "json",
+        headers: {
+            // 'Access-Control-Allow-Origin': '*',
+            // 'Access-Control-Allow-Methods': 'POST',
+            // 'Access-Control-Allow-Headers': 'x-requested-with,content-type',
+            'Content-Type': 'application/json;charset=UTF-8',
+            'X-LINE-ChannelId': '1654393823',
+            'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36'
+        },
+        beforeSend: function (xhr) {       // 在 request 發送之前執行
+            // xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
+        },
+        statusCode: {                 // 狀態碼
+            200: function (res) {
+                console.log("200")
+            },
+            404: function (res) {
+                console.log("400")
+            },
+            500: function (res) {
+                console.log("500")
+            }
+        },
+        error: function (xhr) {         // request 發生錯誤的話執行
+            console.log(xhr.responseText);
+        },
+        success: function (data) {
+            console.log(data);
+        }
+    });
+}
