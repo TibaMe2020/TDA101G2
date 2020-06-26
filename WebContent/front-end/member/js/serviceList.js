@@ -1070,31 +1070,31 @@ $('input[name="service_state"]').on("click", function () {
 $('input[name="service_state"]').change(function () {
   console.log(222)
 })
-$(function () {
-  $('#service-table').on('click', '.slider', function () {
-    let self = this;
-    // console.log(self)
-    let state = $(self).attr("data-state")
-    state == 1 ? $(self).attr("data-state", 0) : $(self).attr("data-state", 1)
-    $.ajax({
-      url: projectUrl + "/Store_frontController",
-      type: "post",
-      data: {
-        action: "update_state",
-        service_id: $(self).attr("data-service_id"),
-        service_state: $(self).attr("data-state")
-      },
-      dataType: "text",
-      timeout: 0,
-      headers: {
-      },
-      error: function (xhr) {
-        console.log(xhr);
-      },
-      success: function (data) {
-        if (data == "success") alert("狀態更新成功");
-        console.log(data);
-      }
-    });
-  })
+// $(function () {
+$('#service-table').on('click', '.slider', function () {
+  let self = this;
+  console.log(self)
+  let state = $(self).attr("data-state")
+  state == 1 ? $(self).attr("data-state", 0) : $(self).attr("data-state", 1)
+  $.ajax({
+    url: projectUrl + "/Store_frontController",
+    type: "post",
+    data: {
+      action: "update_state",
+      service_id: $(self).attr("data-service_id"),
+      service_state: $(self).attr("data-state")
+    },
+    dataType: "text",
+    timeout: 0,
+    headers: {
+    },
+    error: function (xhr) {
+      console.log(xhr);
+    },
+    success: function (data) {
+      if (data == "success") alert("狀態更新成功");
+      console.log(data);
+    }
+  });
 })
+// })
