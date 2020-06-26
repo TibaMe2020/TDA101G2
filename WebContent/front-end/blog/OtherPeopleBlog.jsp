@@ -50,11 +50,11 @@
 		FollowService followService = new FollowService();
 		List<String> list3 = followService.getFollowedMemberIdByMemberId(member_id);
 		pageContext.setAttribute("list3", list3);
-		//     System.out.println("我關注的member_id:" + list3);
+		    System.out.println("我關注的member_id:" + list3);
 
 		List<FollowVO> list4 = followService.getByMemberId(member_id);
 		pageContext.setAttribute("list4", list4);
-		//     System.out.println("我關注的followVO:" + list4);
+		    System.out.println("我關注的followVO:" + list4);
 
 		//收藏文章判斷
 		SavedService savedService = new SavedService();
@@ -73,10 +73,9 @@
 		<div class="row">
 			<!-- container左欄 -->
 			<div class="col-2 padding_left">
-				<div class="personal_profile">
-
-					<button class="follow_button"
-						<c:forEach items="${list4}" var="followed" >
+				<div class="personal_profile" id="<%=member_id%>">
+					<button class="follow_button" 
+						<c:forEach items="${list4}" var="followed">
 			      	<c:if test="${(followed.followed_member_id == other_member_id)}">
 			        	data-follow-id="${followed.follow_id}" 
 			        </c:if>
@@ -280,7 +279,8 @@
 	    	   	}
 					});
 				}else {
-					let member_id = "${member_id}";
+					let member_id = $("div.personal_profile").attr("id");
+					console.log(member_id);
 					let followed_member_id = it.attr("id");
 					$.ajax({
 						url:"<%=request.getContextPath()%>/Post/AjaxServlet",

@@ -17,12 +17,17 @@
 <body class="body">
 <%@ include file="/front-end/member/header.jsp"%>
 <%
+	System.out.println("我是" + member_id);
+
 	String post_id = request.getParameter("post_id");	
 	pageContext.setAttribute("post_id", post_id);
-
+	
 	PostService postService = new PostService();
 	PostVO postVO = postService.getOnePost(post_id);
 	pageContext.setAttribute("postVO", postVO);
+	
+	String other_member_id = postVO.getMember_id();
+	System.out.println("這篇文章是" + other_member_id);
 	
 	MemberVO postOwner = mbSvc.getOne(postVO.getMember_id());
 	pageContext.setAttribute("postOwner", postOwner);
@@ -54,6 +59,15 @@
 		postContents2.add(postContent);
 	}
 	pageContext.setAttribute("postContents2", postContents2);
+	
+	//關注部落客判斷
+	List<String> list3 = followService.getFollowedMemberIdByMemberId(member_id);
+	pageContext.setAttribute("list3", list3);
+	System.out.println("我關注的member_id:" + list3);
+
+	List<FollowVO> list4 = followService.getByMemberId(member_id);
+	pageContext.setAttribute("list4", list4);
+// 	System.out.println("我關注的followVO:" + list4);
 %>
 	<div class="container">
   	<div class="row cover" style="background-image: url('<%=request.getContextPath()%>/member/coverImage?member_id=${postOwner.member_id}');">
@@ -62,12 +76,18 @@
     <div class="row">
     	<!-- container左欄 -->
      	<div class="col-2 padding_left">
-      	<div class="personal_profile">
-        	<button class="follow_button">
-          	<span class="follow_blogger">
-            	<i id="like" class="fas fa-heart" style="color: ${followList.contains(OwnerMemberId)?'#EE6464':'lightgray'}"></i>
-            </span>
-          </button>
+      	<div class="personal_profile" id="${postOwner.member_id}">
+        	<button class="follow_button" 
+						<c:forEach items="${list4}" var="followed">
+			      	<c:if test="${(followed.followed_member_id == other_member_id)}">
+			        	data-follow-id="${followed.follow_id}" 
+			        </c:if>
+			     	</c:forEach>
+						value="${list3.contains(other_member_id)?'followed':'unfollow'}" id="<%=other_member_id%>">
+						<span class="follow_blogger" style="color: ${list3.contains(other_member_id)?'#EE6464':'lightgray'}">
+							<i id="like" class="fas fa-heart"></i>
+						</span>
+					</button>
           <a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=<%=member_id%>">
           	<figure class="profile_figure">
 	          	<img class="profile_image" src="<%=request.getContextPath()%>/resources/images/img06.jpg">
@@ -90,19 +110,19 @@
           		<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=<%=postVO.getMember_id()%>">全部</a>
           	</li>
             <li style="border-bottom: 1px solid #13406A;">
-            	<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogLife.jsp?other_member_id=<%=postVO.getMember_id()%>">生活</a>
+            	<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogLife.jsp?member_id=<%=postVO.getMember_id()%>">生活</a>
             </li>
           	<li style="border-bottom: 1px solid #13406A;">
-          		<a href="<%=request.getContextPath()%>/front-end/blog/Shopping.jsp?other_member_id=<%=postVO.getMember_id()%>">購物</a>
+          		<a href="<%=request.getContextPath()%>/front-end/blog/Shopping.jsp?member_id=<%=postVO.getMember_id()%>">購物</a>
           	</li>
           	<li style="border-bottom: 1px solid #13406A;">
-          		<a href="<%=request.getContextPath()%>/front-end/blog/Food.jsp?other_member_id=<%=postVO.getMember_id()%>">美食</a>
+          		<a href="<%=request.getContextPath()%>/front-end/blog/Food.jsp?member_id=<%=postVO.getMember_id()%>">美食</a>
           	</li>
          		<li style="border-bottom: 1px solid #13406A;">
-         			<a href="<%=request.getContextPath()%>/front-end/blog/Travel.jsp?other_member_id=<%=postVO.getMember_id()%>">旅遊</a>
+         			<a href="<%=request.getContextPath()%>/front-end/blog/Travel.jsp?member_id=<%=postVO.getMember_id()%>">旅遊</a>
          		</li>
          		<li>
-         			<a href="<%=request.getContextPath()%>/front-end/blog/Others.jsp?other_member_id=<%=postVO.getMember_id()%>">其他</a>
+         			<a href="<%=request.getContextPath()%>/front-end/blog/Others.jsp?member_id=<%=postVO.getMember_id()%>">其他</a>
          		</li>
          	</ul>    
        	</div>
@@ -234,10 +254,64 @@
   <%@ include file="/front-end/member/footer.jsp"%>
   <script>
   	window.addEventListener("load", function(){
+	  	//關注或是取消關注
+			$(document).on("click", "button.follow_button", function(){	
+				let status = $(this).attr("value");
+				let it = $(this);
+				if(status == "followed"){
+					let follow_id = it.attr("data-follow-id");
+					console.log(follow_id);
+					$.ajax({
+						url:"<%=request.getContextPath()%>/Post/AjaxServlet",
+						type:"GET",
+						data:{
+							"action": "changeFollow",
+							"status": "unfollow",
+							"follow_id": follow_id,
+						},
+						dataType:"json",
+						error: function (xhr) {         
+	    	    	console.log("錯誤");
+	    	  	},
+	    			success: function(data){
+	    	    	console.log("成功取消關注");
+	    	    	it.find("span.follow_blogger").attr("style", "color: lightgray");
+	    	    	it.attr("value", "unfollow");
+		    	    window.location.href = "<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${other_member_id}";
+	    	   	}
+					});
+				}else {
+					let member_id = $("div.personal_profile").attr("id");
+					console.log(member_id);
+					let followed_member_id = it.attr("id");
+					$.ajax({
+						url:"<%=request.getContextPath()%>/Post/AjaxServlet",
+						type:"GET",
+						data:{
+							"action": "changeFollow",
+							"status": "followed",
+							"member_id": member_id,
+							"followed_member_id": followed_member_id
+						},
+						dataType:"json",
+						error: function (xhr) {         
+	    	   		console.log("錯誤");
+	    	   	},
+	    	   	success: function(data){
+	    	    	console.log("成功關注");
+	    	   		it.find("span.follow_blogger").attr("style", "color: #EE6464");
+	    	    	it.attr("value", "followed");
+		    	    window.location.href = "<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${other_member_id}";
+	    	  	}
+					});
+				}		
+			});
+  		
 	  	// 點擊留言,留言才顯示
 			$(document).on("click", "button.post_message_button", function(){    	    	
 		  	let post_id = $(this).closest("div.each_post").attr("id");
 		    let it = $(this);
+		    let nickname = "${memberVO.nickname}";
 		    	$.ajax({
 		    			url: "<%=request.getContextPath()%>/Post/AjaxServlet",
 		          type: "GET",   
@@ -272,7 +346,7 @@
 								  '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">'+     
 									'</figure>'+      
 									'<div class="message_person">'+     
-									'<span class="message_nickname">' + $("div.message").attr("id") + '</span>'+     
+									'<span class="message_nickname">' + nickname + '</span>'+     
 									'<br>'+        
 									'<div class="message_content">'+        
 									'<div style="display: inline;">'+         
