@@ -16,7 +16,7 @@ public class jdbcUtil_CompositeQuery_Emp2 {
 		String aCondition = null;
 
 		
-		 if ("name".equals(columnName) ) // 用於varchar
+		 if ("name".equals(columnName) || "product_class".equals(columnName)) // 用於varchar
 			aCondition = columnName + " like '%" + value + "%'";
 		
 		
@@ -50,9 +50,6 @@ public class jdbcUtil_CompositeQuery_Emp2 {
 
 		// 配合 req.getParameterMap()方法 回傳 java.util.Map<java.lang.String,java.lang.String[]> 之測試
 		Map<String, String[]> map = new TreeMap<String, String[]>();
-//		map.put("product_id", new String[] { "PI00031" });
-//		map.put("member_id", new String[] { "MB00010" });
-//		map.put("class", new String[] { "食物" });
 		map.put("name", new String[] { "這是測試" });
 		
 	
