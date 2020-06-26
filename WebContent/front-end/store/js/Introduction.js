@@ -607,7 +607,7 @@ $("input[name='payment']").change(function () {
 })
 
 function linepayReq() {
-    var url = 'https://sandbox-api-pay.line.me/v2/payments/request';
+    var url = 'https://sandbox-api-pay.line.me/v2/payments/request'
     $.ajax({
         url: url,
         dataType: 'json',
@@ -617,7 +617,7 @@ function linepayReq() {
             "amount": 1,
             "currency": "TWD",
             "confirmUrl": "www.google.com",
-            "orderId": "P0001"
+            "orderId": "P0001111111111"
         },
         type: 'POST',
         dataType: "json",
@@ -625,7 +625,7 @@ function linepayReq() {
             // 'Access-Control-Allow-Origin': '*',
             // 'Access-Control-Allow-Methods': 'POST',
             // 'Access-Control-Allow-Headers': 'x-requested-with,content-type',
-            'Content-Type': 'application/json;charset=UTF-8',
+            'Content-Type': 'application/json',
             'X-LINE-ChannelId': '1654393823',
             'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36'
         },

@@ -316,7 +316,7 @@
                                 <div class="form-group mb-2 text_title d-none">
                                     簡訊驗證碼
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2">
+                                <div class="form-group mx-sm-3 mb-2 d-none">
                                     <!-- is-invalid 未通過 is-valid 通過 -->
                                     <input type="password" class="form-control" placeholder="123456">
                                     <!-- is-valid 通過 is-invalid 未通過 -> 即顯示invalid-feedback -->
@@ -479,7 +479,7 @@
                                 <div class="form-group mb-2 text_title d-none">
                                     簡訊驗證碼
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2">
+                                <div class="form-group mx-sm-3 mb-2 d-none">
                                     <!-- is-invalid 未通過 is-valid 通過 -->
                                     <input type="password" class="form-control " placeholder="123456">
                                     <!-- 未通過即顯示invalid-feedback -->
