@@ -1,9 +1,36 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.product_version.model.Version_VO"%>
+<%@page import="com.product_version.model.Version_Service"%>
+<%@page import="com.product.model.Product_Service"%>
+<%@page import="com.product.model.Product_VO"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.util.Comparator"%>
+<%@page import="java.util.stream.Collectors"%>
 <!DOCTYPE html>
 <html>
 
 <jsp:useBean id="Product_Service" scope="page" class="com.product.model.Product_Service"></jsp:useBean>
+<%
+// Product_Service productSvc = new Product_Service() ; 
+// Version_Service versionSvc = new Version_Service() ; 
+
+//      List<Product_VO> productList= productSvc.all();
+         
+//      for(Product_VO pv : productList) {
+//     	    List<Version_VO> versionList = versionSvc.getbyProductID(pv.getProduct_id());
+//     	    pv.setPrice(versionList.get(0).getPrice());//先把規格的價格塞選第一筆
+//     	}
+     
+//      List<Product_VO> sortedProducts = productList.stream()
+//     		 .sorted(Comparator.comparing(Product_VO::getPrice)//依據價錢來篩選
+//     	     .reversed())
+//     		 .collect(Collectors.toList());
+     
+//      for(Product_VO pv : sortedProducts) {
+//     	    System.out.println(pv.getPrice());
+//     	}
+//      pageContext.setAttribute("Product_Service", productSvc);
+%>
 
 <head>
     <title>寵物網路商城</title>
@@ -143,7 +170,7 @@
                 <h3 style="text-align:left">新品上架</h3>
                 <div class="container-fluid">
                     <div class="row">
-<c:forEach items="${Product_Service.all}" var="product_VO" begin="0" end="3">
+<c:forEach items="${Product_Service.all()}" var="product_VO" begin="0" end="3">
                     	<div class="col-sm-12 col-md-3" id="new_product">
                             <div>
                                 <a href="<%=request.getContextPath()%>/front-end/product/Product.jsp?product_id=${product_VO.product_id}">
