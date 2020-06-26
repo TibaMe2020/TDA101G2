@@ -503,12 +503,12 @@ private static final String GET_BY_CLASS = "select sum(price*quantity) as total,
 			
 			con = ds.getConnection();
 			String finalSQL = "select * from product "
-		          + jdbcUtil_CompositeQuery_Emp2.get_WhereCondition(map)
+		          +jdbcUtil_CompositeQuery_Emp2.get_WhereCondition(map)
 		          + "order by product_id";
 			pstmt = con.prepareStatement(finalSQL);
 			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
 			rs = pstmt.executeQuery();
-	
+System.out.println("rs"+rs);
 			while (rs.next()) {
 				product_VO = new Product_VO();
 				product_VO.setProduct_id(rs.getString("product_id"));
@@ -522,10 +522,11 @@ private static final String GET_BY_CLASS = "select sum(price*quantity) as total,
 				product_VO.setImage4(rs.getBytes("image4"));
 				product_VO.setProduct_state(rs.getInt("product_state"));
 				product_VO.setCreate_time(rs.getDate("create_time"));
+
 				
 				list.add(product_VO); // Store the row in the List
+				
 			}
-	
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "

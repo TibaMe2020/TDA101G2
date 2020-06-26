@@ -14,11 +14,10 @@ public class jdbcUtil_CompositeQuery_Emp2 {
 	public static String get_aCondition_For_Oracle(String columnName, String value) {
 
 		String aCondition = null;
-
 		
-		 if ("name".equals(columnName) || "product_class".equals(columnName)) // 用於varchar
+		 if ("name".equals(columnName)) // 用於varchar
 			aCondition = columnName + " like '%" + value + "%'";
-		
+		System.out.println("value"+value);
 		
 
 		return aCondition + " ";
@@ -54,7 +53,7 @@ public class jdbcUtil_CompositeQuery_Emp2 {
 		
 	
 
-		String finalSQL = "select * from product "
+		String finalSQL = "select * from product"
 				          + jdbcUtil_CompositeQuery_Emp2.get_WhereCondition(map)
 				          + "order by product_id";
 		System.out.println("●●finalSQL = " + finalSQL);

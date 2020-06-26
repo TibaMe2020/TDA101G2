@@ -38,7 +38,9 @@ public class ProductServlet extends HttpServlet {
 		
 		res.addHeader("Access-Control-Allow-Origin", "*");
 //		res.setContentType("application/json");
-		res.setCharacterEncoding("UTF-8");
+//		res.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html;charset=UTF-8"); 
 
 		PrintWriter out = res.getWriter();
 		String id=  req.getParameter("product_id");
@@ -74,6 +76,7 @@ public class ProductServlet extends HttpServlet {
 
 		// 萬用查詢
 		if ("listProduct_ByName".equals(action)) { // 來自select_page.jsp的複合查詢請求
+			System.out.println("複合查詢");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -85,21 +88,19 @@ public class ProductServlet extends HttpServlet {
 				// 採用Map<String,String[]> getParameterMap()的方法
 				// 注意:an immutable java.util.Map
 				Map<String, String[]> map = req.getParameterMap();
-
+				System.out.println(map);
 				/*************************** 2.開始複合查詢 ***************************************/
 				Product_Service product_Svc = new Product_Service();
 				List<Product_VO> list = product_Svc.getAll(map);
-
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("listProduct_ByName", list); // 資料庫取出的list物件,存入request
-//				RequestDispatcher successView = req.getRequestDispatcher("/pro/listProduct_ByName.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
-				RequestDispatcher successView = req.getRequestDispatcher("Test.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/product/SearchProduct.jsp");
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/product_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/product/Noproduct.jsp");
 				failureView.forward(req, res);
 			}
 		}
