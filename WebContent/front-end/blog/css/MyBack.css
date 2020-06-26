@@ -1,16 +1,12 @@
 /* MyBackªºcss */
-a:link, a:visited{
-	text-decoration: none;
-	color: #13406A;
-}
 /* ==========container========== */
 div.padding_left{
     margin-top: 20px;
 }
 div.padding_middle{
     margin-top: 20px;
-/*     padding-left: 5px; */
-/*     padding-right: 5px; */
+    padding-left: 5px;
+    padding-right: 5px;
 }
 div.padding_right{
     margin-top: 20px;
@@ -19,9 +15,8 @@ div.padding_right{
 div.follow_blogger{
     background-color:#F9EACB;
     border-radius: 5px;
-    border: 1px solid #F9EACB;
+    border: 1px solid lightgray;
     margin-bottom: 20px;
-    padding:0 20px;
 }
 h4.follow_blogger_title{
     color: #13406A;
@@ -32,11 +27,10 @@ h4.follow_blogger_title{
 }
 div.each_follow_blogger{
     background-color:#fff;
+    height: 60px;
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin: 10px 20px;
     line-height: 60px;
-    display: inline-block;
-    width: 100%;
 }
 figure.follow_figure{
     float:left; 
@@ -65,9 +59,8 @@ span.follow_icon{
 div.follow_me_blogger{
     background-color:#F9EACB;
     border-radius: 5px;
-    border: 1px solid #F9EACB;
+    border: 1px solid lightgray;
     margin-bottom: 20px;
-    padding: 0 20px;
 }
 h4.follow_me_blogger_title{
     color: #13406A;
@@ -78,11 +71,13 @@ h4.follow_me_blogger_title{
 }
 div.each_follow_me_blogger{
     background-color:#fff;
+    height: 60px;
+    width: 209px;
+    border: 1px solid lightgray;
     border-radius: 5px;
-    margin: 0 0 10px 0 ;
-    line-height: 60px;	
+    margin: 0 10px 10px;
+    line-height: 60px;
     display: inline-block;
-    width: 100%;
 }
 figure.follow_me_figure{
     float:left; 
@@ -95,7 +90,7 @@ img.follow_me_blogger_picture{
 }
 /* ==========¦¬ÂÃ¤å³¹========== */
 div.saved_post{
-    border: 1px solid #F9EACB;
+    border: 1px solid lightgray;
     border-radius: 5px;
     background-color: #F9EACB;
     margin-bottom: 20px;
@@ -108,10 +103,10 @@ h4.saved_post_title{
     margin-bottom: 20px;
 }
 div.each_saved_post{
-/*     border: 1px solid lightgray; */
+    border: 1px solid lightgray;
     background-color: #fff;
     border-radius: 5px;
-    margin: 10px 20px;
+    margin: 10px;
     min-height: 90px;
 }
 div.saved_post_blogger{

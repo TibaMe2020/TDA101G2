@@ -68,6 +68,7 @@ div.personal_profile{
     margin-bottom: 20px;
     border: 1px solid #F9EACB;
     border-radius: 5px;
+/*     height: 250px; */
     background-color: #F9EACB;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3)
 }
@@ -102,6 +103,14 @@ span.profile_info{
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
+}
+
+input.change_input{
+    border: 1px solid lightgray;
+    outline: none;
+}
+input.change_input:focus{
+    border-color: lightskyblue;
 }
 /* ==========¤ÀÃþ========== */
 div.post_class{

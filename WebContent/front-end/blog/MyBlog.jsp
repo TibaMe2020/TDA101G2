@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.blog.post.model.*"%>
-<%@ page import="com.blog.message.model.*"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -20,10 +20,7 @@
 	PostService postService = new PostService();	
 	List<PostVO> postList = postService.getByMemberId(member_id);
 	pageContext.setAttribute("postList", postList);
-	
-	MemberVO member = mbSvc.getOne(member_id);
-	pageContext.setAttribute("member", member);
-	
+
 	List<PostVO> list1 = postService.getFifthCreateTimeMemberId(member_id);
 	pageContext.setAttribute("list1", list1);
 	List<PostVO> postContents1 = new ArrayList<PostVO>();
@@ -96,13 +93,13 @@
 
 				<div class="follow_blogger">
 					<a href="<%=request.getContextPath()%>/front-end/blog/MyBack.jsp?member_id=<%=member_id%>">
-						<h4 class="follow_blogger_title">我的關注</h4>
+						<h4 class="follow_blogger_title">關注部落客</h4>
 					</a>
 				</div>
 
 				<div class="saved_post">
 					<a href="<%=request.getContextPath()%>/front-end/blog/MyBack.jsp?member_id=<%=member_id%>">
-						<h4 class="saved_post_title">我的收藏</h4>
+						<h4 class="saved_post_title">收藏文章</h4>
 					</a>
 				</div>
 
@@ -284,7 +281,8 @@
 								<img class="post_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
 							</figure>
 						</a>
-						<span class="nickname">${member.nickname}</span>
+						<span class="nickname">${postVO.member_id}</span>
+						
 						<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg" id="${postVO.post_id}">
             	<span class="update_post_icon"> 	
 								<a class="edit" href="#">
@@ -364,7 +362,7 @@
 						</div>
 					</div>
 	
-					<div class="message" id="${postVO.post_id}">
+					<div class="message" id="<%=member_id%>">
 					</div>
 				</div>
 				</c:forEach>
@@ -398,7 +396,7 @@
 													</td>
 													<td>
 														<div>
-															<select class="custom-select1" name="post_class1" id="post_class1">
+															<select class="custom-select" name="post_class" id="post_class">
 																<option selected value="生活">生活</option>
 																<option value="購物">購物</option>
 																<option value="美食">美食</option>
@@ -577,7 +575,6 @@
 			$(document).on("click", "button.post_message_button", function(){    	    	
 		  	let post_id = $(this).closest("div.each_post").attr("id");
 		    let it = $(this);
-		    let nickname = "${member.nickname}";
 		    	$.ajax({
 		    			url: "<%=request.getContextPath()%>/Post/AjaxServlet",
 		          type: "GET",   
@@ -612,7 +609,7 @@
 								  '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">'+     
 									'</figure>'+      
 									'<div class="message_person">'+     
-									'<span class="message_nickname">' + nickname + '</span>'+     
+									'<span class="message_nickname">' + $("div.message").attr("id") + '</span>'+     
 									'<br>'+        
 									'<div class="message_content">'+        
 									'<div style="display: inline;">'+         

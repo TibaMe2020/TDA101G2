@@ -108,12 +108,11 @@ public class AjaxServlet extends HttpServlet {
 		}
 		
 		if("changeFollow".equals(action)) {
-			System.out.println("進入Ajax changeFollow");
 			String status = request.getParameter("status");
 			String follow_id = request.getParameter("follow_id");
 			String member_id = request.getParameter("member_id");
 			String followed_member_id = request.getParameter("followed_member_id");
-			System.out.println("我要關注的對象" + followed_member_id);
+			System.out.println(followed_member_id);
 			if("unfollow".equals(status)) {
 				System.out.println(follow_id);
 				out.print(gson.toJson(followService.deleteFollow(follow_id)));
