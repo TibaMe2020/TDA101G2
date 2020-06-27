@@ -48,7 +48,7 @@
 %>
 	<div class="container">
 		<div class="row cover" style="background-image: url('<%=request.getContextPath()%>/member/coverImage?member_id=${memberVO.member_id}');">
-			<input class="my_cover_title" type="text" value="${memberVO.blog_name}" readonly>
+			<div class="my_cover_title">${memberVO.blog_name}</div>
 		</div>
 		<div class="row">
 			<!-- container左欄 -->
@@ -291,9 +291,7 @@
 						<span class="nickname">${member.nickname}</span>
 						<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg" id="${postVO.post_id}">
             	<span class="update_post_icon"> 	
-								<a class="edit" href="#">
 									<i id="edit" class="fas fa-edit"></i>
-								</a>
 							</span>
             </button>
 						<button class="delete_button" data-toggle="modal" data-target="#exampleModalCenter">
@@ -402,7 +400,7 @@
 													</td>
 													<td>
 														<div>
-															<select class="custom-select1" name="post_class1" id="post_class1">
+															<select class="custom-select" name="post_class" id="post_class1">
 																<option selected value="生活">生活</option>
 																<option value="購物">購物</option>
 																<option value="美食">美食</option>

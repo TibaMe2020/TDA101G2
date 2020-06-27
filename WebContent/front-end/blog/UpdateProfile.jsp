@@ -39,7 +39,7 @@
 %>
 	<div class="container">
 		<div class="row cover" style="background-image: url('<%=request.getContextPath()%>/member/coverImage?member_id=${memberVO.member_id}');">
-			<input class="my_cover_title" type="text" value="${memberVO.blog_name}">
+			<div class="my_cover_title">${memberVO.blog_name}</div>
 		</div>
 		<div class="row">
 			<!-- container左欄 -->

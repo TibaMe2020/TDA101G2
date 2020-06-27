@@ -46,7 +46,7 @@
 %>
 	<div class="container">
 		<div class="row cover" style="background-image: url('<%=request.getContextPath()%>/member/coverImage?member_id=${memberVO.member_id}');">
-			<input class="my_cover_title" type="text" value="${memberVO.blog_name}" readonly>
+			<div class="my_cover_title">${memberVO.blog_name}</div>
 		</div>
 		<div class="row">
 			<!-- container左欄 -->
@@ -290,9 +290,7 @@
 						
 						<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg" id="${postVO.post_id}">
             	<span class="update_post_icon"> 	
-								<a class="edit" href="#">
-									<i id="edit" class="fas fa-edit"></i>
-								</a>
+								<i id="edit" class="fas fa-edit"></i>
 							</span>
             </button>
 						<button class="delete_button" data-toggle="modal" data-target="#exampleModalCenter">
