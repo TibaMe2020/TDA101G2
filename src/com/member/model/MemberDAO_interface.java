@@ -16,5 +16,7 @@ public interface MemberDAO_interface {
 	public List<MemberVO> getAll();
 
 	public List<MemberVO> getApplicants();
+	
+	public List<MemberVO> getAllBlogerInfo();
 
 }

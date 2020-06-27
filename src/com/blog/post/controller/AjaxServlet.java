@@ -2,6 +2,7 @@ package com.blog.post.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,6 +16,8 @@ import com.blog.message.model.MessageVO;
 import com.blog.post.model.PostService;
 import com.blog.saved.model.SavedService;
 import com.google.gson.Gson;
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
 
 public class AjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,16 +36,11 @@ public class AjaxServlet extends HttpServlet {
 		PostService postService = new PostService();
 		SavedService savedService = new SavedService();
 		FollowService followService = new FollowService();
+		MemberService memberService = new MemberService();
 		
 		if("getPostId".equals(action)) {
 			String post_id = request.getParameter("post_id");
-//			System.out.println(post_id);
-			out.print(gson.toJson(messageService.getByPostId(post_id)));
-			
-//			List<MessageVO> list = messageService.getByPostId(post_id);
-//			for(MessageVO messageVO : list) {
-//				System.out.println(messageVO.toString());
-//			}
+			out.print(gson.toJson(messageService.getByPostId(post_id)));		
 		}
 		
 		if("addMessage".equals(action)) {

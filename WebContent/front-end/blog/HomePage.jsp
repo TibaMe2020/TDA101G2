@@ -27,10 +27,11 @@
 	List<PostVO> postList = postService.getAll();
 	pageContext.setAttribute("postList", postList);
 	
-	List<MemberVO> memberList = mbSvc.getAll();
+	//取得所有會員的暱稱
+	List<MemberVO> memberList = mbSvc.getAllBlogerInfo();
 	pageContext.setAttribute("memberList", memberList);
 	System.out.println(memberList);
-	
+
 	List<PostVO> list1 = postService.getFifthCreateTime();
 	pageContext.setAttribute("list1", list1);
 	List<PostVO> postContents1 = new ArrayList<PostVO>();
@@ -291,7 +292,11 @@
 								<img class="post_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
 							</figure>
 						</a>
-						<span class="nickname">${postVO.member_id}</span>
+						<c:forEach var="member" items="${memberList}">					
+							<c:if test="${member.member_id == postVO.member_id}">
+								<span class="nickname">${member.nickname}</span>
+							</c:if>
+						</c:forEach>
 						<button class="saved_button" style="outline: none;" value="${savedList.contains(postVO.post_id)?'1':'0'}">
 							<span class="saved_post_icon" style="color: ${savedList.contains(postVO.post_id)?'black':'lightgray'}"> 
 								<i class="fas fa-bookmark"></i>
@@ -406,6 +411,7 @@
 			$(document).on("click", "button.post_message_button", function(){    	    	
 		  	let post_id = $(this).closest("div.each_post").attr("id");
 		    let it = $(this);
+		    let nickname = "${memberVO.nickname}";
 		    	$.ajax({
 		    			url: "<%=request.getContextPath()%>/Post/AjaxServlet",
 		          type: "GET",   
@@ -421,26 +427,32 @@
 		     	    	console.log($(datas));
 								it.parents("div.post_functions").next().empty();
 								$.each(datas, function(index, data){
-									let messagecontent = '<div class="each_message">' + 
-	             	  	'<figure class="message_figure">' +
-		                '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
-		              	'</figure>' +
-		              	'<div class="message_person">' +
-		                '<span class="message_nickname">'+ $(data).attr("member_id") +'</span>' +
-		                '<br>' +
-		                '<div class="message_content">' +
-		                '<span>' + $(data).attr("message_content") +'</span>' +
-		                '</div>' +
-		                '</div>' +
-		                '</div>';
-								it.parents("div.post_functions").next().prepend(messagecontent);
+									let member_id = $(data).attr("member_id");
+									<c:forEach var="member" items="${memberList}">
+										if("${member.member_id}" == member_id){
+											console.log("${member.nickname}");
+											let messagecontent = '<div class="each_message">' + 
+								      	'<figure class="message_figure">' +
+									      '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
+									      '</figure>' +
+									      '<div class="message_person">' +
+									      '<span class="message_nickname">' + "${member.nickname}" + '</span>' +
+									      '<br>' +
+									      '<div class="message_content">' +
+									      '<span>' + $(data).attr("message_content") +'</span>' +
+									      '</div>' +
+									     	'</div>' +
+									      '</div>';
+									    it.parents("div.post_functions").next().prepend(messagecontent);	
+										}
+									</c:forEach>	
 								});
 								let leavemessage = '<div class="each_message">'+
 									'<figure class="message_figure">'+
 								  '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">'+     
 									'</figure>'+      
 									'<div class="message_person">'+     
-									'<span class="message_nickname">' + $("div.message").attr("id") + '</span>'+     
+									'<span class="message_nickname">' + nickname + '</span>'+     
 									'<br>'+        
 									'<div class="message_content">'+        
 									'<div style="display: inline;">'+         

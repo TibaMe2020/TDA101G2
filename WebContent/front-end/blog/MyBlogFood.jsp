@@ -16,6 +16,10 @@
 <body class="body">
 <%@ include file="/front-end/member/header.jsp"%>
 <%
+	//取得所有會員暱稱
+	List<MemberVO> memberList = mbSvc.getAllBlogerInfo();
+	pageContext.setAttribute("memberList", memberList);
+
 	PostService postService = new PostService();	
 	List<PostVO> postList = postService.getByMemberId(member_id, "美食");
 	pageContext.setAttribute("postList", postList);
@@ -572,10 +576,11 @@
 	<%@ include file="/front-end/member/footer.jsp"%>
 	<script>
 		window.addEventListener("load", function(){
-	  	// 點擊留言,留言才顯示
+			// 點擊留言,留言才顯示
 			$(document).on("click", "button.post_message_button", function(){    	    	
 		  	let post_id = $(this).closest("div.each_post").attr("id");
 		    let it = $(this);
+		    let nickname = "${memberVO.nickname}";
 		    	$.ajax({
 		    			url: "<%=request.getContextPath()%>/Post/AjaxServlet",
 		          type: "GET",   
@@ -591,26 +596,31 @@
 		     	    	console.log($(datas));
 								it.parents("div.post_functions").next().empty();
 								$.each(datas, function(index, data){
-									let messagecontent = '<div class="each_message">' + 
-	             	  	'<figure class="message_figure">' +
-		                '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
-		              	'</figure>' +
-		              	'<div class="message_person">' +
-		                '<span class="message_nickname">'+ $(data).attr("member_id") +'</span>' +
-		                '<br>' +
-		                '<div class="message_content">' +
-		                '<span>' + $(data).attr("message_content") +'</span>' +
-		                '</div>' +
-		                '</div>' +
-		                '</div>';
-								it.parents("div.post_functions").next().prepend(messagecontent);
+									let member_id = $(data).attr("member_id");
+									<c:forEach var="member" items="${memberList}">
+										if("${member.member_id}" == member_id){
+											let messagecontent = '<div class="each_message">' + 
+								        '<figure class="message_figure">' +
+									      '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
+									      '</figure>' +
+									      '<div class="message_person">' +
+									     	'<span class="message_nickname">' + "${member.nickname}" + '</span>' +
+									      '<br>' +
+									      '<div class="message_content">' +
+									      '<span>' + $(data).attr("message_content") +'</span>' +
+									      '</div>' +
+									     	'</div>' +
+									      '</div>';
+									    it.parents("div.post_functions").next().prepend(messagecontent);	
+										}
+									</c:forEach>	
 								});
 								let leavemessage = '<div class="each_message">'+
 									'<figure class="message_figure">'+
 								  '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">'+     
 									'</figure>'+      
 									'<div class="message_person">'+     
-									'<span class="message_nickname">' + $("div.message").attr("id") + '</span>'+     
+									'<span class="message_nickname">' + nickname + '</span>'+     
 									'<br>'+        
 									'<div class="message_content">'+        
 									'<div style="display: inline;">'+         

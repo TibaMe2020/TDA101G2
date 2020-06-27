@@ -1,6 +1,7 @@
 package com.member.model;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,6 +37,9 @@ public class MemberDAO implements MemberDAO_interface {
 
 	private static final String GET_ALL = "SELECT member_id, name,email, member_state, create_time "
 			+ "FROM member ORDER BY CREATE_TIME";
+	
+	private static final String GET_BLOGER_INFO = "SELECT member_id, profile_image, nickname, "
+			+ "pet_class, blog_cover_image, blog_name, create_time FROM member ORDER BY CREATE_TIME";
 
 	private static final String GET_ONE = "SELECT member_id, email, password, name, sex, address, to_char(birthday,'yyyy-mm-dd') birthday, "
 			+ "phone_num, profile_image, nickname, pet_class, blog_cover_image, blog_name, "
@@ -237,6 +241,36 @@ public class MemberDAO implements MemberDAO_interface {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 		}
 		return members;
+	}
+	
+	public List<MemberVO> getAllBlogerInfo() {
+
+		List<MemberVO> members = new ArrayList<>();
+		MemberVO memberVO = null;
+		try {
+			
+			try (Connection con = ds.getConnection();
+					PreparedStatement ps = con.prepareStatement(GET_BLOGER_INFO);
+					ResultSet rs = ps.executeQuery();) {
+
+				while (rs.next()) {
+					memberVO = new MemberVO();
+					memberVO.setMember_id(rs.getString("member_id"));
+					memberVO.setProfile_image(rs.getBytes("profile_image"));
+					memberVO.setNickname(rs.getString("nickname"));
+					memberVO.setPet_class(rs.getString("pet_class"));
+					memberVO.setBlog_cover_image(rs.getBytes("blog_cover_image"));
+					memberVO.setBlog_name(rs.getString("blog_name"));
+					memberVO.setCreate_time(rs.getTimestamp("create_time"));
+					members.add(memberVO);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+		}
+		return members;
+
 	}
 
 	public List<MemberVO> getApplicants() {
