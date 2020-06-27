@@ -31,6 +31,16 @@
 	List<MemberVO> memberList = mbSvc.getAllBlogerInfo();
 	pageContext.setAttribute("memberList", memberList);
 	System.out.println(memberList);
+	
+	//取得推薦部落客
+	List<PostVO> recommend = postService.getPostLikeMost();
+	pageContext.setAttribute("recommend", recommend);
+	List<MemberVO> recommends = new ArrayList<MemberVO>(); 
+	for(PostVO postVO : recommend){
+		MemberVO member = mbSvc.getOne(postVO.getMember_id());
+		recommends.add(member);
+	}
+	pageContext.setAttribute("recommends", recommends);
 
 	List<PostVO> list1 = postService.getFifthCreateTime();
 	pageContext.setAttribute("list1", list1);
@@ -82,30 +92,16 @@
 
 				<div class="recommend_blogger">
 					<h4 class="recommend_blogger_title">推薦部落客</h4>
-					<div class="each_recommend_blogger">
-						<figure class="recommend_figure">
-							<img class="recommend_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
-						</figure>
-						<span class="nickname"> 
-							<a class="a_tag" href="#">噢!兔子</a>
-						</span>
-					</div>
-					<div class="each_recommend_blogger">
-						<figure class="recommend_figure">
-							<img class="recommend_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
-						</figure>
-						<span class="nickname"> 
-							<a class="a_tag" href="#">我愛馬卡龍</a>
-						</span>
-					</div>
-					<div class="each_recommend_blogger">
-						<figure class="recommend_figure">
-							<img class="recommend_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
-						</figure>
-						<span class="nickname"> 
-							<a class="a_tag" href="#">蘇太太</a>
-						</span>
-					</div>
+					<c:forEach var="member" items="${recommends}">
+						<div class="each_recommend_blogger">
+							<figure class="recommend_figure">
+								<img class="recommend_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
+							</figure>
+							<span class="nickname"> 
+								<a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${member.member_id}">${member.nickname}</a>
+							</span>
+						</div>
+					</c:forEach>
 				</div>
 
 				<div class="button" style="margin-top: 10px; text-align: center;">

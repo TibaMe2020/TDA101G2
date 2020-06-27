@@ -56,7 +56,8 @@ public class PostJNDIDAO implements PostDAOInterface{
 	private static final String updateShareCount = "update post set post_share = ? where post_id = ?";
 	private static final String getPostContent = "select substr(post_content, 1, 25) as postcontent20, post_id from post where post_id = ?";
 	private static final String getPostCount = "select count(post_id) from post";
-
+	private static final String getPostLikeMost = "SELECT * FROM (SELECT MEMBER_ID, "
+			+ "SUM(POST_LIKE)AS ALL_POST_LIKE FROM POST GROUP BY MEMBER_ID ORDER BY ALL_POST_LIKE DESC) WHERE ROWNUM <= 3";
 	
 	@Override
 	public void insert(PostVO postVO){
@@ -1116,6 +1117,49 @@ public class PostJNDIDAO implements PostDAOInterface{
 		return postContent;
 	}
 
-
+	@Override
+	public List<PostVO> getPostLikeMost() {
+		List<PostVO> list = new ArrayList<PostVO>();
+		PostVO postVO = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(getPostLikeMost);
+			rs = stmt.executeQuery();			
+			while(rs.next()) {
+				postVO = new PostVO();
+				postVO.setMember_id(rs.getString("member_id"));
+				postVO.setPost_like(rs.getInt("all_post_like"));
+				list.add(postVO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
 	
 }
