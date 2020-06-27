@@ -877,7 +877,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00006',
     '貓用除毛用品',
-    'product',
+    '用品',
     NULL,
     NULL,
     NULL,
@@ -899,7 +899,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00001',
     '逗貓棒',
-    'product',
+    '用品',
     NULL,
     NULL,
     NULL,
@@ -921,7 +921,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00010',
     '推毛器',
-    'product',
+    '用品',
     NULL,
     NULL,
     NULL,
@@ -943,7 +943,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00001',
     '滾地龍貓',
-    'product',
+    '用品',
     NULL,
     NULL,
     NULL,
@@ -965,7 +965,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00009',
     '跳跳智能球',
-    'product',
+    '用品',
     NULL,
     NULL,
     NULL,
@@ -987,7 +987,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00001',
     '鮮肉糧食飼料',
-    'food',
+    '食品',
     NULL,
     NULL,
     NULL,
@@ -1009,7 +1009,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00006',
     '寵物防寒羽絨衣',
-    'cloth',
+    '服飾',
     NULL,
     NULL,
     NULL,
@@ -1031,7 +1031,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00001',
     '經典益生菌',
-    'food',
+    '食品',
     NULL,
     NULL,
     NULL,
@@ -1053,7 +1053,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00005',
     '冰墊寵物墊',
-    'product',
+    '用品',
     NULL,
     NULL,
     NULL,
@@ -1075,7 +1075,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00003',
     '瘋狂的骨頭',
-    'product',
+    '用品',
     NULL,
     NULL,
     NULL,
@@ -1097,7 +1097,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00013',
     '貓用薄荷薯片',
-    'food',
+    '食品',
     NULL,
     NULL,
     NULL,
@@ -1119,7 +1119,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00011',
     '好幸福零食',
-    'food',
+    '食品',
     NULL,
     NULL,
     NULL,
@@ -1141,7 +1141,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00012',
     '貓倍麗',
-    'food',
+    '食品',
     NULL,
     NULL,
     NULL,
@@ -1163,7 +1163,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00001',
     '寵物機能食品',
-    'food',
+    '食品',
     NULL,
     NULL,
     NULL,
@@ -1185,7 +1185,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00015',
     '柏克恩狗食',
-    'food',
+    '食品',
     NULL,
     NULL,
     NULL,
@@ -1207,7 +1207,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00015',
     '牛磺酸大補鐵',
-    'food',
+    '食品',
     NULL,
     NULL,
     NULL,
@@ -1228,7 +1228,7 @@ INSERT INTO product (
 ) VALUES (
     'MB00015',
     '下利恩貓食',
-    'food',
+    '食品',
     NULL,
     NULL,
     NULL,
