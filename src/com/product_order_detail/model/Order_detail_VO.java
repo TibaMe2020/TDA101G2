@@ -8,14 +8,32 @@ public class Order_detail_VO {
 	private String product_version_id;
 	private Integer quantity;
 	
+	//D新增兩個field(惟揚)
+	private String seller_id;
+	private String product_id;
+	
+	
+	public String getSeller_id() {
+		return seller_id;
+	}
+	public void setSeller_id(String seller_id) {
+		this.seller_id = seller_id;
+	}
+	public String getProduct_id() {
+		return product_id;
+	}
+	public void setProduct_id(String product_id) {
+		this.product_id = product_id;
+	}
 	private Version_VO versionVO;
+	
 	
 	
 	@Override
 	public String toString() {
 		return "Order_detail_VO [product_order_detail_id=" + product_order_detail_id + ", product_order_id="
-				+ product_order_id + ", product_version_id=" + product_version_id + ", quantity=" + quantity + ", versionVO="
-				+ versionVO + "]";
+				+ product_order_id + ", product_version_id=" + product_version_id + ", quantity=" + quantity + ", seller_id="
+				+ seller_id + ", product_id=" + product_id + ", versionVO=" + versionVO + "]";
 	}
 	public Version_VO getVersionVO() {
 		return versionVO;

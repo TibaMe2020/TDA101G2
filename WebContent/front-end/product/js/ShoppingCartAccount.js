@@ -161,14 +161,16 @@ function SetOrder(){
 	orderMaster.payment = "1";
 	orderMaster.location = "雲林縣二崙鄉";
 	orderMaster.detail_list = [];
+	console.log(cartObjects);
 	for (c of cartObjects) {
 		let order_detail = {
 			product_version_id: c.product_version_id,
-			quantity: c.product_count
+			quantity: c.product_count,
+			//D新增一個product_id(惟揚)
+			product_id: c.product_id
 		}
 		orderMaster.detail_list.push(order_detail);
 	}
-	console.log(url +'/Order_master');
 	
 	 $.ajax({
     	 url:  url +'/Order_master', // 資料請求的網址

@@ -140,8 +140,8 @@
                     <img src="<%=request.getContextPath()%>/Product_Image?product_id=${detail.getVersionVO().getProductVO().getProduct_id()}&image=1" class="rounded">
                   </div>
                   <div class="col-8 text-left">
-<%--                   	<h5>${detail.getVersionVO().getProductVO().getProduct_id()}</h5> --%>
                     <h5 class="card-title">${detail.getVersionVO().getProductVO().getName()}(${detail.getVersionVO().getVersion_name()})</h5>
+                    <c:if test="${order.product_order_state == 6}">
                     <div class="star-holder" data-stars="${detail.getVersionVO().getProductVO().getMemberScore()}">
                       <span class="star" data-star="1"><i class="fas fa-star"></i></span>
                       <span class="star" data-star="2"><i class="fas fa-star"></i></span>
@@ -149,6 +149,7 @@
                       <span class="star" data-star="4"><i class="fas fa-star"></i></span>
                       <span class="star" data-star="5"><i class="fas fa-star"></i></span>
                     </div>
+                    </c:if>
                   </div>
                   <div class="col-2 text-left align-self-center calculation">
                     <h5 class="card-title"><fmt:formatNumber maxFractionDigits = "0" value="${detail.getVersionVO().getPrice()}" type="currency"/></h5>

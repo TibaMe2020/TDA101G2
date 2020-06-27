@@ -22,6 +22,11 @@ public class Order_master_VO {
 		this.detail_list = detail_list;
 	}
 	
+	public Order_master_VO setDetails(List<Order_detail_VO> detail_list) {
+		this.detail_list = detail_list;
+		return this;
+	}
+	
 	@Override
 	public String toString() {
 		return "Order_master_VO [order_master_id=" + order_master_id + ", member_id=" + member_id + ", product_order_state="

@@ -1,6 +1,5 @@
 package com.product.model;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,7 +67,6 @@ private static final String GET_BY_CLASS = "select sum(price*quantity) as total,
 		ResultSet rs = null;
 
 		try {
-			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_BY_CLASS);
 			rs = pstmt.executeQuery();
