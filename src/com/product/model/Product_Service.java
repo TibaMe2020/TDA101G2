@@ -45,7 +45,10 @@ public class Product_Service {
 	}
 //yaosheng
 	public List<Product_VO> all() {
-		return dao.all();
+		List<Product_VO> collect = dao.all().stream()
+		.filter(p -> p.getProduct_state() == 1)
+		.collect(Collectors.toList());
+		return collect;
 	}
 
 //最新日期
@@ -60,7 +63,8 @@ public class Product_Service {
 			String product_id = product_VO.getProduct_id();
 			Optional<Product_VO> findFirst = dao.highPrice().stream()
 												.filter(p -> p.getProduct_id().equals(product_id))
-												.filter(p -> p.getProduct_class().equals("food"))
+//												.filter(p -> p.getProduct_class().equals("food") || p.getProduct_class().equals("cloth"))
+												.filter(p -> p.getProduct_class().equals("食品") || p.getProduct_class().equals("服飾"))
 												.findFirst();
 			if(findFirst.isPresent()) {
 				list.add(findFirst.get());
@@ -84,7 +88,7 @@ public class Product_Service {
 			String product_id = product_VO.getProduct_id();
 			Optional<Product_VO> findFirst = dao.highPrice().stream()
 												.filter(p -> p.getProduct_id().equals(product_id))
-												.filter(p -> p.getProduct_class().equals("food"))
+												.filter(p -> p.getProduct_class().equals("食品"))
 												.findFirst();
 			if(findFirst.isPresent()) {
 				list.add(findFirst.get());
@@ -108,7 +112,7 @@ public class Product_Service {
 			String product_id = product_VO.getProduct_id();
 			Optional<Product_VO> findFirst = dao.highPrice().stream()
 												.filter(p -> p.getProduct_id().equals(product_id))
-												.filter(p -> p.getProduct_class().equals("food"))
+												.filter(p -> p.getProduct_class().equals("食品"))
 												.findFirst();
 			if(findFirst.isPresent()) {
 				list.add(findFirst.get());
