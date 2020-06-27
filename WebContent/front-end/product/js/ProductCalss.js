@@ -16,7 +16,7 @@ function AjaxSucces(response) {
                 <div class="col-sm-12 col-md-3">
                     <div class="card" style="width:100%">
                         <img class="card-img-top" src="http://${host}${webCtx}/Product_Image?product_id=${p.product_id}&image=1" alt="Card image"
-                            style="width:100%">
+                            style="width:100%;height: 200px;">
                         <div class="card-body">
                             <h4 class="card-title">${p.name}</h4>
                                     <span class="star"><i class="fas fa-star " style=" ${p.score >=1 ? " color: #EF8216 " : ""} "></i></span>

@@ -10,27 +10,7 @@
 <html>
 
 <jsp:useBean id="Product_Service" scope="page" class="com.product.model.Product_Service"></jsp:useBean>
-<%
-// Product_Service productSvc = new Product_Service() ; 
-// Version_Service versionSvc = new Version_Service() ; 
 
-//      List<Product_VO> productList= productSvc.all();
-         
-//      for(Product_VO pv : productList) {
-//     	    List<Version_VO> versionList = versionSvc.getbyProductID(pv.getProduct_id());
-//     	    pv.setPrice(versionList.get(0).getPrice());//先把規格的價格塞選第一筆
-//     	}
-     
-//      List<Product_VO> sortedProducts = productList.stream()
-//     		 .sorted(Comparator.comparing(Product_VO::getPrice)//依據價錢來篩選
-//     	     .reversed())
-//     		 .collect(Collectors.toList());
-     
-//      for(Product_VO pv : sortedProducts) {
-//     	    System.out.println(pv.getPrice());
-//     	}
-//      pageContext.setAttribute("Product_Service", productSvc);
-%>
 
 <head>
     <title>寵物網路商城</title>
@@ -71,7 +51,7 @@
             </div>
         </div>
     </div>
-    </FORM>
+</FORM>
     <!-- 關鍵字 -->
     <div class="container">
         <div class="row" id="keyword">
@@ -173,15 +153,15 @@
                 <div class="container-fluid">
                     <div class="row">
 <c:forEach items="${Product_Service.all()}" var="product_VO" begin="0" end="3">
-                    	<div class="col-sm-12 col-md-3" id="new_product">
-                            <div>
-                                <a href="<%=request.getContextPath()%>/front-end/product/Product.jsp?product_id=${product_VO.product_id}">
-                                   <img src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="new_product"/>
-                                    <br />
-                                    <p>${product_VO.name}</p>
-                                </a>
-                            </div>
-                        </div>
+               	<div class="col-sm-12 col-md-3" id="new_product">
+                       <div>
+                           <a href="<%=request.getContextPath()%>/front-end/product/Product.jsp?product_id=${product_VO.product_id}">
+                              <img src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="new_product"/>
+                               <br />
+                               <p>${product_VO.name}</p>
+                           </a>
+                       </div>
+                   </div>
 </c:forEach>
                         </div>
                     </div>
