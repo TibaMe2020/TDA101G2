@@ -8,28 +8,8 @@
 <%@page import="java.util.stream.Collectors"%>
 <!DOCTYPE html>
 <html>
+
 <jsp:useBean id="Product_Service" scope="page" class="com.product.model.Product_Service"></jsp:useBean>
-<%
-//  Product_Service productSvc = new Product_Service() ; 
-// Version_Service versionSvc = new Version_Service() ; 
-//      List<Product_VO> productList= productSvc.all();
-    
-     
-//      for(Product_VO pv : productList) {
-//     	    List<Version_VO> versionList = versionSvc.getbyProductID(pv.getProduct_id());
-//     	    pv.setPrice(versionList.get(0).getPrice());//先把規格的價格塞選第一筆
-//     	}
-     
-//      List<Product_VO> sortedProducts = productList.stream()
-//     		 .sorted(Comparator.comparing(Product_VO::getPrice)//依據價錢來篩選
-//     	     .reversed())
-//     		 .collect(Collectors.toList());
-     
-//      for(Product_VO pv : sortedProducts) {
-//     	    System.out.println(pv.getPrice());
-//     	}
-//      pageContext.setAttribute("Product_Service", productSvc);
-%>
 
 <head>
  <meta charset="UTF-8">
@@ -50,12 +30,14 @@
 <body>
 <%@ include file="/front-end/member/header.jsp"%>
   <!-- SEARCHBOX -->
+  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Product">   
     <div class="container">
         <div class="row">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="請輸入商品名字">
-                <div class="input-group-append">
-                    <button class="btn btn-secondary" type="button">
+            <div class="input-group">           
+                <input type="text" class="form-control" placeholder="請輸入商品名字" name="name">
+                <div class="input-group-append">                          
+                    <button class="btn btn-secondary" type="submit">                     
+                        <input type="hidden" name="action" value="listProduct_ByName">
                         <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -63,11 +45,12 @@
                             <path fill-rule="evenodd"
                                 d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
                         </svg>
-                    </button>
-                </div>
+                    </button>                
+                </div>                
             </div>
         </div>
     </div>
+</FORM>
     <!-- Keyword -->
     <div class="container">
         <div class="row" id="keyword">
@@ -144,7 +127,8 @@
     <div class="container" id="SpecialFood">
         <h3 style="text-align:left">精選食物</h3>
         <div class="row">
-        <c:forEach items="${Product_Service.highPrice()}" var="product_VO" begin="0" end="3">
+        
+<c:forEach items="${Product_Service.highPrice()}" var="product_VO" begin="0" end="3">
                     	 <div class="col-sm-12 col-md-3">
                             <div class="card">
                                 <img class="card-img-top" src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="hotimage">
@@ -164,6 +148,7 @@
                             </div>
                         </div>
 </c:forEach>
+
         </div>
     </div>
     <br />

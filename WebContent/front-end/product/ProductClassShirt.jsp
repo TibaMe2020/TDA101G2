@@ -1,7 +1,18 @@
+<%@page import="com.product_version.model.Version_VO"%>
+<%@page import="com.product_version.model.Version_Service"%>
+<%@page import="com.product.model.Product_Service"%>
+<%@page import="com.product.model.Product_VO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.util.Comparator"%>
+<%@page import="java.util.stream.Collectors"%>
 <!DOCTYPE html>
 <html>
+
+<jsp:useBean id="Product_Service" scope="page" class="com.product.model.Product_Service"></jsp:useBean>
+
+
+
 <head>
  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,12 +32,14 @@
 <body>
 	<%@ include file="/front-end/member/header.jsp"%>
   <!-- SEARCHBOX -->
+   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Product">   
     <div class="container">
         <div class="row">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="請輸入商品名字">
-                <div class="input-group-append">
-                    <button class="btn btn-secondary" type="button">
+            <div class="input-group">           
+                <input type="text" class="form-control" placeholder="請輸入商品名字" name="name">
+                <div class="input-group-append">                          
+                    <button class="btn btn-secondary" type="submit">                     
+                        <input type="hidden" name="action" value="listProduct_ByName">
                         <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -34,45 +47,21 @@
                             <path fill-rule="evenodd"
                                 d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
                         </svg>
-                    </button>
-                </div>
+                    </button>                
+                </div>                
             </div>
         </div>
     </div>
+</FORM>
     <!-- Keyword -->
     <div class="container">
         <div class="row" id="keyword">
 
+  <c:forEach items="${Product_Service.getbykeyword()}" var="product_VO" begin="0" end="5">
             <div class="col-sm-12 col-md-2">
-
-                <a class="nav-link " href="#">經典狗狗美食</a>
-
-            </div>
-            <div class="col-sm-12 col-md-2">
-
-                <a class="nav-link" href="#">好用寵物用品</a>
-
-            </div>
-            <div class="col-sm-12 col-md-2">
-
-                <a class="nav-link" href="#">經典狗屋</a>
-
-            </div>
-            <div class="col-sm-12 col-md-2">
-
-                <a class="nav-link " href="#">寵物飼料機</a>
-
-            </div>
-            <div class="col-sm-12 col-md-2">
-
-                <a class="nav-link " href="#">攝像鏡頭</a>
-
-            </div>
-            <div class="col-sm-12 col-md-2">
-
-                <a class="nav-link " href="#">貓倍麗</a>
-
-            </div>
+                <a class="nav-link" href="<%=request.getContextPath()%>/front-end/product/Product.jsp?product_id=${product_VO.product_id}">${product_VO.name}</a>
+            </div>         
+</c:forEach>   
 
         </div>
 
@@ -140,68 +129,31 @@
     </div>
     <!-- 精選食物 -->
     <div class="container" id="SpecialFood">
-        <h3 style="text-align:left">精選食物</h3>
+        <h3 style="text-align:left">精選服飾</h3>
         <div class="row">
-            <div class="col-sm-12 col-md-3">
-                <div class="card" style="width:100%">
-                    <img class="card-img-top" src="<%=request.getContextPath()%>/resources/images/ProductImage/ClassShirt/ClassShirt.jpg" id="Cardimage">
-                    <div class="card-body">
-                        <h4 class="card-title">可愛寵物服飾</h4>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star"></i></span>
-                        <p class="card-text"><del>$200</del> $150</p>
-                        <a href="#" class="btn btn-primary stretched-link"> 購 買 </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-3">
-                <div class="card" style="width:100%">
-                    <img class="card-img-top" src="<%=request.getContextPath()%>/resources/images/ProductImage/ClassShirt/ClassShirt1.jpg" id="Cardimage">
-                    <div class="card-body">
-                        <h4 class="card-title">經典寵物服飾</h4>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star"></i></span>
-                        <p class="card-text"><del>$450</del> $420</p>
-                        <a href="#" class="btn btn-primary stretched-link"> 購 買 </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-3">
-                <div class="card" style="width:100%">
-                    <img class="card-img-top" src="<%=request.getContextPath()%>/resources/images/ProductImage/ClassShirt/ClassShirt2.jpg" id="Cardimage">
-                    <div class="card-body">
-                        <h4 class="card-title">中大型狗連帽衣服</h4>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star"></i></span>
-                        <p class="card-text"><del>$2400</del> $2200</p>
-                        <a href="#" class="btn btn-primary stretched-link"> 購 買 </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-3">
-                <div class="card" style="width:100%">
-                    <img class="card-img-top" src="<%=request.getContextPath()%>/resources/images/ProductImage/ClassShirt/ClassShirt3.jpg" id="Cardimage">
-                    <div class="card-body">
-                        <h4 class="card-title">寵物防寒羽絨衣</h4>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                        <span class="star"><i class="fas fa-star"></i></span>
-                        <p class="card-text"><del>$4500</del> $3880</p>
-                        <a href="#" class="btn btn-primary stretched-link"> 購 買 </a>
-                    </div>
-                </div>
-            </div>
+           
+<c:forEach items="${Product_Service.highPrice()}" var="product_VO" begin="0" end="3">
+                    	 <div class="col-sm-12 col-md-3">
+                            <div class="card">
+                                <img class="card-img-top" src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="hotimage">
+                                <div class="card-body">
+                                    <h4 class="card-title">${product_VO.name}</h4>
+                                    <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=1 ? 'color: #EF8216' : ''}"></i></span>
+                                    <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=2 ? 'color: #EF8216' : ''}"></i></span>
+                                    <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=3 ? 'color: #EF8216' : ''}"></i></span>
+                                    <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=4 ? 'color: #EF8216' : ''}"></i></span>
+                                    <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=5 ? 'color: #EF8216' : ''}"></i></span>
+                                    <p class="card-text"><del>$2500</del> ${product_VO.price}</p>
+                                    <a class="btn btn-primary text-white" type="button"
+                                        href="<%=request.getContextPath()%>/front-end/product/Product.jsp?product_id=${product_VO.product_id}" value="購買">
+                                        	購買
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+</c:forEach>           
+           
+           
         </div>
     </div>
     <br />
@@ -220,141 +172,26 @@
             </div>
             <div id="newProduct">
                 <div class="row">
+   <c:forEach items="${Product_Service.highPrice()}" var="product_VO" begin="0" end="7">
                     <div class="col-sm-12 col-md-3">
-                        <div class="card" style="width:100%">
-                            <img class="card-img-top" src="<%=request.getContextPath()%>/resources/images/ProductImage/ClassShirt/ClassShirt4.jpg" id="Cardimage1"
-                                style="width:100%">
-                            <div class="card-body">
-                                <h4 class="card-title">寵物雨衣</h4>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <p class="card-text"><del>$4000</del> $3000</p>
-                                <a href="http://${host}${webCtx}/front-end/product/Product.jsp?product_id=${p.product_id}" class="btn btn-primary stretched-link"> 購 買 </a>
+                            <div class="card">
+                                <img class="card-img-top" src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="hotimage">
+                                <div class="card-body">
+                                    <h4 class="card-title">${product_VO.name}</h4>
+                                    <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=1 ? 'color: #EF8216' : ''}"></i></span>
+                                    <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=2 ? 'color: #EF8216' : ''}"></i></span>
+                                    <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=3 ? 'color: #EF8216' : ''}"></i></span>
+                                    <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=4 ? 'color: #EF8216' : ''}"></i></span>
+                                    <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=5 ? 'color: #EF8216' : ''}"></i></span>
+                                    <p class="card-text"><del>$2500</del> ${product_VO.price}</p>
+                                    <a class="btn btn-primary text-white" type="button"
+                                        href="<%=request.getContextPath()%>/front-end/product/Product.jsp?product_id=${product_VO.product_id}" value="購買">
+                                        	購買
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <div class="card" style="width:100%">
-                            <img class="card-img-top" src="<%=request.getContextPath()%>/resources/images/ProductImage/ClassShirt/ClassShirt5.jpg" id="Cardimage1"
-                                style="width:100%">
-                            <div class="card-body">
-                                <h4 class="card-title">單身狗造型衣服</h4>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <p class="card-text"><del>$4700</del> $2340</p>
-                                <a href="http://${host}${webCtx}/front-end/product/Product.jsp?product_id=${p.product_id}" class="btn btn-primary stretched-link"> 購 買 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <div class="card" style="width:100%">
-                            <img class="card-img-top" src="<%=request.getContextPath()%>/resources/images/ProductImage/ClassShirt/ClassShirt6.jpg" id="Cardimage1"
-                                style="width:100%">
-                            <div class="card-body">
-                                <h4 class="card-title">造型寵物衣服</h4>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <p class="card-text"><del>$2470</del> $1200</p>
-                                <a href="#" class="btn btn-primary stretched-link"> 購 買 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <div class="card" style="width:100%">
-                            <img class="card-img-top" src="<%=request.getContextPath()%>/resources/images/ProductImage/ClassShirt/ClassShirt7.jpg" id="Cardimage1"
-                                style="width:100%">
-                            <div class="card-body">
-                                <h4 class="card-title">帥氣版防風衣</h4>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <p class="card-text"><del>$740</del> $200</p>
-                                <a href="#" class="btn btn-primary stretched-link"> 購 買 </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 col-md-3">
-                        <div class="card" style="width:100%">
-                            <img class="card-img-top" src="<%=request.getContextPath()%>/resources/images/ProductImage/ClassShirt/ClassShirt8.jpg" id="Cardimage1"
-                                style="width:100%">
-                            <div class="card-body">
-                                <h4 class="card-title">寵物用生日派對帽</h4>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <p class="card-text"><del>$1400</del> $740</p>
-                                <a href="#" class="btn btn-primary stretched-link"> 購 買 </a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <div class="card" style="width:100%">
-                            <img class="card-img-top" src="<%=request.getContextPath()%>/resources/images/ProductImage/ClassShirt/ClassShirt9.jpg" id="Cardimage1"
-                                style="width:100%">
-                            <div class="card-body">
-                                <h4 class="card-title">日版小型犬雨衣</h4>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <p class="card-text"><del>$2500</del> $1400</p>
-                                <a href="#" class="btn btn-primary stretched-link"> 購 買 </a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <div class="card" style="width:100%">
-                            <img class="card-img-top" src="<%=request.getContextPath()%>/resources/images/ProductImage/ClassShirt/ClassShirt10.jpg" id="Cardimage1"
-                                style="width:100%">
-                            <div class="card-body">
-                                <h4 class="card-title">小型犬護目鏡</h4>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <p class="card-text"><del>$4500</del> $100</p>
-                                <a href="#" class="btn btn-primary stretched-link"> 購 買 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <div class="card" style="width:100%">
-                            <img class="card-img-top" src="<%=request.getContextPath()%>/resources/images/ProductImage/ClassShirt/ClassShirt11.jpg" id="Cardimage1"
-                                style="width:100%">
-                            <div class="card-body">
-                                <h4 class="card-title">小型犬專用護腳襪</h4>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star" style="color: #EF8216;"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <p class="card-text"><del>$1400</del> $1300</p>
-                                <a href="#" class="btn btn-primary stretched-link"> 購 買 </a>
-                            </div>
-                        </div>
-
-                    </div>
-
-
+</c:forEach>                                  
                 </div>
             </div>
 
