@@ -21,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import com.notification.model.NotiService;
 import com.notification.model.NotiVO;
 import com.product.model.Product_Service;
+import com.product.model.Product_VO;
 import com.product_order_detail.model.Order_detail_VO;
 import com.product_order_master.model.Order_master_Service;
 import com.product_order_master.model.Order_master_VO;
@@ -54,14 +55,16 @@ public class Order_masterServlet extends HttpServlet {
 				String json = req.getParameter("json");
 				Gson gson = new Gson();
 				Order_master_VO order = gson.fromJson(json, Order_master_VO.class);
-//				System.out.println(order);
 				/*************************** 2.開始修改資料 *****************************************/
 				Order_master_Service order_master_Svc = new Order_master_Service();
 				//D以下將訂單拆給不同的賣家
 				Product_Service pSvc = new Product_Service();
 				List<Order_detail_VO> detail_list = order.getDetail_list();
 				for (Order_detail_VO od : detail_list) {
-					String seller_id = pSvc.getOneProduct(od.getProduct_id()).getMember_id();
+					System.out.println(od);
+					Product_VO pVO = pSvc.getOneProduct(od.getProduct_id());
+					String seller_id = pVO.getMember_id();
+					System.out.println(seller_id);
 					od.setSeller_id(seller_id);
 				}
 				
