@@ -78,19 +78,19 @@
 			<!-- container左欄 -->
 			<div class="col-2 padding_left">
 				<div class="personal_profile">
-
-					<button class="follow_button"
-						<c:forEach items="${list4}" var="followed" >
-			      	<c:if test="${(followed.followed_member_id == other_member_id)}">
-			        	data-follow-id="${followed.follow_id}" 
-			        </c:if>
-			     	</c:forEach>
-						value="${list3.contains(other_member_id)?'followed':'unfollow'}" id="<%=other_member_id%>">
-						<span class="follow_blogger" style="color: ${list3.contains(other_member_id)?'#EE6464':'lightgray'}">
-							<i id="like" class="fas fa-heart"></i>
-						</span>
-					</button>
-
+					<c:if test="${memberVO.member_id != other_member_id}">
+						<button class="follow_button"
+							<c:forEach items="${list4}" var="followed" >
+				      	<c:if test="${(followed.followed_member_id == other_member_id)}">
+				        	data-follow-id="${followed.follow_id}" 
+				        </c:if>
+				     	</c:forEach>
+							value="${list3.contains(other_member_id)?'followed':'unfollow'}" id="<%=other_member_id%>">
+							<span class="follow_blogger" style="color: ${list3.contains(other_member_id)?'#EE6464':'lightgray'}">
+								<i id="like" class="fas fa-heart"></i>
+							</span>
+						</button>
+					</c:if>
 					<figure class="profile_figure">
 						<img class="profile_image" src="https://img.ltn.com.tw/Upload/partner/page/2019/12/19/191219-6235-01-TwNaw.jpg">
 					</figure>

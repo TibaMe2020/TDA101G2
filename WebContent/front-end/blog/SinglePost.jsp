@@ -82,17 +82,19 @@
     	<!-- container左欄 -->
      	<div class="col-2 padding_left">
       	<div class="personal_profile" id="${postOwner.member_id}">
-        	<button class="follow_button" 
-						<c:forEach items="${list4}" var="followed">
-			      	<c:if test="${(followed.followed_member_id == other_member_id)}">
-			        	data-follow-id="${followed.follow_id}" 
-			        </c:if>
-			     	</c:forEach>    	
-						value="${list3.contains(other_member_id)?'followed':'unfollow'}" id="<%=member_id%>">
-						<span class="follow_blogger" style="color: ${list3.contains(other_member_id)?'#EE6464':'lightgray'}">
-							<i id="like" class="fas fa-heart"></i>
-						</span>
-					</button>
+	      	<c:if test="${memberVO.member_id != other_member_id}">
+	        	<button class="follow_button" 
+							<c:forEach items="${list4}" var="followed">
+				      	<c:if test="${(followed.followed_member_id == other_member_id)}">
+				        	data-follow-id="${followed.follow_id}" 
+				        </c:if>
+				     	</c:forEach>    	
+							value="${list3.contains(other_member_id)?'followed':'unfollow'}" id="<%=member_id%>">
+							<span class="follow_blogger" style="color: ${list3.contains(other_member_id)?'#EE6464':'lightgray'}">
+								<i id="like" class="fas fa-heart"></i>
+							</span>
+						</button>
+					</c:if>
           <a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=<%=member_id%>">
           	<figure class="profile_figure">
 	          	<img class="profile_image" src="<%=request.getContextPath()%>/resources/images/img06.jpg">
@@ -118,16 +120,16 @@
             	<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogLife.jsp?member_id=<%=postVO.getMember_id()%>">生活</a>
             </li>
           	<li style="border-bottom: 1px solid #13406A;">
-          		<a href="<%=request.getContextPath()%>/front-end/blog/Shopping.jsp?member_id=<%=postVO.getMember_id()%>">購物</a>
+          		<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogShopping.jsp?member_id=<%=postVO.getMember_id()%>">購物</a>
           	</li>
           	<li style="border-bottom: 1px solid #13406A;">
-          		<a href="<%=request.getContextPath()%>/front-end/blog/Food.jsp?member_id=<%=postVO.getMember_id()%>">美食</a>
+          		<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogFood.jsp?member_id=<%=postVO.getMember_id()%>">美食</a>
           	</li>
          		<li style="border-bottom: 1px solid #13406A;">
-         			<a href="<%=request.getContextPath()%>/front-end/blog/Travel.jsp?member_id=<%=postVO.getMember_id()%>">旅遊</a>
+         			<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogTravel.jsp?member_id=<%=postVO.getMember_id()%>">旅遊</a>
          		</li>
          		<li>
-         			<a href="<%=request.getContextPath()%>/front-end/blog/Others.jsp?member_id=<%=postVO.getMember_id()%>">其他</a>
+         			<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogOthers.jsp?member_id=<%=postVO.getMember_id()%>">其他</a>
          		</li>
          	</ul>    
        	</div>
