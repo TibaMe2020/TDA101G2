@@ -607,7 +607,81 @@ $("input[name='payment']").change(function () {
 })
 
 function linepayReq() {
-    var url = 'https://sandbox-api-pay.line.me/v2/payments/request'
+    // var url = 'https://sandbox-api-pay.line.me/v2/payments/request'
+    // $.ajax({
+    //     url: url,
+    //     dataType: 'json',
+    //     data: {
+    //         "productName": "test",
+    //         "productImageUrl": "https://via.placeholder.com/84x84",
+    //         "amount": 1,
+    //         "currency": "TWD",
+    //         "confirmUrl": "www.google.com",
+    //         "orderId": "P0001111111111"
+    //     },
+    //     type: 'POST',
+    //     dataType: "json",
+    //     headers: {
+    //         // 'Access-Control-Allow-Origin': '*',
+    //         // 'Access-Control-Allow-Methods': 'POST',
+    //         // 'Access-Control-Allow-Headers': 'x-requested-with,content-type',
+    //         'Content-Type': 'application/json',
+    //         'X-LINE-ChannelId': '1654393823',
+    //         'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36'
+    //     },
+    //     beforeSend: function (xhr) {       // 在 request 發送之前執行
+    //         // xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
+    //     },
+    //     statusCode: {                 // 狀態碼
+    //         200: function (res) {
+    //             console.log("200")
+    //         },
+    //         404: function (res) {
+    //             console.log("400")
+    //         },
+    //         500: function (res) {
+    //             console.log("500")
+    //         }
+    //     },
+    //     error: function (xhr) {         // request 發生錯誤的話執行
+    //         console.log(xhr.responseText);
+    //     },
+    //     success: function (data) {
+    //         console.log(data);
+    //     }
+    // });
+
+    //    v3 
+    let key = '621b6fda656e715f4d734a02d53cfe36'
+    let nonce = uuidv4()
+    let requestUri = '/v3/payments/request'
+    let order = {
+        amount: 4000,
+        currency: 'TWD',
+        orderId: 'P010001',
+        packages: [
+            {
+                id: '20200627P0001',
+                amount: 4000,
+                name: '星際公仔',
+                products: [
+                    {
+                        name: '星際大戰白兵第一軍團',
+                        quantity: 2,
+                        price: 2000,
+                    }
+                ]
+            }
+        ],
+        redirectUrls: {
+            confirmUrl: 'https://www.google.com',
+            cancelUrl: 'https://www.google.com'
+        }
+    }
+    // CryptoJS.HmacSHA256(channelSecret + uri + JSON.stringify(order) + nonce, channelSecret)
+    let encrypt = CryptoJS.HmacSHA256(key + requestUri + JSON.stringify(order) + nonce, key);
+    let hmacBase64 = btoa(encrypt);
+    var url = 'https://sandbox-api-pay.line.me/v3/payments/request'
     $.ajax({
         url: url,
         dataType: 'json',
@@ -622,12 +696,11 @@ function linepayReq() {
         type: 'POST',
         dataType: "json",
         headers: {
-            // 'Access-Control-Allow-Origin': '*',
-            // 'Access-Control-Allow-Methods': 'POST',
-            // 'Access-Control-Allow-Headers': 'x-requested-with,content-type',
             'Content-Type': 'application/json',
             'X-LINE-ChannelId': '1654393823',
-            'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36'
+            'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36',
+            'X-LINE-Authorization-Nonce': nonce,
+            'X-LINE-Authorization': hmacBase64
         },
         beforeSend: function (xhr) {       // 在 request 發送之前執行
             // xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
@@ -651,3 +724,19 @@ function linepayReq() {
         }
     });
 }
+
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+console.log(uuidv4());
+
+// convert base64 
+// var string = 'Hello World!';
+// var encodedString = btoa(string);
+// console.log(encodedString);
+// var decodedString = atob(encodedString);
+// console.log(decodedString);

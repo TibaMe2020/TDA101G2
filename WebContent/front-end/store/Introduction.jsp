@@ -514,6 +514,9 @@
     <script src="<%=request.getContextPath()%>/resources/vendors/bootstrap/js/bootstrap-input-spinner.js"></script>
     <script src="<%=request.getContextPath()%>/resources/vendors/datetimepicker/jquery.datetimepicker.full.js"></script>
     <!-- <script src="../../resources/vendors/datetimepicker/jquery.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-base64.min.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/store/js/Introduction.js"></script>
 </body>
 
