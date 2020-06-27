@@ -150,16 +150,31 @@
 							 <div class="col-sm-12 col-md-4" style="margin-top: 20px; ">
                                 <a href="<%=request.getContextPath()%>/front-end/product/ProductHomepage.jsp" class="btn btn-primary stretched-link" id="stillbuy"> 繼續購買 </a>
                             </div>
+<c:choose>
+	<c:when test="${memberVO.member_id!=product_VO.member_id}">                            
                             <div class="col-sm-12 col-md-4" style="margin-top: 20px; ">
                                 <a href="#" class="btn btn-primary stretched-link" id="shoppingcart" data-memberId = ${memberVO.member_id}> 購物車 </a>
                             </div>
                             
                             <div class="col-sm-12 col-md-4" style="margin-top: 20px; ">
-                            
+
                                 <a href="<%=request.getContextPath()%>/front-end/product/ShoppingCart.jsp" class="btn btn-primary stretched-link" id="buy" 
                                 data-memberId = "${memberVO.member_id}">直接購買</a>
+	</c:when>
+	<c:otherwise>
+	
+	  <div class="col-sm-12 col-md-4" style="margin-top: 20px; ">
+                                <a href="#" class="btn btn-primary stretched-link disabled" id="shoppingcart" data-memberId = ${memberVO.member_id} disabled> 購物車 </a>
+                            </div>
+                            
+                            <div class="col-sm-12 col-md-4" style="margin-top: 20px; ">
 
-                                
+                                <a href="<%=request.getContextPath()%>/front-end/product/ShoppingCart.jsp" class="btn btn-primary stretched-link disabled" id="buy" 
+                                data-memberId = "${memberVO.member_id}" >直接購買</a>
+
+
+	</c:otherwise>
+</c:choose>                             
                             </div>
 
 						</div>

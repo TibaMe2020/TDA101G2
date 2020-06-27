@@ -38,7 +38,7 @@ public class Product_DAO implements Product_DAO_interface {
 //	String userid = "PETBOX";
 //	String passwd = "123456";
 private static final String FinalALL="select * from product ";
-private static final String All="SELECT * FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID order by  p.create_time ";
+private static final String All="SELECT * FROM PRODUCT P LEFT JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID order by p.create_time DESC";
 private static final String getbykeyword="SELECT * FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID order by  pv.product_version_id "; 
 private static final String INSERT_STMT = "INSERT INTO product (member_id, name, product_class, description, image1, image2, image3, image4, product_state) VALUES(?,?,?,?,?,?,?,?,?)";
 private static final String UPDATE = "UPDATE product SET name=?, product_class=?, description=?, image1=?, image2=?, image3=?, image4=?, product_state=? WHERE product_id=? ";
