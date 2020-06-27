@@ -21,22 +21,23 @@
 
 	String post_id = request.getParameter("post_id");	
 	pageContext.setAttribute("post_id", post_id);
+	System.out.println("這篇文章是" + post_id);
 	
 	PostService postService = new PostService();
 	PostVO postVO = postService.getOnePost(post_id);
 	pageContext.setAttribute("postVO", postVO);
 	
 	String other_member_id = postVO.getMember_id();
-	System.out.println("這篇文章是" + other_member_id);
+	System.out.println("這篇文章的作者ID=" + other_member_id);
+	pageContext.setAttribute("other_member_id", other_member_id);
 	
 	MemberVO postOwner = mbSvc.getOne(postVO.getMember_id());
 	pageContext.setAttribute("postOwner", postOwner);
-	String OwnerMemberId = postOwner.getMember_id();
-	pageContext.setAttribute("OwnerMemberId", OwnerMemberId);
 	
 	FollowService followService = new FollowService();
-	List<String> followList = followService.getFollowedMemberIdByMemberId(member_id);
-	pageContext.setAttribute("followList", followList);
+// 	List<String> followList = followService.getFollowedMemberIdByMemberId(member_id);
+// 	pageContext.setAttribute("followList", followList);
+// 	System.out.println("我關注的人的id=" + followList);
 	
 	SavedService savedService = new SavedService();
 	List<String> savedList = savedService.getPost_idByMemberId(member_id);
@@ -82,8 +83,8 @@
 			      	<c:if test="${(followed.followed_member_id == other_member_id)}">
 			        	data-follow-id="${followed.follow_id}" 
 			        </c:if>
-			     	</c:forEach>
-						value="${list3.contains(other_member_id)?'followed':'unfollow'}" id="<%=other_member_id%>">
+			     	</c:forEach>    	
+						value="${list3.contains(other_member_id)?'followed':'unfollow'}" id="<%=member_id%>">
 						<span class="follow_blogger" style="color: ${list3.contains(other_member_id)?'#EE6464':'lightgray'}">
 							<i id="like" class="fas fa-heart"></i>
 						</span>
@@ -277,13 +278,13 @@
 	    	    	console.log("成功取消關注");
 	    	    	it.find("span.follow_blogger").attr("style", "color: lightgray");
 	    	    	it.attr("value", "unfollow");
-		    	    window.location.href = "<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${other_member_id}";
+		    	    window.location.href = "<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${post_id}";
 	    	   	}
 					});
 				}else {
-					let member_id = $("div.personal_profile").attr("id");
+					let member_id = it.attr("id");
 					console.log(member_id);
-					let followed_member_id = it.attr("id");
+					let followed_member_id = it.parents("div.personal_profile").attr("id");
 					$.ajax({
 						url:"<%=request.getContextPath()%>/Post/AjaxServlet",
 						type:"GET",
@@ -301,7 +302,7 @@
 	    	    	console.log("成功關注");
 	    	   		it.find("span.follow_blogger").attr("style", "color: #EE6464");
 	    	    	it.attr("value", "followed");
-		    	    window.location.href = "<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${other_member_id}";
+		    	    window.location.href = "<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${post_id}";
 	    	  	}
 					});
 				}		
