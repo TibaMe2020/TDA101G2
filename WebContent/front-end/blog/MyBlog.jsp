@@ -188,6 +188,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show01" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -201,6 +206,11 @@
 																	<input type="file" class="custom-file-input" id="inputGroupFile02" name="post_image2"> 
 																	<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
 																</div>
+															</div>
+														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show02" src="" style="width: 150px">
 															</div>
 														</td>
 													</tr>
@@ -218,6 +228,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show03" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -233,6 +248,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show04" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -246,6 +266,11 @@
 																	<input type="file" class="custom-file-input" id="inputGroupFile05" name="post_image5"> 
 																	<label class="custom-file-label" for="inputGroupFile05">Choose file</label>
 																</div>
+															</div>
+														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show05" src="" style="width: 150px">
 															</div>
 														</td>
 													</tr>													
@@ -294,7 +319,7 @@
 							</figure>
 						</a>
 						<span class="nickname">${member.nickname}</span>
-						<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg" id="${postVO.post_id}">
+						<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg" id="${postVO.post_id}" data-class="${postVO.post_class}">
             	<span class="update_post_icon"> 	
 									<i id="edit" class="fas fa-edit"></i>
 							</span>
@@ -430,6 +455,11 @@
 															</div>
 														</div>
 													</td>
+													<td>
+															<div class="image_preview">
+																<img id="show1" src="" style="width: 150px">
+															</div>
+													</td>
 												</tr>
 												<tr>
 													<td class="input">
@@ -444,6 +474,11 @@
 																<label class="custom-file-label" for="inputGroupFile2">Choose file</label>
 															</div>
 														</div>
+													</td>
+													<td>
+															<div class="image_preview">
+																<img id="show2" src="" style="width: 150px">
+															</div>
 													</td>
 												</tr>
 												<tr>
@@ -460,6 +495,11 @@
 															</div>
 														</div>
 													</td>
+													<td>
+															<div class="image_preview">
+																<img id="show3" src="" style="width: 150px">
+															</div>
+													</td>
 												</tr>
 												<tr>
 													<td class="input">
@@ -475,6 +515,11 @@
 															</div>
 														</div>
 													</td>
+													<td>
+															<div class="image_preview">
+																<img id="show4" src="" style="width: 150px">
+															</div>
+													</td>
 												</tr>
 												<tr>
 													<td class="input">
@@ -489,6 +534,11 @@
 																<label class="custom-file-label" for="inputGroupFile5">Choose file</label>
 															</div>
 														</div>
+													</td>
+													<td>
+															<div class="image_preview">
+																<img id="show5" src="" style="width: 150px">
+															</div>
 													</td>
 												</tr>													
 												<tr>
@@ -877,6 +927,17 @@
 				}
 			});
 			
+			//修改
+			$(document).on("click", ".update_button", function(){
+				let post_id = $(this).attr("id");
+				$("#pid").attr("value", post_id);
+				let post = $(this).closest('.each_post').find('p.post_content').text();
+				$('#update_content').text(post);
+				let post_class = $(this).attr("data-class");
+				$('#post_class1 option[value=' + post_class + ']').prop('selected',true);
+// 				$(modal).find('select option').first().prop("selected", true);
+			});
+			
 			//修改文章錯誤驗證
 			$(document).on("click", "#update_send", function(){
 				let update_content = $("#update_content").val().trim();
@@ -906,8 +967,9 @@
 			$(document).on("click", "#update_send", function(){
 				let update_content = $("#update_content").val().trim();
 				let post_id = $("button.update_button").attr("id");
+				console.log($("#pid").attr("value"));
 				if(update_content != "" && update_content.length >= 20){
-					$("#pid").attr("value", post_id);
+// 					$("#pid").attr("value", post_id);
 					alert("驗證通過");
 					return true;
 				}else{
@@ -941,6 +1003,59 @@
 					event.stopPropagation();
 					$(this).tooltip('hide');
 				});
+			});
+	
+			
+			//顯示預覽圖
+			function showImage(fileInput, image) {
+				var readFile = new FileReader();
+				var myfile = $(fileInput)[0].files[0];
+				readFile.readAsDataURL(myfile);
+				console.log(myfile);
+				readFile.onload = function() {
+					var img = $(image);
+					img.attr("src", readFile.result);
+				}
+			}
+			//新增文章的預覽圖
+			$(document).on("change", "#inputGroupFile01", function(){
+					showImage(this, $("#show01"));
+			});
+			
+			$(document).on("change", "#inputGroupFile02", function(){
+				showImage(this, $("#show02"));
+			});
+			
+			$(document).on("change", "#inputGroupFile03", function(){
+				showImage(this, $("#show03"));
+			});
+			
+			$(document).on("change", "#inputGroupFile04", function(){
+				showImage(this, $("#show04"));
+			});
+			
+			$(document).on("change", "#inputGroupFile05", function(){
+				showImage(this, $("#show05"));
+			});
+			//修改文章的預覽圖
+			$(document).on("change", "#inputGroupFile1", function(){
+					showImage(this, $("#show1"));
+			});
+			
+			$(document).on("change", "#inputGroupFile2", function(){
+				showImage(this, $("#show2"));
+			});
+			
+			$(document).on("change", "#inputGroupFile3", function(){
+				showImage(this, $("#show3"));
+			});
+			
+			$(document).on("change", "#inputGroupFile4", function(){
+				showImage(this, $("#show4"));
+			});
+			
+			$(document).on("change", "#inputGroupFile5", function(){
+				showImage(this, $("#show5"));
 			});
 			
 		});

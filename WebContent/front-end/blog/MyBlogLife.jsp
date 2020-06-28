@@ -288,7 +288,7 @@
 						</a>
 						<span class="nickname">${member.nickname}</span>
 						
-						<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg" id="${postVO.post_id}">
+						<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg" id="${postVO.post_id}" data-class="${postVO.post_class}">
             	<span class="update_post_icon"> 	
 								<i id="edit" class="fas fa-edit"></i>
 							</span>
@@ -399,7 +399,7 @@
 													</td>
 													<td>
 														<div>
-															<select class="custom-select" name="post_class" id="post_class">
+															<select class="custom-select" name="post_class" id="post_class1">
 																<option selected value="生活">生活</option>
 																<option value="購物">購物</option>
 																<option value="美食">美食</option>
@@ -870,6 +870,17 @@
 				}
 			});
 			
+			//修改
+			$(document).on("click", ".update_button", function(){
+				let post_id = $(this).attr("id");
+				$("#pid").attr("value", post_id);
+				let post = $(this).closest('.each_post').find('p.post_content').text();
+				$('#update_content').text(post);
+				let post_class = $(this).attr("data-class");
+				$('#post_class1 option[value=' + post_class + ']').prop('selected',true);
+// 				$(modal).find('select option').first().prop("selected", true);
+			});
+			
 			//修改文章錯誤驗證
 			$(document).on("click", "#update_send", function(){
 				let update_content = $("#update_content").val().trim();
@@ -899,15 +910,16 @@
 			$(document).on("click", "#update_send", function(){
 				let update_content = $("#update_content").val().trim();
 				let post_id = $("button.update_button").attr("id");
+				console.log($("#pid").attr("value"));
 				if(update_content != "" && update_content.length >= 20){
-					$("#pid").attr("value", post_id);
+// 					$("#pid").attr("value", post_id);
 					alert("驗證通過");
 					return true;
 				}else{
 					alert("驗證不通過");
 					return false;
 				}
-			});		
+			});			
 			
 			
 			//刪除文章
