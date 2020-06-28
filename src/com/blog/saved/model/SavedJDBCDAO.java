@@ -20,6 +20,7 @@ public class SavedJDBCDAO implements SavedDAOInterface{
 	private static final String get_all = "select * from saved order by saved_post_id desc";
 	private static final String get_by_member_id = "select * from saved where member_id = ?";
 	private static final String delete_by_post_id = "delete from saved where post_id = ? and member_id = ?";
+	private static final String getByPostId="select * from saved where post_id = ?"; 
 	
 	@Override
 	public void insert(SavedVO savedVO) {
@@ -376,14 +377,72 @@ public class SavedJDBCDAO implements SavedDAOInterface{
 //			System.out.println(savedVO.toString());
 //		}
 //		
-		List<String> list = new ArrayList<String>();
-		list = test.getPost_idByMemberId("MB00001");
-		for(String post_id : list) {
-			System.out.println(post_id);
-		}
+//		List<String> list = new ArrayList<String>();
+//		list = test.getPost_idByMemberId("MB00001");
+//		for(String post_id : list) {
+//			System.out.println(post_id);
+//		}
 		
 		//delete
 //		test.delete("PID00009", "MB00004");
+		
+		//getByPostId
+		List<SavedVO> list = new ArrayList<SavedVO>();
+		list = test.getByPostId("PID00003");
+		for(SavedVO savedVO : list) {
+			System.out.println(savedVO.toString());
+		}
+	}
+
+	@Override
+	public List<SavedVO> getByPostId(String post_id) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		List<SavedVO> list = new ArrayList<SavedVO>();
+		ResultSet rs = null;
+		try {
+			Class.forName(driverClass);
+			conn = DriverManager.getConnection(url, user, password);
+			stmt = conn.prepareStatement(getByPostId);
+			
+			stmt.setString(1, post_id);
+			rs= stmt.executeQuery();
+			while(rs.next()) {
+				SavedVO savedVO = new SavedVO();
+				savedVO.setSaved_post_id(rs.getString("saved_post_id"));
+				savedVO.setMember_id(rs.getString("member_id"));
+				savedVO.setPost_id(rs.getString("post_id"));
+				savedVO.setCreate_time(rs.getTimestamp("create_time"));
+				list.add(savedVO);
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			if(conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			}	
+		} finally {
+			if(stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
 	}
 
 	

@@ -2,29 +2,37 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.blog.post.model.*"%>
-
+<%@ page import="com.blog.follow.model.*"%>
+<%@ page import="com.blog.saved.model.*"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Food</title>
+<meta charset="UTF-8">
+<title>OtherPeopleBlog</title>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/blog/css/HomePage.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/blog/css/OtherPeopleBlog.css">
 	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
 </head>
 <body class="body">
 	<%@ include file="/front-end/member/header.jsp"%>
 	<%
-		//取得所有會員的暱稱
+// 		System.out.println("我的member_id:" + member_id);
+		String other_member_id = request.getParameter("member_id");
+// 		System.out.println("別人的member_id:" + other_member_id);
+		pageContext.setAttribute("other_member_id", other_member_id);
+		MemberVO otherMember = mbSvc.getOne(other_member_id);
+		pageContext.setAttribute("otherMember", otherMember);
+		
+		//取得所有會員暱稱
 		List<MemberVO> memberList = mbSvc.getAllBlogerInfo();
 		pageContext.setAttribute("memberList", memberList);
-	
-		PostService postService = new PostService();
-		List<PostVO> postList = postService.getByPostClass("美食");
-		pageContext.setAttribute("postList", postList);
 
-		List<PostVO> list1 = postService.getFifthCreateTime("美食");
+		PostService postService = new PostService();
+		List<PostVO> list = postService.getByMemberId(other_member_id, "美食");
+		pageContext.setAttribute("list", list);
+
+		List<PostVO> list1 = postService.getFifthCreateTime("美食", other_member_id);
 		pageContext.setAttribute("list1", list1);
 		List<PostVO> postContents1 = new ArrayList<PostVO>();
 		for (PostVO postVO : list1) {
@@ -33,7 +41,7 @@
 		}
 		pageContext.setAttribute("postContents1", postContents1);
 
-		List<PostVO> list2 = postService.getFifthPostLike("美食");
+		List<PostVO> list2 = postService.getFifthPostLike("美食", other_member_id);
 		pageContext.setAttribute("list2", list2);
 		List<PostVO> postContents2 = new ArrayList<PostVO>();
 		for (PostVO postVO : list2) {
@@ -41,258 +49,110 @@
 			postContents2.add(postContent);
 		}
 		pageContext.setAttribute("postContents2", postContents2);
+
+		//關注部落客判斷
+		FollowService followService = new FollowService();
+		List<String> list3 = followService.getFollowedMemberIdByMemberId(member_id);
+		pageContext.setAttribute("list3", list3);
+		//     System.out.println("我關注的member_id:" + list3);
+
+		List<FollowVO> list4 = followService.getByMemberId(member_id);
+		pageContext.setAttribute("list4", list4);
+		//     System.out.println("我關注的followVO:" + list4);
+
+		//收藏文章判斷
+		SavedService savedService = new SavedService();
+		List<SavedVO> savedlist = savedService.getByMemberId(member_id);
+		pageContext.setAttribute("savedlist", savedlist);
+		// 	System.out.println(member_id + "收藏的文章" + savedlist);
+
+		List<String> savedlist2 = savedService.getPost_idByMemberId(member_id);
+		pageContext.setAttribute("savedlist2", savedlist2);
+		// 	System.out.println(member_id + "收藏的文章id" + savedlist2);
 	%>
 	<div class="container">
-
+		<div class="row cover" style="background-image: url('<%=request.getContextPath()%>/member/coverImage?member_id=${otherMember.member_id}');">
+			<div class="my_cover_title">${otherMember.blog_name}</div>
+		</div>
 		<div class="row">
 			<!-- container左欄 -->
 			<div class="col-2 padding_left">
+				<div class="personal_profile">
+					<c:if test="${memberVO.member_id != other_member_id}">
+						<button class="follow_button"
+							<c:forEach items="${list4}" var="followed" >
+				      	<c:if test="${(followed.followed_member_id == other_member_id)}">
+				        	data-follow-id="${followed.follow_id}" 
+				        </c:if>
+				     	</c:forEach>
+							value="${list3.contains(other_member_id)?'followed':'unfollow'}" id="<%=other_member_id%>">
+							<span class="follow_blogger" style="color: ${list3.contains(other_member_id)?'#EE6464':'lightgray'}">
+								<i id="like" class="fas fa-heart"></i>
+							</span>
+						</button>
+					</c:if>
+					<figure class="profile_figure">
+						<img class="profile_image" src="<%=request.getContextPath()%>/member/profileImage?member_id=${otherMember.member_id}">
+					</figure>
+					<div class="profile_info">
+						<span class="profile_info"> 
+							暱稱:<span class="nickname_span">${otherMember.nickname}</span>
+						</span> 
+						<span class="profile_info"> 
+							寵物:<span class="class_span">${otherMember.pet_class}</span>
+						</span>
+					</div>
+				</div>
 
 				<div class="post_class">
 					<h4 class="post_class_title">文章分類</h4>
 					<ul class="categories">
-						<li style="border-bottom: 1px solid #13406A;">
-							<a href="<%=request.getContextPath()%>/front-end/blog/HomePage.jsp">全部</a>
+						<li class="category">
+							<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=<%=other_member_id%>">全部</a>
 						</li>
-						<li style="border-bottom: 1px solid #13406A;">
-							<a href="<%=request.getContextPath()%>/front-end/blog/Life.jsp">生活</a>
+						<li class="category">
+							<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogLife.jsp?member_id=<%=other_member_id%>">生活</a>
 						</li>
-						<li style="border-bottom: 1px solid #13406A;">
-							<a href="<%=request.getContextPath()%>/front-end/blog/Shopping.jsp">購物</a>
+						<li class="category">
+							<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogShopping.jsp?member_id=<%=other_member_id%>">購物</a>
 						</li>
-						<li style="border-bottom: 1px solid #13406A;">
-							<a href="<%=request.getContextPath()%>/front-end/blog/Food.jsp">美食</a>
+						<li class="category">
+							<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogFood.jsp?member_id=<%=other_member_id%>">美食</a>
 						</li>
-						<li style="border-bottom: 1px solid #13406A;">
-							<a href="<%=request.getContextPath()%>/front-end/blog/Travel.jsp">旅遊</a>
+						<li class="category">
+							<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogTravel.jsp?member_id=<%=other_member_id%>">旅遊</a>
 						</li>
 						<li>
-							<a href="<%=request.getContextPath()%>/front-end/blog/Others.jsp">其他</a>
+							<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlogOthers.jsp?member_id=<%=other_member_id%>">其他</a>
 						</li>
 					</ul>
 				</div>
-
-				<div class="recommend_blogger">
-					<h4 class="recommend_blogger_title">推薦部落客</h4>
-					<div class="each_recommend_blogger">
-						<figure class="recommend_figure">
-							<img class="recommend_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
-						</figure>
-						<span class="nickname"> 
-							<a class="a_tag" href="#">噢!兔子</a>
-						</span>
-					</div>
-					<div class="each_recommend_blogger">
-						<figure class="recommend_figure">
-							<img class="recommend_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
-						</figure>
-						<span class="nickname"> 
-							<a class="a_tag" href="#">我愛馬卡龍</a>
-						</span>
-					</div>
-					<div class="each_recommend_blogger">
-						<figure class="recommend_figure">
-							<img class="recommend_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
-						</figure>
-						<span class="nickname"> 
-							<a class="a_tag" href="#">蘇太太</a>
-						</span>
-					</div>
-				</div>
-
 				<div class="button" style="margin-top: 10px; text-align: center;">
 					<a href="<%=request.getContextPath()%>/front-end/blog/MyBlog.jsp?member_id=<%=member_id%>">
 						<input class="to_my_blog" type="button" value="我的部落格">
-					</a>
+					</a> 
 					<a href="<%=request.getContextPath()%>/front-end/blog/HomePage.jsp">
 						<input class="back_to_homepage" type="button" value="回部落格">
 					</a>
 				</div>
+
 			</div>
 			<!-- container中間 -->
 			<div class="col-7 padding_middle">
-				<div class="write_a_post">
-					<div class="post">
-						<figure class="post_figure">
-							<img class="post_blogger_picture" src="https://cdn2.ettoday.net/images/771/771489.jpg">
-						</figure>
-						<span class="nickname">${memberVO.nickname}</span>
-					</div>
-					<div class="wanted_post">
-						<textarea class="my_text" placeholder="我也想發文..."></textarea>
-					</div>
-					<div>
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right; margin: 5px 20px;">
-							我要發文
-						</button>
-					</div>
 
-					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog modal-lg">
-							<div class="modal-content">
-								<div class="modal-header">
-							  	<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline:none;">
-							    	<span aria-hidden="true">&times;</span>
-							    </button>
-							  </div>
-								<div class="modal-body">
-									<form id="insertform" action="<%=request.getContextPath()%>/Post/Post.do" class="post" method="POST" enctype="multipart/form-data">
-										<div class="add_a_post">
-											<div class="post">
-												<figure class="post_figure">
-													<img class="post_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">
-												</figure>
-												<span class="nickname">${memberVO.nickname}</span>
-											</div>
-											<table class="table table-borderless">
-												<tbody>
-													<tr>
-														<td class="input">
-															<div class="d-flex align-items-center justify-content-end">
-																<span>文章分類 : </span>
-															</div>
-														</td>
-														<td>
-															<div>
-																<select class="custom-select" name="post_class" id="post_class">
-																	<option selected value="生活">生活</option>
-																	<option value="購物">購物</option>
-																	<option value="美食">美食</option>
-																	<option value="旅遊">旅遊</option>
-																	<option value="其他">其他</option>
-																</select>
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<td class="input">
-															<div class="d-flex align-items-center justify-content-end">
-																<span>圖片1 : </span>
-															</div>
-														</td>
-														<td>
-															<div class="input-group mb-3">
-																<div class="custom-file">
-																	<input type="file" class="custom-file-input" id="inputGroupFile01" name="post_image1"> 
-																	<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-																</div>
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<td class="input">
-															<div class="d-flex align-items-center justify-content-end">
-																<span>圖片2 : </span>
-															</div>
-														</td>
-														<td>
-															<div class="input-group mb-3">
-																<div class="custom-file">
-																	<input type="file" class="custom-file-input" id="inputGroupFile02" name="post_image2"> 
-																	<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-																</div>
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<td class="input">
-															<div class="d-flex align-items-center justify-content-end">
-																<span>圖片3 : </span>
-															</div>
-														</td>
-														<td>
-															<div class="input-group mb-3">
-																<div class="custom-file">
-																	<input type="file" class="custom-file-input" id="inputGroupFile03" name="post_image3"> 
-																	<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
-																</div>
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<td class="input">
-															<div class="d-flex align-items-center justify-content-end">
-																<span>圖片4 : </span>
-															</div>
-														</td>
-														<td>
-															<div class="input-group mb-3">
-																<div class="custom-file">
-																	<input type="file" class="custom-file-input" id="inputGroupFile04" name="post_image4"> 
-																	<label class="custom-file-label" for="inputGroupFile04">Choose file</label>
-																</div>
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<td class="input">
-															<div class="d-flex align-items-center justify-content-end">
-																<span>圖片5 : </span>
-															</div>
-														</td>
-														<td>
-															<div class="input-group mb-3">
-																<div class="custom-file">
-																	<input type="file" class="custom-file-input" id="inputGroupFile05" name="post_image5"> 
-																	<label class="custom-file-label" for="inputGroupFile05">Choose file</label>
-																</div>
-															</div>
-														</td>
-													</tr>													
-													<tr>
-														<td class="input">
-															<div class="d-flex align-items-center justify-content-end">
-																<span>文章內容 : </span>
-															</div>
-														</td>
-														<td>
-															<div class="input-group">
-																<textarea class="form-control" aria-label="With textarea" name="post_content" id="post_content"></textarea>
-																<div class="invalid-feedback">
-																	文章內容請勿空白且文章內容請勿低於20個字
-																</div>
-															</div>
-														</td>
-													</tr>
-												
-													<tr>
-														<td class="input"></td>
-														<td style="text-align: end;">
-															<button type="button" class="btn btn-secondary" data-dismiss="modal">取消發文</button> 
-															<input type="hidden" name="action" value="insert"> 
-															<input type="hidden" name="member_id" value="<%=member_id%>">
-															<input id="confirm_send" type="submit" class="btn btn-outline-dark edit-blog" value="確認送出">
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-				<c:forEach var="postVO" items="${postList}">
-					<div class="each_post" id="${postVO.post_id}">
+				<c:forEach var="postVO" items="${list}">
+					<%--                 <a href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}" style="text-decoration: none; color:#13406A;"> --%>
+					<div class="each_post" id="${postVO.post_id}" value="${postVO.member_id}">
 						<div class="post">
-							<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${postVO.member_id}">
-								<figure class="post_figure">									
-									<img class="post_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
-								</figure>
-							</a>
-							<c:forEach var="member" items="${memberList}">					
-								<c:if test="${member.member_id == postVO.member_id}">
-									<span class="nickname">${member.nickname}</span>
-								</c:if>
-							</c:forEach>
-							<button class="saved_button" style="outline: none;" value="${savedList.contains(postVO.post_id)?'1':'0'}">
-								<span class="saved_post_icon" style="color: ${savedList.contains(postVO.post_id)?'black':'lightgray'}"> 
+							<figure class="post_figure">
+								<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${otherMember.member_id}">
+							</figure>
+							<span class="nickname">${otherMember.nickname}</span>
+							<button class="saved_button" value="${savedlist2.contains(postVO.post_id)?'1':'0'}">
+								<span class="saved_post_icon" style="color: ${savedlist2.contains(postVO.post_id)?'black':'lightgray'}">
 									<i class="fas fa-bookmark"></i>
 								</span>
-						</button>
+							</button>
 						</div>
 
 						<div class="carousel slide" id="carousel-demo${postVO.post_id}">
@@ -304,7 +164,7 @@
 								<li data-target="#carousel-demo${postVO.post_id}" data-slide-to="4"></li>
 							</ol>
 							<div class="carousel-inner">
-							<% for (int i = 1; i <= 5; i++) { %>
+								<% for (int i = 1; i <= 5; i++) {%>
 								<% if (i == 1) { %>
 								<div class="carousel-item active">
 									<img class="post_image" src="<%=request.getContextPath()%>/Post/DBGifReader2?post_id=${postVO.post_id}&count=<%=i%>">
@@ -314,7 +174,7 @@
 									<img class="post_image" src="<%=request.getContextPath()%>/Post/DBGifReader2?post_id=${postVO.post_id}&count=<%=i%>">
 								</div>
 								<% }; %>
-							<% }; %>
+								<% }; %>
 								<a href="#carousel-demo${postVO.post_id}" class="carousel-control-prev" data-slide="prev"> 
 									<span class="carousel-control-prev-icon"></span>
 								</a> 
@@ -323,7 +183,6 @@
 								</a>
 							</div>
 						</div>
-
 
 						<div class="post_content">
 							<p class="post_content">${postVO.post_content}</p>
@@ -339,19 +198,19 @@
 								<br> 
 								<span class="post_like_count">${postVO.post_like}</span>
 							</div>
-							
+
 							<div class="post_message">
-								<button class="post_message_button" style="outline: none;" value="unslide">
+								<button class="post_message_button" style="outline: none;">
 									<span class="post_message_icon"> 
 										<i class="fas fa-comment-dots"></i>
-									</span>								
+									</span>
 								</button>
 								<br> 
 								<span class="post_message_count">${postVO.post_message_count}</span>
 							</div>
-							
+
 							<div class="post_share">
-								<button class="post_share_button" data-toggle="popover" data-placement="right" data-content="連結">
+								<button class="post_share_button" data-toggle="tooltip" title="copy" data-placement="right" data-src="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}">
 									<span class="post_share_icon"> 
 										<i class="fas fa-share-square"></i>
 									</span>
@@ -360,22 +219,22 @@
 								<span class="post_share_count">${postVO.post_share}</span>
 							</div>
 						</div>
-		
-						<div class="message" id="<%=member_id%>">
+
+						<div class="message">
 						</div>
 
 					</div>
+					<!-- 		        </a> -->
 				</c:forEach>
 
 			</div>
 			<!-- container右欄 -->
 			<div class="col-3 padding_right">
-
 				<div class="new_post">
 					<h4 class="new_post_title">最新文章</h4>
 					<c:forEach var="postContent" items="${postContents1}">
 						<div class="each_new_post">
-							<a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postContent.post_id}" >
+							<a href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postContent.post_id}">
 								${postContent.post_content} 
 							</a>
 						</div>
@@ -386,20 +245,69 @@
 					<h4 class="hot_post_title">熱門文章</h4>
 					<c:forEach var="postContent" items="${postContents2}">
 						<div class="each_hot_post">
-							<a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postContent.post_id}" >
+							<a href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postContent.post_id}">
 								${postContent.post_content} 
 							</a>
 						</div>
 					</c:forEach>
 				</div>
-
 			</div>
 		</div>
-
 	</div>
 	<%@ include file="/front-end/member/footer.jsp"%>
 	<script>
 		window.addEventListener("load", function(){
+			//關注或是取消關注
+			$(document).on("click", "button.follow_button", function(){	
+				let status = $(this).attr("value");
+				let it = $(this);
+				if(status == "followed"){
+					let follow_id = it.attr("data-follow-id");
+					$.ajax({
+						url:"<%=request.getContextPath()%>/Post/AjaxServlet",
+						type:"GET",
+						data:{
+							"action": "changeFollow",
+							"status": "unfollow",
+							"follow_id": follow_id,
+						},
+						dataType:"json",
+						error: function (xhr) {         
+	    	    	console.log("錯誤");
+	    	  	},
+	    			success: function(data){
+	    	    	console.log("成功取消關注");
+	    	    	it.find("span.follow_blogger").attr("style", "color: lightgray");
+	    	    	it.attr("value", "unfollow");
+	    	    	window.location.href = "<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${other_member_id}";
+	    	   	}
+					});
+				}else {
+					let member_id = "MB00001";
+					let followed_member_id = it.attr("id");
+					$.ajax({
+						url:"<%=request.getContextPath()%>/Post/AjaxServlet",
+						type:"GET",
+						data:{
+							"action": "changeFollow",
+							"status": "followed",
+							"member_id": member_id,
+							"followed_member_id": followed_member_id
+						},
+						dataType:"json",
+						error: function (xhr) {         
+	    	   		console.log("錯誤");
+	    	   	},
+	    	   	success: function(data){
+	    	    	console.log("成功關注");
+	    	   		it.find("span.follow_blogger").attr("style", "color: #EE6464");
+	    	    	it.attr("value", "followed");
+	    	    	window.location.href = "<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${other_member_id}";
+	    	  	}
+					});
+				}		
+			});
+			
 			// 點擊留言,留言才顯示
 			$(document).on("click", "button.post_message_button", function(){    	    	
 		  	let post_id = $(this).closest("div.each_post").attr("id");
@@ -423,13 +331,12 @@
 									let member_id = $(data).attr("member_id");
 									<c:forEach var="member" items="${memberList}">
 										if("${member.member_id}" == member_id){
-											console.log("${member.nickname}");
 											let messagecontent = '<div class="each_message">' + 
-								      	'<figure class="message_figure">' +
+								        '<figure class="message_figure">' +
 									      '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
 									      '</figure>' +
 									      '<div class="message_person">' +
-									      '<span class="message_nickname">' + "${member.nickname}" + '</span>' +
+									     	'<span class="message_nickname">' + "${member.nickname}" + '</span>' +
 									      '<br>' +
 									      '<div class="message_content">' +
 									      '<span>' + $(data).attr("message_content") +'</span>' +
@@ -585,7 +492,7 @@
 	   		}
 			});
 	  
-	 		// 分享數送出
+		 	// 分享數送出
 			$(document).on("click", "button.post_share_button", function(){
 				let post_share = $(this).parents("div.post_share").find("span.post_share_count").text();
 				let post_id = $(this).closest("div.each_post").attr("id");
@@ -693,8 +600,26 @@
 					alert("驗證不通過");
 					return false;
 				}
-			});		
-		
+			});	
+			
+			//複製連結
+			function copyToClipboard(element){
+				var copy = $("<input>");
+				$("body").append(copy);
+				copy.val($(element).attr("data-src")).select();
+				document.execCommand("copy");
+				copy.remove();
+			};
+			//出現copy
+			$("[data-toggle='tooltip']").tooltip();
+			$("button.post_share_button").on("click", function(){
+				copyToClipboard(this);
+				$(this).tooltip('show');
+				$("button.post_share_button").mouseleave(function(){
+					event.stopPropagation();
+					$(this).tooltip('hide');
+				});
+			});	
 		});
 	</script>
 </body>

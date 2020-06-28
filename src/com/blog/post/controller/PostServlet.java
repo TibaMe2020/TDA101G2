@@ -22,6 +22,8 @@ import com.blog.message.model.MessageService;
 import com.blog.message.model.MessageVO;
 import com.blog.post.model.PostService;
 import com.blog.post.model.PostVO;
+import com.blog.saved.model.SavedService;
+import com.blog.saved.model.SavedVO;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class PostServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) 
@@ -37,6 +39,7 @@ public class PostServlet extends HttpServlet {
 //		System.out.println("PostServlet");
 		
 		if("insert".equals(action)) {
+			System.out.println("進入PostServlet insert!");
 			Map errorMessage = new HashMap();
 			req.setAttribute("errorMessage", errorMessage);
 			
@@ -84,7 +87,7 @@ public class PostServlet extends HttpServlet {
 				if(post_content == null || (post_content.trim()).length() == 0) {
 					errorMessage.put("noPostContent", "文章內容請勿空白");
 //					errorMsgs.add("文章內容請勿空白");
-				} else if((post_content.trim()).length() <= 20) {
+				} else if((post_content.trim()).length() < 20) {
 					errorMessage.put("noEnoughWords", "文章內容請勿低於20個字");
 //					errorMsgs.add("文章內容請勿低於20個字");
 				}
@@ -168,7 +171,7 @@ public class PostServlet extends HttpServlet {
 				if(post_content == null || (post_content.trim()).length() == 0) {
 					errorMessage.put("noPostContent", "文章內容請勿空白");
 //					errorMsgs.add("文章內容請勿空白");
-				} else if((post_content.trim()).length() <= 20) {
+				} else if((post_content.trim()).length() < 20) {
 					errorMessage.put("noEnoughWords", "文章內容請勿低於20個字");
 //					errorMsgs.add("文章內容請勿低於20個字");
 				}
@@ -243,7 +246,7 @@ public class PostServlet extends HttpServlet {
 				String post_content = req.getParameter("post_content");
 				if(post_content == null || (post_content.trim()).length() == 0) {
 					errorMsgs.add("文章內容請勿空白");
-				} else if((post_content.trim()).length() <= 20) {
+				} else if((post_content.trim()).length() < 20) {
 					errorMsgs.add("文章內容請勿低於20個字");
 				}
 										
@@ -285,6 +288,7 @@ public class PostServlet extends HttpServlet {
 		
 		
 		if("memberUpdate".equals(action)) {
+			System.out.println("進入PostServlet memberUpdate");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);			
 			try {
@@ -323,7 +327,7 @@ public class PostServlet extends HttpServlet {
 				String post_content = req.getParameter("post_content");
 				if(post_content == null || (post_content.trim()).length() == 0) {
 					errorMsgs.add("文章內容請勿空白");
-				} else if((post_content.trim()).length() <= 20) {
+				} else if((post_content.trim()).length() < 20) {
 					errorMsgs.add("文章內容請勿低於20個字");
 				}
 										
@@ -344,7 +348,7 @@ public class PostServlet extends HttpServlet {
 
 				if(!errorMsgs.isEmpty()) {
 					req.setAttribute("postVO", postVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/Post/updatePost.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/MyBlog.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -358,7 +362,7 @@ public class PostServlet extends HttpServlet {
 			} catch(Exception e) {
 				errorMsgs.add("修改失敗:" + e.getMessage());
 				e.printStackTrace();
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/Post/updatePost.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/blog/MyBlog.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -386,13 +390,14 @@ public class PostServlet extends HttpServlet {
 		}
 		
 		if("delete".equals(action)) {
+			System.out.println("進入PostServlet delete");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
 				//接受請求參數
 				String post_id = req.getParameter("post_id");
-				String member_id = req.getParameter("member_id");
+//				String member_id = req.getParameter("member_id");
 //				System.out.println(post_id);
 //				System.out.println(member_id);
 //				System.out.println("delete");
@@ -403,14 +408,24 @@ public class PostServlet extends HttpServlet {
 				//刪除資料
 				PostService service = new PostService();
 				MessageService messageService = new MessageService();
+				SavedService savedService = new SavedService();
 				
 				List<MessageVO> list = messageService.getByPostId(post_id);
 				if(list != null) {
 					for(MessageVO messageVO : list) {
 						messageService.deleteMessage(messageVO.getMessage_id());
-						System.out.println("delete one row");
+						System.out.println("Message delete one row");
 					}
 				}
+				
+				List<SavedVO> list1 = savedService.getByPostId(post_id);
+				if(list1 != null) {
+					for(SavedVO savedVO : list1) {
+						savedService.deleteSaved(savedVO.getSaved_post_id());
+						System.out.println("Saved delete one row");
+					}
+				}
+				
 				service.deletePost(post_id);
 				//轉交
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/blog/MyBlog.jsp");

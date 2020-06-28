@@ -38,5 +38,7 @@ public interface PostDAOInterface {
 	public Integer getPostCount();
 // 取得文章內容前20個字
 	public PostVO getPostContent(String post_id);
+	
+	public List<PostVO> getPostLikeMost();
 
 }

@@ -195,6 +195,11 @@ public class PostService {
 		return result;
 	}
 	
+	public List<PostVO> getPostLikeMost(){
+		List<PostVO> result = dao.getPostLikeMost();
+		return result;
+	}
+	
 	public static void main(String[] args) {
 		PostService test = new PostService();
         //insert

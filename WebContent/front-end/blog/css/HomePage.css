@@ -3,7 +3,20 @@
     background-color: #F3F2F2;
     font-family: Noto Serif TC;
 }
-
+input:focus, textarea:focus{
+	outline:none;
+}
+a:link, a:visited{
+	text-decoration: none; 
+	color: #13406A;
+}
+.tooltip-inner {
+	width: 60px;
+	font-size: 16px;
+}
+div.row{
+  text-align: left!important;
+}
 /* ==========container========== */
 div.padding_left {
     padding-left: 0px;
@@ -25,8 +38,9 @@ div.post_class{
     background-color:#F9EACB;
     padding-bottom: 0px;
     margin-bottom: 20px;  
-    border: 1px solid lightgrey; 
+    border: 1px solid #F9EACB; 
     border-radius: 5px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
 }
 h4.post_class_title{
     color: #13406A;
@@ -52,8 +66,9 @@ ul.categories li{
 div.recommend_blogger{
     background-color:#F9EACB;
     border-radius: 5px;
-    border: 1px solid lightgray;
+    border: 1px solid #F9EACB;
     margin-bottom: 20px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
 }
 h4.recommend_blogger_title{
     color: #13406A;
@@ -64,8 +79,8 @@ h4.recommend_blogger_title{
 }
 div.each_recommend_blogger{
     background-color:#fff;
-    height: 60px;
-    border: 1px solid lightgray;
+    min-height: 60px;
+    border: 1px solid #fff;
     border-radius: 5px;
     margin: 10px;
     line-height: 56px;
@@ -117,14 +132,19 @@ input.back_to_homepage:hover{
 div.write_a_post{
     background-color: #fff;
     min-height: 235px;
-    border: 1px solid lightgrey;
+/*     border: 1px solid lightgrey; */
     border-radius: 5px;
     position: relative;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
 }
 div.wanted_post{
-    margin: 0 20px;
+    padding: 0 20px;
     font-size: 18px; 
     color: lightslategray;
+}
+textarea.my_text{
+	width: 100%; 
+	height: 50px;
 }
 span.nickname{
     display: inline-block;
@@ -182,11 +202,11 @@ button.wanted_post:hover{
 div.each_post{
     background-color: #fff;
     font-size: 0px;
-    border: 1px solid #fff;
+/*     border: 1px solid #fff; */
     border-radius: 5px;
     margin-top: 20px; 
     margin-bottom: 20px;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3)
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
 }
 div.post{
     display: flow-root; 
@@ -249,15 +269,12 @@ background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.
 /* ==========按讚留言分享========== */
 div.post_functions{
     /* border: 1px solid lightgray; */
-    display: inline-block;
-    width: 625px;
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
     text-align: center;
     font-size: 16px;
-}
-div.post_like{
-    /* border: 1px solid lightgray; */
-    float: left;
-    margin-left: 40px;
+    padding: 0 40px;
 }
 button.post_like_button{
     padding: 0; 
@@ -269,14 +286,6 @@ span.post_like_icon{
     font-size: 25px;
     color: lightgray;
 }
-span.post_like_count{
-    text-align: center;
-}
-div.post_message{
-    /* border: 1px solid lightgray; */
-    float: left;
-    margin-left: 230px;
-}
 button.post_message_button{
     padding: 0; 
     border: 0px; 
@@ -286,16 +295,8 @@ button.post_message_button{
 span.post_message_icon{
     font-size: 25px;
 }
-span.post_message_count{
-    text-align: center;
-}
-div.post_share{
-    /* border: 1px solid lightgray; */
-    float: right;
-    margin-right: 40px;
-}
 button.post_share_button{
-	padding: 0; 
+		padding: 0; 
     border: 0px; 
     background-color: transparent; 
     outline: none;
@@ -303,16 +304,12 @@ button.post_share_button{
 span.post_share_icon{
     font-size: 25px;
 }
-span.post_share_count{
-    display: inline-block;
-    text-align: center;
-}
 button.send_button{
     padding: 0; 
     border: 0px; 
     background-color: transparent; 
     outline: none;
-} 
+}
 /* ==========留言========== */
 div.message{
     border-top: 1px solid lightgray; 
@@ -323,7 +320,7 @@ div.message{
     font-size: 0px;
 }
 div.each_message{
-    border: 1px solid black;
+/*     border: 1px solid black; */
     display: inline-block; 
     width: 100%;
     font-size: 16px;
@@ -333,7 +330,7 @@ figure.message_figure{
     margin-bottom: 0px;
 }
 img.message_blogger_picture{
-    border: 1px solid lightgray;
+    border: 0.5px solid lightgray;
     width: 60px; 
     margin: 10px; 
     border-radius: 50%; 
@@ -355,8 +352,9 @@ div.message_content{
 /* ==========最新文章========== */
 div.new_post{
     background-color: #F9EACB;
-    border: 1px solid lightgray;
+    border: 1px solid #F9EACB;
     border-radius: 5px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3)
 }
 h4.new_post_title{
     color: #13406A;
@@ -366,8 +364,7 @@ h4.new_post_title{
 }
 div.each_new_post{
     background-color: #fff;
-    max-height: 84px;
-    border: 1px solid lightgray;
+    border: 1px solid #fff;
     border-radius: 5px;
     margin: 10px;
     padding: 5px 5px 5px 7px;
@@ -376,8 +373,9 @@ div.each_new_post{
 div.hot_post{
     background-color: #F9EACB;
     margin-top: 20px;
-    border: 1px solid lightgray;
+    border: 1px solid #F9EACB;
     border-radius: 5px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3)
 }
 h4.hot_post_title{
     color: #13406A;
@@ -387,8 +385,7 @@ h4.hot_post_title{
 }
 div.each_hot_post{
     background-color: #fff;
-    max-height: 84px;
-    border: 1px solid lightgray;
+    border: 1px solid #fff;
     border-radius: 5px;
     margin: 10px;
     padding: 5px 5px 5px 7px;

@@ -172,6 +172,11 @@ public class MemberService {
 		return members;
 	}
 	
+	public List<MemberVO> getAllBlogerInfo() {
+		List<MemberVO> members = dao.getAllBlogerInfo();
+		return members;
+	}
+	
 	public MemberVO getOne(String member_id) {
 		MemberVO memberVO = dao.findByPK(member_id);
 		return memberVO;
