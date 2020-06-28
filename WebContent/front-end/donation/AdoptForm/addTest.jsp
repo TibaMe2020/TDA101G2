@@ -99,20 +99,20 @@ body.background-white{
 							</div>
 							<div class="form-group">
 								<p class="p2">
-									想說的話:<input class="i2" type="TEXT" name="adopt_talk" size="45" /><span
-										class="error">${errors.adopt_talk}</span>
+									付款人姓名:<input class="i2" type="TEXT" name="payadopt_person" size="45" /><span
+										class="error">${errors.payadopt_person}</span>
 								</p>
 							</div>
 							<div class="form-group">
 								<p class="p3">
-									付款人姓名:<input class="i3" type="TEXT" name="payadopt_person"
-										size="45" /><span class="error">${errors.payadopt_person}</span>
+									聯絡電話:<input class="i3" type="TEXT" name="adopt_phone_num"
+										size="45" /><span class="error">${errors.adopt_phone_num}</span>
 								</p>
 							</div>
 							<div class="form-group">
 								<p class="p4">
-									聯絡電話:<input class="i4" type="TEXT" name="adopt_phone_num"
-										size="45" /><span class="error">${errors.adopt_phone_num}</span>
+									電子信箱:<input class="i4" type="TEXT" name="adopt_email"
+										size="45" /><span class="error">${errors.adopt_email}</span>
 								</p>
 							</div>
 							<div class="form-group">
@@ -123,26 +123,29 @@ body.background-white{
 										style="margin-left: 90px" />第三方支付<span class="error">${errors.adopt_payment}</span>
 								</p>
 							</div>
-							<div class="form-group">
-								<p class="p6">
-									是否需要實體證書:<input type="radio" name="adopt_certificate" value="是"
-										size="45" style="margin-left: 26px;" />是<input type="radio"
-										name="adopt_certificate" value="否" size="45"
-										style="margin-left: 123px" />否
-								</p>
-								<span class="error">${errors.adopt_certificate}</span>
-							</div>
+							
 							<div class="form-group">
 								<p class="p7">
-									電子信箱:<input class="i5" type="TEXT" name="adopt_email" size="45" /><span
-										class="error">${errors.adopt_email}</span>
+									住家地址:<input class="i5" type="TEXT" name="address" size="45" /><span
+										class="error">${errors.address}</span>
 								</p>
 							</div>
 							<div class="form-group">
 								<p class="p8">
-									住家地址:<input class="i6" type="TEXT" name="address" size="45" /><span
+									想說的話:<textarea class="i6" name="adopt_talk"></textarea><span
 										class="error">${errors.address}</span>
 								</p>
+							</div>
+							
+							<div class="form-group">
+								<p class="p6">
+<!-- 									是否需要實體證書:<input type="radio" name="adopt_certificate" value="是" -->
+<!-- 										size="45" style="margin-left: 26px;" />是<input type="radio" -->
+<!-- 										name="adopt_certificate" value="否" size="45" -->
+<!-- 										style="margin-left: 123px" />否 -->
+								<input class="i5" type="hidden" value="是" name="adopt_certificate" size="45" />
+								</p>
+								<span class="error">${errors.adopt_certificate}</span>
 							</div>
 							<input type="hidden" name="action" value="insert"> <input class="p9" type="submit" value="送出新增">
 						</div>
