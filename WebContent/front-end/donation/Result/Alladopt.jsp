@@ -397,7 +397,7 @@ a.btn.card_btn {
             <div class="card_content">
               <h2 class="card_title">${adopt_infoVO.adopt_name}</h2>
           	  <p class="card_text">${adopt_infoVO.adopt_description}</p>
-              <a class="btn card_btn" href='<%=request.getContextPath()%>/front-end/donation/AdoptForm/adoptForm2.jsp?adopt_id=${adopt_infoVO.adopt_id}'>我要捐款</a>
+              <a class="btn card_btn" href='<%=request.getContextPath()%>/front-end/donation/AdoptForm/adoptForm.jsp?adopt_id=${adopt_infoVO.adopt_id}'>我要認養</a>
             
             </div>
           </div>

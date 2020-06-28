@@ -208,8 +208,67 @@
       border: 0px solid #fff
   }
 
+  </style>
+  <style>
+    .column {
+    	margin: 15px 15px 0;
+    	padding: 0;
+    }
+    .column:last-child {
+    	padding-bottom: 60px;
+    }
+    .column::after {
+    	content: '';
+    	clear: both;
+    	display: block;
+    }
+    .column div {
+    	position: relative;
+    	float: left;
+    	 width: 100%;
+    	margin: 0 0 0 25px;
+    	padding: 0;
+    }
+    .column div:first-child {
+    	margin-left: 0;
+    }
+    .column div span {
+    	position: absolute;
+    	bottom: -20px;
+    	left: 0;
+    	z-index: -1;
+    	display: block;
+ width: 100%;
+     	margin: 0;
+    	padding: 0;
+    	color: #444;
+    	font-size: 18px;
+    	text-decoration: none;
+    	text-align: center;
+    	-webkit-transition: .3s ease-in-out;
+    	transition: .3s ease-in-out;
+    	opacity: 0;
+    }
+     figure { 
+     	width:100%;
+    	overflow: hidden; 
+     } 
+    figure:hover+span {
+    	bottom: -36px;
+    	opacity: 1;
+    }
+  .hover08 figure img {
+    	-webkit-filter: grayscale(100%);
+    	filter: grayscale(100%);
+    	-webkit-transition: .3s ease-in-out;
+    	transition: .3s ease-in-out;
+    }
+    .hover08 figure:hover img {
+    	-webkit-filter: grayscale(0);
+    	filter: grayscale(0);
+    }
 
-
+  
   </style>
 <body>
   <header>
@@ -251,28 +310,44 @@
         <!-- <h2>選單</h2> -->
 <ul>
   <li>
-    <img src="https://cdn2.iconfinder.com/data/icons/veterinary-line/96/pet_adoption_animal_shelter-512.png">
-    <a href="<%=request.getContextPath()%>/front-end/donation/Adopt/Alladopt.jsp"><p href="#">動物認養</p></a>
-    <span class="rating"></span>
+  <div class="hover08 column">
+  <div>
+    <a href="<%=request.getContextPath()%>/front-end/donation/Adopt/Alladopt.jsp"><figure><img src="<%=request.getContextPath()%>/resources/images/petpic1.png"/></figure></a>
+    <p href="#">動物認養</p>
+  </div>
+  </div>
   </li>
   <li>
-    <img src="https://cdn2.iconfinder.com/data/icons/veterinary-line/96/animal_shelter_pet_adoption-512.png">
-    <a href="<%=request.getContextPath()%>/front-end/donation/Npo/Allnpo.jsp"><p href="#">公益團體捐款</p></a>
-    <span class="rating"></span>
+<!--     <img src="https://cdn2.iconfinder.com/data/icons/veterinary-line/96/animal_shelter_pet_adoption-512.png"> -->
+<%--     <a href="<%=request.getContextPath()%>/front-end/donation/Npo/Allnpo.jsp"><p href="#">公益團體捐款</p></a> --%>
+<!--     <span class="rating"></span> -->
+  <div class="hover08 column">   
+<div>
+    <a href="<%=request.getContextPath()%>/front-end/donation/Npo/Allnpo.jsp"><figure><img src="<%=request.getContextPath()%>/resources/images/petpic2.png"/></figure></a>
+    <p href="#">公益團體捐款</p>
+  </div>
+  </div>
   </li>
+   <li>
+  <div class="hover08 column">
+  <div>
+    <a href="<%=request.getContextPath()%>/front-end/donation/DonationForm/selectdata.jsp"><figure><img src="<%=request.getContextPath()%>/resources/images/petpic3.png"/></figure></a>
+    <p href="#">捐款查詢</p>
+  </div>
+  </div>
+  </li> 
+ <li>
+  <div class="hover08 column">
+  <div>
+    <a href="<%=request.getContextPath()%>/front-end/donation/Result/lineTest.jsp"><figure><img src="<%=request.getContextPath()%>/resources/images/petpic4.png"/></figure></a>
+    <p href="#">成果發表</p>
+  </div>
+  </div>
+  </li> 
+
   <li>
-    <img src="https://cdn3.iconfinder.com/data/icons/leto-crowdfunding-donation/64/__box_contribution_donation_charity_donating-512.png">
-    <a href="<%=request.getContextPath()%>/front-end/donation/DonationForm/selectdata.jsp"><p href="#">捐款查詢</p></a>
-    <span class="rating"></span>
-  </li>
-  <li>
-    <img src="https://cdn0.iconfinder.com/data/icons/simplicity/512/news_article_blog-512.png">
-    <a href="<%=request.getContextPath()%>/front-end/donation/Result/testTest.jsp"><p href="#">成果發表</p></a>
-    <span class="rating"></span>
-  </li>
-  <li>
-    <img src="https://cdn3.iconfinder.com/data/icons/contact-us-set-5/256/29-512.png">
-    <a href="<%=request.getContextPath()%>/front-end/donation/myMain/question.jsp"><p href="#">Q&A中心</p></a>
+   <a href="<%=request.getContextPath()%>/front-end/donation/myMain/question.jsp"> <img src="https://cdn3.iconfinder.com/data/icons/contact-us-set-5/256/29-512.png"></a>
+   <a href="<%=request.getContextPath()%>/front-end/donation/myMain/question.jsp"><p href="#">Q&A中心</p></a>
     <span class="rating"></span>
   </li>
 </ul>
@@ -285,27 +360,28 @@
         <h4>----------------------------------------------------------------------------------------------------------------------</h4>
 
         <ul>
-          <li>
-            <img src="https://pic.pimg.tw/livilife16888/1339552981-308415971.jpg">
-            <a href="#">阿布</a><br>
-            <br><a>昨天車禍急需治療</a>
-            <!-- <span class="rating"></span> -->
-          </li>
-          <li>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTk0WpEtTdd5dAyPPNFlqK2Jctd1DR-nFFWTw&usqp=CAU">
-            <a href="#">大布</a><br>
-            <br><a>昨天車禍急需治療</a>
-          </li>
-          <li>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTNRAfZUzXcryadpzYPjv9Qsb2OOCdBU_vt8tyZeWwtZ_Y-cN29&usqp=CAU">
-            <a href="#">中布</a><br>
-            <br><a>昨天車禍急需治療</a>
-          </li>
-          <li>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR1MdWY4vS_pTEAkY2Cr73eGthcRWe5UIw5SA&usqp=CAU">
-            <a href="#">小小布</a><br>
-            <br><a>昨天車禍急需治療</a>
-          </li>
+<!--           <li> -->
+<!--             <img src="https://pic.pimg.tw/livilife16888/1339552981-308415971.jpg"> -->
+<!--             <a href="#">阿布</a><br> -->
+<!--             <br><a>昨天車禍急需治療</a> -->
+<!--             <span class="rating"></span> -->
+<!--           </li> -->
+<!--           <li> -->
+<!--             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTk0WpEtTdd5dAyPPNFlqK2Jctd1DR-nFFWTw&usqp=CAU"> -->
+<!--             <a href="#">大布</a><br> -->
+<!--             <br><a>昨天車禍急需治療</a> -->
+<!--           </li> -->
+<!--           <li> -->
+<!--             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTNRAfZUzXcryadpzYPjv9Qsb2OOCdBU_vt8tyZeWwtZ_Y-cN29&usqp=CAU"> -->
+<!--             <a href="#">中布</a><br> -->
+<!--             <br><a>昨天車禍急需治療</a> -->
+<!--           </li> -->
+<!--           <li> -->
+<!--             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR1MdWY4vS_pTEAkY2Cr73eGthcRWe5UIw5SA&usqp=CAU"> -->
+<!--             <a href="#">小小布</a><br> -->
+<!--             <br><a>昨天車禍急需治療</a> -->
+<!--           </li> -->
+	
         </ul>
       </section>
       </div>

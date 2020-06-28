@@ -412,7 +412,7 @@ Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");
               <h3 class="card_money">目前獲捐總額:${npo_infoVO.total}</h3>
               <p class="card_text">${npo_infoVO.npo_description}</p>
 <%--               <a class="btn card_btn" href='<%=request.getContextPath()%>/front-end/donation/DonationForm/addDonationForm.jsp'>我要捐款</a> --%>
-              <a class="btn card_btn" href='<%=request.getContextPath()%>/front-end/donation/DonationForm/addTest.jsp?npo_id=${npo_infoVO.npo_id}'>我要捐款</a>
+              <a class="btn card_btn" href='<%=request.getContextPath()%>/front-end/donation/DonationForm/donationForm.jsp?npo_id=${npo_infoVO.npo_id}'>我要捐款</a>
             </div>
           </div>
         </li>

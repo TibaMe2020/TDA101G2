@@ -106,11 +106,7 @@ public class AdoptFormServlet extends HttpServlet {
 					 errors.put("adopt_person","只能是中文,且長度必須在2到20之間");
 				 }
 				 String adopt_talk = req.getParameter("adopt_talk").trim();
-				 String adopt_talkReg = "^[(\u4e00-\u9fa5)]{2,20}$";
 				
-				 if(adopt_talk ==null || adopt_talk.trim().length()==0) {
-						errors.put("adopt_talk","請填寫要對寵物說的話");
-				 }
 				 String payadopt_person = req.getParameter("payadopt_person");
 				 String payadopt_personReg ="^[(\u4e00-\u9fa5)]{2,20}$";
 				 if(payadopt_person == null || adopt_person.trim().length() == 0) {
@@ -139,15 +135,16 @@ public class AdoptFormServlet extends HttpServlet {
 					 adopt_payment = "";
 				 }
 				 
-				 String adopt_certificate;
-				 String[] parameterValue = req.getParameterValues("adopt_certificate");
-				if(parameterValue!=null) {
-					 adopt_certificate = parameterValue[0].toString();
-					 System.out.println(adopt_certificate);
-				 }else {
-					 errors.put("adopt_certificate","請選擇是否需要實體證書");
-					 adopt_certificate = "";
-				 }
+				 String adopt_certificate = req.getParameter("adopt_certificate").trim();
+
+//				 String[] parameterValue = req.getParameterValues("adopt_certificate");
+//				if(parameterValue!=null) {
+//					 adopt_certificate = parameterValue[0].toString();
+//					 System.out.println(adopt_certificate);
+//				 }else {
+//					 errors.put("adopt_certificate","請選擇是否需要實體證書");
+//					 adopt_certificate = "";
+//				 }
 				 
 
 			 
@@ -192,7 +189,7 @@ public class AdoptFormServlet extends HttpServlet {
 							System.out.println("adopt_form_infoVO");
 
 							RequestDispatcher failureView = req
-									.getRequestDispatcher("/front-end/donation/AdoptForm/addTest.jsp");
+									.getRequestDispatcher("/front-end/donation/AdoptForm/adoptForm2.jsp");
 							failureView.forward(req, res);
 							return;
 						}
@@ -206,7 +203,7 @@ public class AdoptFormServlet extends HttpServlet {
 				 			}catch(Exception e) {
 				 				errors.put("errors", e.getMessage());
 				 				RequestDispatcher failureView = req
-				 						.getRequestDispatcher("/front-end/donation/AdoptForm/addTest.jsp");
+				 						.getRequestDispatcher("/front-end/donation/AdoptForm/adoptForm2.jsp");
 				 				failureView.forward(req, res);
 				 			}
 			 			}
