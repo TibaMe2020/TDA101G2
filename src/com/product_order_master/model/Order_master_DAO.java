@@ -33,7 +33,7 @@ public class Order_master_DAO implements Order_master_DAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO product_order_master (member_id, product_order_state,payment, develivery_location) VALUES(?,?,?,?)";
 	private static final String GET_ONE_STMT = "SELECT product_order_id, member_id, product_order_state, payment, develivery_location, create_time FROM product_order_master WHERE product_order_id=?";
 	private static final String GET_ALL_STMT = "SELECT product_order_id, member_id, product_order_state, payment, develivery_location, create_time FROM product_order_master ORDER BY product_order_id";
-	private static final String GET_ONE_STMT_MEMBER_ID = "SELECT * FROM product_order_master WHERE member_id=?";
+	private static final String GET_ONE_STMT_MEMBER_ID = "SELECT * FROM product_order_master WHERE member_id=? ORDER BY CREATE_TIME DESC";
 	private static final String GET_Detail_ByMasterno_STMT ="SELECT product_order_detail_id, product_order_id, product_version_id, quantity FROM product_order_detail WHERE product_order_id=? ORDER BY product_order_detail_id";
 	private static final String UPDATE_STATE = "update product_order_master set product_order_state = ? where product_order_id = ?";
 	

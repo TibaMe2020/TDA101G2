@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +20,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.notification.model.NotiService;
 import com.notification.model.NotiVO;
+import com.product.model.Product_Service;
+import com.product.model.Product_VO;
 import com.product_order_detail.model.Order_detail_VO;
 import com.product_order_master.model.Order_master_Service;
 import com.product_order_master.model.Order_master_VO;
@@ -52,12 +55,32 @@ public class Order_masterServlet extends HttpServlet {
 				String json = req.getParameter("json");
 				Gson gson = new Gson();
 				Order_master_VO order = gson.fromJson(json, Order_master_VO.class);
-				System.out.println(order);
-
 				/*************************** 2.開始修改資料 *****************************************/
 				Order_master_Service order_master_Svc = new Order_master_Service();
+				//D以下將訂單拆給不同的賣家
+				Product_Service pSvc = new Product_Service();
 				List<Order_detail_VO> detail_list = order.getDetail_list();
-				order_master_Svc.addOrder_master(order, detail_list);
+				for (Order_detail_VO od : detail_list) {
+					System.out.println(od);
+					Product_VO pVO = pSvc.getOneProduct(od.getProduct_id());
+					String seller_id = pVO.getMember_id();
+					System.out.println(seller_id);
+					od.setSeller_id(seller_id);
+				}
+				
+				List<Order_master_VO> orders = (new ArrayList<List<Order_detail_VO>>(
+						detail_list
+						.stream()
+						.collect(Collectors.groupingBy(vo -> vo.getSeller_id()))
+						.values())
+						.stream()
+						.map(o -> gson.fromJson(json, Order_master_VO.class).setDetails(o)))
+						.collect(Collectors.toList());
+						
+				for(Order_master_VO o : orders) {
+					List<Order_detail_VO> details= o.getDetail_list();
+					order_master_Svc.addOrder_master(o, details);
+				}
 				
 				out.print("success");
 				

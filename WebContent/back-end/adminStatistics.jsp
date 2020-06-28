@@ -51,6 +51,7 @@
 	Product_Service pdSvc = new Product_Service(); 
 	Map<String, String> pmap = pdSvc.getByClass();
 	pageContext.setAttribute("salesTotal", pmap);
+	System.out.println(pmap);
 	
 	//D領養動物數量
 	Adopt_form_infoService afSvc = new Adopt_form_infoService();

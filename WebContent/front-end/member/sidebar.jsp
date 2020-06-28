@@ -7,6 +7,7 @@
 			style="background:url('<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}');
             background-position: center;background-size: 100px;"></div>
 	</div>
+	<div>${memberVO.email }</div>
 	<div class="sidebar-heading">一般會員</div>
 	
 	<c:set var="member_state" value="${memberVO.member_state}" />
