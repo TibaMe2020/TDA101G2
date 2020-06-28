@@ -120,7 +120,9 @@
 																						<i class="fas fa-map-marker-alt" id="marker"></i>
 																				</div>
 																				<div class="location">
-																						<p>中和門市 台北市中正區濟南路一段321號</p>
+																						
+																						<% %>
+																						
 																				</div>
 																		</div>
 																</div>
