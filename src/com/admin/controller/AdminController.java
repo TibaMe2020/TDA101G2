@@ -36,6 +36,7 @@ public class AdminController extends HttpServlet {
 		if("login".equals(action)) {
 			Map<String, String> errorMsgs = new HashMap<>();			
 			req.setAttribute("errorMsgs", errorMsgs);
+			
 			try {
 				
 				String admin_account = req.getParameter("admin_account").trim();
@@ -74,6 +75,8 @@ public class AdminController extends HttpServlet {
 //				view.forward(req, res);
 //				return;
 				//D成功的話避免重新送出表單
+//				res.sendRedirect(req.getContextPath() + "/back-end/adminStatistics.jsp");
+//				res.sendRedirect((String) session.getAttribute("location"));
 				res.sendRedirect(req.getContextPath() + "/back-end/adminStatistics.jsp");
 				return;
 				

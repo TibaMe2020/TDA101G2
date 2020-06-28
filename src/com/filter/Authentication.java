@@ -18,7 +18,12 @@ import com.member.model.MemberVO;
 
 
 @WebFilter(
-    urlPatterns={"/front-end/blog/*"}, 
+    urlPatterns={"/front-end/blog/*", "/front-end/member/donationRecord.jsp", "/front-end/member/notiOverview.jsp"
+    		, "/front-end/member/orderList.jsp", "/front-end/member/productList.jsp"
+    		, "/front-end/member/productScore.jsp", "/front-end/member/serviceList.jsp"
+    		, "/front-end/member/shoppingList.jsp", "/front-end/member/submitApplication.jsp"
+    		, "/front-end/member/updateInfo.jsp", "/front-end/product/ShoppingCart.jsp"
+    		, "/front-end/member/ShoppingCartAccount.jsp"}, 
     dispatcherTypes={
         DispatcherType.FORWARD, DispatcherType.INCLUDE, 
         DispatcherType.REQUEST, DispatcherType.ERROR, DispatcherType.ASYNC

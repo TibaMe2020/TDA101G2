@@ -278,5 +278,18 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/product/js/Product.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/product/js/LightBoxShow.js"></script>
+	<script>
+	
+	<%
+		String curPage = request.getRequestURI()+"?"+request.getQueryString();
+	%>
+	$("#shoppingcart").on("click", function () {
+		<% 
+			session.setAttribute("location", curPage);
+ 		%> 
+	});
+	
+	
+	</script>
 </body>
 </html>

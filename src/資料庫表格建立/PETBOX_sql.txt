@@ -1008,6 +1008,50 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00006',
+    '鮮肉住家',
+    '住家',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    product_class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00003',
+    '糧食倉庫',
+    '住家',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    1
+);
+
+INSERT INTO product (
+    member_id,
+    name,
+    product_class,
+    description,
+    image1,
+    image2,
+    image3,
+    image4,
+    product_state
+) VALUES (
+    'MB00006',
     '寵物防寒羽絨衣',
     '服飾',
     NULL,

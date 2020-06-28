@@ -10,7 +10,7 @@
 }
 
 /* The Modal (background) */
-.modal {
+#myModal.modal {
     display: none;
     /* Hidden by default */
     position: fixed;
@@ -35,7 +35,7 @@
 }
 
 /* Modal Content (Image) */
-.modal-content {
+#myModal .modal-content {
     margin: auto;
     display: block;
     width: auto;
@@ -43,7 +43,7 @@
 }
 
 /* Caption of Modal Image (Image Text) - Same Width as the Image */
-#caption {
+#myModal #caption {
     margin: auto;
     display: block;
     width: 80%;
@@ -55,7 +55,7 @@
 }
 
 /* Add Animation - Zoom in the Modal */
-.modal-content,
+#myModal .modal-content,
 #caption {
     animation-name: zoom;
     animation-duration: 0.6s;

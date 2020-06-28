@@ -115,57 +115,61 @@ $("#shoppingcart").on("click", function () {
 	    let image = $("#FirstProductImage").attr("src");
 	    let price = parseInt($("#FirstProductPrice").html());
 	    let member_id = $('#buy').attr("data-memberId");
+	    
 	    console.log(member_id);
+	    if(member_id !== "") {
+		    let product_Object = {
+		    	
+		    	member_id: member_id,	
+		    	product_id:product_id,
+		    	product_version_id:product_version_id,
+		    	version_name:version_name,
+		        product_image: image,
+		        product_name: name,    
+		        product_price: price,
+		        product_count: count,
+		    }
 	    
-	    let product_Object = {
-	    	
-	    	member_id: member_id,	
-	    	product_id:product_id,
-	    	product_version_id:product_version_id,
-	    	version_name:version_name,
-	        product_image: image,
-	        product_name: name,    
-	        product_price: price,
-	        product_count: count,
-	    }
-	    
 
-	    if (localStorage.getItem("CartList") !== null) {
-
-	        let CartList = JSON.parse(localStorage.getItem("CartList"));
-	        let IsProductSame = false;
-	        CartList.CartList_Array.forEach(function (Item, index) {
-
-	            if (Item.product_version_id == product_Object.product_version_id) {
-	                Item.product_count = parseInt(count) + parseInt(Item.product_count)
-	                IsProductSame = true;
-
-	            }
-	        })
-
-	        if (IsProductSame != true) {
-	            CartList.CartList_Array.push(product_Object);
-	        }
-
-	        localStorage.setItem("CartList", JSON.stringify(CartList));
-
-	    } else {
-
-	        let Array = [];
-	        Array.push(product_Object);
-	        let json = JSON.stringify({
-	            CartList_Array: Array
-	        })
-	        localStorage.setItem("CartList", json);
-	    }
-
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: '已經加入購物車',
-        showConfirmButton: false,
-        timer: 1500
-    });
+		    if (localStorage.getItem("CartList") !== null) {
+	
+		        let CartList = JSON.parse(localStorage.getItem("CartList"));
+		        let IsProductSame = false;
+		        CartList.CartList_Array.forEach(function (Item, index) {
+	
+		            if (Item.product_version_id == product_Object.product_version_id) {
+		                Item.product_count = parseInt(count) + parseInt(Item.product_count)
+		                IsProductSame = true;
+	
+		            }
+		        })
+	
+		        if (IsProductSame != true) {
+		            CartList.CartList_Array.push(product_Object);
+		        }
+	
+		        localStorage.setItem("CartList", JSON.stringify(CartList));
+	
+		    } else {
+	
+		        let Array = [];
+		        Array.push(product_Object);
+		        let json = JSON.stringify({
+		            CartList_Array: Array
+		        })
+		        localStorage.setItem("CartList", json);
+		    }
+	
+	    Swal.fire({
+	        position: 'center',
+	        icon: 'success',
+	        title: '已經加入購物車',
+	        showConfirmButton: false,
+	        timer: 1500
+	    });
+	   } else {
+		   $('#login-modal').click();
+	   }
 
 });
 
@@ -182,48 +186,50 @@ $("#buy").on("click", function () {
     let image = $("#FirstProductImage").attr("src");
     let price = parseInt($("#FirstProductPrice").html());
     let member_id = $('#buy').attr("data-memberId");
+    
     console.log(member_id);
+    if(member_id !== "") {
+	    let product_Object = {
+	    	
+	    	member_id: member_id,	
+	    	product_id:product_id,
+	    	product_version_id:product_version_id,
+	    	version_name:version_name,
+	        product_image: image,
+	        product_name: name,    
+	        product_price: price,
+	        product_count: count,
+	    }
     
-    let product_Object = {
-    	
-    	member_id: member_id,	
-    	product_id:product_id,
-    	product_version_id:product_version_id,
-    	version_name:version_name,
-        product_image: image,
-        product_name: name,    
-        product_price: price,
-        product_count: count,
-    }
-    
 
-    if (localStorage.getItem("CartList") !== null) {
-
-        let CartList = JSON.parse(localStorage.getItem("CartList"));
-        let IsProductSame = false;
-        CartList.CartList_Array.forEach(function (Item, index) {
-
-            if (Item.product_version_id == product_Object.product_version_id) {
-                Item.product_count = parseInt(count) + parseInt(Item.product_count)
-                IsProductSame = true;
-
-            }
-        })
-
-        if (IsProductSame != true) {
-            CartList.CartList_Array.push(product_Object);
-        }
-
-        localStorage.setItem("CartList", JSON.stringify(CartList));
-
-    } else {
-
-        let Array = [];
-        Array.push(product_Object);
-        let json = JSON.stringify({
-            CartList_Array: Array
-        })
-        localStorage.setItem("CartList", json);
+	    if (localStorage.getItem("CartList") !== null) {
+	
+	        let CartList = JSON.parse(localStorage.getItem("CartList"));
+	        let IsProductSame = false;
+	        CartList.CartList_Array.forEach(function (Item, index) {
+	
+	            if (Item.product_version_id == product_Object.product_version_id) {
+	                Item.product_count = parseInt(count) + parseInt(Item.product_count)
+	                IsProductSame = true;
+	
+	            }
+	        })
+	
+	        if (IsProductSame != true) {
+	            CartList.CartList_Array.push(product_Object);
+	        }
+	
+	        localStorage.setItem("CartList", JSON.stringify(CartList));
+	
+	    } else {
+	
+	        let Array = [];
+	        Array.push(product_Object);
+	        let json = JSON.stringify({
+	            CartList_Array: Array
+	        })
+	        localStorage.setItem("CartList", json);
+	    }
     }
 
 });

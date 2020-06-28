@@ -107,6 +107,7 @@ public class MemberController extends HttpServlet {
 				//D成功的話避免重新送出表單
 //				res.sendRedirect(req.getContextPath() + successPath);
 				res.sendRedirect(req.getContextPath() + url);
+				session.removeAttribute("location");
 //				fw.forward(successPath);
 				return;
 
@@ -238,7 +239,7 @@ public class MemberController extends HttpServlet {
 				session.invalidate();
 				//D成功的話避免重新送出表單
 //				res.sendRedirect(req.getContextPath() + successPath);
-				res.sendRedirect(req.getContextPath() + url);
+				res.sendRedirect(req.getContextPath() + "/index.jsp");
 //				fw.forward(successPath);
 				return;
 
@@ -251,8 +252,8 @@ public class MemberController extends HttpServlet {
 		}
 		
 		if("activate_account".equals(action)) {
-			String failurePath ="/front-end/member/login.jsp";
-			String successPath = "/front-end/member/login.jsp";
+			String failurePath ="/index.jsp";
+			String successPath = "/index.jsp";
 //			���董����擐��
 //			String failurePath ="/front-end/index.jsp";
 //			String successPath = "/front-end/index.jsp";
@@ -636,16 +637,18 @@ public class MemberController extends HttpServlet {
 					fw.forward(failurePath);
 					return;
 				}
-				
+				String absoluteURL = req.getScheme()+ "://" + req.getServerName() + ":" +
+				req.getServerPort();
 				String content = "<h1>Welcome to Petbox</h1><br><p style='font-size:16px;'>Please enter this link to change your password.</p>" + 
-							"<a href='http://localhost:8081/"+req.getContextPath()+"/front-end/member/changePassword.jsp?member_id=" +
+							"<a href='" + absoluteURL +req.getContextPath()+"/front-end/member/changePassword.jsp?member_id=" +
 							memberVO.getMember_id() + "' style='background-color:#13406A; padding:10px 25px; " + 
 									"border-radius: 25px; color: #ffffff; text-decoration: none; display: inline-block; font-size: 18px; " + 
 									"font-weight: bold;'>Change Password</a>";
 				SendEmail se = new SendEmail();
 				se.sendEmail(email, content);
 				//D成功的話避免重新送出表單
-				res.sendRedirect(req.getContextPath() + successPath);
+				res.sendRedirect(req.getScheme()+ "://" + req.getServerName() + ":" +
+						req.getServerPort() + req.getContextPath() + successPath);
 //				fw.forward(successPath);
 				return;
 

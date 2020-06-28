@@ -233,7 +233,7 @@
 													name="product_type" id="product_type" class="form-control"
 													required>
 													<option value="">選項...</option>
-													<option value="食物">食品</option>
+													<option value="食品">食品</option>
 													<option value="服飾">服飾</option>
 													<option value="住家">住家</option>
 													<option value="用品">用品</option>
@@ -360,7 +360,7 @@
 													name="product_type" id="product_type_update"
 													class="form-control" required>
 													<option value="">選項...</option>
-													<option value="食物">食品</option>
+													<option value="食品">食品</option>
 													<option value="服飾">服飾</option>
 													<option value="住家">住家</option>
 													<option value="用品">用品</option>

@@ -51,7 +51,10 @@
 	Product_Service pdSvc = new Product_Service(); 
 	Map<String, String> pmap = pdSvc.getByClass();
 	pageContext.setAttribute("salesTotal", pmap);
-	System.out.println(pmap);
+	System.out.println(pmap.get("食品"));
+	System.out.println(pmap.get("用品"));
+	System.out.println(pmap.get("服飾"));
+	
 	
 	//D領養動物數量
 	Adopt_form_infoService afSvc = new Adopt_form_infoService();
@@ -172,8 +175,8 @@
 				data : [ {
 					type : "doughnut",
 					dataPoints : [ {
-						label : "食物",
-						y : '${salesTotal.get("食物")}'
+						label : "食品",
+						y : '${salesTotal.get("食品")}'
 					}, {
 						label : "服飾",
 						y : '${salesTotal.get("服飾")}'
@@ -183,9 +186,6 @@
 					}, {
 						label : "用品",
 						y : '${salesTotal.get("用品")}'
-					}, {
-						label : "玩具",
-						y : '${salesTotal.get("玩具")}'
 					} ]
 				} ]
 			});

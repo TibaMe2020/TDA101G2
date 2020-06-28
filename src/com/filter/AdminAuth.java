@@ -18,7 +18,10 @@ import com.admin.model.AdminVO;
 
 
 @WebFilter(
-    urlPatterns={}, 
+    urlPatterns={"/back-end/adminManagement.jsp", "/back-end/adminStatistics.jsp",
+    		"/back-end/donationTest.jsp", "/back-end/adoptTest.jsp",
+    		"/back-end/resultTest.jsp","/back-end/sellerVerification.jsp",
+    		"/back-end/userManagement.jsp","/back-end/store/*"}, 
     dispatcherTypes={
         DispatcherType.FORWARD, DispatcherType.INCLUDE, 
         DispatcherType.REQUEST, DispatcherType.ERROR, DispatcherType.ASYNC
