@@ -240,7 +240,8 @@
                             ...
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">好的</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                id="reserve_ok">好的</button>
                         </div>
                     </div>
                 </div>

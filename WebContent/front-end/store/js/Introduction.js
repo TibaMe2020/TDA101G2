@@ -56,7 +56,7 @@ window.onload = (event) => {
                 $("#hostelTotal").addClass("d-none");
                 break;
             case 'hospital':
-                text.text("寵物醫院");
+                text.text("寵物診所");
                 $("#storeType1").removeClass("d-none");
                 $("#storeType2").addClass("d-none");
                 $("#storeType2-2").addClass("d-none");
@@ -740,3 +740,32 @@ console.log(uuidv4());
 // console.log(encodedString);
 // var decodedString = atob(encodedString);
 // console.log(decodedString);
+
+// 預約完成頁面跳轉
+$("#reserve_ok").click(function () {
+    console.log(55555)
+    let githubURL = new URL(window.location.href);
+    let params = githubURL.searchParams;
+    let title = $("#staticBackdropLabel").text();
+    if (title == "預約成功") {
+        for (let pair of params.entries()) {
+            switch (pair[1]) {
+                case 'restaurant':
+                    window.location.assign("Introduction.jsp?type=restaurant");
+                    break;
+                case 'hostel':
+                    window.location.assign("Introduction.jsp?type=hostel");
+                    break;
+                case 'grooming':
+                    window.location.assign("Introduction.jsp?type=grooming");
+                    break;
+                case 'school':
+                    window.location.assign("Introduction.jsp?type=school");
+                    break;
+                case 'hospital':
+                    window.location.assign("Introduction.jsp?type=hospital");
+                    break;
+            }
+        }
+    }
+})
