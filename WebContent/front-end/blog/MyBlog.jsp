@@ -16,7 +16,11 @@
 <body class="body">
 <%@ include file="/front-end/member/header.jsp"%>
 <%
-
+	//分享連結
+	String absoluteURL = request.getScheme()+ "://" + request.getServerName() + ":" +
+		request.getServerPort();
+	pageContext.setAttribute("absoURL", absoluteURL);
+	 	
 	PostService postService = new PostService();	
 	List<PostVO> postList = postService.getByMemberId(member_id);
 	pageContext.setAttribute("postList", postList);
@@ -45,6 +49,7 @@
    postContents2.add(postContent);
   }
   pageContext.setAttribute("postContents2", postContents2); 
+
 %>
 	<div class="container">
 		<div class="row cover" style="background-image: url('<%=request.getContextPath()%>/member/coverImage?member_id=${memberVO.member_id}');">
@@ -183,6 +188,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show01" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -196,6 +206,11 @@
 																	<input type="file" class="custom-file-input" id="inputGroupFile02" name="post_image2"> 
 																	<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
 																</div>
+															</div>
+														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show02" src="" style="width: 150px">
 															</div>
 														</td>
 													</tr>
@@ -213,6 +228,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show03" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -228,6 +248,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show04" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -241,6 +266,11 @@
 																	<input type="file" class="custom-file-input" id="inputGroupFile05" name="post_image5"> 
 																	<label class="custom-file-label" for="inputGroupFile05">Choose file</label>
 																</div>
+															</div>
+														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show05" src="" style="width: 150px">
 															</div>
 														</td>
 													</tr>													
@@ -289,7 +319,7 @@
 							</figure>
 						</a>
 						<span class="nickname">${member.nickname}</span>
-						<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg" id="${postVO.post_id}">
+						<button class="update_button" data-toggle="modal" data-target=".bd-example-modal-lg" id="${postVO.post_id}" data-class="${postVO.post_class}">
             	<span class="update_post_icon"> 	
 									<i id="edit" class="fas fa-edit"></i>
 							</span>
@@ -356,7 +386,8 @@
 						</div>
 						
 						<div class="post_share">
-							<button class="post_share_button" data-toggle="tooltip" title="copy" data-placement="right" data-src="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}">
+							<button class="post_share_button" data-toggle="tooltip" title="copy" data-placement="right" data-src="
+							<%=absoluteURL +request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}">
 								<span class="post_share_icon"> 
 									<i class="fas fa-share-square"></i>
 								</span>
@@ -424,6 +455,11 @@
 															</div>
 														</div>
 													</td>
+													<td>
+															<div class="image_preview">
+																<img id="show1" src="" style="width: 150px">
+															</div>
+													</td>
 												</tr>
 												<tr>
 													<td class="input">
@@ -438,6 +474,11 @@
 																<label class="custom-file-label" for="inputGroupFile2">Choose file</label>
 															</div>
 														</div>
+													</td>
+													<td>
+															<div class="image_preview">
+																<img id="show2" src="" style="width: 150px">
+															</div>
 													</td>
 												</tr>
 												<tr>
@@ -454,6 +495,11 @@
 															</div>
 														</div>
 													</td>
+													<td>
+															<div class="image_preview">
+																<img id="show3" src="" style="width: 150px">
+															</div>
+													</td>
 												</tr>
 												<tr>
 													<td class="input">
@@ -469,6 +515,11 @@
 															</div>
 														</div>
 													</td>
+													<td>
+															<div class="image_preview">
+																<img id="show4" src="" style="width: 150px">
+															</div>
+													</td>
 												</tr>
 												<tr>
 													<td class="input">
@@ -483,6 +534,11 @@
 																<label class="custom-file-label" for="inputGroupFile5">Choose file</label>
 															</div>
 														</div>
+													</td>
+													<td>
+															<div class="image_preview">
+																<img id="show5" src="" style="width: 150px">
+															</div>
 													</td>
 												</tr>													
 												<tr>
@@ -600,7 +656,7 @@
 										if("${member.member_id}" == member_id){
 											let messagecontent = '<div class="each_message">' + 
 								        '<figure class="message_figure">' +
-									      '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
+									      '<img class="message_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${member.member_id}">' +
 									      '</figure>' +
 									      '<div class="message_person">' +
 									     	'<span class="message_nickname">' + "${member.nickname}" + '</span>' +
@@ -614,9 +670,9 @@
 										}
 									</c:forEach>	
 								});
-								let leavemessage = '<div class="each_message">'+
+								let leavemessage = '<div class="each_message">'+				
 									'<figure class="message_figure">'+
-								  '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">'+     
+								  '<img class="message_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">' +     
 									'</figure>'+      
 									'<div class="message_person">'+     
 									'<span class="message_nickname">' + nickname + '</span>'+     
@@ -636,7 +692,7 @@
 									'</div>'+         
 									'</div>';                     
 	        			it.parents("div.post_functions").next().append(leavemessage);
-	        			it.parents("div.post_functions").next().slideToggle(1000);
+	        			it.parents("div.post_functions").next().slideToggle(500);
 		      		}
 				});
 			});
@@ -645,6 +701,8 @@
 			$(document).on("click", "button.send_button", function(e){
 	    	let post_id = $(this).closest("div.each_post").attr("id");
 	    	let message_content = $(this).parents("div.message_content").find("#content").val();
+	    	let member_id = "${memberVO.member_id}";
+	    	console.log(member_id);
 	    	let it = $(this);
 	    	if(message_content.trim() != ""){
 	    		$.ajax({	
@@ -653,7 +711,7 @@
 	        		data: {                       
 	        	  	"action": "addMessage", 
 	        	    "post_id": post_id,
-	        	    "member_id": "MB00001",
+	        	    "member_id": member_id,
 	        	    "message_content": message_content, 
 	        	  },
 	        	  dataType: "json",
@@ -664,7 +722,7 @@
 	        	  	it.attr("value", "slide");
 	        	    let messagecontent = '<div class="each_message">' + 
 	    						'<figure class="message_figure">' +
-	    					  '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
+	    					  '<img class="message_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">' +
 	    					  '</figure>' +
 	    					  '<div class="message_person">' +
 	    					  '<span class="message_nickname">'+ $(data).attr("member_id") +'</span>' +
@@ -676,7 +734,7 @@
 	    					  '</div>';
 	    					it.parents("div.post_functions").next().prepend(messagecontent);
 	    					it.parents("div.message_content").find("#content").val("");
-	//     					it.parents("div.message").prev().find("button.post_message_button").click().click();
+	    					it.parents("div.message").prev().find("button.post_message_button").click().click();
 	        	  }
 					});
 	    	}
@@ -869,6 +927,17 @@
 				}
 			});
 			
+			//修改
+			$(document).on("click", ".update_button", function(){
+				let post_id = $(this).attr("id");
+				$("#pid").attr("value", post_id);
+				let post = $(this).closest('.each_post').find('p.post_content').text();
+				$('#update_content').text(post);
+				let post_class = $(this).attr("data-class");
+				$('#post_class1 option[value=' + post_class + ']').prop('selected',true);
+// 				$(modal).find('select option').first().prop("selected", true);
+			});
+			
 			//修改文章錯誤驗證
 			$(document).on("click", "#update_send", function(){
 				let update_content = $("#update_content").val().trim();
@@ -898,8 +967,9 @@
 			$(document).on("click", "#update_send", function(){
 				let update_content = $("#update_content").val().trim();
 				let post_id = $("button.update_button").attr("id");
+				console.log($("#pid").attr("value"));
 				if(update_content != "" && update_content.length >= 20){
-					$("#pid").attr("value", post_id);
+// 					$("#pid").attr("value", post_id);
 					alert("驗證通過");
 					return true;
 				}else{
@@ -933,6 +1003,59 @@
 					event.stopPropagation();
 					$(this).tooltip('hide');
 				});
+			});
+	
+			
+			//顯示預覽圖
+			function showImage(fileInput, image) {
+				var readFile = new FileReader();
+				var myfile = $(fileInput)[0].files[0];
+				readFile.readAsDataURL(myfile);
+				console.log(myfile);
+				readFile.onload = function() {
+					var img = $(image);
+					img.attr("src", readFile.result);
+				}
+			}
+			//新增文章的預覽圖
+			$(document).on("change", "#inputGroupFile01", function(){
+					showImage(this, $("#show01"));
+			});
+			
+			$(document).on("change", "#inputGroupFile02", function(){
+				showImage(this, $("#show02"));
+			});
+			
+			$(document).on("change", "#inputGroupFile03", function(){
+				showImage(this, $("#show03"));
+			});
+			
+			$(document).on("change", "#inputGroupFile04", function(){
+				showImage(this, $("#show04"));
+			});
+			
+			$(document).on("change", "#inputGroupFile05", function(){
+				showImage(this, $("#show05"));
+			});
+			//修改文章的預覽圖
+			$(document).on("change", "#inputGroupFile1", function(){
+					showImage(this, $("#show1"));
+			});
+			
+			$(document).on("change", "#inputGroupFile2", function(){
+				showImage(this, $("#show2"));
+			});
+			
+			$(document).on("change", "#inputGroupFile3", function(){
+				showImage(this, $("#show3"));
+			});
+			
+			$(document).on("change", "#inputGroupFile4", function(){
+				showImage(this, $("#show4"));
+			});
+			
+			$(document).on("change", "#inputGroupFile5", function(){
+				showImage(this, $("#show5"));
 			});
 			
 		});

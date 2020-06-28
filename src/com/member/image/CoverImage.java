@@ -53,7 +53,7 @@ public class CoverImage extends HttpServlet {
 				}
 				in.close();
 			} else {
-				InputStream is = getServletContext().getResourceAsStream("/front-end/images/circle.jpg");
+				InputStream is = getServletContext().getResourceAsStream("/resources/images/triangle.png");
 				byte[] buf = new byte[is.available()];
 				is.read(buf);
 				out.write(buf);
@@ -62,7 +62,7 @@ public class CoverImage extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			InputStream is = getServletContext().getResourceAsStream("/front-end/images/circle.jpg");
+			InputStream is = getServletContext().getResourceAsStream("/resources/images/triangle.png");
 			byte[] buf = new byte[is.available()];
 			is.read(buf);
 			out.write(buf);

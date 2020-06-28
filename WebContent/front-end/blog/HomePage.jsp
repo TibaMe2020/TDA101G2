@@ -19,6 +19,11 @@
 <body class="body">
 <%@ include file="/front-end/member/header.jsp"%>
 <%	
+	//分享連結
+	String absoluteURL = request.getScheme()+ "://" + request.getServerName() + ":" +
+		request.getServerPort();
+ 	pageContext.setAttribute("absoURL", absoluteURL);
+
 	SavedService savedService = new SavedService();	
 	List<String> savedList = savedService.getPost_idByMemberId(member_id);
 	pageContext.setAttribute("savedList", savedList);
@@ -30,7 +35,7 @@
 	//取得所有會員的暱稱
 	List<MemberVO> memberList = mbSvc.getAllBlogerInfo();
 	pageContext.setAttribute("memberList", memberList);
-	System.out.println(memberList);
+// 	System.out.println(memberList);
 	
 	//取得推薦部落客
 	List<PostVO> recommend = postService.getPostLikeMost();
@@ -95,7 +100,7 @@
 					<c:forEach var="member" items="${recommends}">
 						<div class="each_recommend_blogger">
 							<figure class="recommend_figure">
-								<img class="recommend_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
+								<img class="recommend_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${member.member_id}">
 							</figure>
 							<span class="nickname"> 
 								<a class="a_tag" href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${member.member_id}">${member.nickname}</a>
@@ -119,7 +124,7 @@
 				<div class="write_a_post">
 					<div class="post">
 						<figure class="post_figure">
-							<img class="post_blogger_picture" src="">
+							<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">
 						</figure>
 						<span class="nickname">${memberVO.nickname}</span>
 					</div>
@@ -145,7 +150,7 @@
 										<div class="add_a_post">
 											<div class="post">
 												<figure class="post_figure">
-													<img class="post_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">
+													<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">
 												</figure>
 												<span class="nickname">${memberVO.nickname}</span>
 											</div>
@@ -285,7 +290,7 @@
 					<div class="post">
 						<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${postVO.member_id}">
 							<figure class="post_figure">									
-								<img class="post_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
+								<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${postVO.member_id}">
 							</figure>
 						</a>
 						<c:forEach var="member" items="${memberList}">					
@@ -355,7 +360,8 @@
 						</div>
 						
 						<div class="post_share">
-							<button class="post_share_button" data-toggle="tooltip" title="copy" data-placement="right" data-src="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}">
+							<button class="post_share_button" data-toggle="tooltip" title="copy" data-placement="right" data-src="
+							<%=absoluteURL +request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}">
 								<span class="post_share_icon"> 
 									<i class="fas fa-share-square"></i>
 								</span>
@@ -403,140 +409,141 @@
 	<%@ include file="/front-end/member/footer.jsp"%>	
 	<script>
     window.addEventListener("load", function(){
-	  	// 點擊留言,留言才顯示
-			$(document).on("click", "button.post_message_button", function(){    	    	
-		  	let post_id = $(this).closest("div.each_post").attr("id");
-		    let it = $(this);
-		    let nickname = "${memberVO.nickname}";
-		    	$.ajax({
-		    			url: "<%=request.getContextPath()%>/Post/AjaxServlet",
-		          type: "GET",   
-		          data: {                       
-		              "action" : "getPostId", 
-		              "post_id": post_id
-		          },                              
-		          dataType: "json",
-		          error: function (xhr) {         
-		              console.log("錯誤");
-		          },
-		          success: function(datas){    
-		     	    	console.log($(datas));
-								it.parents("div.post_functions").next().empty();
-								$.each(datas, function(index, data){
-									let member_id = $(data).attr("member_id");
-									<c:forEach var="member" items="${memberList}">
-										if("${member.member_id}" == member_id){
-											console.log("${member.nickname}");
-											let messagecontent = '<div class="each_message">' + 
-								      	'<figure class="message_figure">' +
-									      '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
-									      '</figure>' +
-									      '<div class="message_person">' +
-									      '<span class="message_nickname">' + "${member.nickname}" + '</span>' +
-									      '<br>' +
-									      '<div class="message_content">' +
-									      '<span>' + $(data).attr("message_content") +'</span>' +
-									      '</div>' +
-									     	'</div>' +
-									      '</div>';
-									    it.parents("div.post_functions").next().prepend(messagecontent);	
-										}
-									</c:forEach>	
-								});
-								let leavemessage = '<div class="each_message">'+
-									'<figure class="message_figure">'+
-								  '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">'+     
-									'</figure>'+      
-									'<div class="message_person">'+     
-									'<span class="message_nickname">' + nickname + '</span>'+     
-									'<br>'+        
-									'<div class="message_content">'+        
-									'<div style="display: inline;">'+         
-									'<input id="content" type="text" name="message_content" style="width: 90%; background-color: lightgray; border: 1px solid lightgray;">'+             
-									'</div>'+                 
-									'<div style="display: inline; margin-left: 15px;">'+             
-									'<button class="send_button" value="' + post_id + '">'+             
-									'<span class="send_icon" style="margin-top: 5px; font-size: 20px; color: #13406A;">'+                 
-									'<i class="fas fa-paper-plane"></i>'+                     
-									'</span>'+                         
-									'</button>'+                     
-									'</div>'+                 
-									'</div>'+             
-									'</div>'+         
-									'</div>';                     
-	        			it.parents("div.post_functions").next().append(leavemessage);
-	        			it.parents("div.post_functions").next().slideToggle(1000);
-		      		}
-				});
+    	// 點擊留言,留言才顯示
+		$(document).on("click", "button.post_message_button", function(){    	    	
+	  	let post_id = $(this).closest("div.each_post").attr("id");
+	    let it = $(this);
+	    let nickname = "${memberVO.nickname}";
+	    	$.ajax({
+	    			url: "<%=request.getContextPath()%>/Post/AjaxServlet",
+	          type: "GET",   
+	          data: {                       
+	              "action" : "getPostId", 
+	              "post_id": post_id
+	          },                              
+	          dataType: "json",
+	          error: function (xhr) {         
+	              console.log("錯誤");
+	          },
+	          success: function(datas){    
+	     	    	console.log($(datas));
+							it.parents("div.post_functions").next().empty();
+							$.each(datas, function(index, data){
+								let member_id = $(data).attr("member_id");
+								<c:forEach var="member" items="${memberList}">
+									if("${member.member_id}" == member_id){
+										let messagecontent = '<div class="each_message">' + 
+							        '<figure class="message_figure">' +
+								      '<img class="message_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${member.member_id}">' +
+								      '</figure>' +
+								      '<div class="message_person">' +
+								     	'<span class="message_nickname">' + "${member.nickname}" + '</span>' +
+								      '<br>' +
+								      '<div class="message_content">' +
+								      '<span>' + $(data).attr("message_content") +'</span>' +
+								      '</div>' +
+								     	'</div>' +
+								      '</div>';
+								    it.parents("div.post_functions").next().prepend(messagecontent);	
+									}
+								</c:forEach>	
+							});
+							let leavemessage = '<div class="each_message">'+				
+								'<figure class="message_figure">'+
+							  '<img class="message_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">' +     
+								'</figure>'+      
+								'<div class="message_person">'+     
+								'<span class="message_nickname">' + nickname + '</span>'+     
+								'<br>'+        
+								'<div class="message_content">'+        
+								'<div style="display: inline;">'+         
+								'<input id="content" type="text" name="message_content" style="width: 90%; background-color: lightgray; border: 1px solid lightgray;">'+             
+								'</div>'+                 
+								'<div style="display: inline; margin-left: 15px;">'+             
+								'<button class="send_button" value="' + post_id + '">'+             
+								'<span class="send_icon" style="margin-top: 5px; font-size: 20px; color: #13406A;">'+                 
+								'<i class="fas fa-paper-plane"></i>'+                     
+								'</span>'+                         
+								'</button>'+                     
+								'</div>'+                 
+								'</div>'+             
+								'</div>'+         
+								'</div>';                     
+        			it.parents("div.post_functions").next().append(leavemessage);
+        			it.parents("div.post_functions").next().slideToggle(500);
+	      		}
 			});
-	  		
-	  	// 留言送出 
-			$(document).on("click", "button.send_button", function(e){
-	    	let post_id = $(this).closest("div.each_post").attr("id");
-	    	let message_content = $(this).parents("div.message_content").find("#content").val();
-	    	let it = $(this);
-	    	if(message_content.trim() != ""){
-	    		$.ajax({	
-	        		url:"<%=request.getContextPath()%>/Post/AjaxServlet",
-	        		type:"GET",
-	        		data: {                       
-	        	  	"action": "addMessage", 
-	        	    "post_id": post_id,
-	        	    "member_id": "MB00001",
-	        	    "message_content": message_content, 
-	        	  },
-	        	  dataType: "json",
-	        	  error: function (xhr) {         
-	        	  	console.log("錯誤");
-	        	  },
-	        	  success: function(data){
-	        	  	it.attr("value", "slide");
-	        	    let messagecontent = '<div class="each_message">' + 
-	    						'<figure class="message_figure">' +
-	    					  '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
-	    					  '</figure>' +
-	    					  '<div class="message_person">' +
-	    					  '<span class="message_nickname">'+ $(data).attr("member_id") +'</span>' +
-	    					  '<br>' +
-	    					  '<div class="message_content">' +
-	    					  '<span>' + $(data).attr("message_content") +'</span>' +
-	    					  '</div>' +
-	    					  '</div>' +
-	    					  '</div>';
-	    					it.parents("div.post_functions").next().prepend(messagecontent);
-	    					it.parents("div.message_content").find("#content").val("");
-	//     					it.parents("div.message").prev().find("button.post_message_button").click().click();
-	        	  }
-					});
-	    	}
-	    });
-	    		
-	    // 留言數送出
-	 		$(document).on("click", "button.send_button", function(){
-	    	let message_count = $(this).parents("div.message").prev().find("span.post_message_count").text();
-	    	let message_content = $(this).parents("div.message_content").find("#content").val();
-	    	let post_id = $(this).attr("value");
-	    	let it = $(this);
-	    	if(message_content.trim() != ""){
-	    		$.ajax({
-	        		url:"<%=request.getContextPath()%>/Post/AjaxServlet",
-	        		type:"GET",
-	        		data: {                       
-	        	  	"action": "postMessageCountChange", 
-	        	    "post_id": post_id,
-								"post_message_count": message_count
-	        	  },
-	        	  dataType: "json",
-	        	  error: function (xhr) {         
-	        	  	console.log("錯誤");
-	        	 	},
-	        	  success: function(data){
-	        	  	let messagecount = '<span class="post_message_count">' + $(data).attr("post_message_count") + '</span>';
-	    					it.parents("div.message").prev().find("span.post_message_count").replaceWith(messagecount);
-	        	  }
-	        });
-	    	}
-	    });
+		});
+  		
+  	// 留言送出 
+		$(document).on("click", "button.send_button", function(e){
+    	let post_id = $(this).closest("div.each_post").attr("id");
+    	let message_content = $(this).parents("div.message_content").find("#content").val();
+    	let member_id = "${memberVO.member_id}";
+    	console.log(member_id);
+    	let it = $(this);
+    	if(message_content.trim() != ""){
+    		$.ajax({	
+        		url:"<%=request.getContextPath()%>/Post/AjaxServlet",
+        		type:"GET",
+        		data: {                       
+        	  	"action": "addMessage", 
+        	    "post_id": post_id,
+        	    "member_id": member_id,
+        	    "message_content": message_content, 
+        	  },
+        	  dataType: "json",
+        	  error: function (xhr) {         
+        	  	console.log("錯誤");
+        	  },
+        	  success: function(data){
+        	  	it.attr("value", "slide");
+        	    let messagecontent = '<div class="each_message">' + 
+    						'<figure class="message_figure">' +
+    					  '<img class="message_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">' +
+    					  '</figure>' +
+    					  '<div class="message_person">' +
+    					  '<span class="message_nickname">'+ $(data).attr("member_id") +'</span>' +
+    					  '<br>' +
+    					  '<div class="message_content">' +
+    					  '<span>' + $(data).attr("message_content") +'</span>' +
+    					  '</div>' +
+    					  '</div>' +
+    					  '</div>';
+    					it.parents("div.post_functions").next().prepend(messagecontent);
+    					it.parents("div.message_content").find("#content").val("");
+    					it.parents("div.message").prev().find("button.post_message_button").click().click();
+        	  }
+				});
+    	}
+    });
+    		
+    // 留言數送出
+ 		$(document).on("click", "button.send_button", function(){
+    	let message_count = $(this).parents("div.message").prev().find("span.post_message_count").text();
+    	let message_content = $(this).parents("div.message_content").find("#content").val();
+    	let post_id = $(this).attr("value");
+    	let it = $(this);
+    	if(message_content.trim() != ""){
+    		$.ajax({
+        		url:"<%=request.getContextPath()%>/Post/AjaxServlet",
+        		type:"GET",
+        		data: {                       
+        	  	"action": "postMessageCountChange", 
+        	    "post_id": post_id,
+							"post_message_count": message_count
+        	  },
+        	  dataType: "json",
+        	  error: function (xhr) {         
+        	  	console.log("錯誤");
+        	 	},
+        	  success: function(data){
+        	  	let messagecount = '<span class="post_message_count">' + $(data).attr("post_message_count") + '</span>';
+    					it.parents("div.message").prev().find("span.post_message_count").replaceWith(messagecount);
+        	  }
+        });
+    	}
+    });
 	    		
 	    // 按讚數送出               
 	    $(document).on("click", "button.post_like_button", function(){
@@ -615,8 +622,8 @@
 			$(document).on("click", "button.saved_button", function(event){
 				event.stopPropagation();
 				let issaved = $(this).attr("value");
-				console.log(issaved);
 				let post_id = $(this).closest("div.each_post").attr("id");
+				let member_id = "${memberVO.member_id}";
 				let it = $(this);
 				if(issaved == 0){
 					it.find("span.saved_post_icon").attr("style", "color: black");
@@ -628,7 +635,7 @@
 	    	      	"action": "savedPost", 
 	    	        "value": "1",
 	    	        "post_id": post_id,
-								"member_id": "MB00001" 
+								"member_id": member_id 
 	    	      },
 	    	      dataType: "json",
 	    	      error: function (xhr) {         
@@ -648,7 +655,7 @@
 								"action" : "savedPost",
 								"value" : "0",
 								"post_id" : post_id,
-								"member_id" : "MB00001"
+								"member_id" : member_id
 							},
 							dataType : "json",
 							error : function(xhr) {
