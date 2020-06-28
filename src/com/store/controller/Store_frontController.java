@@ -32,6 +32,7 @@ import com.store_closed.model.Store_closedVO;
 import com.store_order.model.Store_orderService;
 import com.store_order.model.Store_orderVO;
 import com.store_order_detail.model.Store_order_detailVO;
+import com.util.SendEmail;
 
 @WebServlet("/Store_frontController")
 public class Store_frontController extends HttpServlet {
@@ -246,10 +247,24 @@ public class Store_frontController extends HttpServlet {
 						return;
 					}
 				}
-				
+				String stName = storeSvc.findByStoreId(store_id).getStore_name();
 				String store_order_id = orderService.insertWithDetail_return(store_orderVO, detail_list);
+				
 				out.print("預約成功="+store_order_id);
 				System.out.println("預約成功");
+				
+				SendEmail se = new SendEmail();
+				String content = "  <h1>"+store_order_name+" 您好</h1>" + 
+						"  <br>" + 
+						"  <p style='font-size:16px;'>您已於PetBox預約寵物店家服務</p>" + 
+						"  <p style='font-size:16px;'>預約編號:"+store_order_id+"</p>" + 
+						"  <p style='font-size:16px;'>店家名稱:"+stName+"</p>" + 
+						"  <p style='font-size:16px;'>預約時間:"+store_order_date_time+"</p>" + 
+						"  <br>" + 
+						"  <p style='font-size:16px;'>感謝您的預約</p>";
+				se.sendEmail(store_order_email, content);
+				
+				
 			
 			} catch (Exception e) {
 				e.printStackTrace();

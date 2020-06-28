@@ -36,11 +36,14 @@ public class SendEmail {
 
 	private Message prepareMessage(Session session, String senderEmail, String recepient, String content) {
 		try {
-			Message msg = new MimeMessage(session);
+//			Message msg = new MimeMessage(session);
+			MimeMessage msg = new MimeMessage(session);
 			msg.setFrom(new InternetAddress(senderEmail));
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-			msg.setSubject("Petbox Website");
-			msg.setContent(content, "text/html"); 
+			msg.setSubject("Petbox Website", "UTF-8");
+//			msg.setSubject("Petbox Website");
+			msg.setContent(content, "text/html;charset=UTF-8"); 
+//			msg.setContent(content, "text/html"); 
 			return msg;
 		} catch (Exception e) {
 			e.printStackTrace();

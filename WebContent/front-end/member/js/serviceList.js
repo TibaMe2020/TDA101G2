@@ -24,7 +24,7 @@ let imageobj = {
   // allowFileEncode: true,
   allowImagePreview: false,
   acceptedFileTypes: ['image/*'],
-  // imageResizeTargetWidth: 270,
+  imageResizeTargetWidth: 600,
   imageResizeMode: 'contain',
   maxFiles: 3,
   name: 'store_image',

@@ -56,7 +56,7 @@ window.onload = (event) => {
                 $("#hostelTotal").addClass("d-none");
                 break;
             case 'hospital':
-                text.text("寵物醫院");
+                text.text("寵物診所");
                 $("#storeType1").removeClass("d-none");
                 $("#storeType2").addClass("d-none");
                 $("#storeType2-2").addClass("d-none");
@@ -607,49 +607,49 @@ $("input[name='payment']").change(function () {
 })
 
 function linepayReq() {
-    // var url = 'https://sandbox-api-pay.line.me/v2/payments/request'
-    // $.ajax({
-    //     url: url,
-    //     dataType: 'json',
-    //     data: {
-    //         "productName": "test",
-    //         "productImageUrl": "https://via.placeholder.com/84x84",
-    //         "amount": 1,
-    //         "currency": "TWD",
-    //         "confirmUrl": "www.google.com",
-    //         "orderId": "P0001111111111"
-    //     },
-    //     type: 'POST',
-    //     dataType: "json",
-    //     headers: {
-    //         // 'Access-Control-Allow-Origin': '*',
-    //         // 'Access-Control-Allow-Methods': 'POST',
-    //         // 'Access-Control-Allow-Headers': 'x-requested-with,content-type',
-    //         'Content-Type': 'application/json',
-    //         'X-LINE-ChannelId': '1654393823',
-    //         'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36'
-    //     },
-    //     beforeSend: function (xhr) {       // 在 request 發送之前執行
-    //         // xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
-    //     },
-    //     statusCode: {                 // 狀態碼
-    //         200: function (res) {
-    //             console.log("200")
-    //         },
-    //         404: function (res) {
-    //             console.log("400")
-    //         },
-    //         500: function (res) {
-    //             console.log("500")
-    //         }
-    //     },
-    //     error: function (xhr) {         // request 發生錯誤的話執行
-    //         console.log(xhr.responseText);
-    //     },
-    //     success: function (data) {
-    //         console.log(data);
-    //     }
-    // });
+    var url = 'https://sandbox-api-pay.line.me/v2/payments/request'
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        data: {
+            "productName": "test",
+            "productImageUrl": "https://via.placeholder.com/84x84",
+            "amount": 1,
+            "currency": "TWD",
+            "confirmUrl": "www.google.com",
+            "orderId": "P0001111111111"
+        },
+        type: 'POST',
+        dataType: "json",
+        headers: {
+            // 'Access-Control-Allow-Origin': '*',
+            // 'Access-Control-Allow-Methods': 'POST',
+            // 'Access-Control-Allow-Headers': 'x-requested-with,content-type',
+            'Content-Type': 'application/json',
+            'X-LINE-ChannelId': '1654393823',
+            'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36'
+        },
+        beforeSend: function (xhr) {       // 在 request 發送之前執行
+            // xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
+        },
+        statusCode: {                 // 狀態碼
+            200: function (res) {
+                console.log("200")
+            },
+            404: function (res) {
+                console.log("400")
+            },
+            500: function (res) {
+                console.log("500")
+            }
+        },
+        error: function (xhr) {         // request 發生錯誤的話執行
+            console.log(xhr.responseText);
+        },
+        success: function (data) {
+            console.log(data);
+        }
+    });
 
     //    v3 
     let key = '621b6fda656e715f4d734a02d53cfe36'
@@ -682,47 +682,47 @@ function linepayReq() {
     let encrypt = CryptoJS.HmacSHA256(key + requestUri + JSON.stringify(order) + nonce, key);
     let hmacBase64 = btoa(encrypt);
     var url = 'https://sandbox-api-pay.line.me/v3/payments/request'
-    $.ajax({
-        url: url,
-        dataType: 'json',
-        data: {
-            "productName": "test",
-            "productImageUrl": "https://via.placeholder.com/84x84",
-            "amount": 1,
-            "currency": "TWD",
-            "confirmUrl": "www.google.com",
-            "orderId": "P0001111111111"
-        },
-        type: 'POST',
-        dataType: "json",
-        headers: {
-            'Content-Type': 'application/json',
-            'X-LINE-ChannelId': '1654393823',
-            'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36',
-            'X-LINE-Authorization-Nonce': nonce,
-            'X-LINE-Authorization': hmacBase64
-        },
-        beforeSend: function (xhr) {       // 在 request 發送之前執行
-            // xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
-        },
-        statusCode: {                 // 狀態碼
-            200: function (res) {
-                console.log("200")
-            },
-            404: function (res) {
-                console.log("400")
-            },
-            500: function (res) {
-                console.log("500")
-            }
-        },
-        error: function (xhr) {         // request 發生錯誤的話執行
-            console.log(xhr.responseText);
-        },
-        success: function (data) {
-            console.log(data);
-        }
-    });
+    // $.ajax({
+    //     url: url,
+    //     dataType: 'json',
+    //     data: {
+    //         "productName": "test",
+    //         "productImageUrl": "https://via.placeholder.com/84x84",
+    //         "amount": 1,
+    //         "currency": "TWD",
+    //         "confirmUrl": "www.google.com",
+    //         "orderId": "P0001111111111"
+    //     },
+    //     type: 'POST',
+    //     dataType: "json",
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'X-LINE-ChannelId': '1654393823',
+    //         'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36',
+    //         'X-LINE-Authorization-Nonce': nonce,
+    //         'X-LINE-Authorization': hmacBase64
+    //     },
+    //     beforeSend: function (xhr) {       // 在 request 發送之前執行
+    //         // xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
+    //     },
+    //     statusCode: {                 // 狀態碼
+    //         200: function (res) {
+    //             console.log("200")
+    //         },
+    //         404: function (res) {
+    //             console.log("400")
+    //         },
+    //         500: function (res) {
+    //             console.log("500")
+    //         }
+    //     },
+    //     error: function (xhr) {         // request 發生錯誤的話執行
+    //         console.log(xhr.responseText);
+    //     },
+    //     success: function (data) {
+    //         console.log(data);
+    //     }
+    // });
 }
 
 function uuidv4() {
@@ -740,3 +740,32 @@ console.log(uuidv4());
 // console.log(encodedString);
 // var decodedString = atob(encodedString);
 // console.log(decodedString);
+
+// 預約完成頁面跳轉
+$("#reserve_ok").click(function () {
+    console.log(55555)
+    let githubURL = new URL(window.location.href);
+    let params = githubURL.searchParams;
+    let title = $("#staticBackdropLabel").text();
+    if (title == "預約成功") {
+        for (let pair of params.entries()) {
+            switch (pair[1]) {
+                case 'restaurant':
+                    window.location.assign("Introduction.jsp?type=restaurant");
+                    break;
+                case 'hostel':
+                    window.location.assign("Introduction.jsp?type=hostel");
+                    break;
+                case 'grooming':
+                    window.location.assign("Introduction.jsp?type=grooming");
+                    break;
+                case 'school':
+                    window.location.assign("Introduction.jsp?type=school");
+                    break;
+                case 'hospital':
+                    window.location.assign("Introduction.jsp?type=hospital");
+                    break;
+            }
+        }
+    }
+})
