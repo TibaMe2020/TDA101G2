@@ -1,56 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
-  <display-name>TDA101G2</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  <resource-ref>
-    <description>DB Connection</description>
-    <res-ref-name>jdbc/petbox</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
-  </resource-ref>
-  <servlet>
-    <servlet-name>DBPhoneLookup</servlet-name>
-    <servlet-class>com.test.DBPhoneLookup</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DBPhoneLookup</servlet-name>
-    <url-pattern>/DBPhoneLookup</url-pattern>
-  </servlet-mapping>
-  
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	version="4.0">
+	<display-name>TDA101G2</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/petbox</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+	<servlet>
+		<servlet-name>DBPhoneLookup</servlet-name>
+		<servlet-class>com.test.DBPhoneLookup</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DBPhoneLookup</servlet-name>
+		<url-pattern>/DBPhoneLookup</url-pattern>
+	</servlet-mapping>
+
 	<servlet>
 		<servlet-name>NpoInfoServlet</servlet-name>
 		<servlet-class>com.donation.npo_info.controller.NpoInfoServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>NpoInfoServlet</servlet-name>
-		<url-pattern>/Npo/npo.do</url-pattern>		
+		<url-pattern>/Npo/npo.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>DBGifReader2</servlet-name>
 		<servlet-class>com.donation.npo_info.controller.DBGifReader2</servlet-class>
 	</servlet>
-	
-	
+
+
 	<servlet-mapping>
 		<servlet-name>DBGifReader2</servlet-name>
-		<url-pattern>/Npo/DBGifReader2</url-pattern>	
+		<url-pattern>/Npo/DBGifReader2</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>AdoptInfoServlet</servlet-name>
 		<servlet-class>com.donation.adopt_info.controller.AdoptInfoServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AdoptInfoServlet</servlet-name>
-		<url-pattern>/Adopt/adopt.do</url-pattern>		
+		<url-pattern>/Adopt/adopt.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>DBGifReader3</servlet-name>
@@ -58,27 +61,27 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DBGifReader3</servlet-name>
-		<url-pattern>/Adopt/DBGifReader3</url-pattern>	
+		<url-pattern>/Adopt/DBGifReader3</url-pattern>
 	</servlet-mapping>
-		
+
 	<servlet>
 		<servlet-name>DonationResultServlet</servlet-name>
 		<servlet-class>com.donation.result.controller.DonationResultServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DonationResultServlet</servlet-name>
-		<url-pattern>/Result/result.do</url-pattern>		
+		<url-pattern>/Result/result.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>DBGifReader4</servlet-name>
 		<servlet-class>com.donation.result.controller.DBGifReader4</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DBGifReader4</servlet-name>
-		<url-pattern>/Result/DBGifReader4</url-pattern>	
+		<url-pattern>/Result/DBGifReader4</url-pattern>
 	</servlet-mapping>
-	
+
 
 	<servlet>
 		<servlet-name>AdoptFormServlet</servlet-name>
@@ -86,7 +89,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AdoptFormServlet</servlet-name>
-		<url-pattern>/AdoptForm/adoptform.do</url-pattern>		
+		<url-pattern>/AdoptForm/adoptform.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>DonationFormServlet</servlet-name>
@@ -94,7 +97,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DonationFormServlet</servlet-name>
-		<url-pattern>/DonationForm/donationform.do</url-pattern>		
+		<url-pattern>/DonationForm/donationform.do</url-pattern>
 	</servlet-mapping>
 
 
@@ -108,7 +111,7 @@
 		<servlet-name>PostServlet</servlet-name>
 		<url-pattern>/Post/Post.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>DBGifReader1</servlet-name>
 		<servlet-class>com.blog.post.controller.DBGifReader2</servlet-class>
@@ -117,7 +120,7 @@
 		<servlet-name>DBGifReader1</servlet-name>
 		<url-pattern>/Post/DBGifReader2</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>AjaxServlet</servlet-name>
 		<servlet-class>com.blog.post.controller.AjaxServlet</servlet-class>
@@ -126,18 +129,18 @@
 		<servlet-name>AjaxServlet</servlet-name>
 		<url-pattern>/Post/AjaxServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- Follow -->
 	<servlet>
 		<servlet-name>FollowServlet</servlet-name>
 		<servlet-class>com.blog.follow.controller.FollowServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>FollowServlet</servlet-name>
 		<url-pattern>/Follow/Follow.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- Message -->
 	<servlet>
 		<servlet-name>MessageServlet</servlet-name>
@@ -147,7 +150,7 @@
 		<servlet-name>MessageServlet</servlet-name>
 		<url-pattern>/Message/Message.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- Saved -->
 	<servlet>
 		<servlet-name>SavedServlet</servlet-name>
@@ -158,4 +161,37 @@
 		<url-pattern>/Saved/Saved.do</url-pattern>
 
 	</servlet-mapping>
+<!-- Cors -->
+	<filter>
+		<filter-name>CorsFilter</filter-name>
+		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+		<init-param>
+			<param-name>cors.allowed.origins</param-name>
+			<param-value>https://www.apache.org</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.allowed.methods</param-name>
+			<param-value>GET,POST,HEAD,OPTIONS,PUT</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.allowed.headers</param-name>
+			<param-value>Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.exposed.headers</param-name>
+			<param-value>Access-Control-Allow-Origin,Access-Control-Allow-Credentials</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.support.credentials</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.preflight.maxage</param-name>
+			<param-value>10</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CorsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>
