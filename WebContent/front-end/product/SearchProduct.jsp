@@ -2,7 +2,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<jsp:useBean id="Product_Service" scope="page" class="com.product.model.Product_Service"></jsp:useBean>
 <head>
  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,18 +42,75 @@
     <!-- Keyword -->
     <div class="container">
         <div class="row" id="keyword">
-<c:forEach items="${Product_Service.getbykeyword()}" var="product_VO" begin="0" end="5">
+
             <div class="col-sm-12 col-md-2">
-                <a class="nav-link" href="<%=request.getContextPath()%>/front-end/product/Product.jsp?product_id=${product_VO.product_id}">${product_VO.name}</a>
-            </div>         
-</c:forEach>
-            
+
+                <a class="nav-link " href="#">經典狗狗美食</a>
+
+            </div>
+            <div class="col-sm-12 col-md-2">
+
+                <a class="nav-link" href="#">好用寵物用品</a>
+
+            </div>
+            <div class="col-sm-12 col-md-2">
+
+                <a class="nav-link" href="#">經典狗屋</a>
+
+            </div>
+            <div class="col-sm-12 col-md-2">
+
+                <a class="nav-link " href="#">寵物飼料機</a>
+
+            </div>
+            <div class="col-sm-12 col-md-2">
+
+                <a class="nav-link " href="#">攝像鏡頭</a>
+
+            </div>
+            <div class="col-sm-12 col-md-2">
+
+                <a class="nav-link " href="#">貓倍麗</a>
+
+            </div>
 
         </div>            
-  
+    <!-- 各大精選廠牌 -->
 
+    <div class="container" id="factory">
+        <h3 style="text-align:left">各大精選廠牌</h3>
+        <div class="row">
+            <div class="col-sm-12 col-md-3">
+                <img src="<%=request.getContextPath()%>/resources/images/ProductImage/Brand/Brand.jpg" id="brand_photo">
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <img src="<%=request.getContextPath()%>/resources/images/ProductImage/Brand/Brand1.jpg" id="brand_photo">
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <img src="<%=request.getContextPath()%>/resources/images/ProductImage/Brand/Brand2.jpg" id="brand_photo">
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <img src="<%=request.getContextPath()%>/resources/images/ProductImage/Brand/Brand3.png" id="brand_photo">
+            </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+            <div class="col-sm-12 col-md-3">
+                 <img src="<%=request.getContextPath()%>/resources/images/ProductImage/Brand/Brand4.png" id="brand_photo">
+            </div>
+            <div class="col-sm-12 col-md-3">
+                 <img src="<%=request.getContextPath()%>/resources/images/ProductImage/Brand/Brand5.png" id="brand_photo">
+            </div>
+            <div class="col-sm-12 col-md-3">
+                 <img src="<%=request.getContextPath()%>/resources/images/ProductImage/Brand/Brand6.png" id="brand_photo">
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <img src="<%=request.getContextPath()%>/resources/images/ProductImage/Brand/Brand7.jpg" id="brand_photo">
+            </div>
+        </div>
+    </div>
     <!--查出來商品清單 -->
     <div class="container" id="SpecialFood">
+        <h3 style="text-align:left">查詢商品</h3>
         <div class="row">
 
 <c:forEach items="${listProduct_ByName}" var="product_VO" >
@@ -63,7 +119,7 @@
                     	<div class="col-sm-12 col-md-3" id="new_product">
                             <div>
                                 <a href="<%=request.getContextPath()%>/front-end/product/Product.jsp?product_id=${product_VO.product_id}">
-                                   <img src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="new_product" style="width:250px; height:200px;"/>
+                                   <img src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="new_product"/>
                                     <br />
                                     <p>${product_VO.name}</p>
                                 </a>

@@ -4,7 +4,6 @@
 <%@ page import="com.product_version.model.*"%>
 <%@ page import="com.product_score.model.*"%>
 <%@ page import="java.util.*"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%
 	Product_VO product_VO = new Product_Service().getOneProduct(request.getParameter("product_id"));
@@ -244,27 +243,21 @@
 							<p style="text-align: left;">
 								<c:forEach var="score_VO" items="${score_VOList}">
 									<div class="row">
-										<div class="col-sm-12 col-md-7 d-flex" style="margin-top: 50px;">
-											<div style="width:80px; height: 80px; background:url('<%=request.getContextPath()%>/member/profileImage?member_id=${product_VO.member_id}');
-            background-position: center;background-size: 80px;"></div>
-            								<div>
-            								<c:set var="memberStr" value="${product_VO.member_id}"/>
-            								<c:set var="member" value="${fn:substring(memberStr, 0, 5)}"/>
-			                                	<div class="col-sm-12 col-md-12" style="text-align: left;">${member}**</div>
-<!-- 												<div class="row"> -->
-													<div class="col-sm-12 col-md-12">
-														<span class="star"><i class="fas fa-star"
-															style=" ${(score_VO.score >=1)? ' color: #EF8216 ' :'' }"></i></span>
-														<span class="star"><i class="fas fa-star"
-															style=" ${(score_VO.score >=2)? ' color: #EF8216 ' :'' }"></i></span>
-														<span class="star"><i class="fas fa-star"
-															style=" ${(score_VO.score >=3)? ' color: #EF8216 ' :'' }"></i></span>
-														<span class="star"><i class="fas fa-star"
-															style=" ${(score_VO.score >=4)? ' color: #EF8216 ' :'' }"></i></span>
-														<span class="star"><i class="fas fa-star"
-															style=" ${(score_VO.score ==5)? ' color: #EF8216 ' :'' }"></i></span>
-													</div>
-<!-- 												</div> -->
+										<div class="col-sm-12 col-md-7" style="margin-top: 50px;">
+											<p style="text-align: left;">${product_VO.member_id}</p>
+											<div class="row">
+												<div class="col-sm-12 col-md-5" style="right: 65px;">
+													<span class="star"><i class="fas fa-star"
+														style=" ${(score_VO.score >=1)? ' color: #EF8216 ' :'' }"></i></span>
+													<span class="star"><i class="fas fa-star"
+														style=" ${(score_VO.score >=2)? ' color: #EF8216 ' :'' }"></i></span>
+													<span class="star"><i class="fas fa-star"
+														style=" ${(score_VO.score >=3)? ' color: #EF8216 ' :'' }"></i></span>
+													<span class="star"><i class="fas fa-star"
+														style=" ${(score_VO.score >=4)? ' color: #EF8216 ' :'' }"></i></span>
+													<span class="star"><i class="fas fa-star"
+														style=" ${(score_VO.score ==5)? ' color: #EF8216 ' :'' }"></i></span>
+												</div>
 											</div>
 										</div>
 									</div>
