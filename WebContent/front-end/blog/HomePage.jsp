@@ -119,7 +119,7 @@
 				<div class="write_a_post">
 					<div class="post">
 						<figure class="post_figure">
-							<img class="post_blogger_picture" src="https://cdn2.ettoday.net/images/771/771489.jpg">
+							<img class="post_blogger_picture" src="">
 						</figure>
 						<span class="nickname">${memberVO.nickname}</span>
 					</div>

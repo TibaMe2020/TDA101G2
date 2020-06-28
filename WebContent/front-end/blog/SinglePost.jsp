@@ -97,7 +97,7 @@
 					</c:if>
           <a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=<%=member_id%>">
           	<figure class="profile_figure">
-	          	<img class="profile_image" src="<%=request.getContextPath()%>/resources/images/img06.jpg">
+	          	<img class="profile_image" src="<%=request.getContextPath()%>/member/profileImage?member_id=${postOwner.member_id}">
 	        	</figure>
           </a>
           <div class="profile_info">
@@ -150,7 +150,7 @@
       	<div class="each_post" id="${post_id}" value="${postVO.member_id}">
         	<div class="post">
 	        	<figure class="post_figure">
-	          	<img class="post_blogger_picture" src="<%=request.getContextPath()%>/resources/images/img06.jpg">
+	          	<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${postOwner.member_id}">
 	        	</figure>
 	        	<span class="nickname">${postOwner.nickname}</span>
 	        	<button class="saved_button" value="0">

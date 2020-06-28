@@ -93,7 +93,7 @@
 					</c:if>
 
 					<figure class="profile_figure">
-						<img class="profile_image" src="https://img.ltn.com.tw/Upload/partner/page/2019/12/19/191219-6235-01-TwNaw.jpg">
+						<img class="profile_image" src="<%=request.getContextPath()%>/member/profileImage?member_id=${otherMember.member_id}">
 					</figure>
 					<div class="profile_info">
 						<span class="profile_info"> 
@@ -146,7 +146,7 @@
 					<div class="each_post" id="${postVO.post_id}" value="${postVO.member_id}">
 						<div class="post">
 							<figure class="post_figure">
-								<img class="post_blogger_picture" src="https://img.ltn.com.tw/Upload/partner/page/2019/12/19/191219-6235-01-TwNaw.jpg">
+								<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${otherMember.member_id}">
 							</figure>
 							<span class="nickname">${otherMember.nickname}</span>
 							<button class="saved_button" value="${savedlist2.contains(postVO.post_id)?'1':'0'}">

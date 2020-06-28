@@ -54,7 +54,7 @@
 			<!-- container左欄 -->
 			<div class="col-2 padding_left">
 				<div class="personal_profile">
-					<button class="edit_button" style="outline: none;">
+					<button class="edit_button">
 						<span class="edit_my_profile"> 	
 							<a class="edit" href="<%=request.getContextPath()%>/front-end/blog/UpdateProfile.jsp">
 								<i id="edit" class="fas fa-edit"></i>
@@ -62,7 +62,7 @@
 						</span>
 					</button>
 					<figure class="profile_figure">
-						<img class="profile_image" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">
+						<img class="profile_image" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">
 					</figure>
 					<div class="profile_info">
 						<span class="profile_info"> 
@@ -120,7 +120,7 @@
 				<div class="write_a_post">
 					<div class="post">
 						<figure class="post_figure">
-							<img class="post_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">
+							<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">
 						</figure>
 						<span class="nickname">${memberVO.nickname}</span>
 					</div>
@@ -145,7 +145,7 @@
 										<div class="add_a_post">
 											<div class="post">
 												<figure class="post_figure">
-													<img class="post_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">
+													<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">
 												</figure>
 												<span class="nickname">${memberVO.nickname}</span>
 											</div>
@@ -285,7 +285,7 @@
 					<div class="post">
 						<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${postVO.member_id}">
 							<figure class="post_figure">									
-								<img class="post_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
+								<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">
 							</figure>
 						</a>
 						<span class="nickname">${member.nickname}</span>
@@ -385,7 +385,7 @@
 									<div class="add_a_post">
 										<div class="post">
 											<figure class="post_figure">
-												<img class="post_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">
+												<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">
 											</figure>
 											<span class="nickname">${memberVO.nickname}</span>
 										</div>	

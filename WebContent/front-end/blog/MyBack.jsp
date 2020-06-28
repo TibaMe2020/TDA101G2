@@ -58,11 +58,7 @@
 	}
 	pageContext.setAttribute("postContents", postContents);
 	
-	List<MemberVO> memberList = new ArrayList<MemberVO>();
-	for(PostVO postVO : list3){
-		MemberVO member = mbSvc.getOne(postVO.getMember_id());
-		memberList.add(member);
-	}
+	List<MemberVO> memberList = mbSvc.getAllBlogerInfo();
 	pageContext.setAttribute("memberList", memberList);
 %>
 	<div class="container">

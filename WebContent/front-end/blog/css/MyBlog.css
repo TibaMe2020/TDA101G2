@@ -18,7 +18,7 @@ a:link, a:visited{
 	color: #13406A;
 }
 button:active, button:focus{
-	outline: none; !important;
+	outline: none !important;
 	border: none;
 }
 .tooltip-inner {
@@ -273,6 +273,7 @@ figure.post_figure{
 }
 img.post_blogger_picture{
     width:80px;
+    height:80px;
     border-radius: 50%;
     border: 1px solid lightgray;
     margin: 20px;

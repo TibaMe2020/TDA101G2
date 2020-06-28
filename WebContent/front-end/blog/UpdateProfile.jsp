@@ -46,7 +46,7 @@
 			<div class="col-2 padding_left">
 				<div class="personal_profile">
 					<figure class="profile_figure">
-						<img class="profile_image" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">
+						<img class="profile_image" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">
 					</figure>
 					<div class="profile_info">
 						<span class="profile_info"> 
