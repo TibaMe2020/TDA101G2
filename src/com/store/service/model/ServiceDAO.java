@@ -257,9 +257,9 @@ public class ServiceDAO implements ServiceDAO_interface {
 		ResultSet rs = null;
 
 		try {
-//			Class.forName(driver);
-//			conn = DriverManager.getConnection(url, userId, passWord);
-			conn = datasource.getConnection();
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userId, passWord);
+//			conn = datasource.getConnection();
 			ps = conn.prepareStatement(SELECT);
 			ps.setString(1, store_id);
 			rs = ps.executeQuery();
@@ -277,8 +277,8 @@ public class ServiceDAO implements ServiceDAO_interface {
 				list.add(serviceVO);
 			}
 
-//		} catch (ClassNotFoundException e) {
-//			throw new RuntimeException("Couldn't load database driver： " + e.getMessage());
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver： " + e.getMessage());
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured： " + e.getMessage());
 		} finally {

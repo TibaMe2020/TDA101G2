@@ -6,17 +6,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="Access-Control-Allow-Origin" content="*"> -->
     <title>PETBOX-Introduction</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendors/bootstrap/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" 
-    href="<%=request.getContextPath()%>/resources/vendors/datetimepicker/jquery.datetimepicker.css" />
+    <link rel="stylesheet" type="text/css"
+        href="<%=request.getContextPath()%>/resources/vendors/datetimepicker/jquery.datetimepicker.css" />
     <link href="<%=request.getContextPath()%>/front-end/store/css/Introduction.css" rel="stylesheet">
 
 </head>
 
 <body>
-	<%@ include file="/front-end/member/header.jsp"%>
+    <%@ include file="/front-end/member/header.jsp"%>
     <!-- 麵包屑開始 -->
     <nav aria-label="breadcrumb" class="my_breadcrumb">
         <ol class="breadcrumb">
@@ -312,10 +313,10 @@
                         </div>
                         <div class="row newsletter">
                             <form class="form-inline">
-                                <div class="form-group mb-2 text_title">
+                                <div class="form-group mb-2 text_title d-none">
                                     簡訊驗證碼
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2">
+                                <div class="form-group mx-sm-3 mb-2 d-none">
                                     <!-- is-invalid 未通過 is-valid 通過 -->
                                     <input type="password" class="form-control" placeholder="123456">
                                     <!-- is-valid 通過 is-invalid 未通過 -> 即顯示invalid-feedback -->
@@ -368,7 +369,7 @@
             <!-- 店家預約種類2-1 結束 -->
             <!-- 店家預約種類2-2 -->
             <div class="container reservation" id="storeType2-2">
-                <button type="submit" class="btn btn-primary mb-2 usedmemberVO">套用會員資料</button>
+                <button type="submit" class="btn btn-primary mb-2 usedmemberVO d-none">套用會員資料</button>
                 <button type="submit" class="btn btn-primary mb-2 previous-step">上一步</button>
                 <div class="row">
                     <!-- 表格1/3 -->
@@ -430,20 +431,29 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="payment_table">
-                            <label for="#" class="col-sm-4 col-form-label">付款方式</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="payment" value="現金" id="payment1">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    現金
-                                </label>
+                        <div class="payment_table justify-content-star">
+                            <label for="#" class="col-sm-8 col-form-label ">付款方式</label>
+                            <div class="form-check d-flex">
+                                <div class="col-md-1 d-none d-md-block"></div>
+                                <div class="col-md-auto">
+                                    <input class="form-check-input" type="radio" name="payment" value="現金"
+                                        id="payment1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        現金
+                                    </label>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="payment" value="paypal"
-                                    id="payment2">
-                                <label class="form-check-label" for="defaultCheck2">
-                                    paypal
-                                </label>
+                            <div class="form-check d-flex">
+                                <div class="col-md-1 d-none d-md-block"></div>
+                                <div class="col-md-auto">
+                                    <input class="form-check-input" type="radio" name="payment" value="linepay"
+                                        id="payment2">
+                                    <label class="form-check-label" for="defaultCheck2">
+                                        linepay
+                                    </label>
+                                    <a id="linepay" class="d-none"><img style="width: 100px;"
+                                            src="<%=request.getContextPath()%>/resources/images/linepay.png"></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -466,10 +476,10 @@
                         </div>
                         <div class="row newsletter">
                             <form class="form-inline">
-                                <div class="form-group mb-2 text_title">
+                                <div class="form-group mb-2 text_title d-none">
                                     簡訊驗證碼
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2">
+                                <div class="form-group mx-sm-3 mb-2 d-none">
                                     <!-- is-invalid 未通過 is-valid 通過 -->
                                     <input type="password" class="form-control " placeholder="123456">
                                     <!-- 未通過即顯示invalid-feedback -->
@@ -498,12 +508,15 @@
     <br>
     <%@ include file="/front-end/member/footer.jsp"%>
 
-<!--     <script src="../../resources/vendors/jquery/jquery.js"></script> -->
-<!--     <script src="../../resources/vendors/popper/popper.min.js"></script> -->
-<!--     <script src="../../resources/vendors/bootstrap/js/bootstrap.min.js"></script> -->
+    <!--     <script src="../../resources/vendors/jquery/jquery.js"></script> -->
+    <!--     <script src="../../resources/vendors/popper/popper.min.js"></script> -->
+    <!--     <script src="../../resources/vendors/bootstrap/js/bootstrap.min.js"></script> -->
     <script src="<%=request.getContextPath()%>/resources/vendors/bootstrap/js/bootstrap-input-spinner.js"></script>
     <script src="<%=request.getContextPath()%>/resources/vendors/datetimepicker/jquery.datetimepicker.full.js"></script>
     <!-- <script src="../../resources/vendors/datetimepicker/jquery.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-base64.min.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/store/js/Introduction.js"></script>
 </body>
 

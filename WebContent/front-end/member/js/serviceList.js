@@ -291,7 +291,7 @@ $('#cancel-update').on("click", function () {
 // 宇宏覆寫 =============================================================================
 let path = window.location.pathname;
 const projectUrl = "http://" + window.location.host + path.substring(0, path.indexOf('/', 1))
-//const projectUrl = "http://localhost:8081/TDA101G2";
+// const projectUrl = "http://localhost:8081/TDA101G2";
 
 $("input[type^='number']").inputSpinner();
 
@@ -392,6 +392,7 @@ $("div.storeBreak2").change(function () {
 })
 // 新增 店家 按鈕
 $("#new-store").on('click', function () {
+  let member_id_val = $("#inputMemberId").val();
   let store_class_val = $("#store_type_update").val();
   let store_name_val = $("#store_name_update").val();
   let store_adress_val = $("#store_adress_update").val();
@@ -469,6 +470,7 @@ $("#new-store").on('click', function () {
   // console.log(store_closed)
   let keys = Object.keys(base64);
   let obj = {
+    member_id: member_id_val,
     store_class: store_class_val,
     store_name: store_name_val,
     store_adress: store_adress_val,
@@ -542,11 +544,14 @@ $("#new-store").on('click', function () {
         }
       }
     });
+    $("#btn_newstore_reload").click(function () {
+      location.reload();
+    })
   }
 })
 // 修改 店家 按鈕
 $("#update-store").on('click', function () {
-  let store_id_val = $("#update_store").data("store_id");
+  let store_id_val = $("#update_store").attr("data-store_id");
   let member_id_val = $("#inputMemberId").val();
   let store_class_val = $("#store_type_update2").val();
   let store_name_val = $("#store_name_update2").val();
@@ -558,16 +563,17 @@ $("#update-store").on('click', function () {
   let store_maxcapacity_val = $("#store_maxcapacity_update2").val();
   let closed_array = $("#store_closed_update2").val();
   var store_closed_val = closed_array.split(",");
+  console.log(store_id_val)
   console.log(member_id_val)
-  console.log(store_class_val)
-  console.log(store_name_val)
-  console.log(store_adress_val)
-  console.log(store_phone_number_val)
-  console.log(store_introduction_val)
-  console.log(store_firstbreak_val)
-  console.log(store_secondbreak_val)
-  console.log(store_maxcapacity_val)
-  console.log(store_closed_val)
+  // console.log(store_class_val)
+  // console.log(store_name_val)
+  // console.log(store_adress_val)
+  // console.log(store_phone_number_val)
+  // console.log(store_introduction_val)
+  // console.log(store_firstbreak_val)
+  // console.log(store_secondbreak_val)
+  // console.log(store_maxcapacity_val)
+  // console.log(store_closed_val)
 
   let checkcalss = false;
   let checkname = false;
@@ -832,8 +838,8 @@ function showServiceList(member_id) {
             <td>
               <div class="d-flex justify-content-center">
                 <label class="switch d-flex align-self-center">
-                  <input type="checkbox" name="product_state" checked>
-                  <span class="slider round"></span>
+                  <input type="checkbox" name="service_state" ${(item.service_state == 1) ? 'checked' : ''}>
+                  <span class="slider round" data-service_id="${item.service_id}" data-state="${item.service_state}"></span>
                 </label>
               </div>
             </td>
@@ -878,7 +884,7 @@ $("#add-service-btn").on("click", function () {
   }
   if (name != "" && price != "" && price != 0 && limit != 0 && limit != "") {
 
-    let serviceObj = { store_id: storeid, service_detail: name, service_price: price, service_limit: limit }
+    let serviceObj = { store_id: storeid, service_detail: name, service_price: price, service_limit: limit, service_state: 1 }
     var service = JSON.stringify(serviceObj);
     console.log(service)
     $.ajax({
@@ -918,9 +924,9 @@ $("#add-service-btn").on("click", function () {
             <td class="service_limit">${limit}</td>
             <td>
               <div class="d-flex justify-content-center">
-                <label class="switch d-flex align-self-center">
-                  <input type="checkbox" name="product_state" checked>
-                  <span class="slider round"></span>
+              <label class="switch d-flex align-self-center">
+                  <input type="checkbox" name="service_state" checked>
+                  <span class="slider round" data-service_id="${text}" data-state="1"></span>
                 </label>
               </div>
             </td>
@@ -1056,3 +1062,39 @@ $("#remove").on('click', function () {
   remove_tr.remove();
   $("#remove-product").modal('hide')
 })
+
+// 修改服務狀態
+$('input[name="service_state"]').on("click", function () {
+  console.log(111)
+})
+$('input[name="service_state"]').change(function () {
+  console.log(222)
+})
+// $(function () {
+$('#service-table').on('click', '.slider', function () {
+  let self = this;
+  console.log(self)
+  let state = $(self).attr("data-state")
+  state == 1 ? $(self).attr("data-state", 0) : $(self).attr("data-state", 1)
+  $.ajax({
+    url: projectUrl + "/Store_frontController",
+    type: "post",
+    data: {
+      action: "update_state",
+      service_id: $(self).attr("data-service_id"),
+      service_state: $(self).attr("data-state")
+    },
+    dataType: "text",
+    timeout: 0,
+    headers: {
+    },
+    error: function (xhr) {
+      console.log(xhr);
+    },
+    success: function (data) {
+      if (data == "success") alert("狀態更新成功");
+      console.log(data);
+    }
+  });
+})
+// })

@@ -2,6 +2,7 @@ package com.store.service.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ServiceService {
 	private ServiceDAO_interface dao;
@@ -46,7 +47,11 @@ public class ServiceService {
 	}
 	public void updateService(ServiceVO serviceVO) {
 		dao.update(serviceVO);
-		
+	}
+	public void updateServiceState(String service_id, Integer state) {
+		ServiceVO serviceVO = dao.selectByServiceID(service_id);
+		serviceVO.setService_state(state);
+		dao.update(serviceVO);
 	}
 	
 	public void deleteService(String service_id) {
@@ -58,7 +63,26 @@ public class ServiceService {
 		service = dao.selectByStore(store_id);
 		return service;
 	}
+	
+	public List<ServiceVO> selectByStoreFilter(String store_id){
+		List<ServiceVO> service = dao.selectByStore(store_id);
+		List<ServiceVO> result = new ArrayList<>();
+		result = service.stream()
+			.filter(s -> s.getService_state() != 0)
+			.collect(Collectors.toList());
+		return result;
+	}
+	
 	public ServiceVO selectByServiceID(String service_id) {
 		return dao.selectByServiceID(service_id);
 	}
+	
+//	public static void main(String[] args) {
+//		System.out.println("-----------------------------------");
+//		ServiceService dao = new ServiceService();
+//		List<ServiceVO> s = dao.selectByStoreFilter("S07004");
+//		for(ServiceVO l : s) {
+//			System.out.println(l.getService_id()+" "+l.getService_detail()+" "+ l.getService_price());
+//		}
+//	}
 }

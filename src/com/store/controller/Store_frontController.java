@@ -387,6 +387,14 @@ public class Store_frontController extends HttpServlet {
 			out.print("service刪除成功");
 		}
 		
+		if (("update_state").equals(action)) {
+			String serviceId = request.getParameter("service_id");
+			String service_state = request.getParameter("service_state");
+			ServiceService serviceSvc = new ServiceService();
+			serviceSvc.updateServiceState(serviceId, Integer.parseInt(service_state));
+			out.print("service狀態更新成功");
+		}
+		
 	}
 
 }
