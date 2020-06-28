@@ -91,6 +91,7 @@ figure.recommend_figure{
 }
 img.recommend_blogger_picture{
     width:40px;
+    height: 40px;
     border-radius: 50%;
     margin: 10px;
 }
@@ -332,6 +333,7 @@ figure.message_figure{
 img.message_blogger_picture{
     border: 0.5px solid lightgray;
     width: 60px; 
+    height: 60px;
     margin: 10px; 
     border-radius: 50%; 
 }

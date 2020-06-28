@@ -50,7 +50,7 @@ public class DocumentImage extends HttpServlet {
 				}
 				in.close();
 			} else {
-//				InputStream is = getServletContext().getResourceAsStream("/front-end/images/circle.jpg");
+//				InputStream is = getServletContext().getResourceAsStream("/resources/images/circle.jpg");
 //				byte[] buf = new byte[is.available()];
 //				is.read(buf);
 //				out.write(buf);
@@ -58,7 +58,7 @@ public class DocumentImage extends HttpServlet {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-//			InputStream is = getServletContext().getResourceAsStream("/front-end/images/circle.jpg");
+//			InputStream is = getServletContext().getResourceAsStream("/resources/images/circle.jpg");
 //			byte[] buf = new byte[is.available()];
 //			is.read(buf);
 //			out.write(buf);

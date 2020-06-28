@@ -136,6 +136,7 @@ public class SavedServlet extends HttpServlet {
 		}
 		
 		if("getByMemberId".equals(action)) {
+			System.out.println("進到SavedServlet getByMemberId");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
@@ -163,21 +164,23 @@ public class SavedServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
-				//查詢資料
-				SavedService service = new SavedService();
-				List<SavedVO> list = null;
-				list = service.getByMemberId(member_id);
-				if(list == null) {
-					errorMsgs.add("查無資料");
-				}
 				
-				if(!errorMsgs.isEmpty()){
-					RequestDispatcher failureView = req.getRequestDispatcher("/Saved/select_page.jsp");
-					failureView.forward(req, res);
-					return;
-				}
+				req.setAttribute("member_id", member_id);
+				//查詢資料
+//				SavedService service = new SavedService();
+//				List<SavedVO> list = null;
+//				list = service.getByMemberId(member_id);
+//				if(list == null) {
+//					errorMsgs.add("查無資料");
+//				}
+//				
+//				if(!errorMsgs.isEmpty()){
+//					RequestDispatcher failureView = req.getRequestDispatcher("/Saved/select_page.jsp");
+//					failureView.forward(req, res);
+//					return;
+//				}
 				//轉交
-				req.setAttribute("list", list);
+//				req.setAttribute("list", list);
 				RequestDispatcher successView = req.getRequestDispatcher("/Saved/listAllByMemberId.jsp");
 				successView.forward(req, res);
 			} catch(Exception e) {

@@ -599,7 +599,7 @@
 										if("${member.member_id}" == member_id){
 											let messagecontent = '<div class="each_message">' + 
 								        '<figure class="message_figure">' +
-									      '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
+									      '<img class="message_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${member.member_id}">' +
 									      '</figure>' +
 									      '<div class="message_person">' +
 									     	'<span class="message_nickname">' + "${member.nickname}" + '</span>' +
@@ -613,9 +613,9 @@
 										}
 									</c:forEach>	
 								});
-								let leavemessage = '<div class="each_message">'+
+								let leavemessage = '<div class="each_message">'+				
 									'<figure class="message_figure">'+
-								  '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">'+     
+								  '<img class="message_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">' +     
 									'</figure>'+      
 									'<div class="message_person">'+     
 									'<span class="message_nickname">' + nickname + '</span>'+     
@@ -635,7 +635,7 @@
 									'</div>'+         
 									'</div>';                     
 	        			it.parents("div.post_functions").next().append(leavemessage);
-	        			it.parents("div.post_functions").next().slideToggle(1000);
+	        			it.parents("div.post_functions").next().slideToggle(500);
 		      		}
 				});
 			});
@@ -644,6 +644,8 @@
 			$(document).on("click", "button.send_button", function(e){
 	    	let post_id = $(this).closest("div.each_post").attr("id");
 	    	let message_content = $(this).parents("div.message_content").find("#content").val();
+	    	let member_id = "${memberVO.member_id}";
+	    	console.log(member_id);
 	    	let it = $(this);
 	    	if(message_content.trim() != ""){
 	    		$.ajax({	
@@ -652,7 +654,7 @@
 	        		data: {                       
 	        	  	"action": "addMessage", 
 	        	    "post_id": post_id,
-	        	    "member_id": "MB00001",
+	        	    "member_id": member_id,
 	        	    "message_content": message_content, 
 	        	  },
 	        	  dataType: "json",
@@ -663,7 +665,7 @@
 	        	  	it.attr("value", "slide");
 	        	    let messagecontent = '<div class="each_message">' + 
 	    						'<figure class="message_figure">' +
-	    					  '<img class="message_blogger_picture" src="https://stickershop.line-scdn.net/stickershop/v1/product/583/LINEStorePC/main.png;compress=true">' +
+	    					  '<img class="message_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">' +
 	    					  '</figure>' +
 	    					  '<div class="message_person">' +
 	    					  '<span class="message_nickname">'+ $(data).attr("member_id") +'</span>' +
@@ -675,7 +677,7 @@
 	    					  '</div>';
 	    					it.parents("div.post_functions").next().prepend(messagecontent);
 	    					it.parents("div.message_content").find("#content").val("");
-	//     					it.parents("div.message").prev().find("button.post_message_button").click().click();
+	    					it.parents("div.message").prev().find("button.post_message_button").click().click();
 	        	  }
 					});
 	    	}

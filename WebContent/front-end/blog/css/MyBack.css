@@ -4,6 +4,9 @@ a:link, a:visited{
 	color: #13406A;
 }
 /* ==========container========== */
+div.container#mybackcontainer{
+	min-height: 500px !important;
+}
 div.padding_left{
     margin-top: 20px;
 }
@@ -44,6 +47,7 @@ figure.follow_figure{
 }
 img.follow_blogger_picture{
     width:40px;
+    height: 40px;
     border-radius: 50%;
     margin: 10px;
 }
@@ -90,6 +94,7 @@ figure.follow_me_figure{
 }
 img.follow_me_blogger_picture{
     width:40px;
+    height: 40px;
     border-radius: 50%;
     margin: 10px;
 }

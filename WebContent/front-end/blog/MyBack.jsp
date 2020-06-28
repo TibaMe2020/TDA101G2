@@ -41,7 +41,7 @@
 	
 	SavedService savedService = new SavedService();
 	List<SavedVO> list2 = savedService.getByMemberId(member_id);
-	pageContext.setAttribute("list2", list2);
+	pageContext.setAttribute("list2", list2);	
 	
 	PostService postService = new PostService();
 	List<PostVO> list3 = new ArrayList<PostVO>();
@@ -61,7 +61,7 @@
 	List<MemberVO> memberList = mbSvc.getAllBlogerInfo();
 	pageContext.setAttribute("memberList", memberList);
 %>
-	<div class="container">
+	<div class="container" id="mybackcontainer">
   	<div class="row">
     	<div class="col-3 padding_left">
       	<div class="follow_blogger">
@@ -71,7 +71,7 @@
 	          	<div>
 	          		<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${followVO.followed_member_id}">
 			          	<figure class="follow_figure">
-			            	<img class="follow_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
+			            	<img class="follow_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${followVO.followed_member_id}">
 			            </figure>
 			            <c:forEach var="member" items="${memberList1}">
 			            	<c:if test="${followVO.followed_member_id == member.member_id}">
@@ -98,7 +98,7 @@
 	          	<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${followVO.member_id}">      	
 		          	<div class="each_follow_me_blogger">
 			          	<figure class="follow_me_figure">
-			            	<img class="follow_me_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
+			            	<img class="follow_me_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${followVO.member_id}">
 			            </figure>
 			            <c:forEach var="member" items="${memberList2}">
 				            <c:if test="${followVO.member_id == member.member_id}">
@@ -118,11 +118,15 @@
         	<c:forEach var="savedVO" items="${list2}">
           	<div class="each_saved_post" value="${savedVO.saved_post_id}">
 	          	<div class="saved_post_blogger">
-	          		<a href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?">
-		            	<figure class="saved_post_figure">
-		              	<img class="saved_post_blogger_picture" src="https://images.669pic.com/element_banner/41/83/83/73/c95ce96fa9002df8623201c605601bef.jpg">
-		            	</figure>
-		            </a>
+	          	<c:forEach var="postVO" items="${list3}">
+		          	<c:if test="${(savedVO.post_id) == (postVO.post_id)}">
+		          		<a href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}">
+			            	<figure class="saved_post_figure">
+			              	<img class="saved_post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${postVO.member_id}">
+			            	</figure>
+			            </a>
+			          </c:if>
+		          </c:forEach>
 		            <c:forEach var="postVO" items="${list3}">
 		            	<c:if test="${(savedVO.post_id) == (postVO.post_id)}">
 		            		<c:forEach var="member" items="${memberList}">
