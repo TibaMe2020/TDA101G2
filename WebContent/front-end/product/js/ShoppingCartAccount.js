@@ -252,5 +252,13 @@ $("#totalSum").append(
 });
 
 
-//googlemap
-
+//確定
+$("#ok").on("click", function () {
+	  Swal.fire({
+	      position: 'center',
+	      icon: 'success',
+	      title: '信用卡輸入成功',
+	      showConfirmButton: false,
+	      timer: 1500
+	  });
+	});
