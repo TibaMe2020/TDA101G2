@@ -156,7 +156,7 @@
                	<div class="col-sm-12 col-md-3" id="new_product">
                        <div>
                            <a href="<%=request.getContextPath()%>/front-end/product/Product.jsp?product_id=${product_VO.product_id}">
-                              <img src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="new_product"/>
+                              <img src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="new_product" />
                                <br />
                                <p>${product_VO.name}</p>
                            </a>
