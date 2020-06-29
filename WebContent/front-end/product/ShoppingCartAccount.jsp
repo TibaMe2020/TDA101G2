@@ -60,141 +60,142 @@
 		<br>
 
 		<!-- 運費活動 -->
-		<div class="container">
-				<div class="row" id="Activity" style="border: 3px solid black">
-						<div class="col-2">
-								<i class="fa fa-truck" id="truck"
-										style="padding-top: 20px; padding-left: 20px; font-size: 50px;"></i>
-						</div>
-						<div class="col-3 text-left" style="margin-top: 5px;">
-								<h4>運費活動:</h4>
-								<p>
-										全家、萊爾富取貨付款 $20 <br> 7-11取貨付款 $10
-								</p>
-						</div>
+<!-- 		<div class="container"> -->
+<!-- 				<div class="row" id="Activity" style="border: 3px solid black"> -->
+<!-- 						<div class="col-2"> -->
+<!-- 								<i class="fa fa-truck" id="truck" -->
+<!-- 										style="padding-top: 20px; padding-left: 20px; font-size: 50px;"></i> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-3 text-left" style="margin-top: 5px;"> -->
+<!-- 								<h4>運費活動:</h4> -->
+<!-- 								<p> -->
+<!-- 										全家、萊爾富取貨付款 $20 <br> 7-11取貨付款 $10 -->
+<!-- 								</p> -->
+<!-- 						</div> -->
 
 						<!-- 門市訊息 -->
-						<div style="margin-top: 5px;">
-								<div class="row">
-										<div class="col-sm-12 col-md-8">
-												<h4>門市資訊:</h4>
-												<p>中和門市台北市中正區濟南路一段321號</p>
-										</div>
-										<div class="col-sm-12 col-md-4">
-												<button type="button" class="btn btn-secondary"
-														id="Selectbtn">選擇門市</button>
-										</div>
-								</div>
-						</div>
+						
+<!-- 						<div style="margin-top: 5px;"> -->
+<!-- 								<div class="row"> -->
+<!-- 										<div class="col-sm-12 col-md-8"> -->
+<!-- 												<h4>門市資訊:</h4> -->
+<!-- 												<p>中和門市台北市中正區濟南路一段321號</p> -->
+<!-- 										</div> -->
+<!-- 										<div class="col-sm-12 col-md-4"> -->
+<!-- 												<button type="button" class="btn btn-secondary" -->
+<!-- 														id="Selectbtn">選擇門市</button> -->
+<!-- 										</div> -->
+<!-- 								</div> -->
+<!-- 						</div> -->
 
 						<!-- 選擇門市資訊 -->
-						<div class="bs-example">
-								<div id="myModal" class="modal fade" tabindex="-1">
-										<div class="modal-dialog">
-												<div class="modal-content">
-														<div class="modal-header">
-																<h5 class="modal-title">門市資訊</h5>
-																<button type="button" class="close" data-dismiss="modal">&times;</button>
-														</div>
-														<form>
-																<div class="modal-body">
-																		<div class="container">
-																				<div class="row">
-																						<div class="col-sm-12 col-md-1">
-																								<input type="radio" name="7-11" value=" 信用卡">
-																						</div>
-																						<div class="col-sm-12 col-md-3"
-																								style="text-align: left;">
-																								<p>7-11</p>
-																						</div>
-																						<div class="col-sm-12 col-md-8"
-																								style="text-align: right;">
-																								<p style="color: red;">運費:$10</p>
-																						</div>
-																				</div>
-																		</div>
-																		<div class="row">
-																				<div class="col-sm-12 col-md-1"></div>
-																				<div class="col-sm-12 col-md-1"
-																						style="margin-left: 20px;">
-																						<i class="fas fa-map-marker-alt" id="marker"></i>
-																				</div>
-																				<div class="location">
+<!-- 						<div class="bs-example"> -->
+<!-- 								<div id="myModal" class="modal fade" tabindex="-1"> -->
+<!-- 										<div class="modal-dialog"> -->
+<!-- 												<div class="modal-content"> -->
+<!-- 														<div class="modal-header"> -->
+<!-- 																<h5 class="modal-title">門市資訊</h5> -->
+<!-- 																<button type="button" class="close" data-dismiss="modal">&times;</button> -->
+<!-- 														</div> -->
+<!-- 														<form> -->
+<!-- 																<div class="modal-body"> -->
+<!-- 																		<div class="container"> -->
+<!-- 																				<div class="row"> -->
+<!-- 																						<div class="col-sm-12 col-md-1"> -->
+<!-- 																								<input type="radio" name="7-11" value=" 信用卡"> -->
+<!-- 																						</div> -->
+<!-- 																						<div class="col-sm-12 col-md-3" -->
+<!-- 																								style="text-align: left;"> -->
+<!-- 																								<p>7-11</p> -->
+<!-- 																						</div> -->
+<!-- 																						<div class="col-sm-12 col-md-8" -->
+<!-- 																								style="text-align: right;"> -->
+<!-- 																								<p style="color: red;">運費:$10</p> -->
+<!-- 																						</div> -->
+<!-- 																				</div> -->
+<!-- 																		</div> -->
+<!-- 																		<div class="row"> -->
+<!-- 																				<div class="col-sm-12 col-md-1"></div> -->
+<!-- 																				<div class="col-sm-12 col-md-1" -->
+<!-- 																						style="margin-left: 20px;"> -->
+<!-- 																						<i class="fas fa-map-marker-alt" id="marker"></i> -->
+<!-- 																				</div> -->
+<!-- 																				<div class="location"> -->
 																						
-																						<% %>
+<%-- 																						<% %> --%>
 																						
-																				</div>
-																		</div>
-																</div>
-																<div class="modal-body">
-																		<div class="container">
-																				<div class="row">
-																						<div class="col-sm-12 col-md-1">
-																								<input type="radio" name="7-11" value=" 信用卡">
-																						</div>
-																						<div class="col-sm-12 col-md-3"
-																								style="text-align: left;">
-																								<p>全家</p>
-																						</div>
-																						<div class="col-sm-12 col-md-8"
-																								style="text-align: right;">
-																								<p style="color: red;">運費:$20</p>
-																						</div>
+<!-- 																				</div> -->
+<!-- 																		</div> -->
+<!-- 																</div> -->
+<!-- 																<div class="modal-body"> -->
+<!-- 																		<div class="container"> -->
+<!-- 																				<div class="row"> -->
+<!-- 																						<div class="col-sm-12 col-md-1"> -->
+<!-- 																								<input type="radio" name="7-11" value=" 信用卡"> -->
+<!-- 																						</div> -->
+<!-- 																						<div class="col-sm-12 col-md-3" -->
+<!-- 																								style="text-align: left;"> -->
+<!-- 																								<p>全家</p> -->
+<!-- 																						</div> -->
+<!-- 																						<div class="col-sm-12 col-md-8" -->
+<!-- 																								style="text-align: right;"> -->
+<!-- 																								<p style="color: red;">運費:$20</p> -->
+<!-- 																						</div> -->
 
-																				</div>
-																		</div>
-																		<div class="row">
-																				<div class="col-sm-12 col-md-1"></div>
-																				<div class="col-sm-12 col-md-1"
-																						style="margin-left: 20px;">
-																						<i class="fas fa-map-marker-alt" id="marker"></i>
-																				</div>
-																				<div class="location">
-																						<p>中和門市 台北市中正區濟南路一段321號</p>
-																				</div>
-																		</div>
+<!-- 																				</div> -->
+<!-- 																		</div> -->
+<!-- 																		<div class="row"> -->
+<!-- 																				<div class="col-sm-12 col-md-1"></div> -->
+<!-- 																				<div class="col-sm-12 col-md-1" -->
+<!-- 																						style="margin-left: 20px;"> -->
+<!-- 																						<i class="fas fa-map-marker-alt" id="marker"></i> -->
+<!-- 																				</div> -->
+<!-- 																				<div class="location"> -->
+<!-- 																						<p>中和門市 台北市中正區濟南路一段321號</p> -->
+<!-- 																				</div> -->
+<!-- 																		</div> -->
 
-																</div>
-																<div class="modal-body">
-																		<div class="container">
-																				<div class="row">
-																						<div class="col-sm-12 col-md-1">
-																								<input type="radio" name="7-11" value=" 信用卡">
-																						</div>
-																						<div class="col-sm-12 col-md-3"
-																								style="text-align: left;">
-																								<p>萊爾富</p>
-																						</div>
-																						<div class="col-sm-12 col-md-8"
-																								style="text-align: right;">
-																								<p style="color: red;">運費:$20</p>
-																						</div>
-																				</div>
-																		</div>
-																		<div class="row">
-																				<div class="col-sm-12 col-md-1"></div>
-																				<div class="col-sm-12 col-md-1"
-																						style="margin-left: 20px;">
-																						<i class="fas fa-map-marker-alt" id="marker"></i>
-																				</div>
-																				<div class="location">
-																						<p>中和門市 台北市中正區濟南路一段321號</p>
-																				</div>
-																		</div>
-																</div>
-														</form>
-														<div class="modal-footer">
-																<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal" style="margin: auto;">取消</button>
-																<button type="button" class="btn btn-primary"
-																		data-dismiss="modal" style="margin: auto;">確定</button>
-														</div>
-												</div>
-										</div>
-								</div>
-						</div>
-				</div>
-		</div>
+<!-- 																</div> -->
+<!-- 																<div class="modal-body"> -->
+<!-- 																		<div class="container"> -->
+<!-- 																				<div class="row"> -->
+<!-- 																						<div class="col-sm-12 col-md-1"> -->
+<!-- 																								<input type="radio" name="7-11" value=" 信用卡"> -->
+<!-- 																						</div> -->
+<!-- 																						<div class="col-sm-12 col-md-3" -->
+<!-- 																								style="text-align: left;"> -->
+<!-- 																								<p>萊爾富</p> -->
+<!-- 																						</div> -->
+<!-- 																						<div class="col-sm-12 col-md-8" -->
+<!-- 																								style="text-align: right;"> -->
+<!-- 																								<p style="color: red;">運費:$20</p> -->
+<!-- 																						</div> -->
+<!-- 																				</div> -->
+<!-- 																		</div> -->
+<!-- 																		<div class="row"> -->
+<!-- 																				<div class="col-sm-12 col-md-1"></div> -->
+<!-- 																				<div class="col-sm-12 col-md-1" -->
+<!-- 																						style="margin-left: 20px;"> -->
+<!-- 																						<i class="fas fa-map-marker-alt" id="marker"></i> -->
+<!-- 																				</div> -->
+<!-- 																				<div class="location"> -->
+<!-- 																						<p>中和門市 台北市中正區濟南路一段321號</p> -->
+<!-- 																				</div> -->
+<!-- 																		</div> -->
+<!-- 																</div> -->
+<!-- 														</form> -->
+<!-- 														<div class="modal-footer"> -->
+<!-- 																<button type="button" class="btn btn-secondary" -->
+<!-- 																		data-dismiss="modal" style="margin: auto;">取消</button> -->
+<!-- 																<button type="button" class="btn btn-primary" -->
+<!-- 																		data-dismiss="modal" style="margin: auto;">確定</button> -->
+<!-- 														</div> -->
+<!-- 												</div> -->
+<!-- 										</div> -->
+<!-- 								</div> -->
+<!-- 						</div> -->
+<!-- 				</div> -->
+<!-- 		</div> -->
 		<br>
 		<div class="container">
 				<div class="row" id="credit" style="border: 3px solid black">
@@ -377,7 +378,7 @@
 										<button type="button" class="btn btn-secondary"
 												data-dismiss="modal" style="margin: auto;">取消</button>
 										<button type="button" class="btn btn-primary"
-												data-dismiss="modal" style="margin: auto;">確定</button>
+												data-dismiss="modal" style="margin: auto;" id="ok">確定</button>
 								</div>
 						</div>
 				</div>

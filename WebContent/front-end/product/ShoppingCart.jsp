@@ -60,10 +60,10 @@
                 <i class="fa fa-truck" id="truck" style=" padding-top: 20px; padding-left: 20px; font-size: 50px;"></i>
             </div>
             <div class="col-3 text-left" style="margin-top: 5px;">
-                <h4>運費活動:</h4>
-                <p>
-                    全家、萊爾富取貨付款 $20 <br>
-                    7-11取貨付款 $10
+                <h4>促銷活動:</h4>
+                <p style="color:red">
+                     滿千送百，買越多送多 <br>
+                    把握當下，走過路過不要錯過!
                 </p>
             </div>
             <div class="col-2" style="margin: 30px 0 0 80px;">
