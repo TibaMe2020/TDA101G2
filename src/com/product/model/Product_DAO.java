@@ -62,14 +62,13 @@ private static final String GET_BY_CLASS = "select sum(price*quantity) as total,
 	
 	@Override
 	public Map<String, String> getByClass() {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_BY_CLASS);
-			rs = pstmt.executeQuery();
+		try (
+				Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(GET_BY_CLASS);
+				ResultSet rs = pstmt.executeQuery();
+				){
+			
 			Map<String, String> map = new HashMap<>();
 
 			while (rs.next()) {

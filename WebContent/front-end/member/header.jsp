@@ -204,6 +204,8 @@
 
 <%
 	} else {
+		//登入時導轉到原本頁面
+		session.setAttribute("location", request.getRequestURI());
 %>
 <header>
 	<div class="header">
