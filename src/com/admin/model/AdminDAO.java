@@ -53,7 +53,6 @@ public class AdminDAO implements AdminDAO_interface {
 			ps.setString(1, adminVO.getAdmin_password());
 			ps.setInt(2, adminVO.getSuspension());
 			ps.setString(3, adminVO.getAdmin_id());
-			System.out.println("DAO id : " + adminVO.getAdmin_id());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
