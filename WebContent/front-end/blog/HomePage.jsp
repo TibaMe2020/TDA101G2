@@ -188,6 +188,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show01" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -201,6 +206,11 @@
 																	<input type="file" class="custom-file-input" id="inputGroupFile02" name="post_image2"> 
 																	<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
 																</div>
+															</div>
+														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show02" src="" style="width: 150px">
 															</div>
 														</td>
 													</tr>
@@ -218,6 +228,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show03" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -233,6 +248,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show04" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -246,6 +266,11 @@
 																	<input type="file" class="custom-file-input" id="inputGroupFile05" name="post_image5"> 
 																	<label class="custom-file-label" for="inputGroupFile05">Choose file</label>
 																</div>
+															</div>
+														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show05" src="" style="width: 150px">
 															</div>
 														</td>
 													</tr>													
@@ -286,7 +311,8 @@
 				</div>
 
 				<c:forEach var="postVO" items="${postList}">
-				<div class="each_post" id="${postVO.post_id}">	
+				<div class="each_post" id="${postVO.post_id}">
+				
 					<div class="post">
 						<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${postVO.member_id}">
 							<figure class="post_figure">									
@@ -373,6 +399,7 @@
 	
 					<div class="message" id="<%=member_id%>">
 					</div>
+
 				</div>
 				</c:forEach>
 
@@ -723,7 +750,45 @@
 					$(this).tooltip('hide');
 				});
 			});
-		
+			
+			//顯示預覽圖
+			function showImage(fileInput, image) {
+				var readFile = new FileReader();
+				var myfile = $(fileInput)[0].files[0];
+				readFile.readAsDataURL(myfile);
+				console.log(myfile);
+				readFile.onload = function() {
+					var img = $(image);
+					img.attr("src", readFile.result);
+				}
+			}
+			//新增文章的預覽圖
+			$(document).on("change", "#inputGroupFile01", function(){
+				showImage(this, $("#show01"));
+			});
+			
+			$(document).on("change", "#inputGroupFile02", function(){
+				showImage(this, $("#show02"));
+			});
+			
+			$(document).on("change", "#inputGroupFile03", function(){
+				showImage(this, $("#show03"));
+			});
+			
+			$(document).on("change", "#inputGroupFile04", function(){
+				showImage(this, $("#show04"));
+			});
+			
+			$(document).on("change", "#inputGroupFile05", function(){
+				showImage(this, $("#show05"));
+			});
+			
+			//點擊單篇文章會連到單篇文章
+			$(document).on("click", "div.each_post", function(){
+				let post_id = $(this).attr("id");
+				window.location.href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=" + post_id;
+			});
+			
 		});
 	</script>
 </body>

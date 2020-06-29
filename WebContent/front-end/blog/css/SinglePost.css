@@ -3,6 +3,9 @@
     background-color: #F3F2F2;
     font-family: Noto Serif TC;
 }
+div.row{
+  text-align: left!important;
+}
 input, input:focus{
 	outline: none;
 	border: 0px;
@@ -95,6 +98,7 @@ img.profile_image{
 }
 div.profile_info{
     margin:0 20px;
+    text-align: center;
 }
 span.profile_info{
     color: #13406A;

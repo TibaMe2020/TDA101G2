@@ -456,9 +456,9 @@
 														</div>
 													</td>
 													<td>
-															<div class="image_preview">
-																<img id="show1" src="" style="width: 150px">
-															</div>
+														<div class="image_preview">
+															<img id="show1" src="" style="width: 150px">
+														</div>
 													</td>
 												</tr>
 												<tr>
@@ -476,9 +476,9 @@
 														</div>
 													</td>
 													<td>
-															<div class="image_preview">
-																<img id="show2" src="" style="width: 150px">
-															</div>
+														<div class="image_preview">
+															<img id="show2" src="" style="width: 150px">
+														</div>
 													</td>
 												</tr>
 												<tr>
@@ -496,9 +496,9 @@
 														</div>
 													</td>
 													<td>
-															<div class="image_preview">
-																<img id="show3" src="" style="width: 150px">
-															</div>
+														<div class="image_preview">
+															<img id="show3" src="" style="width: 150px">
+														</div>
 													</td>
 												</tr>
 												<tr>
@@ -516,9 +516,9 @@
 														</div>
 													</td>
 													<td>
-															<div class="image_preview">
-																<img id="show4" src="" style="width: 150px">
-															</div>
+														<div class="image_preview">
+															<img id="show4" src="" style="width: 150px">
+														</div>
 													</td>
 												</tr>
 												<tr>
@@ -536,9 +536,9 @@
 														</div>
 													</td>
 													<td>
-															<div class="image_preview">
-																<img id="show5" src="" style="width: 150px">
-															</div>
+														<div class="image_preview">
+															<img id="show5" src="" style="width: 150px">
+														</div>
 													</td>
 												</tr>													
 												<tr>
@@ -1056,6 +1056,12 @@
 			
 			$(document).on("change", "#inputGroupFile5", function(){
 				showImage(this, $("#show5"));
+			});
+			
+			//點擊單篇文章會連到單篇文章
+			$(document).on("click", "div.each_post", function(){
+				let post_id = $(this).attr("id");
+				window.location.href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=" + post_id;
 			});
 			
 		});

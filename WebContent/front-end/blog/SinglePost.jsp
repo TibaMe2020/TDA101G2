@@ -17,11 +17,11 @@
 <body class="body">
 <%@ include file="/front-end/member/header.jsp"%>
 <%
-	System.out.println("我是" + member_id);
+// 	System.out.println("我是" + member_id);
 
 	String post_id = request.getParameter("post_id");	
 	pageContext.setAttribute("post_id", post_id);
-	System.out.println("這篇文章是" + post_id);
+// 	System.out.println("這篇文章是" + post_id);
 	
 	//取得所有會員的暱稱
 	List<MemberVO> memberList = mbSvc.getAllBlogerInfo();
@@ -68,7 +68,7 @@
 	//關注部落客判斷
 	List<String> list3 = followService.getFollowedMemberIdByMemberId(member_id);
 	pageContext.setAttribute("list3", list3);
-	System.out.println("我關注的member_id:" + list3);
+// 	System.out.println("我關注的member_id:" + list3);
 
 	List<FollowVO> list4 = followService.getByMemberId(member_id);
 	pageContext.setAttribute("list4", list4);
@@ -572,6 +572,12 @@
 							}										
 					});
 				}		
+			});
+			
+			//點擊單篇文章會連到單篇文章
+			$(document).on("click", "div.each_post", function(){
+				let post_id = $(this).attr("id");
+				window.location.href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=" + post_id;
 			});
   	});
   </script>

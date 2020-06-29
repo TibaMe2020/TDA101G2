@@ -16,6 +16,11 @@
 <body class="body">
 <%@ include file="/front-end/member/header.jsp"%>
 <%
+	//分享連結
+	String absoluteURL = request.getScheme()+ "://" + request.getServerName() + ":" +
+		request.getServerPort();
+	pageContext.setAttribute("absoURL", absoluteURL);
+
 	//取得所有會員暱稱
 	List<MemberVO> memberList = mbSvc.getAllBlogerInfo();
 	pageContext.setAttribute("memberList", memberList);
@@ -181,6 +186,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show01" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -194,6 +204,11 @@
 																	<input type="file" class="custom-file-input" id="inputGroupFile02" name="post_image2"> 
 																	<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
 																</div>
+															</div>
+														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show02" src="" style="width: 150px">
 															</div>
 														</td>
 													</tr>
@@ -211,6 +226,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show03" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -226,6 +246,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show04" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -239,6 +264,11 @@
 																	<input type="file" class="custom-file-input" id="inputGroupFile05" name="post_image5"> 
 																	<label class="custom-file-label" for="inputGroupFile05">Choose file</label>
 																</div>
+															</div>
+														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show05" src="" style="width: 150px">
 															</div>
 														</td>
 													</tr>													
@@ -355,7 +385,8 @@
 						</div>
 						
 						<div class="post_share">
-							<button class="post_share_button" data-toggle="tooltip" title="copy" data-placement="right" data-src="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}">
+							<button class="post_share_button" data-toggle="tooltip" title="copy" data-placement="right" data-src="
+							<%=absoluteURL +request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}">
 								<span class="post_share_icon"> 
 									<i class="fas fa-share-square"></i>
 								</span>
@@ -423,6 +454,11 @@
 															</div>
 														</div>
 													</td>
+													<td>
+															<div class="image_preview">
+																<img id="show1" src="" style="width: 150px">
+															</div>
+														</td>
 												</tr>
 												<tr>
 													<td class="input">
@@ -436,6 +472,11 @@
 																<input type="file" class="custom-file-input" id="inputGroupFile2" name="post_image2"> 
 																<label class="custom-file-label" for="inputGroupFile2">Choose file</label>
 															</div>
+														</div>
+													</td>
+													<td>
+														<div class="image_preview">
+															<img id="show2" src="" style="width: 150px">
 														</div>
 													</td>
 												</tr>
@@ -453,6 +494,11 @@
 															</div>
 														</div>
 													</td>
+													<td>
+														<div class="image_preview">
+															<img id="show3" src="" style="width: 150px">
+														</div>
+													</td>
 												</tr>
 												<tr>
 													<td class="input">
@@ -468,6 +514,11 @@
 															</div>
 														</div>
 													</td>
+													<td>
+														<div class="image_preview">
+															<img id="show4" src="" style="width: 150px">
+														</div>
+													</td>
 												</tr>
 												<tr>
 													<td class="input">
@@ -481,6 +532,11 @@
 																<input type="file" class="custom-file-input" id="inputGroupFile5" name="post_image5"> 
 																<label class="custom-file-label" for="inputGroupFile5">Choose file</label>
 															</div>
+														</div>
+													</td>
+													<td>
+														<div class="image_preview">
+															<img id="show5" src="" style="width: 150px">
 														</div>
 													</td>
 												</tr>													
@@ -751,7 +807,7 @@
 	    				dataType: "json",
 	   					error: function(xhr){
 	   						console.log("錯誤");
-	   					},
+	   			  	},
 	    				success: function(data){
 	    					let like_count = '<span class="post_like_count">' + $(data).attr("post_like") + '</span>';
 	    					it.parents("div.post_like").find("span.post_like_count").replaceWith(like_count);
@@ -783,55 +839,7 @@
 		       }
 				});
 			});
-// 			// 收藏文章         
-// 			$(document).on("click", "button.saved_button", function(event){
-// 				event.stopPropagation();
-// 				let issaved = $(this).attr("value");
-// 				console.log(issaved);
-// 				let post_id = $(this).closest("div.each_post").attr("id");
-// 				let it = $(this);
-// 				if(issaved == 0){
-// 					it.find("span.saved_post_icon").attr("style", "color: black");
-// 					it.attr("value", "1");
-// 					$.ajax({
-<%-- 	    				url:"<%=request.getContextPath()%>/Post/AjaxServlet", --%>
-// 	    				type:"GET",
-// 	    				data: {                       
-// 	    	      	"action": "savedPost", 
-// 	    	        "value": "1",
-// 	    	        "post_id": post_id,
-// 								"member_id": "MB00001" 
-// 	    	      },
-// 	    	      dataType: "json",
-// 	    	      error: function (xhr) {         
-// 	    	      	console.log("錯誤");
-// 	    	      },
-// 	    	      success: function(data){
-// 	    	      	console.log(data);
-// 							}
-// 	    		});
-// 				}else{
-// 					it.find("span.saved_post_icon").attr("style", "color: lightgray");
-// 					it.attr("value", "0");
-// 					$.ajax({
-<%-- 	    				url:"<%=request.getContextPath()%>/Post/AjaxServlet", --%>
-// 							type : "GET",
-// 							data : {
-// 								"action" : "savedPost",
-// 								"value" : "0",
-// 								"post_id" : post_id,
-// 								"member_id" : "MB00001"
-// 							},
-// 							dataType : "json",
-// 							error : function(xhr) {
-// 								console.log("錯誤");
-// 							},
-// 							success : function(data) {
-// 								console.log(data);
-// 							}										
-// 					});
-// 				}		
-// 			});
+
 			//新增文章錯誤驗證
 			$(document).on("click", "#confirm_send", function(){
 				let post_content = $("#post_content").val().trim();
@@ -946,6 +954,64 @@
 					event.stopPropagation();
 					$(this).tooltip('hide');
 				});
+			});
+			
+			//顯示預覽圖
+			function showImage(fileInput, image) {
+				var readFile = new FileReader();
+				var myfile = $(fileInput)[0].files[0];
+				readFile.readAsDataURL(myfile);
+				console.log(myfile);
+				readFile.onload = function() {
+					var img = $(image);
+					img.attr("src", readFile.result);
+				}
+			}
+			//新增文章的預覽圖
+			$(document).on("change", "#inputGroupFile01", function(){
+					showImage(this, $("#show01"));
+			});
+			
+			$(document).on("change", "#inputGroupFile02", function(){
+				showImage(this, $("#show02"));
+			});
+			
+			$(document).on("change", "#inputGroupFile03", function(){
+				showImage(this, $("#show03"));
+			});
+			
+			$(document).on("change", "#inputGroupFile04", function(){
+				showImage(this, $("#show04"));
+			});
+			
+			$(document).on("change", "#inputGroupFile05", function(){
+				showImage(this, $("#show05"));
+			});
+			//修改文章的預覽圖
+			$(document).on("change", "#inputGroupFile1", function(){
+					showImage(this, $("#show1"));
+			});
+			
+			$(document).on("change", "#inputGroupFile2", function(){
+				showImage(this, $("#show2"));
+			});
+			
+			$(document).on("change", "#inputGroupFile3", function(){
+				showImage(this, $("#show3"));
+			});
+			
+			$(document).on("change", "#inputGroupFile4", function(){
+				showImage(this, $("#show4"));
+			});
+			
+			$(document).on("change", "#inputGroupFile5", function(){
+				showImage(this, $("#show5"));
+			});
+			
+			//點擊單篇文章會連到單篇文章
+			$(document).on("click", "div.each_post", function(){
+				let post_id = $(this).attr("id");
+				window.location.href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=" + post_id;
 			});
 			
 		});
