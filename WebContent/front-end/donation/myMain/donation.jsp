@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <html>
 <head>
 <title>Insert title here</title>
 </head>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/member/css/headerNfooter.css">
   <style>
     body {
     font-family: Georgia;
@@ -272,6 +272,7 @@
   </style>
 <body>
   <header>
+<%@ include file="/front-end/member/header.jsp"%>
 
       </header>
       <!-- Start homepage content -->
@@ -393,6 +394,7 @@
       <!-- End homepage content -->
 
       <footer>
+	<%@ include file="/front-end/member/footer.jsp"%>
 
       </footer>
 </body>
