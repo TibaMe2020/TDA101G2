@@ -4,146 +4,146 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap">
-<!-- <link rel="stylesheet" href="style.css"> -->
-<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-<style type="text/css">
-@import
-	url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap')
-	;
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap">
+	<!-- <link rel="stylesheet" href="style.css"> -->
+	<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
 
-:root { -
-	-primary-color: #3a4052;
-}
+		:root {
+			- -primary-color: #3a4052;
+		}
 
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
 
-body {
-	font-family: "Open", sans-serif;
-	line-height: 2.5;
-	font-family: 'Noto Serif TC', serif;
-}
+		body {
+			font-family: "Open", sans-serif;
+			line-height: 2.5;
+			font-family: 'Noto Serif TC', serif;
+		}
 
-a {
-	text-decoration-color: none;
-	color: var(- -primary-color);
-}
+		a {
+			text-decoration-color: none;
+			color: var(- -primary-color);
+		}
 
-h1 {
-	font-size: 60px;
-	font-weight: 300;
-	line-height: 1.2;
-	margin-bottom: 1.5px;
-}
+		h1 {
+			font-size: 60px;
+			font-weight: 300;
+			line-height: 1.2;
+			margin-bottom: 1.5px;
+		}
 
-.video-container video {
-	min-width: 100%;
-	min-height: 100%;
-	object-fit: cover;
-	
-}
+		.video-container video {
+			min-width: 100%;
+			min-height: 100%;
+			object-fit: cover;
 
-.showcase {
-	position: relative;
-	height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	padding: 20px;
-	color: white;
-}
+		}
 
-.video-container {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	background: var(- -primary-color);
-}
+		.showcase {
+			position: relative;
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			padding: 20px;
+			color: white;
+		}
 
-.content {
-	z-index: 10;
-}
+		.video-container {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background: var(- -primary-color);
+		}
 
-.btn {
-	display: inline-block;
-	padding: 10px 30px;
-	background: var(- -primary-color);
-	color: #fff;
-	border: 1px #fff solid;
-	border-radius: 5px;
-	margin-top: 25px;
-	opacity: 0.7;
-}
+		.content {
+			z-index: 10;
+		}
 
-a.entrance:link, a.entrance:visited, a.entrance {
-	text-decoration: none;
-	color: white;
-}
+		.btn {
+			display: inline-block;
+			padding: 10px 30px;
+			background: var(- -primary-color);
+			color: #fff;
+			border: 1px #fff solid;
+			border-radius: 5px;
+			margin-top: 25px;
+			opacity: 0.7;
+		}
 
-.btn:hover {
-	transform: scale(0.95);
-}
+		a.entrance:link,
+		a.entrance:visited,
+		a.entrance {
+			text-decoration: none;
+			color: white;
+		}
 
-#about {
-	padding: 40px;
-	text-align: center;
-}
+		.btn:hover {
+			transform: scale(0.95);
+		}
 
-#about p {
-	font-size: 1.2rem;
-	max-width: 600px;
-	margin: auto;
-}
+		#about {
+			padding: 40px;
+			text-align: center;
+		}
 
-#about h2 {
-	margin: 30px 0;
-	color: var(- -primary-color);
-}
+		#about p {
+			font-size: 1.2rem;
+			max-width: 600px;
+			margin: auto;
+		}
 
-.social a {
-	margin: 0 5px;
-}
+		#about h2 {
+			margin: 30px 0;
+			color: var(- -primary-color);
+		}
 
-.social a i {
-	color: black;
-}
+		.social a {
+			margin: 0 5px;
+		}
 
-/* 宇宏覆寫 ===============================================================*/
-video {
-	width: 100%;
-}
+		.social a i {
+			color: black;
+		}
 
-#social {
-	margin-left: 850px;
-}
+		/* 宇宏覆寫 ===============================================================*/
+		body {
+			overflow-x: hidden;
+		}
 
-h2.wordpage {
-	margin-left: 875px;
-}
+		video {
+			width: 100%;
+		}
 
-i {
-	color: rgb(250, 224, 107);
-}
-</style>
-<title>Homepage</title>
+		#social {
+			/* margin-left: 850px; */
+		}
+
+		i {
+			color: rgb(250, 224, 107);
+		}
+
+		img {
+			width: 600px !important;
+		}
+	</style>
+	<title>Homepage</title>
 </head>
 
 <body>
@@ -168,8 +168,7 @@ i {
 		<div class="row">
 			<div class="col-lg-6">
 				<div data-aos="fade-right">
-					<img src="<%=request.getContextPath()%>/photo/blog(1).png"
-						style="width: 500px; margin-left: 230px;">
+					<img src="<%=request.getContextPath()%>/photo/blog.png" style="width: 500px;">
 				</div>
 
 			</div>
@@ -194,8 +193,7 @@ i {
 			</div>
 			<div class="col-lg-6">
 				<div data-aos="fade-left">
-					<img src="<%=request.getContextPath()%>/photo/store.png"
-						style="width: 750px; margin-left: 85px;">
+					<img src="<%=request.getContextPath()%>/photo/store.png" style="width: 750px; margin-left: 85px;">
 				</div>
 
 			</div>
@@ -210,8 +208,7 @@ i {
 		<div class="row">
 			<div class="col-lg-6">
 				<div data-aos="fade-down-right">
-					<img src="<%=request.getContextPath()%>/photo/donation.jpg"
-						style="width: 500px; margin-left: 200px;">
+					<img src="<%=request.getContextPath()%>/photo/donation.jpg" style="width: 500px;">
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -242,30 +239,31 @@ i {
 		</div>
 	</div>
 	<hr>
-	<h2 class="wordpage">平台社群連結</h2>
-	<div class="social" id="social">
-		<a href="https://twitter.com/home" target="_blank"><i
-			class="fab fa-twitter fa-3x"></i></a> <a href="https://www.facebook.com/"
-			target="_blank"><i class="fab fa-facebook fa-3x"></i></a> <a
-			href="https://github.com/" target="_blank"><i
-			class="fab fa-github fa-3x"></i></a> <a
-			href="https://www.linkedin.com/feed/" target="_blank"><i
-			class="fab fa-linkedin fa-3x"></i></a>
+	<div class="container-fluid">
+		<div class="row justify-content-around">
+			<h2 class="col-3 wordpage text-center">平台社群連結</h2>
+		</div>
+		<div class="row justify-content-around">
+			<div class="social col-3 text-center" id="social">
+				<a href="https://twitter.com/home" target="_blank"><i class="fab fa-twitter fa-3x"></i></a> <a
+					href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook fa-3x"></i></a> <a
+					href="https://github.com/" target="_blank"><i class="fab fa-github fa-3x"></i></a> <a
+					href="https://www.linkedin.com/feed/" target="_blank"><i class="fab fa-linkedin fa-3x"></i></a>
+			</div>
+		</div>
 	</div>
 
 	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-		<script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script>
 		$(function () {
-		    AOS.init({
-		        duration: 400,
-		    });
+			AOS.init({
+				duration: 400,
+			});
 		})
-		</script>
+	</script>
 </body>
 
 </html>
