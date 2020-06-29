@@ -3,9 +3,16 @@
     background-color: #F3F2F2;
     font-family: Noto Serif TC;
 }
+div.row{
+  text-align: left!important;
+}
 a:link, a:visited{
 	 text-decoration: none; 
 	 color: #13406A;"
+}
+button:active, button:focus{
+	outline: none; !important;
+	border: none;
 }
 /* ==========¤W­±cover========== */
 div.cover{
@@ -54,7 +61,6 @@ div.personal_profile{
     margin-bottom: 20px;
     border: 1px solid #F9EACB;
     border-radius: 5px;
-    height: 250px;
     background-color: #F9EACB;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
 }

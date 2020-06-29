@@ -178,6 +178,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show01" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -191,6 +196,11 @@
 																	<input type="file" class="custom-file-input" id="inputGroupFile02" name="post_image2"> 
 																	<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
 																</div>
+															</div>
+														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show02" src="" style="width: 150px">
 															</div>
 														</td>
 													</tr>
@@ -208,6 +218,11 @@
 																</div>
 															</div>
 														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show03" src="" style="width: 150px">
+															</div>
+														</td>
 													</tr>
 													<tr>
 														<td class="input">
@@ -221,6 +236,11 @@
 																	<input type="file" class="custom-file-input" id="inputGroupFile04" name="post_image4"> 
 																	<label class="custom-file-label" for="inputGroupFile04">Choose file</label>
 																</div>
+															</div>
+														</td>
+														<td>
+															<div class="image_preview">
+																<img id="show04" src="" style="width: 150px">
 															</div>
 														</td>
 													</tr>
@@ -238,7 +258,12 @@
 																</div>
 															</div>
 														</td>
-													</tr>													
+														<td>
+															<div class="image_preview">
+																<img id="show05" src="" style="width: 150px">
+															</div>
+														</td>
+													</tr>																					
 													<tr>
 														<td class="input">
 															<div class="d-flex align-items-center justify-content-end">
@@ -351,7 +376,8 @@
 							</div>
 							
 							<div class="post_share">
-								<button class="post_share_button" data-toggle="popover" data-placement="right" data-content="連結">
+								<button class="post_share_button" data-toggle="popover" data-placement="right" data-src="
+							<%=absoluteURL +request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=${postVO.post_id}">
 									<span class="post_share_icon"> 
 										<i class="fas fa-share-square"></i>
 									</span>
@@ -695,6 +721,57 @@
 					return false;
 				}
 			});		
+			
+			//複製連結
+			function copyToClipboard(element){
+				var copy = $("<input>");
+				$("body").append(copy);
+				copy.val($(element).attr("data-src")).select();
+				document.execCommand("copy");
+				copy.remove();
+			};
+			//出現copy
+			$("[data-toggle='tooltip']").tooltip();
+			$("button.post_share_button").on("click", function(){
+				copyToClipboard(this);
+				$(this).tooltip('show');
+				$("button.post_share_button").mouseleave(function(){
+					event.stopPropagation();
+					$(this).tooltip('hide');
+				});
+			});
+			
+			//顯示預覽圖
+			function showImage(fileInput, image) {
+				var readFile = new FileReader();
+				var myfile = $(fileInput)[0].files[0];
+				readFile.readAsDataURL(myfile);
+				console.log(myfile);
+				readFile.onload = function() {
+					var img = $(image);
+					img.attr("src", readFile.result);
+				}
+			}
+			//新增文章的預覽圖
+			$(document).on("change", "#inputGroupFile01", function(){
+					showImage(this, $("#show01"));
+			});
+			
+			$(document).on("change", "#inputGroupFile02", function(){
+				showImage(this, $("#show02"));
+			});
+			
+			$(document).on("change", "#inputGroupFile03", function(){
+				showImage(this, $("#show03"));
+			});
+			
+			$(document).on("change", "#inputGroupFile04", function(){
+				showImage(this, $("#show04"));
+			});
+			
+			$(document).on("change", "#inputGroupFile05", function(){
+				showImage(this, $("#show05"));
+			});
 		
 		});
 	</script>

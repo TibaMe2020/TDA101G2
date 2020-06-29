@@ -456,9 +456,9 @@
 														</div>
 													</td>
 													<td>
-															<div class="image_preview">
-																<img id="show1" src="" style="width: 150px">
-															</div>
+														<div class="image_preview">
+															<img id="show1" src="" style="width: 150px">
+														</div>
 													</td>
 												</tr>
 												<tr>
@@ -476,9 +476,9 @@
 														</div>
 													</td>
 													<td>
-															<div class="image_preview">
-																<img id="show2" src="" style="width: 150px">
-															</div>
+														<div class="image_preview">
+															<img id="show2" src="" style="width: 150px">
+														</div>
 													</td>
 												</tr>
 												<tr>
@@ -496,9 +496,9 @@
 														</div>
 													</td>
 													<td>
-															<div class="image_preview">
-																<img id="show3" src="" style="width: 150px">
-															</div>
+														<div class="image_preview">
+															<img id="show3" src="" style="width: 150px">
+														</div>
 													</td>
 												</tr>
 												<tr>
@@ -516,9 +516,9 @@
 														</div>
 													</td>
 													<td>
-															<div class="image_preview">
-																<img id="show4" src="" style="width: 150px">
-															</div>
+														<div class="image_preview">
+															<img id="show4" src="" style="width: 150px">
+														</div>
 													</td>
 												</tr>
 												<tr>
@@ -536,9 +536,9 @@
 														</div>
 													</td>
 													<td>
-															<div class="image_preview">
-																<img id="show5" src="" style="width: 150px">
-															</div>
+														<div class="image_preview">
+															<img id="show5" src="" style="width: 150px">
+														</div>
 													</td>
 												</tr>													
 												<tr>
