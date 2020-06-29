@@ -243,7 +243,14 @@ public class DonationFormServlet extends HttpServlet {
 				 }
 				HttpSession session = req.getSession();
 				MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
-				String member_id = memberVO.getMember_id();
+				String member_id = null;
+					if(memberVO !=null) {
+					 member_id = memberVO.getMember_id();
+
+					}
+					
+				
+				
 				System.out.println("memberID : " + member_id);
 				Donation_form_infoVO donation_form_infoVO = new Donation_form_infoVO();
 				donation_form_infoVO.setNpo_id(npo_id);
@@ -257,7 +264,7 @@ public class DonationFormServlet extends HttpServlet {
 				if(!errors.isEmpty()) {
 					req.setAttribute("donation_form_infoVO", donation_form_infoVO);
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/donation/DonationForm/addTest.jsp");
+							.getRequestDispatcher("/front-end/donation/DonationForm/donationForm.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -270,7 +277,7 @@ public class DonationFormServlet extends HttpServlet {
 			}catch(Exception e) { //console的錯誤可顯示到畫面上
 						errors.put("errors",e.getMessage());
 						RequestDispatcher failureView = req
-								.getRequestDispatcher("/front-end/donation/DonationForm/addTest.jsp");
+								.getRequestDispatcher("/front-end/donation/DonationForm/donationForm.jsp");
 						failureView.forward(req, res);
 					}
 				}

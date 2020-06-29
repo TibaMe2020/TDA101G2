@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.donation.donation_result.model.Donation_resultService;
 import com.donation.donation_result.model.Donation_resultVO;
+import com.donation.npo_info.model.Npo_infoService;
 import com.google.gson.Gson;
 
 
@@ -35,8 +36,13 @@ public class AjaxresultServelet extends HttpServlet {
 			System.out.println(month);
 			Gson gson = new Gson();
 			Integer result_month = Integer.valueOf(month);		
-			
-			out.print(gson.toJson(resultSvc.getMonth(result_month)));
+			Npo_infoService infoSvc = new Npo_infoService();
+			List<Donation_resultVO> remonth = resultSvc.getMonth(result_month);
+			for(Donation_resultVO rs:remonth) {
+				String npoName = (infoSvc.getOneNpo_info(rs.getNpo_id())).getNpo_name();
+				rs.setNpo_id(npoName);
+			}
+			out.print(gson.toJson(remonth));
 			System.out.println("Gson:" + gson.toJson(resultSvc.getMonth(result_month)));
 			List<Donation_resultVO> donation_resultVO = resultSvc.getMonth(result_month);
 //			for(Donation_resultVO list : donation_resultVO) {

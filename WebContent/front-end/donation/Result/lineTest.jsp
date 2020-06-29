@@ -1,17 +1,22 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.donation.donation_result.model.*"%>  
+<%@ page import="com.donation.npo_info.model.*"%>
+
 <%
 	String path = request.getContextPath();  
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%
-	Donation_resultService ResultSvca = new Donation_resultService(); //¤¶­±
+	Donation_resultService ResultSvca = new Donation_resultService(); //ä»‹é¢
     List<Donation_resultVO> resultlist = ResultSvca.getAll();
     pageContext.setAttribute("list",resultlist);
 %>
+<%Npo_infoVO npo_infoVO = (Npo_infoVO) request.getAttribute("npo_infoVO");  %>
+
+<jsp:useBean id ="npoSvc" scope="page" class="com.donation.npo_info.model.Npo_infoService"/>
+
 
 
 <html>
@@ -163,6 +168,7 @@ body {
   .right {
     left: 0%;
   }
+  
 }
   </style>
 <body>
@@ -170,9 +176,9 @@ body {
 	<jsp:useBean id="ResultSvc" scope="page"
 		class="com.donation.donation_result.model.Donation_resultService" />
 
-
+        
 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Result/result.do">
-		<label class="monthlabel">¿ï¾Ü¦¨ªG¤ë¥÷:</label><select class="monthselect" size="1" name="result_id" onchange="ss(event);">
+		<label class="monthlabel">é¸æ“‡æˆæœæœˆä»½:</label><select class="monthselect" size="1" name="result_id" onchange="ss(event);">
 			<option value="1">1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
@@ -194,17 +200,26 @@ body {
     		<div class="container left">
       					<div class="content">
        					 <img class="group list-group-image"
-							src="<%=request.getContextPath()%>/Result/DBGifReader4?result_id=${donation_resultVO.result_id}">
+							src="<%=request.getContextPath()%>/Result/DBGifReader4?result_id=${donation_resultVO.result_id}" style="width:320px; height:200px">
      				 </div>
     		</div>
     		<div class="container right">
      		 <div class="content">
-       			 <h2>${donation_resultVO.result_month}¤ë</h2>
+     		 <c:forEach var="npo_infoVO" items="${npoSvc.all}">
+     		 	<h1>
+     		 	
+     		 	<c:if test="${donation_resultVO.npo_id==npo_infoVO.npo_id}">
+     		 	${npo_infoVO.npo_name} 	
+     			</c:if>	
+     		 	</h1>
+     		 	
+     		 </c:forEach>
+       			 <h2>${donation_resultVO.result_month}æœˆ</h2>
         		<p>${donation_resultVO.result_content}</p>
       		</div>
    			 </div>
   			</div>
-			</c:forEach>
+</c:forEach>
   			</div>
 			
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -212,16 +227,16 @@ body {
          	function ss(event){
              	 console.log(event.target.value);
               	$.ajax({
-              		  url:"<%=request.getContextPath()%>/Result/AjaxresultServelet",           // ¸ê®Æ½Ğ¨Dªººô§}
+              		  url:"<%=request.getContextPath()%>/Result/AjaxresultServelet",           // è³‡æ–™è«‹æ±‚çš„ç¶²å€
               		  type: "GET",                  // GET | POST | PUT | DELETE | PATCH
               		  data: {
               			  "action":"getMonth",
-              			  "month":event.target.value},                  // ¶Ç°e¸ê®Æ¨ì«ü©wªº url
-              		  dataType: "json",             // ¹w´Á·|±µ¦¬¨ì¦^¶Ç¸ê®Æªº®æ¦¡¡G json | xml | html
-              		  beforeSend: function(event){       // ¦b request µo°e¤§«e°õ¦æ
+              			  "month":event.target.value},                  // å‚³é€è³‡æ–™åˆ°æŒ‡å®šçš„ url
+              		  dataType: "json",             // é æœŸæœƒæ¥æ”¶åˆ°å›å‚³è³‡æ–™çš„æ ¼å¼ï¼š json | xml | html
+              		  beforeSend: function(event){       // åœ¨ request ç™¼é€ä¹‹å‰åŸ·è¡Œ
 //               		  console.log("yes")
               		  },
-              		  statusCode: {                 // ª¬ºA½X
+              		  statusCode: {                 // ç‹€æ…‹ç¢¼
               		    200: function (res) {
               		    },
               		    404: function (res) {
@@ -230,7 +245,7 @@ body {
               		    }
               		  },
 
-              		  success: function(data){      // request ¦¨¥\¨ú±o¦^À³«á°õ¦æ
+              		  success: function(data){      // request æˆåŠŸå–å¾—å›æ‡‰å¾ŒåŸ·è¡Œ
               			  console.log(data);
               			  $('div.all').html("");
 
@@ -241,8 +256,12 @@ body {
           					<div class="timeline"> 
     							<div class="container left">
     		      					<div class="content">
-    		       						<img class="group list-group-image" src="<%=request.getContextPath()%>/Result/DBGifReader4?result_id=`+ item.result_id +`">
-    									 <h2>`+ item.result_month +`¤ë</h2>
+    		       						<img class="group list-group-image" src="<%=request.getContextPath()%>/Result/DBGifReader4?result_id=`+ item.result_id +`" style="width:320px; height:200px">
+   									 <h1>
+
+   									`+ item.npo_id +`
+   									 </h1> 
+    		       						<h2>`+ item.result_month +`æœˆ</h2>
     						        	 <p>`+ item.result_content +`</p>
     								</div>
     							</div>
@@ -251,10 +270,10 @@ body {
                   			$('div.all').html(a);  
 //                   			alert(data[0].result_content);
                         },
-                  		  error: function(xhr){         // request µo¥Í¿ù»~ªº¸Ü°õ¦æ
+                  		  error: function(xhr){         // request ç™¼ç”ŸéŒ¯èª¤çš„è©±åŸ·è¡Œ
                   		    console.log(xhr);
                   		  },
-                  		  complete: function(xhr){      // request §¹¦¨¤§«á°õ¦æ(¦b success / error ¨Æ¥ó¤§«á°õ¦æ)
+                  		  complete: function(xhr){      // request å®Œæˆä¹‹å¾ŒåŸ·è¡Œ(åœ¨ success / error äº‹ä»¶ä¹‹å¾ŒåŸ·è¡Œ)
 //                   		    console.log("OK");
                   		  }
                   		});
