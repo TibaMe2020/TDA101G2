@@ -607,18 +607,22 @@ $("input[name='payment']").change(function () {
 })
 
 function linepayReq() {
-    var url = 'https://sandbox-api-pay.line.me/v2/payments/request'
+    let amount = $("input.bookingTotal").attr("data-price");
+    let productName = $("#stline-name").html();
+    let confirmUrl
+    var url = 'https://cors-anywhere.herokuapp.com/https://sandbox-api-pay.line.me/v2/payments/request'
+    let data = {
+        "productName": productName,
+        "productImageUrl": "https://via.placeholder.com/84x84",
+        "amount": amount,
+        "currency": "TWD",
+        "confirmUrl": projectUrl + "/front-end/store/catchLinePay.jsp",
+        "orderId": uuidv4()
+    };
     $.ajax({
         url: url,
         dataType: 'json',
-        data: {
-            "productName": "test",
-            "productImageUrl": "https://via.placeholder.com/84x84",
-            "amount": 1,
-            "currency": "TWD",
-            "confirmUrl": "www.google.com",
-            "orderId": "P0001111111111"
-        },
+        data: JSON.stringify(data),
         type: 'POST',
         dataType: "json",
         headers: {
@@ -629,59 +633,51 @@ function linepayReq() {
             'X-LINE-ChannelId': '1654393823',
             'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36'
         },
-        beforeSend: function (xhr) {       // 在 request 發送之前執行
-            // xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
-        },
-        statusCode: {                 // 狀態碼
-            200: function (res) {
-                console.log("200")
-            },
-            404: function (res) {
-                console.log("400")
-            },
-            500: function (res) {
-                console.log("500")
-            }
-        },
         error: function (xhr) {         // request 發生錯誤的話執行
             console.log(xhr.responseText);
         },
         success: function (data) {
             console.log(data);
+            console.log(data.info.paymentUrl.web);
+            // $('#linepay').attr("href", data.info.paymentUrl.web)
+            sessionStorage.setItem('amount', amount)
+            let lineHtml = `<iframe src=${data.info.paymentUrl.web} style="height:650px;"title="LinePay"></iframe>`
+            $('#linePayModal').find("div.modal-content").html(lineHtml);
+
         }
     });
 
     //    v3 
-    let key = '621b6fda656e715f4d734a02d53cfe36'
-    let nonce = uuidv4()
-    let requestUri = '/v3/payments/request'
-    let order = {
-        amount: 4000,
-        currency: 'TWD',
-        orderId: 'P010001',
-        packages: [
-            {
-                id: '20200627P0001',
-                amount: 4000,
-                name: '星際公仔',
-                products: [
-                    {
-                        name: '星際大戰白兵第一軍團',
-                        quantity: 2,
-                        price: 2000,
-                    }
-                ]
-            }
-        ],
-        redirectUrls: {
-            confirmUrl: 'https://www.google.com',
-            cancelUrl: 'https://www.google.com'
-        }
-    }
-    // CryptoJS.HmacSHA256(channelSecret + uri + JSON.stringify(order) + nonce, channelSecret)
-    let encrypt = CryptoJS.HmacSHA256(key + requestUri + JSON.stringify(order) + nonce, key);
-    let hmacBase64 = btoa(encrypt);
-    var url = 'https://sandbox-api-pay.line.me/v3/payments/request'
+    // let key = '621b6fda656e715f4d734a02d53cfe36'
+    // let nonce = uuidv4()
+    // let requestUri = '/v3/payments/request'
+    // let order = {
+    //     amount: 4000,
+    //     currency: 'TWD',
+    //     orderId: 'P010001',
+    //     packages: [
+    //         {
+    //             id: '20200627P0001',
+    //             amount: 4000,
+    //             name: '星際公仔',
+    //             products: [
+    //                 {
+    //                     name: '星際大戰白兵第一軍團',
+    //                     quantity: 2,
+    //                     price: 2000,
+    //                 }
+    //             ]
+    //         }
+    //     ],
+    //     redirectUrls: {
+    //         confirmUrl: 'https://www.google.com',
+    //         cancelUrl: 'https://www.google.com'
+    //     }
+    // }
+    //  CryptoJS.HmacSHA256(channelSecret + uri + JSON.stringify(order) + nonce, channelSecret)
+    // let encrypt = CryptoJS.HmacSHA256(key + requestUri + JSON.stringify(order) + nonce, key);
+    // let hmacBase64 = btoa(encrypt);
+    // var url = 'https://cors-anywhere.herokuapp.com/https://sandbox-api-pay.line.me/v3/payments/request'
     // $.ajax({
     //     url: url,
     //     dataType: 'json',
@@ -691,7 +687,7 @@ function linepayReq() {
     //         "amount": 1,
     //         "currency": "TWD",
     //         "confirmUrl": "www.google.com",
-    //         "orderId": "P0001111111111"
+    //         "orderId": "P0001111111"
     //     },
     //     type: 'POST',
     //     dataType: "json",
@@ -724,6 +720,9 @@ function linepayReq() {
     //     }
     // });
 }
+$("#linepay").on('click', function () {
+    $('#linePayModal').modal('show');
+})
 
 function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
