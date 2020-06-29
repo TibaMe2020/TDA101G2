@@ -1,5 +1,49 @@
-// 選擇門市
+let pathName = window.location.pathname;
+const projectUrl = "http://" + window.location.host + pathName.substring(0, pathName.indexOf('/', 1));
+//linepay
 
+function linepayReq() {
+    let total = $("input.bookingTotal").attr("data-price");
+   
+    var url = 'https://cors-anywhere.herokuapp.com/https://sandbox-api-pay.line.me/v2/payments/request'
+    let data = {
+        "productName": "petbox",
+        "productImageUrl": "https://via.placeholder.com/84x84",
+        "amount": total,
+        "currency": "TWD",
+        "confirmUrl": projectUrl + "/front-end/store/catchLinePay.jsp",
+        "orderId": uuidv4()
+    };
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        data: JSON.stringify(data),
+        type: 'POST',
+        dataType: "json",
+        headers: {
+            // 'Access-Control-Allow-Origin': '*',
+            // 'Access-Control-Allow-Methods': 'POST',
+            // 'Access-Control-Allow-Headers': 'x-requested-with,content-type',
+            'Content-Type': 'application/json',
+            'X-LINE-ChannelId': '1654393823',
+            'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36'
+        },
+        error: function (xhr) {         // request 發生錯誤的話執行
+            console.log(xhr.responseText);
+        },
+        success: function (data) {
+            console.log(data);
+            console.log(data.info.paymentUrl.web);
+            // $('#linepay').attr("href", data.info.paymentUrl.web)
+            sessionStorage.setItem('amount', amount)
+            let lineHtml = `<iframe src=${data.info.paymentUrl.web} style="height:650px;"title="LinePay"></iframe>`
+            $('#linePayModal').find("div.modal-content").html(lineHtml);
+
+        }
+    });
+}
+
+// 選擇門市
 $('#Selectbtn').on('click', function () {
     $(document).ready(function () {
         $("#myModal").modal('show');
@@ -72,6 +116,7 @@ var webCtx = path.substring(0, path.indexOf('/', 1));
 var url="http://" + host + webCtx;
 // 送出訂單
 $('#Final_order').on('click', function () {
+	let checked = $('input[name="payment"]:checked').val();
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -115,6 +160,7 @@ $('#Final_order').on('click', function () {
     	  }
 
     })
+		
 });
 
 
