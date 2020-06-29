@@ -170,43 +170,50 @@ public class AdoptFormServlet extends HttpServlet {
 				 
 				 HttpSession session = req.getSession();
 				 MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
-				 String member_id = memberVO.getMember_id();
+
+				 String member_id = null;
+				 if(memberVO != null) {
+					 member_id = memberVO.getMember_id();
+				 }
 				 
-						Adopt_form_infoVO adopt_form_infoVO = new Adopt_form_infoVO();
-						adopt_form_infoVO.setAdopt_id(adopt_id);
-						adopt_form_infoVO.setAdopt_person(adopt_person);
-						adopt_form_infoVO.setAdopt_talk(adopt_talk);
-						adopt_form_infoVO.setPayadopt_person(payadopt_person);
-						adopt_form_infoVO.setAdopt_phone_num(adopt_phone_num);
-						adopt_form_infoVO.setAdopt_payment(adopt_payment);
-						adopt_form_infoVO.setAdopt_certificate(adopt_certificate);
-						adopt_form_infoVO.setAdopt_email(adopt_email);
-						adopt_form_infoVO.setAddress(address);
-
-						
-						if(!errors.isEmpty()) {
-							req.setAttribute("adopt_form_infoVO", adopt_form_infoVO);
-							System.out.println("adopt_form_infoVO");
-
-							RequestDispatcher failureView = req
-									.getRequestDispatcher("/front-end/donation/AdoptForm/adoptForm2.jsp");
-							failureView.forward(req, res);
-							return;
-						}
-						Adopt_form_infoService adoptFormSvc = new Adopt_form_infoService();
-						adopt_form_infoVO =adoptFormSvc.addAdopt_form(adopt_id,adopt_person,adopt_talk, payadopt_person, adopt_phone_num, adopt_payment, adopt_certificate, adopt_email, address, member_id);
-						req.setAttribute("adopt_form_infoVO", adopt_form_infoVO);
-						System.out.println("adopt_form_infoVO");
-						String url = "/front-end/donation/myMain/successpage.jsp";
-						RequestDispatcher successView = req.getRequestDispatcher(url);
-						successView.forward(req, res);
-				 			}catch(Exception e) {
-				 				errors.put("errors", e.getMessage());
-				 				RequestDispatcher failureView = req
-				 						.getRequestDispatcher("/front-end/donation/AdoptForm/adoptForm2.jsp");
-				 				failureView.forward(req, res);
-				 			}
-			 			}
+				Adopt_form_infoVO adopt_form_infoVO = new Adopt_form_infoVO();
+				adopt_form_infoVO.setAdopt_id(adopt_id);
+				adopt_form_infoVO.setMember_id(member_id);
+				adopt_form_infoVO.setAdopt_person(adopt_person);
+				adopt_form_infoVO.setAdopt_talk(adopt_talk);
+				adopt_form_infoVO.setPayadopt_person(payadopt_person);
+				adopt_form_infoVO.setAdopt_phone_num(adopt_phone_num);
+				adopt_form_infoVO.setAdopt_payment(adopt_payment);
+				adopt_form_infoVO.setAdopt_certificate(adopt_certificate);
+				adopt_form_infoVO.setAdopt_email(adopt_email);
+				adopt_form_infoVO.setAddress(address);
+	
+				
+				if(!errors.isEmpty()) {
+					req.setAttribute("adopt_form_infoVO", adopt_form_infoVO);
+					System.out.println("adopt_form_infoVO");
+	
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/donation/AdoptForm/adoptForm2.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				Adopt_form_infoService adoptFormSvc = new Adopt_form_infoService();
+				adoptFormSvc.insertAdopt_form(adopt_form_infoVO);
+	//						adopt_form_infoVO =adoptFormSvc.addAdopt_form(adopt_id,adopt_person,adopt_talk, payadopt_person, adopt_phone_num, adopt_payment, adopt_certificate, adopt_email, address, member_id);
+				req.setAttribute("adopt_form_infoVO", adopt_form_infoVO);
+				System.out.println("adopt_form_infoVO");
+				String url = "/front-end/donation/myMain/successpage.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+		 			}catch(Exception e) {
+		 				e.printStackTrace();
+		 				errors.put("errors", e.getMessage());
+		 				RequestDispatcher failureView = req
+		 						.getRequestDispatcher("/front-end/donation/AdoptForm/adoptForm2.jsp");
+		 				failureView.forward(req, res);
+		 			}
+	 			}
 		
 
 	}

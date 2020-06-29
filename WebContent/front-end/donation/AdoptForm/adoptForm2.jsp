@@ -509,7 +509,7 @@ button.btn.btn-primary{
 		<div class="row justify-content-center">
 				<div class="bs-example ">
 
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/AdoptForm/adoptform.do" name="form1">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/AdoptForm/adoptform.do" name="form1" novalidate>
 						<div class="divforp">
 							<div class="form-group">
           						<label>	${adopt_infoVO.adopt_name}</label>
@@ -650,7 +650,7 @@ button.btn.btn-primary{
                                  </g>
                                  <rect x="58.1" y="378.6" class="st11" width="375.5" height="13.5" />
                                  <rect x="58.1" y="405.6" class="st11" width="421.7" height="13.5" />
-                                 <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback" class="st12 st13">John Doe</text>
+                                 <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback" class="st12 st13">linlin</text>
                              </g>
                          </svg>
                      </div>
@@ -724,7 +724,10 @@ button.btn.btn-primary{
 	</div>
 </div>
 	<%@ include file="/front-end/member/footer.jsp"%>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/JS/card.js"></script>
-
+ <script type="text/javascript" src="<%=request.getContextPath()%>/front-end/donation/JS/card.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js"></script>
 </body>
 </html>

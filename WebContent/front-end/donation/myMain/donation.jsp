@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <html>
 <head>
 <title>Insert title here</title>
 </head>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/member/css/headerNfooter.css">
   <style>
     body {
     font-family: Georgia;
@@ -272,6 +272,7 @@
   </style>
 <body>
   <header>
+<%@ include file="/front-end/member/header.jsp"%>
 
       </header>
       <!-- Start homepage content -->
@@ -346,9 +347,12 @@
   </li> 
 
   <li>
-   <a href="<%=request.getContextPath()%>/front-end/donation/myMain/question.jsp"> <img src="https://cdn3.iconfinder.com/data/icons/contact-us-set-5/256/29-512.png"></a>
-   <a href="<%=request.getContextPath()%>/front-end/donation/myMain/question.jsp"><p href="#">Q&A中心</p></a>
-    <span class="rating"></span>
+  <div class="hover08 column">
+  <div>
+   <a href="<%=request.getContextPath()%>/front-end/donation/myMain/question.jsp"><figure><img src="<%=request.getContextPath()%>/resources/images/petpic5.png"/></figure></a>
+   <p href="#">Q&A中心</p></a>
+   </div>
+  </div>
   </li>
 </ul>
 
@@ -356,10 +360,10 @@
       </section>
 
       <section id="featured">
-        <h3>愛心清單</h3>
-        <h4>----------------------------------------------------------------------------------------------------------------------</h4>
+<!--         <h3>愛心清單</h3> -->
+<!--         <h4>----------------------------------------------------------------------------------------------------------------------</h4> -->
 
-        <ul>
+<!--         <ul> -->
 <!--           <li> -->
 <!--             <img src="https://pic.pimg.tw/livilife16888/1339552981-308415971.jpg"> -->
 <!--             <a href="#">阿布</a><br> -->
@@ -382,7 +386,7 @@
 <!--             <br><a>昨天車禍急需治療</a> -->
 <!--           </li> -->
 	
-        </ul>
+<!--         </ul> -->
       </section>
       </div>
 
@@ -390,6 +394,7 @@
       <!-- End homepage content -->
 
       <footer>
+	<%@ include file="/front-end/member/footer.jsp"%>
 
       </footer>
 </body>

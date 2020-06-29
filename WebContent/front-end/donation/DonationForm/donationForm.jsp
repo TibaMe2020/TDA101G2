@@ -542,7 +542,7 @@ position: relative;
 <div class="container bc" >
 <div class="row1">
 <i class="fas fa-bone"></i>
-<a href="<%=request.getContextPath()%>/front-end/donation/Adopt/Alladopt.jsp">動物認養</a><span> > 認養表單</span>
+<a href="<%=request.getContextPath()%>/front-end/donation/Npo/Allnpo.jsp">公益團體捐款</a><span> > 捐款表單</span>
 
 </div>
 </div>
@@ -553,7 +553,7 @@ position: relative;
 		<div class="row justify-content-center">
 				<div class="bs-example ">
 
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/DonationForm/donationform.do" name="form1">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/DonationForm/donationform.do" name="form1" novalidate>
 						<div class="divforp">
 							<div class="form-group">
           						<label>	${npo_infoVO.npo_name}</label>
