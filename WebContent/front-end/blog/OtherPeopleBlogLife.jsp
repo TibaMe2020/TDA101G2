@@ -631,10 +631,25 @@
 				});
 			});	
 			
-			//點擊單篇文章會連到單篇文章
-			$(document).on("click", "div.each_post", function(){
-				let post_id = $(this).attr("id");
+			//點擊文章內容會連到單篇文章
+			$(document).on("click", "div.post_content", function(){
+				let post_id = $(this).parents("div.each_post").attr("id");
 				window.location.href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=" + post_id;
+			});
+			
+			//點擊圖片會連到單篇文章
+			$(document).on("click", "div.carousel-inner", function(){
+				let post_id = $(this).parents("div.each_post").attr("id");
+				window.location.href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=" + post_id;
+			});
+			
+			//停止冒泡事件
+			$(document).on("click", "a.carousel-control-prev", function(event){
+				event.stopPropagation();
+			});
+			
+			$(document).on("click", "a.carousel-control-next", function(event){
+				event.stopPropagation();
 			});
 		});
 	</script>
