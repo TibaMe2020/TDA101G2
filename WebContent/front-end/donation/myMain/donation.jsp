@@ -267,7 +267,14 @@
     	-webkit-filter: grayscale(0);
     	filter: grayscale(0);
     }
-
+ p.pcenter{
+     position: relative;
+    top: 18px;
+ }
+ img.imgcenter{
+     top: 13px;
+    position: relative;
+ }
   
   </style>
 <body>
@@ -332,8 +339,8 @@
    <li>
   <div class="hover08 column">
   <div>
-    <a href="<%=request.getContextPath()%>/front-end/donation/DonationForm/selectdata.jsp"><figure><img src="<%=request.getContextPath()%>/resources/images/petpic3.png"/></figure></a>
-    <p href="#">捐款查詢</p>
+    <a href="<%=request.getContextPath()%>/front-end/donation/DonationForm/selectdata.jsp"><figure><img class="imgcenter" src="<%=request.getContextPath()%>/resources/images/petpic3.png"/></figure></a>
+    <p class="pcenter" href="#">捐款查詢</p>
   </div>
   </div>
   </li> 
