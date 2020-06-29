@@ -21,9 +21,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <html>
 <head>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 <title></title>
 
-	
 </head>
 
   <style>
@@ -41,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 /* Set a background color */
 body {
-  background-color:	#F0F0F0;
+  background-color:	#004B97;
   font-family: Helvetica, sans-serif;
 }
 
@@ -170,7 +171,60 @@ body {
   }
   
 }
+label.monthlabel{
+color:white;
+}
+span.spanc{
+color:white;
+}
+a.aahref{
+color:white;
+}
   </style>
+<style>
+      #button {
+        display: inline-block;
+        background-color: #9FC4EF;
+        width: 50px;
+        height: 30px;
+        text-align: center;
+        border-radius: 4px;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        transition: background-color .3s,
+          opacity .5s, visibility .5s;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 1000;
+      }
+      #button::after {
+        font-weight: normal;
+        font-style: normal;
+        font-size: 2em;
+        line-height: 50px;
+        color: #fff;
+      }
+      #button:hover {
+        cursor: pointer;
+        background-color: #C8E5FF;
+      }
+      #button:active {
+        background-color: #C8E5FF;
+      }
+      #button.show {
+        opacity: 1;
+        visibility: visible;
+      }
+/*       @media (min-width: 500px) { */
+/*         .content { */
+/*           width: 43%; */
+/*         } */
+        #button {
+          margin: 30px;
+        }
+      }
+</style>
 <body>
 
 	<jsp:useBean id="ResultSvc" scope="page"
@@ -179,6 +233,7 @@ body {
         
 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Result/result.do">
 		<label class="monthlabel">選擇成果月份:</label><select class="monthselect" size="1" name="result_id" onchange="ss(event);">
+			<option value="0">查全部月份</option>
 			<option value="1">1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
@@ -194,6 +249,10 @@ body {
 
 		</select>
 	</FORM>
+	 <i class="fas fa-bone"></i>
+<a class="aahref" href="<%=request.getContextPath()%>/front-end/donation/myMain/donation.jsp">公益首頁</a><span class="spanc"> > 成果發表</span>
+	    <a id="button">TOP</a>
+	
 			  <div class="all">
  <c:forEach var="donation_resultVO" items="${list}">
 			  <div class="timeline">
@@ -226,6 +285,11 @@ body {
 			<script>
          	function ss(event){
              	 console.log(event.target.value);
+             	 if(event.target.value == 0){
+             		 window.location.reload();
+             			 
+             	 }
+             	 else{
               	$.ajax({
               		  url:"<%=request.getContextPath()%>/Result/AjaxresultServelet",           // 資料請求的網址
               		  type: "GET",                  // GET | POST | PUT | DELETE | PATCH
@@ -277,9 +341,12 @@ body {
 //                   		    console.log("OK");
                   		  }
                   		});
-             	}          
+             	}        
+             	 }  
              	</script>
               			  
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/front-end/donation/JS/Top.js"></script>
+
 </body>
 </html>
