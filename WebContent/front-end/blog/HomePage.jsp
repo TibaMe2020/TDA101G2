@@ -311,7 +311,8 @@
 				</div>
 
 				<c:forEach var="postVO" items="${postList}">
-				<div class="each_post" id="${postVO.post_id}">	
+				<div class="each_post" id="${postVO.post_id}">
+				
 					<div class="post">
 						<a href="<%=request.getContextPath()%>/front-end/blog/OtherPeopleBlog.jsp?member_id=${postVO.member_id}">
 							<figure class="post_figure">									
@@ -398,6 +399,7 @@
 	
 					<div class="message" id="<%=member_id%>">
 					</div>
+
 				</div>
 				</c:forEach>
 
@@ -762,7 +764,7 @@
 			}
 			//新增文章的預覽圖
 			$(document).on("change", "#inputGroupFile01", function(){
-					showImage(this, $("#show01"));
+				showImage(this, $("#show01"));
 			});
 			
 			$(document).on("change", "#inputGroupFile02", function(){
@@ -779,6 +781,12 @@
 			
 			$(document).on("change", "#inputGroupFile05", function(){
 				showImage(this, $("#show05"));
+			});
+			
+			//點擊單篇文章會連到單篇文章
+			$(document).on("click", "div.each_post", function(){
+				let post_id = $(this).attr("id");
+				window.location.href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=" + post_id;
 			});
 			
 		});

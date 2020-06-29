@@ -628,6 +628,12 @@
 					$(this).tooltip('hide');
 				});
 			});	
+			
+			//點擊單篇文章會連到單篇文章
+			$(document).on("click", "div.each_post", function(){
+				let post_id = $(this).attr("id");
+				window.location.href="<%=request.getContextPath()%>/front-end/blog/SinglePost.jsp?post_id=" + post_id;
+			});
 		});
 	</script>
 </body>
