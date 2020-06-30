@@ -540,7 +540,7 @@ position: relative;
 <body class="background-white">
 <%@ include file="/front-end/member/header.jsp"%>
 <div class="container bc" >
-<div class="row1">
+<div class="row">
 <i class="fas fa-bone"></i>
 <a href="<%=request.getContextPath()%>/front-end/donation/Npo/Allnpo.jsp">公益團體捐款</a><span> > 捐款表單</span>
 

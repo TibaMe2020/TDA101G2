@@ -52,9 +52,10 @@ div.container{
 /*   border: 1px solid red; */
 }
 div.row1{
-position: relative;
-    top: 100px;
-    right: 300px;}
+/* position: relative; */
+/*     top: 100px; */
+/*     right: 300px; */
+    }
     span.error{
     color:red;}
 
@@ -496,7 +497,7 @@ button.btn.btn-primary{
 <body class="background-white">
 <%@ include file="/front-end/member/header.jsp"%>
 <div class="container bc" >
-<div class="row1">
+<div class="row">
 <i class="fas fa-bone"></i>
 <a href="<%=request.getContextPath()%>/front-end/donation/Adopt/Alladopt.jsp">動物認養</a><span> > 認養表單</span>
 
