@@ -157,10 +157,10 @@ margin-top:10px;
 				<div class="row">
 					<div class="col-sm-12 col-md-8">
 						<h4>門市資訊:</h4>
-						  <select name="item">
-						    <option value="1">a</option>
-						    <option value="2">b</option>
-						    <option value="3">c</option>
+						  <select name="item" id="delivery-location">
+<!-- 						    <option value="1">a</option> -->
+<!-- 						    <option value="2">b</option> -->
+<!-- 						    <option value="3">c</option> -->
 						  </select>						 
 						</form>
 					</div>
@@ -423,7 +423,9 @@ margin-top:10px;
 
             // For each place, get the icon, name and location.
             var bounds = new google.maps.LatLngBounds();
+            $('#delivery-location').html('');
             places.forEach(function (place) {
+            	$('#delivery-location').append('<option value="' + place.name + '">' + place.name + '</option>');
                 console.log(place)
                 if (!place.geometry) {
                     console.log("Returned place contains no geometry");

@@ -202,10 +202,11 @@ function SetOrder(){
 //	console.log('cartlist ajax', JSON.parse(localStorage.getItem("CartList")).CartList_Array)
 	let cartObjects = JSON.parse(localStorage.getItem("CartList")).CartList_Array;
 	let orderMaster = {};
+	let location = $('#delivery-location option:selected').text();
 	orderMaster.member_id = cartObjects[0].member_id;
 	orderMaster.product_order_state = "1";
 	orderMaster.payment = "1";
-	orderMaster.location = "雲林縣二崙鄉";
+	orderMaster.location = location;
 	orderMaster.detail_list = [];
 	console.log(cartObjects);
 	for (c of cartObjects) {

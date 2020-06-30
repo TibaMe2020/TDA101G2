@@ -126,8 +126,8 @@
                 <div class="card-header bg-white d-flex justify-content-between">
                   <div>
 <%--                     	賣家: ${order.getDetail_list().get(0).getVersionVO().getProductVO().getMember_id()}<br> --%>
-                    	訂單編號: ${order.order_master_id}&nbsp&nbsp&nbsp&nbsp
-<!--                     	訂單狀態:  ${order_states[order.product_order_state]} -->
+<%--                     	訂單編號: ${order.order_master_id}&nbsp&nbsp&nbsp&nbsp --%>
+                    	取貨地點: ${order.location} 
                   </div>
 
                   <div>
