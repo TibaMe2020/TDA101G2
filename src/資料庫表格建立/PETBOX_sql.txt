@@ -1583,50 +1583,49 @@ VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00007', 'PID00010', '�
        
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
     VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'中和動物之家','地點偏僻適合安置動物的好地方，工作人員十分親切和有愛心，想要認養毛小孩決對不可錯過
-    有愛惜狗狗身心重修！為愛狗人們免費找到適合的狗兒！很多愛心志工！好棒棒!');
+    有愛惜狗狗身心重修！為愛狗人們免費找到適合的狗兒！');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
-    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'中山動物之家','這邊的志工及工作人員人都很好，環境乾淨，分類也很好。我也順利領養到我的寶貝貓咪們。');
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'中山動物之家','這邊的志工及工作人員人都很好，環境乾淨，分類也很好。我也順利領養到我的寶貝貓咪們，歡迎大家一起來認領其他寶貝們');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
     VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'高雄動物之家','那天去幫忙，但覺得有點冗，中間蠻多沒事做的時間。');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
-    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'桃園動物之家','認養代替購買，這個口號不是說說而已，如果你真的愛動物，你的第一選擇就是這裡。');
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'桃園動物之家','認養代替購買，這個口號不是說說而已，如果你真的愛動物，請選這裡。');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
-    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'台南動物之家','很用心對待貓貓跟整理環境，也會教新手照顧貓。');
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'台南動物之家','很用心對待貓貓跟整理環境，也會教新手照顧貓，近期缺志工');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
     VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'新竹動物之家','以認養代替購買，為浪浪們找一個溫暖的家！');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
-    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'彰化動物之家','帶喵來結紮，結紮完繼續養浪浪!');
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'彰化動物之家','帶喵來結紮，結紮完繼續養浪浪!，這邊的狗狗們都健康可以安心領養');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
     VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'嘉義動物之家','地點有點偏僻，但環境很好，空氣很棒。工作人員都很客氣又有愛心。');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
-    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'屏東動物之家','整體環境維持得不錯，服務人員很親切且細心介紹浪浪們的狀態。
-    位置雖偏僻，但若是有心想認養毛小孩，這裡絕對值得前往!');
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'屏東動物之家','整體環境維持得不錯，服務人員很親切且細心，位置雖偏僻，但若是有心想認養毛小孩，這裡絕對值得前往!');
 
 
 --========================================================================================================================================
 
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
-    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'瓜呆','它們的個性就像春天的第一道曙光，永遠充滿朝氣和活力，令人神清氣爽，它們調皮而且充滿好奇心，動物本能特強。主人必須嚴加管教。它們才不會太野。',1000);
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'瓜呆','它們的個性就像春天的第一道曙光，永遠充滿朝氣和活力，令人神清氣爽，它們調皮而且充滿好奇心，動物本能特強。主人必須嚴加管教。',1000);
        
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
-    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'阿雞','昨日凌晨發現倒在路邊,研判應該是喝太多所以宿醉在路邊,輕微擦傷。',500);
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'阿雞','昨日凌晨發現倒在路邊,研判應該是喝太多所以宿醉在路邊，輕微擦傷，經過初步檢查有配戴項圈，不過根據附近住戶表示已經看見它徘徊在這裡多天。',500);
     
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
     VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'紅心','民眾發現這隻流浪狗，剛生產不久，就四處奔走覓食，狗的下腹部不慎遭到鐵絲劃破1道深深傷口，血流不止，向台灣動物緊急救援小組求救。',25000);
     
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
-    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'啾太郎','檢質顯示除了貧血，總蛋白濃度偏低，顯示營養不均衡，可能與受傷期間無好好進食有關，因此獸醫除了給予藥物治療，也在食物中添加需要的營養補充。',4000);
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'啾太郎','檢質顯示除了貧血，總蛋白濃度偏低，顯示營養不均衡，可能與受傷期間無好好進食有關，獸醫已給予藥物治療。',4000);
     
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
-    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'獅子丸','德國牧羊犬被當沙包15秒遭拳擊10次,頭顱出血目前急需治療。',10000);
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'獅子丸','德國牧羊犬被當沙包15秒遭拳擊10次,頭顱出血目前急需治療，已做初步的處理但仍未脫離險境。',10000);
     
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
     VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'豆芽菜','一隻老犬遭鄰居多次潑水後，又用掃帚狂戳狂打，導致身上多處皮肉傷、眼睛周圍紅腫,令人看了怵目驚心。',8050);
@@ -1638,7 +1637,7 @@ VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00007', 'PID00010', '�
     VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'汪醬','非法繁殖63隻品種犬，狗籠堆疊在戶外只用布料稍微遮住，飼養環境極度惡劣，排泄物堆積，且沒有乾淨水源和飲食。',30000);
     
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
-    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'柴之助','柴犬四肢無明顯外傷，但看上去真的很不舒服，整個晚上不願進食、只喝了一點水，隔天一早就把柴犬送醫。',2500);
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'柴之助','柴犬四肢無明顯外傷，但看上去真的很不舒服，整個晚上不願進食、只喝了一點水，隔天一早就把柴犬送醫，獸醫表示罹患大腸癌應快點動手術摘除。',2500);
 
 --=========================================================================================================================================
 
