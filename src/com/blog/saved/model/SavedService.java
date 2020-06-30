@@ -1,6 +1,12 @@
 package com.blog.saved.model;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class SavedService {
 	
@@ -10,6 +16,22 @@ public class SavedService {
 //		dao = new SavedJDBCDAO();
 		dao = new SavedJNDIDAO();
 	}
+	
+	private static <T> Predicate<T> distinctByKeys(Function<? super T, ?>... keyExtractors) 
+	  {
+	    final Map<List<?>, Boolean> seen = new ConcurrentHashMap<>();
+	     
+	    return t -> 
+	    {
+	      final List<?> keys = Arrays.stream(keyExtractors)
+	                  .map(ke -> ke.apply(t))
+	                  .collect(Collectors.toList());
+	       
+	      return seen.putIfAbsent(keys, Boolean.TRUE) == null;
+	    };
+	  }
+	
+	
 	
 	public SavedVO insertSaved(String member_id, String post_id) {
 		SavedVO result = new SavedVO();
@@ -43,10 +65,16 @@ public class SavedService {
 		return result;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<SavedVO> getByMemberId(String member_id){
 		List<SavedVO> result = null;
 		if(member_id != null) {
 			result = dao.getByMemberId(member_id);
+			result = result.stream()
+			.filter(distinctByKeys(SavedVO::getMember_id, SavedVO::getPost_id))
+			.collect(Collectors.toList());
+			for(SavedVO s : result)
+				System.out.println(s.getMember_id());
 		}
 		return result;
 	}

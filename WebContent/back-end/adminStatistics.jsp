@@ -114,7 +114,7 @@
 										<div class="col-10 row justify-content-center height-100">
 												<div class="col-3 statistics align-self-center"
 														id="total-member">
-														<div class="card rounded" style="width: 18rem;">
+														<div class="card rounded" style="width: 15rem;">
 																<div class="card-body rounded d-flex justify-content-around align-items-center"  style="background-color: rgb(79,129,188);">
 																		<div>
 																			<i class="far fa-user fa-2x text-white"></i>
@@ -128,7 +128,7 @@
 												</div>
 												<div class="col-3 statistics align-self-center"
 														id="total-posts">
-														<div class="card " style="width: 18rem;">
+														<div class="card " style="width: 15rem;">
 																<div class="card-body rounded d-flex justify-content-around align-items-center" style="background-color: rgb(155,187,88);">
 																	<div>
 																		<i class="far fa-edit fa-2x text-white"></i>
@@ -142,7 +142,7 @@
 												</div>
 												<div class="col-3 statistics align-self-center"
 														id="total-donation">
-														<div class="card rounded" style="width: 18rem;">
+														<div class="card rounded" style="width: 15rem;">
 																<div class="card-body rounded d-flex justify-content-around align-items-center" style="background-color:rgb(35,191,170);">
 																		<div>
 																			<i class="fas fa-hand-holding-heart text-white fa-2x"></i>
@@ -158,7 +158,7 @@
 												</div>
 												<div class="col-3 statistics align-self-center"
 														id="total-adopt">
-														<div class="card rounded" style="width: 18rem;">
+														<div class="card rounded" style="width: 15rem;">
 																<div class="card-body rounded d-flex justify-content-around align-items-center" style="background-color:rgb(128,100,161);">
 																	<div>
 																		<i class="fas fa-dog text-white fa-2x"></i>

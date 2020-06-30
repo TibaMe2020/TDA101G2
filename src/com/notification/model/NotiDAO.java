@@ -29,7 +29,7 @@ public class NotiDAO implements NotiDAO_interface {
 //	private static final String GET_ALL = "";
 	private static final String INSERT = "INSERT INTO notification (notification_id, "
 			+ " member_id, notification_class) VALUES (noti_seq.NEXTVAL, ?, ?)";
-	private static final String GET_ALL = "SELECT notification_class, notification_id, create_time, member_id FROM notification where member_id = ?";
+	private static final String GET_ALL = "SELECT notification_class, notification_id, create_time, member_id FROM notification where member_id = ? order by create_time";
 	private static final String GET_ONE = "SELECT notification_id ,notification_class, create_time FROM notification where notification_id = ?";
 	private static final String DELETE = "DELETE FROM notification where notification_id = ?";
 	private static final String UPDATE = "UPDATE notification set notification_class = ? where member_id = ?";

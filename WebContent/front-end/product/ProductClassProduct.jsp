@@ -138,7 +138,7 @@
                                     <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=3 ? 'color: #EF8216' : ''}"></i></span>
                                     <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=4 ? 'color: #EF8216' : ''}"></i></span>
                                     <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=5 ? 'color: #EF8216' : ''}"></i></span>
-                                    <p class="card-text"><del>$2500</del> ${product_VO.price}</p>
+                                    <p class="card-text">$${product_VO.price}</p>
                                     <a class="btn btn-primary text-white" type="button"
                                         href="<%=request.getContextPath()%>/front-end/product/Product.jsp?product_id=${product_VO.product_id}" value="購買">
                                         	購買
@@ -178,7 +178,7 @@
                                     <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=3 ? 'color: #EF8216' : ''}"></i></span>
                                     <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=4 ? 'color: #EF8216' : ''}"></i></span>
                                     <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=5 ? 'color: #EF8216' : ''}"></i></span>
-                                    <p class="card-text"><del>$2500</del> ${product_VO.price}</p>
+                                    <p class="card-text">$${product_VO.price}</p>
                                     <a class="btn btn-primary text-white" type="button"
                                         href="<%=request.getContextPath()%>/front-end/product/Product.jsp?product_id=${product_VO.product_id}" value="購買">
                                         	購買

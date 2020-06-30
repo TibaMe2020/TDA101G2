@@ -1,6 +1,12 @@
 package com.blog.follow.model;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class FollowService {
 	
@@ -10,6 +16,20 @@ public class FollowService {
 		dao = new FollowJDBCDAO();
 //		dao = new FollowJNDIDAO();
 	}
+	
+	private static <T> Predicate<T> distinctByKeys(Function<? super T, ?>... keyExtractors) 
+	  {
+	    final Map<List<?>, Boolean> seen = new ConcurrentHashMap<>();
+	     
+	    return t -> 
+	    {
+	      final List<?> keys = Arrays.stream(keyExtractors)
+	                  .map(ke -> ke.apply(t))
+	                  .collect(Collectors.toList());
+	       
+	      return seen.putIfAbsent(keys, Boolean.TRUE) == null;
+	    };
+	  }
 	
 	public FollowVO insertFollow(String member_id, String followed_member_id) {
 		FollowVO result = new FollowVO();
@@ -43,10 +63,14 @@ public class FollowService {
 		return result;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<FollowVO> getByMemberId(String member_id){
 		List<FollowVO> result = null;
 		if(member_id != null) {
 			result = dao.getByMemberId(member_id);
+			result = result.stream()
+					.filter(distinctByKeys(FollowVO::getMember_id,FollowVO::getFollowed_member_id))
+					.collect(Collectors.toList());
 		}
 		return result;
 	}
