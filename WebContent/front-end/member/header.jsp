@@ -334,8 +334,8 @@
 							<div class="row justify-content-around">
 								<div class="col-lg-4 text-left">
 									<div class="form-group">
-										<label for="name">姓名*</label> <input type="text" name="name"
-											id="name" value="${new_member.name}"
+										<label for="signup-name">姓名*</label> <input type="text" name="name"
+											id="signup-name" value="${new_member.name}"
 											class="form-control 
                       ${not empty errorMsgs.signupName ? 'is-invalid' : ''}"
 											required>
