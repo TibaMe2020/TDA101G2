@@ -123,20 +123,33 @@
 			<!-- container中間 -->
 			<div id="middle" class="col-7 padding_middle">
 				<div class="write_a_post">
-					<div class="post">
-						<figure class="post_figure">
-							<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">
-						</figure>
-						<span class="nickname">${memberVO.nickname}</span>
+					<div class="row">
+						<div class="col-8">
+							<figure class="post_figure">
+								<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}">
+							</figure>
+							<span class="nickname" style="line-height:120px;">${memberVO.nickname}</span>
+						</div>
+						<div class="col-4" style="padding: 0px; display: inline-block;">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right; margin: 40px;">
+								我要發文
+							</button>
+						</div>
 					</div>
-					<div class="wanted_post">
-						<textarea class="my_text" placeholder="我也想發文..." ></textarea>
-					</div>
-					<div>
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right; margin: 5px 20px;">
-							我要發文
-						</button>
-					</div>
+<!-- 					<div class="post"> -->
+<!-- 						<figure class="post_figure"> -->
+<%-- 							<img class="post_blogger_picture" src="<%=request.getContextPath()%>/member/profileImage?member_id=${memberVO.member_id}"> --%>
+<!-- 						</figure> -->
+<%-- 						<span class="nickname">${memberVO.nickname}</span> --%>
+<!-- 					</div> -->
+<!-- 					<div class="wanted_post"> -->
+<!-- 						<textarea class="my_text" placeholder="我也想發文..." ></textarea> -->
+<!-- 					</div> -->
+<!-- 					<div> -->
+<!-- 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right; margin: 5px 20px;"> -->
+<!-- 							我要發文 -->
+<!-- 						</button> -->
+<!-- 					</div> -->
 					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog modal-lg">
 							<div class="modal-content">
