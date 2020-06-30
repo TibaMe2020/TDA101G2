@@ -21,11 +21,12 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/front-end/product/css/ShoppingCartAccount.css">
 <style type="text/css">
-	#map {
-	  height: 500px;
-	  width: 760px;
-	}
-	#description {
+#map {
+  height: 500px;
+  width: 760px;
+}
+
+#description {
   font-family: Roboto;
   font-size: 15px;
   font-weight: 300;
@@ -71,14 +72,15 @@
 }
 
 #pac-input {
+margin-top:10px;
   background-color: #fff;
   font-family: Roboto;
-  font-size: 15px;
+  font-size: 30px;
   font-weight: 300;
-  margin-left: 12px;
+  margin-left: 0px;
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
-  width: 400px;
+  width: 200px;
 }
 
 #pac-input:focus {
@@ -149,13 +151,18 @@
 				</p>
 			</div>
 
-			<!-- 						門市訊息 -->
+			<!--門市訊息 -->
 
 			<div style="margin-top: 5px;">
 				<div class="row">
 					<div class="col-sm-12 col-md-8">
 						<h4>門市資訊:</h4>
-						<p>中和門市台北市中正區濟南路一段321號</p>
+						  <select name="item">
+						    <option value="1">a</option>
+						    <option value="2">b</option>
+						    <option value="3">c</option>
+						  </select>						 
+						</form>
 					</div>
 					<div class="col-sm-12 col-md-4">
 						<button type="button" class="btn btn-secondary" id="Selectbtn">選擇門市</button>
@@ -163,110 +170,17 @@
 				</div>
 			</div>
 
-			<!-- 						選擇門市資訊 -->
+			<!--選擇門市資訊 -->
 			<div class="bs-example">
 				<div id="myModal" class="modal fade" tabindex="-1">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 							<div class="modal-body">
 								<div class="d-flex justify-content-around align-items-center">
-									<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+									<input id="pac-input" class="controls" type="text" placeholder="請輸入門市">
     								<div id="map"></div>
 								</div>
-
 							</div>
-							<!-- 						modal header -->
-							<!-- 							<div class="modal-header"> -->
-							<!-- 								<h5 class="modal-title">門市資訊</h5> -->
-							<!-- 								<button type="button" class="close" data-dismiss="modal">&times;</button> -->
-							<!-- 							</div> -->
-							<!-- 							form -->
-							<!-- 							<form> -->
-							<!-- 								<div class="modal-body"> -->
-							<!-- 									<div class="container"> -->
-							<!-- 										<div class="row"> -->
-							<!-- 											<div class="col-sm-12 col-md-1"> -->
-							<!-- 												<input type="radio" name="7-11" value=" 信用卡"> -->
-							<!-- 											</div> -->
-							<!-- 											<div class="col-sm-12 col-md-3" style="text-align: left;"> -->
-							<!-- 												<p>7-11</p> -->
-							<!-- 											</div> -->
-							<!-- 											<div class="col-sm-12 col-md-8" style="text-align: right;"> -->
-							<!-- 												<p style="color: red;">運費:$10</p> -->
-							<!-- 											</div> -->
-							<!-- 										</div> -->
-							<!-- 									</div> -->
-							<!-- 									<div class="row"> -->
-							<!-- 										<div class="col-sm-12 col-md-1"></div> -->
-							<!-- 										<div class="col-sm-12 col-md-1" style="margin-left: 20px;"> -->
-							<!-- 											<i class="fas fa-map-marker-alt" id="marker"></i> -->
-							<!-- 										</div> -->
-							<!-- 										<div class="location"> -->
-
-							<%-- 											<% --%>
-
-							<%-- 											%> --%>
-
-							<!-- 										</div> -->
-							<!-- 									</div> -->
-							<!-- 								</div> -->
-							<!-- 								<div class="modal-body"> -->
-							<!-- 									<div class="container"> -->
-							<!-- 										<div class="row"> -->
-							<!-- 											<div class="col-sm-12 col-md-1"> -->
-							<!-- 												<input type="radio" name="7-11" value=" 信用卡"> -->
-							<!-- 											</div> -->
-							<!-- 											<div class="col-sm-12 col-md-3" style="text-align: left;"> -->
-							<!-- 												<p>全家</p> -->
-							<!-- 											</div> -->
-							<!-- 											<div class="col-sm-12 col-md-8" style="text-align: right;"> -->
-							<!-- 												<p style="color: red;">運費:$20</p> -->
-							<!-- 											</div> -->
-
-							<!-- 										</div> -->
-							<!-- 									</div> -->
-							<!-- 									<div class="row"> -->
-							<!-- 										<div class="col-sm-12 col-md-1"></div> -->
-							<!-- 										<div class="col-sm-12 col-md-1" style="margin-left: 20px;"> -->
-							<!-- 											<i class="fas fa-map-marker-alt" id="marker"></i> -->
-							<!-- 										</div> -->
-							<!-- 										<div class="location"> -->
-							<!-- 											<p>中和門市 台北市中正區濟南路一段321號</p> -->
-							<!-- 										</div> -->
-							<!-- 									</div> -->
-
-							<!-- 								</div> -->
-							<!-- 								<div class="modal-body"> -->
-							<!-- 									<div class="container"> -->
-							<!-- 										<div class="row"> -->
-							<!-- 											<div class="col-sm-12 col-md-1"> -->
-							<!-- 												<input type="radio" name="7-11" value=" 信用卡"> -->
-							<!-- 											</div> -->
-							<!-- 											<div class="col-sm-12 col-md-3" style="text-align: left;"> -->
-							<!-- 												<p>萊爾富</p> -->
-							<!-- 											</div> -->
-							<!-- 											<div class="col-sm-12 col-md-8" style="text-align: right;"> -->
-							<!-- 												<p style="color: red;">運費:$20</p> -->
-							<!-- 											</div> -->
-							<!-- 										</div> -->
-							<!-- 									</div> -->
-							<!-- 									<div class="row"> -->
-							<!-- 										<div class="col-sm-12 col-md-1"></div> -->
-							<!-- 										<div class="col-sm-12 col-md-1" style="margin-left: 20px;"> -->
-							<!-- 											<i class="fas fa-map-marker-alt" id="marker"></i> -->
-							<!-- 										</div> -->
-							<!-- 										<div class="location"> -->
-							<!-- 											<p>中和門市 台北市中正區濟南路一段321號</p> -->
-							<!-- 										</div> -->
-							<!-- 									</div> -->
-							<!-- 								</div> -->
-							<!-- 							</form> -->
-							<!-- 							<div class="modal-footer"> -->
-							<!-- 								<button type="button" class="btn btn-secondary" -->
-							<!-- 									data-dismiss="modal" style="margin: auto;">取消</button> -->
-							<!-- 								<button type="button" class="btn btn-primary" -->
-							<!-- 									data-dismiss="modal" style="margin: auto;">確定</button> -->
-							<!-- 							</div> -->
 						</div>
 					</div>
 				</div>
@@ -473,10 +387,11 @@
 	function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {
             center: {
-                lat: -33.8688,
-                lng: 151.2195
+            	//北商經緯度
+            	lat:25.042084,
+            	lng:121.525621
             },
-            zoom: 13,
+            zoom: 15,
             mapTypeId: 'roadmap'
         });
 
