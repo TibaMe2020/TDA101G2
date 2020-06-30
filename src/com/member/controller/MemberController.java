@@ -54,7 +54,8 @@ public class MemberController extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			HttpSession session = req.getSession();
 			String url = (String) session.getAttribute("location");
-			if(url != null) {
+			System.out.println("location: " + url);
+			if(!"".equals(url) && url != null) {
 				url = url.substring(url.indexOf('/', 1));				
 			} else {
 				url = "/front-end/store/store.jsp";
@@ -133,7 +134,7 @@ public class MemberController extends HttpServlet {
 			String successPath = "/front-end/store/store.jsp";
 			HttpSession session = req.getSession();
 			String url = (String) session.getAttribute("location");
-			if(url != null) {
+			if(!"".equals(url) && url != null) {
 				url = url.substring(url.indexOf('/', 0));				
 			} else {
 				url = "/front-end/store/store.jsp";

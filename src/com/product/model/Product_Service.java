@@ -5,6 +5,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.product_version.model.Version_VO;
@@ -12,6 +16,12 @@ import com.product_version.model.Version_VO;
 public class Product_Service {
 
 	private Product_DAO_interface dao;
+	
+	//惟揚
+	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+	    Set<Object> seen = ConcurrentHashMap.newKeySet();
+	    return t -> seen.add(keyExtractor.apply(t));
+	}
 
 	public Product_Service() {
 		dao = new Product_DAO();
@@ -41,12 +51,18 @@ public class Product_Service {
 	}
 //關鍵字
 	public List<Product_VO> getbykeyword() {
-		return dao.getbykeyword();
+		List<Product_VO> list = dao.getbykeyword()
+				.stream()
+				.filter(distinctByKey(Product_VO::getProduct_id))
+				.collect(Collectors.toList());
+		return list;
 	}
 //yaosheng
 	public List<Product_VO> all() {
 		List<Product_VO> collect = dao.all().stream()
+		
 		.filter(p -> p.getProduct_state() == 1)
+		.filter(distinctByKey(Product_VO::getProduct_id))
 		.collect(Collectors.toList());
 		return collect;
 	}

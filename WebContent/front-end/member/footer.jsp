@@ -189,6 +189,10 @@
 			})
 		}
 		
+		$('a i.fa-sign-out-alt').on("click", function() {
+			localStorage.clear();
+		})
+		
 		
 	<%}%>
 	</script>

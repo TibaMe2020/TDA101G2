@@ -205,7 +205,8 @@
 <%
 	} else {
 		//登入時導轉到原本頁面
-		session.setAttribute("location", request.getRequestURI());
+		String location = (String)session.getAttribute("location");
+		if("".equals(location)) session.setAttribute("location", request.getRequestURI());
 %>
 <header>
 	<div class="header">

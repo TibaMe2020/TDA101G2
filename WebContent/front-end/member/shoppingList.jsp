@@ -121,7 +121,8 @@
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active order-holder" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab">
             
-							<c:forEach items="${orderList}" var="order">
+			<c:forEach items="${orderList}" var="order">
+				
               <div class="card bg-white border-0 product_order" data-orderState="${order.product_order_state}">
                 <div class="card-header bg-white d-flex justify-content-between">
                   <div>
@@ -135,6 +136,7 @@
                   </div>
                 </div>
                 <c:forEach items="${order.detail_list}" var="detail">
+                <a href="<%=request.getContextPath()%>/front-end/product/Product.jsp?product_id=${detail.getVersionVO().getProductVO().getProduct_id()}">
                 <div class="card-body row">
                   <div class="product-image col-2">
                     <img src="<%=request.getContextPath()%>/Product_Image?product_id=${detail.getVersionVO().getProductVO().getProduct_id()}&image=1" class="rounded">
@@ -159,6 +161,7 @@
                     </p>
                   </div>
                 </div>
+                </a>
                 </c:forEach>
                 <div class="card-body row">
                   <div class="col-2">

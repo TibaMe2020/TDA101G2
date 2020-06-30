@@ -805,7 +805,7 @@ insert into store(store_id, member_id, store_class, store_name, store_adress, st
 insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07010','MB00010', '旅館', 'Mibao寵物美容旅館', '基隆市中正區吉利四路281號', '0224593132', '牽掛是一種憂傷的幸福，當你牽掛一個人時，你就會想他是不是也在牽掛你。因為喜歡才牽掛，因為牽掛而憂傷，用心去感受對方的牽掛。牽掛是一份爛漫，一份深沉，一份純美，一份質樸', 600, null, null, null, null, null, null, null, 1);
 insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07011','MB00011', '餐廳', '咪可思啾芭-貓中途寵物餐廳', '新北市三重區重陽路一段60巷32號', '0229889005', '有很多貓咪，但環境非常整潔乾淨，空氣流通沒有異味，店裡還有兩隻柴柴，都超級可愛~給貓咪的空間及設施也相當寬敞齊全。食物的部分，份量不算大，跟一般咖啡廳差不多，對胃口偏小的人來說應該是剛好，奶茶比想像的還大瓶。', 6800, null, null, null, null, null, null, 80, 1);
 insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07012','MB00012', '餐廳', 'Dog Boss 寵物友善早午餐', '新北市中和區南山路122號', '0222468789', 'DOGBOSS真的是毛孩天堂誒！有得玩又有得吃，可以當作寵物聯誼場所了！我們在享用餐點同時毛孩也可以吃他的專屬餐點，不用看著我們的食物流口水，人的餐點跟寵物餐感覺都很不錯～店家本身飼養五隻貴賓，其中還有被棄養的狗狗。', 3600, 1, null, null, null, null, null, 100, 1);
-insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07013','MB00013', '旅館', '狗狗家 Doghome Hotel', '台北市大同區華陰街73號', '0225551513', 'DOGHOME狗狗家將在7/29(日)下午14:00，推出夏季☀營養又美味的鮮食講座喔🎉特別邀請王聖寧營養師👩‍🏫到館分享寵物的鮮食原則與營養需求💁‍♀同時王聖寧營養師也將在課程中😘', 8000, null, null, null, null, null, null, null, 1);
+insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07013','MB00013', '旅館', '狗狗家 Doghome Hotel', '台北市大同區華陰街73號', '0225551513', 'DOGHOME狗狗家將在7/29(日)下午14:00，推出夏季?營養又美味的鮮食講座喔?特別邀請王聖寧營養師???到館分享寵物的鮮食原則與營養需求??♀同時王聖寧營養師也將在課程中?', 8000, null, null, null, null, null, null, null, 1);
 insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07014','MB00014', '美容', '夢露寵物美容', '台北市大同區承德路一段83號', '0225596369', '偶然搜尋到的寵物美容，狗狗洗澡體驗非常好，還會傳狗狗一臉享受的美容過程照片跟影片，看她洗完澡笑的超開心的樣子就知道服務有多棒了！健康有小狀況也都會回覆注意事項，感受得到老闆真心喜愛寵物，服務價格地點都非常好，值得推薦！！', 750, 3, null, null, null, null, null, null, 1);
 insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07015','MB00015', '學校', '全宏愛犬訓練學校', '新北市新店區北宜路三段187號', '0222173683', '每次狗狗去住宿狀況都不錯！看到車子來接他還會很高興想跳上車！老闆親切，有愛心 專業訓練很優，價格公道', 20, 3, 4, null, null, null, null, null, 1);
 insert into store(store_id, member_id, store_class, store_name, store_adress, store_phone_number, store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_openhours1, store_openhours2 ,store_openhours3 ,store_timelimit, store_maxcapacity,store_on) values ('S07016','MB00016', '美容', '爪子精緻寵物沙龍', '台北市中山區長春路3巷11弄', '0225672581', '五星級的服務！狗狗每次回來都超乾淨的，也會跟我們說狗狗哪裡需要注意，比如說耳朵有點感染需要特別清潔等，很好的服務！', 600, null, null, null, null, null, null, null, 1);
@@ -892,7 +892,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00006',
-    '貓用除毛用品',
+    '寵物除臭劑',
     '用品',
     NULL,
     NULL,
@@ -914,7 +914,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00001',
-    '逗貓棒',
+    '吸毛器',
     '用品',
     NULL,
     NULL,
@@ -936,7 +936,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00010',
-    '推毛器',
+    '紓壓咬物',
     '用品',
     NULL,
     NULL,
@@ -980,7 +980,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00009',
-    '跳跳智能球',
+    '清毛滾輪',
     '用品',
     NULL,
     NULL,
@@ -1002,8 +1002,8 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00001',
-    '鮮肉糧食飼料',
-    '食品',
+    '寵物餵食器',
+    '用品',
     NULL,
     NULL,
     NULL,
@@ -1024,7 +1024,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00006',
-    '鮮肉住家',
+    '鼠愛一生',
     '住家',
     NULL,
     NULL,
@@ -1046,7 +1046,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00003',
-    '糧食倉庫',
+    '貓咪倉庫',
     '住家',
     NULL,
     NULL,
@@ -1068,7 +1068,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00006',
-    '寵物防寒羽絨衣',
+    '寵物衣物',
     '服飾',
     NULL,
     NULL,
@@ -1090,7 +1090,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00001',
-    '經典益生菌',
+    '貓咪飼料',
     '食品',
     NULL,
     NULL,
@@ -1112,7 +1112,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00005',
-    '冰墊寵物墊',
+    '冰涼寵物墊',
     '用品',
     NULL,
     NULL,
@@ -1134,8 +1134,8 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00003',
-    '瘋狂的骨頭',
-    '用品',
+    '瘋狂的飼料',
+    '食品',
     NULL,
     NULL,
     NULL,
@@ -1156,7 +1156,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00013',
-    '貓用薄荷薯片',
+    'Science',
     '食品',
     NULL,
     NULL,
@@ -1178,7 +1178,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00011',
-    '好幸福零食',
+    '食在好寵',
     '食品',
     NULL,
     NULL,
@@ -1200,7 +1200,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00012',
-    '貓倍麗',
+    '柏肯特',
     '食品',
     NULL,
     NULL,
@@ -1222,7 +1222,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00001',
-    '寵物機能食品',
+    'freshpet',
     '食品',
     NULL,
     NULL,
@@ -1244,8 +1244,8 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00015',
-    '柏克恩狗食',
-    '食品',
+    '透氣行軍床',
+    '住家',
     NULL,
     NULL,
     NULL,
@@ -1266,7 +1266,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00015',
-    '牛磺酸大補鐵',
+    '兔兔飼料',
     '食品',
     NULL,
     NULL,
@@ -1287,7 +1287,7 @@ INSERT INTO product (
     product_state
 ) VALUES (
     'MB00015',
-    '下利恩貓食',
+    'Caser',
     '食品',
     NULL,
     NULL,
@@ -1306,7 +1306,7 @@ INSERT INTO product_version (
     inventory
 ) VALUES (
     'PI00001',
-    '經典款',
+    '品蚤不見',
     10000,
     10
 );																			
@@ -1318,25 +1318,27 @@ INSERT INTO product_version (
     price,
     inventory
 ) VALUES (
-    'PI00002',
-    '經典款',
+    'PI00001',
+    '臭臭退散',
     2000,
     20
 );		
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00003','特仕款',1000,10);		
+VALUES ('PI00001','驅避劑',1500,10);		
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00004','日本款',1500,10);
+VALUES ('PI00002','日本款',1500,10);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00003','卡通聯名款',2500,30);
+insert into product_version(PRODUCT_ID,version_name,price,inventory)
+VALUES ('PI00004','卡通聯名款',2500,30);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
 VALUES ('PI00005','卡通聯名款',2500,30);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00006','雞肉口味',3000,2);
+VALUES ('PI00006','一般款',3000,2);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00006','牛肉口味',150000,1);	
+VALUES ('PI00007','小型鼠',4000,10);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00007','冬天款',4000,10);
-insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00008','一般型',4200,10);
+VALUES ('PI00008','台製',4200,10);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
 VALUES ('PI00009','一般款',5000,10);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
@@ -1346,11 +1348,9 @@ VALUES ('PI00011','一般款',6540,29);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
 VALUES ('PI00012','一般款',6200,29);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00013','香烤鮭魚',8500,29);
+VALUES ('PI00013','一般款',8500,29);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00013','香嫩考雞',1500,29);
-insert into product_version(PRODUCT_ID,version_name,price,inventory)
-VALUES ('PI00014','香烤鮮燴',8000,29);
+VALUES ('PI00014','一般款',8000,29);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
 VALUES ('PI00015','一般款',10000,29);
 insert into product_version(PRODUCT_ID,version_name,price,inventory)
@@ -1583,49 +1583,50 @@ VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00007', 'PID00010', '�
        
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
     VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'中和動物之家','地點偏僻適合安置動物的好地方，工作人員十分親切和有愛心，想要認養毛小孩決對不可錯過
-    有愛惜狗狗身心重修！為愛狗人們免費找到適合的狗兒！');
+    有愛惜狗狗身心重修！為愛狗人們免費找到適合的狗兒！很多愛心志工！好棒棒!');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
-    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'中山動物之家','這邊的志工及工作人員人都很好，環境乾淨，分類也很好。我也順利領養到我的寶貝貓咪們，歡迎大家一起來認領其他寶貝們');
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'中山動物之家','這邊的志工及工作人員人都很好，環境乾淨，分類也很好。我也順利領養到我的寶貝貓咪們。');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
     VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'高雄動物之家','那天去幫忙，但覺得有點冗，中間蠻多沒事做的時間。');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
-    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'桃園動物之家','認養代替購買，這個口號不是說說而已，如果你真的愛動物，請選這裡。');
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'桃園動物之家','認養代替購買，這個口號不是說說而已，如果你真的愛動物，你的第一選擇就是這裡。');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
-    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'台南動物之家','很用心對待貓貓跟整理環境，也會教新手照顧貓，近期缺志工');
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'台南動物之家','很用心對待貓貓跟整理環境，也會教新手照顧貓。');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
     VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'新竹動物之家','以認養代替購買，為浪浪們找一個溫暖的家！');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
-    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'彰化動物之家','帶喵來結紮，結紮完繼續養浪浪!，這邊的狗狗們都健康可以安心領養');
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'彰化動物之家','帶喵來結紮，結紮完繼續養浪浪!');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
     VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'嘉義動物之家','地點有點偏僻，但環境很好，空氣很棒。工作人員都很客氣又有愛心。');
     
     INSERT INTO Npo_info(NPO_ID,NPO_NAME,NPO_DESCRIPTION)
-    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'屏東動物之家','整體環境維持得不錯，服務人員很親切且細心，位置雖偏僻，但若是有心想認養毛小孩，這裡絕對值得前往!');
+    VALUES('NID' || lpad(npo_id_SEQ.nextval, 5, '0'),'屏東動物之家','整體環境維持得不錯，服務人員很親切且細心介紹浪浪們的狀態。
+    位置雖偏僻，但若是有心想認養毛小孩，這裡絕對值得前往!');
 
 
 --========================================================================================================================================
 
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
-    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'瓜呆','它們的個性就像春天的第一道曙光，永遠充滿朝氣和活力，令人神清氣爽，它們調皮而且充滿好奇心，動物本能特強。主人必須嚴加管教。',1000);
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'瓜呆','它們的個性就像春天的第一道曙光，永遠充滿朝氣和活力，令人神清氣爽，它們調皮而且充滿好奇心，動物本能特強。主人必須嚴加管教。它們才不會太野。',1000);
        
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
-    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'阿雞','昨日凌晨發現倒在路邊,研判應該是喝太多所以宿醉在路邊，輕微擦傷，經過初步檢查有配戴項圈，不過根據附近住戶表示已經看見它徘徊在這裡多天。',500);
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'阿雞','昨日凌晨發現倒在路邊,研判應該是喝太多所以宿醉在路邊,輕微擦傷。',500);
     
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
     VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'紅心','民眾發現這隻流浪狗，剛生產不久，就四處奔走覓食，狗的下腹部不慎遭到鐵絲劃破1道深深傷口，血流不止，向台灣動物緊急救援小組求救。',25000);
     
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
-    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'啾太郎','檢質顯示除了貧血，總蛋白濃度偏低，顯示營養不均衡，可能與受傷期間無好好進食有關，獸醫已給予藥物治療。',4000);
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'啾太郎','檢質顯示除了貧血，總蛋白濃度偏低，顯示營養不均衡，可能與受傷期間無好好進食有關，因此獸醫除了給予藥物治療，也在食物中添加需要的營養補充。',4000);
     
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
-    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'獅子丸','德國牧羊犬被當沙包15秒遭拳擊10次,頭顱出血目前急需治療，已做初步的處理但仍未脫離險境。',10000);
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'獅子丸','德國牧羊犬被當沙包15秒遭拳擊10次,頭顱出血目前急需治療。',10000);
     
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
     VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'豆芽菜','一隻老犬遭鄰居多次潑水後，又用掃帚狂戳狂打，導致身上多處皮肉傷、眼睛周圍紅腫,令人看了怵目驚心。',8050);
@@ -1637,7 +1638,7 @@ VALUES('MID' || lpad(MESSAGE_ID_SEQ.NEXTVAL, 5, '0'), 'MB00007', 'PID00010', '�
     VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'汪醬','非法繁殖63隻品種犬，狗籠堆疊在戶外只用布料稍微遮住，飼養環境極度惡劣，排泄物堆積，且沒有乾淨水源和飲食。',30000);
     
     INSERT INTO ADOPT_INFO(ADOPT_ID,ADOPT_NAME,ADOPT_DESCRIPTION,ADOPT_MONEY)
-    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'柴之助','柴犬四肢無明顯外傷，但看上去真的很不舒服，整個晚上不願進食、只喝了一點水，隔天一早就把柴犬送醫，獸醫表示罹患大腸癌應快點動手術摘除。',2500);
+    VALUES('AID' || lpad(adopt_id_SEQ.nextval, 5, '0'),'柴之助','柴犬四肢無明顯外傷，但看上去真的很不舒服，整個晚上不願進食、只喝了一點水，隔天一早就把柴犬送醫。',2500);
 
 --=========================================================================================================================================
 

@@ -57,8 +57,9 @@ public class Authentication implements Filter {
 		if(memberVO == null) {
 			
 			session.setAttribute("location", req.getRequestURI());
-			System.out.println(req.getRequestURI());
-			res.sendRedirect(req.getContextPath()+"/front-end/store/store.jsp?login=false");
+			System.out.println("filter : " + req.getRequestURI());
+			res.sendRedirect(req.getContextPath()+"/front-end/product/ProductHomepage.jsp?login=false");
+//			res.sendRedirect(req.getContextPath()+"/front-end/store/store.jsp?login=false");
 			return; 
 		} else {
 			chain.doFilter(request, response);
