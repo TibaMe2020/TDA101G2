@@ -630,8 +630,10 @@ function linepayReq() {
             // 'Access-Control-Allow-Methods': 'POST',
             // 'Access-Control-Allow-Headers': 'x-requested-with,content-type',
             'Content-Type': 'application/json',
-            'X-LINE-ChannelId': '1654393823',
-            'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36'
+//            'X-LINE-ChannelId': '1654393823',
+//            'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36'
+            'X-LINE-ChannelId': '1654335670',
+            'X-LINE-ChannelSecret': '0ad9eef2ae3287ee12085101d7eaf49b'
         },
         error: function (xhr) {         // request 發生錯誤的話執行
             console.log(xhr.responseText);
