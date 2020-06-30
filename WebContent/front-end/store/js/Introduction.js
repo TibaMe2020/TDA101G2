@@ -397,10 +397,16 @@ function dateCounter() {
         var date2 = $("input.input-date-checkout").val();
         let count = days_between(new Date(date1), new Date(date2));
         let price = $("input.bookingTotal").attr("data-price")
-
-        $("input.dateCount").val(count)
-        // $("input.getTotal").val("$ " + thousandComma(count * price));
-        $("#getTotal").val("$ " + thousandComma(count * price));
+        if (isNaN(count)) {
+            $("input.dateCount").val("");
+        } else {
+            $("input.dateCount").val(count)
+        }
+        if (isNaN(count * price)) {
+            $("#getTotal").val("$ 0");
+        } else {
+            $("#getTotal").val("$ " + thousandComma(count * price));
+        }
     })
 }
 dateCounter()
@@ -632,8 +638,8 @@ function linepayReq() {
             'Content-Type': 'application/json',
             'X-LINE-ChannelId': '1654393823',
             'X-LINE-ChannelSecret': '621b6fda656e715f4d734a02d53cfe36'
-//            'X-LINE-ChannelId': '1654335670',
-//            'X-LINE-ChannelSecret': '0ad9eef2ae3287ee12085101d7eaf49b'
+            // 'X-LINE-ChannelId': '1654335670',
+            // 'X-LINE-ChannelSecret': '0ad9eef2ae3287ee12085101d7eaf49b'
         },
         error: function (xhr) {         // request 發生錯誤的話執行
             console.log(xhr.responseText);
