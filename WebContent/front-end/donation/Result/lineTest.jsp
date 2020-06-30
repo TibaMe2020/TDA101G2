@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 /* Set a background color */
 body {
-  background-color:	#004B97;
+  background-color:	#e5ccdc;
   font-family: Helvetica, sans-serif;
 }
 
