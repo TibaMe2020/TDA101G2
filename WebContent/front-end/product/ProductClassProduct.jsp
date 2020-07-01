@@ -130,7 +130,7 @@
  <c:forEach items="${Product_Service.highPrice()}" var="product_VO" begin="0" end="3">
                     	 <div class="col-sm-12 col-md-3">
                             <div class="card">
-                                <img class="card-img-top" src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="hotimage">
+                                <img class="card-img-top" src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="hotimage" style="height: 200px;">
                                 <div class="card-body">
                                     <h4 class="card-title">${product_VO.name}</h4>
                                     <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=1 ? 'color: #EF8216' : ''}"></i></span>
@@ -170,7 +170,7 @@
  <c:forEach items="${Product_Service.highPrice()}" var="product_VO" begin="0" end="7">
                     <div class="col-sm-12 col-md-3">
                             <div class="card">
-                                <img class="card-img-top" src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="hotimage">
+                                <img class="card-img-top" src="<%=request.getContextPath()%>/Product_Image?image=1&product_id=${product_VO.product_id}"  id="hotimage" style="height: 200px;">
                                 <div class="card-body">
                                     <h4 class="card-title">${product_VO.name}</h4>
                                     <span class="star"><i class="fas fa-star" style=" ${product_VO.score >=1 ? 'color: #EF8216' : ''}"></i></span>
