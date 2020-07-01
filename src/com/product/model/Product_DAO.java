@@ -36,24 +36,50 @@ public class Product_DAO implements Product_DAO_interface {
 //	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 //	String userid = "PETBOX";
 //	String passwd = "123456";
+//最新日期
+private static final String NewDate = "SELECT P.PRODUCT_ID, P.member_id, P.name, P.product_class, P.product_state, P.create_time, PS.SCORE, PV.PRICE " + 
+		"FROM PRODUCT P " + 
+		"LEFT JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID " + 
+		"JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  " + 
+		"ORDER BY P.CREATE_TIME DESC";		
+//價錢最高
+private static final String HIGH_PRICE="SELECT P.PRODUCT_ID, P.member_id, P.name, P.product_class, P.product_state, P.create_time, PS.SCORE, PV.PRICE " + 
+		"FROM PRODUCT P " + 
+		"LEFT JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID " + 
+		"JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  " + 
+		"ORDER BY PV.PRICE DESC";		
+//價錢最低
+private static final String LOW_PRICE="SELECT P.PRODUCT_ID, P.member_id, P.name, P.product_class, P.product_state, P.create_time, PS.SCORE, PV.PRICE " + 
+		"FROM PRODUCT P " + 
+		"LEFT JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID " + 
+		"JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  " + 
+		"ORDER BY PV.PRICE";		
+//最高評分
+private static final String HIGH_SCORE="SELECT P.PRODUCT_ID, P.member_id, P.name, P.product_class, P.product_state, P.create_time, PS.SCORE, PV.PRICE " + 
+		"FROM PRODUCT P " + 
+		"LEFT JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID " + 
+		"JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  " + 
+		"ORDER BY SCORE DESC";		
+
+private static final String All="SELECT P.PRODUCT_ID, P.member_id, P.name, P.product_class, P.product_state, P.create_time, PS.SCORE, PV.PRICE " + 
+		"FROM PRODUCT P " + 
+		"LEFT JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID " + 
+		"JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  " + 
+		"ORDER BY P.CREATE_TIME DESC";		
+
+private static final String Getbykeyword="SELECT P.PRODUCT_ID, P.member_id, P.name, P.product_class, P.product_state, P.create_time, PS.SCORE, PV.PRICE " + 
+		"FROM PRODUCT P " + 
+		"LEFT JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID " + 
+		"JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  " + 
+		" ORDER BY PV.PRODUCT_VERSION_ID";		
+
 private static final String FinalALL="select * from product ";
-private static final String All="SELECT * FROM PRODUCT P LEFT JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID order by p.create_time DESC";
-private static final String getbykeyword="SELECT * FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID order by  pv.product_version_id "; 
+
 private static final String INSERT_STMT = "INSERT INTO product (member_id, name, product_class, description, image1, image2, image3, image4, product_state) VALUES(?,?,?,?,?,?,?,?,?)";
 private static final String UPDATE = "UPDATE product SET name=?, product_class=?, description=?, image1=?, image2=?, image3=?, image4=?, product_state=? WHERE product_id=? ";
 private static final String DELETE = "DELETE FROM product WHERE product_id=?";
 private static final String GET_ONE_STMT = "SELECT product_id, member_id, name, product_class, description, image1, image2, image3, image4, product_state, update_time, create_time FROM PRODUCT WHERE product_id=?";
-//最新日期
-private static final String newDate = "SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P  LEFT JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  ORDER BY P.CREATE_TIME DESC";
-//價錢最低
-private static final String LOW_PRICE="SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  ORDER BY PV.PRICE ";
-//價錢最高
-private static final String HIGH_PRICE="SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  ORDER BY PV.PRICE DESC ";
-//最高評分
-private static final String HIGH_SCORE="SELECT P.*, PS.SCORE, PV.PRICE FROM PRODUCT P JOIN PRODUCT_SCORE PS ON P.PRODUCT_ID =PS.PRODUCT_ID JOIN PRODUCT_VERSION PV ON P.PRODUCT_ID=PV.PRODUCT_ID  ORDER BY SCORE DESC ";
-
 private static final String GET_BY_MID = "select * from product where member_id = ?";
-
 private static final String GET_BY_CLASS = "select sum(price*quantity) as total, product_class " + 
 		"from product_order_detail pod " + 
 		"join product_version pv on pv.product_version_id = pod.product_version_id " + 
@@ -382,14 +408,14 @@ private static final String GET_BY_CLASS = "select sum(price*quantity) as total,
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
 				product_VO.setProduct_class(rs.getString("product_class"));
-				product_VO.setDescription(rs.getBytes("description"));
-				product_VO.setImage1(rs.getBytes("image1"));
-				product_VO.setImage2(rs.getBytes("image2"));
-				product_VO.setImage3(rs.getBytes("image3"));
-				product_VO.setImage4(rs.getBytes("image4"));
 				product_VO.setProduct_state(rs.getInt("product_state"));
 				product_VO.setCreate_time(rs.getDate("create_time"));
 
+//				product_VO.setDescription(rs.getBytes("description"));
+//				product_VO.setImage1(rs.getBytes("image1"));
+//				product_VO.setImage2(rs.getBytes("image2"));
+//				product_VO.setImage3(rs.getBytes("image3"));
+//				product_VO.setImage4(rs.getBytes("image4"));
 			}
 
 			// Handle any driver errors
@@ -422,6 +448,10 @@ private static final String GET_BY_CLASS = "select sum(price*quantity) as total,
 		}
 		return product_VO;
 	}
+	
+	
+	
+//	以下修改=================================================================================
 
 	@Override
 	public List<Product_VO> newDate() {
@@ -436,7 +466,7 @@ private static final String GET_BY_CLASS = "select sum(price*quantity) as total,
 
 			
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(newDate);
+			pstmt = con.prepareStatement(NewDate);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -445,15 +475,16 @@ private static final String GET_BY_CLASS = "select sum(price*quantity) as total,
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
 				product_VO.setProduct_class(rs.getString("product_class"));
-				product_VO.setDescription(rs.getBytes("description"));
-				product_VO.setImage1(rs.getBytes("image1"));
-				product_VO.setImage2(rs.getBytes("image2"));
-				product_VO.setImage3(rs.getBytes("image3"));
-				product_VO.setImage4(rs.getBytes("image4"));
 				product_VO.setProduct_state(rs.getInt("product_state"));
 				product_VO.setCreate_time(rs.getDate("create_time"));
 				product_VO.setPrice(rs.getInt("price"));
 				product_VO.setScore(rs.getDouble("score"));
+				
+//				product_VO.setDescription(rs.getBytes("description"));
+//				product_VO.setImage1(rs.getBytes("image1"));
+//				product_VO.setImage2(rs.getBytes("image2"));
+//				product_VO.setImage3(rs.getBytes("image3"));
+//				product_VO.setImage4(rs.getBytes("image4"));
 				list.add(product_VO);
 			}
 
@@ -512,13 +543,14 @@ System.out.println("rs"+rs);
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
 				product_VO.setProduct_class(rs.getString("product_class"));
-				product_VO.setDescription(rs.getBytes("description"));
-				product_VO.setImage1(rs.getBytes("image1"));
-				product_VO.setImage2(rs.getBytes("image2"));
-				product_VO.setImage3(rs.getBytes("image3"));
-				product_VO.setImage4(rs.getBytes("image4"));
 				product_VO.setProduct_state(rs.getInt("product_state"));
 				product_VO.setCreate_time(rs.getDate("create_time"));
+				
+//				product_VO.setDescription(rs.getBytes("description"));
+//				product_VO.setImage1(rs.getBytes("image1"));
+//				product_VO.setImage2(rs.getBytes("image2"));
+//				product_VO.setImage3(rs.getBytes("image3"));
+//				product_VO.setImage4(rs.getBytes("image4"));
 
 				
 				list.add(product_VO); // Store the row in the List
@@ -576,15 +608,16 @@ System.out.println("rs"+rs);
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
 				product_VO.setProduct_class(rs.getString("product_class"));
-				product_VO.setDescription(rs.getBytes("description"));
-				product_VO.setImage1(rs.getBytes("image1"));
-				product_VO.setImage2(rs.getBytes("image2"));
-				product_VO.setImage3(rs.getBytes("image3"));
-				product_VO.setImage4(rs.getBytes("image4"));
 				product_VO.setProduct_state(rs.getInt("product_state"));
 				product_VO.setCreate_time(rs.getDate("create_time"));
 				product_VO.setPrice(rs.getInt("price"));
 				product_VO.setScore(rs.getDouble("score"));
+				
+//				product_VO.setDescription(rs.getBytes("description"));
+//				product_VO.setImage1(rs.getBytes("image1"));
+//				product_VO.setImage2(rs.getBytes("image2"));
+//				product_VO.setImage3(rs.getBytes("image3"));
+//				product_VO.setImage4(rs.getBytes("image4"));
 				list.add(product_VO);
 			}
 
@@ -641,15 +674,16 @@ System.out.println("rs"+rs);
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
 				product_VO.setProduct_class(rs.getString("product_class"));
-				product_VO.setDescription(rs.getBytes("description"));
-				product_VO.setImage1(rs.getBytes("image1"));
-				product_VO.setImage2(rs.getBytes("image2"));
-				product_VO.setImage3(rs.getBytes("image3"));
-				product_VO.setImage4(rs.getBytes("image4"));
 				product_VO.setProduct_state(rs.getInt("product_state"));
 				product_VO.setCreate_time(rs.getDate("create_time"));
 				product_VO.setPrice(rs.getInt("price"));
 				product_VO.setScore(rs.getDouble("score"));
+				
+//				product_VO.setDescription(rs.getBytes("description"));
+//				product_VO.setImage1(rs.getBytes("image1"));
+//				product_VO.setImage2(rs.getBytes("image2"));
+//				product_VO.setImage3(rs.getBytes("image3"));
+//				product_VO.setImage4(rs.getBytes("image4"));
 				list.add(product_VO);
 			}
 
@@ -706,15 +740,16 @@ System.out.println("rs"+rs);
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
 				product_VO.setProduct_class(rs.getString("product_class"));
-				product_VO.setDescription(rs.getBytes("description"));
-				product_VO.setImage1(rs.getBytes("image1"));
-				product_VO.setImage2(rs.getBytes("image2"));
-				product_VO.setImage3(rs.getBytes("image3"));
-				product_VO.setImage4(rs.getBytes("image4"));
 				product_VO.setProduct_state(rs.getInt("product_state"));
 				product_VO.setCreate_time(rs.getDate("create_time"));
 				product_VO.setPrice(rs.getInt("price"));
 				product_VO.setScore(rs.getDouble("score"));
+				
+//				product_VO.setDescription(rs.getBytes("description"));
+//				product_VO.setImage1(rs.getBytes("image1"));
+//				product_VO.setImage2(rs.getBytes("image2"));
+//				product_VO.setImage3(rs.getBytes("image3"));
+//				product_VO.setImage4(rs.getBytes("image4"));
 				list.add(product_VO);
 			}
 
@@ -769,13 +804,14 @@ System.out.println("rs"+rs);
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
 				product_VO.setProduct_class(rs.getString("product_class"));
-				product_VO.setDescription(rs.getBytes("description"));
-				product_VO.setImage1(rs.getBytes("image1"));
-				product_VO.setImage2(rs.getBytes("image2"));
-				product_VO.setImage3(rs.getBytes("image3"));
-				product_VO.setImage4(rs.getBytes("image4"));
 				product_VO.setProduct_state(rs.getInt("product_state"));
 				product_VO.setCreate_time(rs.getDate("create_time"));
+				
+//				product_VO.setDescription(rs.getBytes("description"));
+//				product_VO.setImage1(rs.getBytes("image1"));
+//				product_VO.setImage2(rs.getBytes("image2"));
+//				product_VO.setImage3(rs.getBytes("image3"));
+//				product_VO.setImage4(rs.getBytes("image4"));
 				list.add(product_VO);
 			}
 
@@ -822,7 +858,7 @@ System.out.println("rs"+rs);
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(getbykeyword);
+			pstmt = con.prepareStatement(Getbykeyword);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -831,13 +867,14 @@ System.out.println("rs"+rs);
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
 				product_VO.setProduct_class(rs.getString("product_class"));
-				product_VO.setDescription(rs.getBytes("description"));
-				product_VO.setImage1(rs.getBytes("image1"));
-				product_VO.setImage2(rs.getBytes("image2"));
-				product_VO.setImage3(rs.getBytes("image3"));
-				product_VO.setImage4(rs.getBytes("image4"));
 				product_VO.setProduct_state(rs.getInt("product_state"));
 				product_VO.setCreate_time(rs.getDate("create_time"));
+				
+//				product_VO.setDescription(rs.getBytes("description"));
+//				product_VO.setImage1(rs.getBytes("image1"));
+//				product_VO.setImage2(rs.getBytes("image2"));
+//				product_VO.setImage3(rs.getBytes("image3"));
+//				product_VO.setImage4(rs.getBytes("image4"));
 				list.add(product_VO);
 			}
 
@@ -892,13 +929,14 @@ System.out.println("rs"+rs);
 				product_VO.setMember_id(rs.getString("member_id"));
 				product_VO.setName(rs.getString("name"));
 				product_VO.setProduct_class(rs.getString("product_class"));
-				product_VO.setDescription(rs.getBytes("description"));
-				product_VO.setImage1(rs.getBytes("image1"));
-				product_VO.setImage2(rs.getBytes("image2"));
-				product_VO.setImage3(rs.getBytes("image3"));
-				product_VO.setImage4(rs.getBytes("image4"));
 				product_VO.setProduct_state(rs.getInt("product_state"));
 				product_VO.setCreate_time(rs.getDate("create_time"));
+				
+//				product_VO.setDescription(rs.getBytes("description"));
+//				product_VO.setImage1(rs.getBytes("image1"));
+//				product_VO.setImage2(rs.getBytes("image2"));
+//				product_VO.setImage3(rs.getBytes("image3"));
+//				product_VO.setImage4(rs.getBytes("image4"));
 				list.add(product_VO);
 			}
 
