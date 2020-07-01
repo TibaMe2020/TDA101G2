@@ -57,6 +57,7 @@
 	Map<String, String> pmap = pdSvc.getByClass();
 	pageContext.setAttribute("salesTotal", pmap);
 	System.out.println("salesTotal");
+	System.out.println(pmap);
 	//D領養動物數量
 	Adopt_form_infoService afSvc = new Adopt_form_infoService();
 	List<Adopt_form_infoVO> adoptList = afSvc.getAll();
@@ -220,16 +221,16 @@
 						type : "doughnut",
 						dataPoints : [ {
 							label : "食品",
-							y : '${salesTotal.get("食品")}'
+							y : ${not empty salesTotal.get("食品") ? salesTotal.get("食品") : 0}
 						}, {
 							label : "服飾",
-							y : '${salesTotal.get("服飾")}'
+							y : ${not empty salesTotal.get("服飾") ? salesTotal.get("服飾") : 0}
 						}, {
 							label : "住家",
-							y : '${salesTotal.get("住家")}'
+							y : ${not empty salesTotal.get("住家") ? salesTotal.get("住家") : 0}
 						}, {
 							label : "用品",
-							y : '${salesTotal.get("用品")}'
+							y : ${not empty salesTotal.get("用品") ? salesTotal.get("用品") : 0}
 						} ]
 					} ]
 				});
@@ -245,19 +246,19 @@
 						type : "doughnut",
 						dataPoints : [ {
 							label : "學校",
-							y : '${stores.get("學校")}'
+							y : ${not empty stores.get("學校") ? stores.get("學校") : 0}
 						}, {
 							label : "醫院",
-							y : '${stores.get("醫院")}'
+							y : ${not empty stores.get("醫院") ? stores.get("醫院") : 0}
 						}, {
 							label : "旅館",
-							y : '${stores.get("旅館")}'
+							y : ${not empty stores.get("旅館") ? stores.get("旅館") : 0}
 						}, {
 							label : "美容",
-							y : '${stores.get("美容")}'
+							y : ${not empty stores.get("美容") ? stores.get("美容") : 0}
 						}, {
 							label : "餐廳",
-							y : '${stores.get("餐廳")}'
+							y : ${not empty stores.get("餐廳") ? stores.get("餐廳") : 0} 
 						} ]
 					} ]
 				});
