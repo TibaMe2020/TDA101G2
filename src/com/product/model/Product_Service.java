@@ -69,7 +69,26 @@ public class Product_Service {
 
 //最新日期
 	public List<Product_VO> newDate() {
-		return dao.newDate();
+		List<Product_VO> all = dao.FinalALL();
+		List<Product_VO> list = new ArrayList<>();
+		for(Product_VO product_VO : all) {
+			String product_id = product_VO.getProduct_id();
+			Optional<Product_VO> findFirst = dao.highPrice().stream()
+												.filter(p -> p.getProduct_id().equals(product_id))
+												.filter(p -> p.getProduct_class().equals("食品") || p.getProduct_class().equals("服飾"))
+												.findFirst();
+			if(findFirst.isPresent()) {
+				list.add(findFirst.get());
+			}
+		}
+		
+		List<Product_VO> collect = list.stream().sorted(Comparator.comparing(Product_VO::getPrice))
+												.collect(Collectors.toList());
+		if(collect.isEmpty()) {
+			return null;
+		}
+		
+		return collect;
 	}
 //抓取食品最低價錢
 	public List<Product_VO> lowPrice() {
@@ -79,7 +98,6 @@ public class Product_Service {
 			String product_id = product_VO.getProduct_id();
 			Optional<Product_VO> findFirst = dao.highPrice().stream()
 												.filter(p -> p.getProduct_id().equals(product_id))
-//												.filter(p -> p.getProduct_class().equals("food") || p.getProduct_class().equals("cloth"))
 												.filter(p -> p.getProduct_class().equals("食品") || p.getProduct_class().equals("服飾"))
 												.findFirst();
 			if(findFirst.isPresent()) {

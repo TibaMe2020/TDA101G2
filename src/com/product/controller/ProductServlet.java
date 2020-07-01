@@ -57,7 +57,7 @@ public class ProductServlet extends HttpServlet {
 		Product_DAO product_DAO = new Product_DAO();
 		switch (action) {
 		case "NewDate":
-			out.print(gson.toJson(product_DAO.newDate()));
+			out.print(gson.toJson(new Product_Service().newDate()));
 			break;
 		case "HighPrice":
 			out.print(gson.toJson(new Product_Service().highPrice()));
