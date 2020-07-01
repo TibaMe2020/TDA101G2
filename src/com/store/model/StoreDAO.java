@@ -44,6 +44,9 @@ public class StoreDAO implements StoreDAO_interface {
 	public static final String SELECT_BY_STORE_ID = "select * from store where store_id= ? ";
 	public static final String SELECT_BY_MEMBER_ID = "select * from store where member_id= ? ";
 	public static final String SELECT_BY_CLASS = "select * from store where store_class= ? ";
+	public static final String SELECT_BY_CLASS2 = "select store_id, member_id, store_class, store_name, store_adress, store_phone_number,\r\n" + 
+			"store_introduction, store_clicks, store_firstbreak, store_secondbreak, store_image1,\r\n" + 
+			"store_on from store where store_class= ? ";
 	public static final String SELECT_ALL = "select * from store ";
 
 	@Override
@@ -415,6 +418,70 @@ public class StoreDAO implements StoreDAO_interface {
 			}
 		}
 
+		return list;
+	}
+	@Override
+	public List<StoreVO> findByClass2(String store_class) {
+		List<StoreVO> list = new ArrayList<StoreVO>();
+		StoreVO storeVO = null;
+		
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+//			Class.forName(driver);
+//			conn = DriverManager.getConnection(url, userId, passWord);
+			conn = datasource.getConnection();
+			ps = conn.prepareStatement(SELECT_BY_CLASS2);
+			ps.setString(1, store_class);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				storeVO = new StoreVO();
+				storeVO.setStore_id(rs.getString("store_id"));
+				storeVO.setMember_id(rs.getString("member_id"));
+				storeVO.setStore_class(rs.getString("store_class"));
+				storeVO.setStore_name(rs.getString("store_name"));
+				storeVO.setStore_adress(rs.getString("store_adress"));
+				storeVO.setStore_phone_number(rs.getString("store_phone_number"));
+				storeVO.setStore_introduction(rs.getString("store_introduction"));
+				storeVO.setStore_clicks(rs.getInt("store_clicks"));
+				storeVO.setStore_firstbreak(rs.getInt("store_firstbreak"));
+				storeVO.setStore_secondbreak(rs.getInt("store_secondbreak"));
+				storeVO.setStore_image1(rs.getBytes("store_image1"));
+				storeVO.setStore_on(rs.getInt("store_on"));
+				list.add(storeVO);
+				
+			}
+			
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver： " + e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured： " + e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
 		return list;
 	}
 

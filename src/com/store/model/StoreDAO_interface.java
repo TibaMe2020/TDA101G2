@@ -11,6 +11,7 @@ public interface StoreDAO_interface {
 	public StoreVO findByPK(String store_id);
 	public StoreVO findByMemberId(String member_id);
 	public List<StoreVO> findByClass(String store_class);
+	public List<StoreVO> findByClass2(String store_class); 
 	public List<StoreVO> getAll();
 	public void insertWithClosed(StoreVO storeVO, List<Store_closedVO> list);
 }

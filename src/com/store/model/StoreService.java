@@ -129,6 +129,10 @@ public class StoreService {
 	public List<StoreVO> findByClass(String store_class) {
 		return dao.findByClass(store_class);
 	}
+	
+	public List<StoreVO> findByClass2(String store_class) {
+		return dao.findByClass2(store_class);
+	}
 
 	public List<StoreVO> getAll() {
 		return dao.getAll();

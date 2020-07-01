@@ -43,7 +43,7 @@ public class AjaxresultServelet extends HttpServlet {
 				rs.setNpo_id(npoName);
 			}
 			out.print(gson.toJson(remonth));
-			System.out.println("Gson:" + gson.toJson(resultSvc.getMonth(result_month)));
+//			System.out.println("Gson:" + gson.toJson(resultSvc.getMonth(result_month)));
 			List<Donation_resultVO> donation_resultVO = resultSvc.getMonth(result_month);
 //			for(Donation_resultVO list : donation_resultVO) {
 //				System.out.println(list +"");

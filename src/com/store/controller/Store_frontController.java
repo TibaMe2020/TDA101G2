@@ -59,23 +59,23 @@ public class Store_frontController extends HttpServlet {
 			switch (type) {
 				case "restaurant":
 					type = "餐廳";
-					out.print(gson.toJson(ss.findByClass(type)));
+					out.print(gson.toJson(ss.findByClass2(type)));
 					break;
 				case "hostel":
 					type = "旅館";
-					out.print(gson.toJson(ss.findByClass(type)));
+					out.print(gson.toJson(ss.findByClass2(type)));
 					break;
 				case "grooming":
 					type = "美容";
-					out.print(gson.toJson(ss.findByClass(type)));
+					out.print(gson.toJson(ss.findByClass2(type)));
 					break;
 				case "school":
 					type = "學校";
-					out.print(gson.toJson(ss.findByClass(type)));
+					out.print(gson.toJson(ss.findByClass2(type)));
 					break;
 				case "hospital":
 					type = "醫院";
-					out.print(gson.toJson(ss.findByClass(type)));
+					out.print(gson.toJson(ss.findByClass2(type)));
 					break;
 			}
 		}
