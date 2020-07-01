@@ -128,7 +128,13 @@
                   <div>
 <%--                     	賣家: ${order.getDetail_list().get(0).getVersionVO().getProductVO().getMember_id()}<br> --%>
 <%--                     	訂單編號: ${order.order_master_id}&nbsp&nbsp&nbsp&nbsp --%>
-                    	取貨地點: ${order.location} 
+						<c:if test="${order.product_order_state == 4}">
+							商品已送達 ${order.location}
+						</c:if>
+						<c:if test="${order.product_order_state != 4}">
+							訂單編號:  ${order.order_master_id }
+						</c:if>
+<%--                     	取貨地點: ${order.location}  --%>
                   </div>
 
                   <div>

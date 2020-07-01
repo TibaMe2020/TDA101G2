@@ -982,7 +982,7 @@ $("#update-service-btn").on('click', function () {
   let storeID = $(this).data("store_id")
   console.log(serviceid)
   console.log(storeID)
-  let serviceObj = { service_id: serviceid, store_id: storeID, service_detail: newname, service_price: newprice, service_limit: newlimit }
+  let serviceObj = { service_id: serviceid, store_id: storeID, service_detail: newname, service_price: newprice, service_limit: newlimit, service_state: 1 }
   var service = JSON.stringify(serviceObj);
   $.ajax({
     url: projectUrl + "/Store_frontController",
