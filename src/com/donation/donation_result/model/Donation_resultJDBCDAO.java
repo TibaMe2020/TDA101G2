@@ -35,7 +35,7 @@ public class Donation_resultJDBCDAO implements Donation_resultDAO_interface {
 	}
 	private static final String INSERT_STMT ="INSERT INTO Donation_result (result_id, npo_id, member_id, result_month, result_image,result_content) VALUES ('RID' || lpad(result_id_SEQ.nextval, 5, '0'), ?, ?, ?, ?, ?)";//,result_month
 //	private static final String GET_ALL_STMT ="SELECT result_id, npo_id, member_id, result_month, result_image, result_content FROM Donation_result"; //, result_month
-	private static final String GET_ALL_STMT ="SELECT * FROM Donation_result"; //, result_month
+	private static final String GET_ALL_STMT ="SELECT result_id, npo_id, member_id, result_month, result_content,  create_time, update_time FROM Donation_result"; //, result_month
 	private static final String GET_ONE_Result = "SELECT * FROM donation_result where result_id = ?";
 	private static final String GET_ONE_Month = "SELECT * FROM donation_result where result_month = ?";
 	private static final String DELETE_Donation_result = "DELETE FROM Donation_result where result_id = ?";
@@ -244,7 +244,7 @@ public class Donation_resultJDBCDAO implements Donation_resultDAO_interface {
 				donation_resultVO.setNpo_id(rs.getString("npo_id"));
 				donation_resultVO.setMember_id(rs.getString("member_id"));
 				donation_resultVO.setResult_month(Integer.valueOf(rs.getString("result_month")));
-				donation_resultVO.setResult_image(rs.getBytes("result_image"));
+//				donation_resultVO.setResult_image(rs.getBytes("result_image"));
 				donation_resultVO.setResult_content(rs.getString("result_content"));
 				donation_resultVO.setCreate_time(rs.getTimestamp("create_time"));
 				donation_resultVO.setUpdate_time(rs.getTimestamp("update_time"));

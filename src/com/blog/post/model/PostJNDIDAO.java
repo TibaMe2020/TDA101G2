@@ -39,7 +39,7 @@ public class PostJNDIDAO implements PostDAOInterface{
 			+ "post_image3 = ?, post_image4 = ?, post_image5 = ?, post_content = ? where post_id = ?";
 	private static final String delete = "delete from post where post_id = ?";
 	private static final String get_one = "select * from post where post_id = ?";
-	private static final String get_all = "select * from post order by post_id desc";
+	private static final String get_all = "select post_id,member_id,post_class,post_content,post_like,post_message_count,post_share,create_time,update_time from post order by post_id desc";
 	private static final String get_by_member_id = "select * from post where member_id = ? order by create_time desc";
 	private static final String get_by_post_class = "select * from post where post_class = ? order by create_time desc";
 	private static final String get_by_create_time = "select * from (select * from post order by create_time desc) where rownum <= 5";
@@ -248,17 +248,18 @@ public class PostJNDIDAO implements PostDAOInterface{
 				postVO.setPost_id(rs.getString("post_id"));
 				postVO.setMember_id(rs.getString("member_id"));
 				postVO.setPost_class(rs.getString("post_class"));
-				postVO.setPost_image1(rs.getBytes("post_image1"));
-				postVO.setPost_image2(rs.getBytes("post_image2"));
-				postVO.setPost_image3(rs.getBytes("post_image3"));
-				postVO.setPost_image4(rs.getBytes("post_image4"));
-				postVO.setPost_image5(rs.getBytes("post_image5"));
 				postVO.setPost_content(rs.getString("post_content"));
 				postVO.setPost_like(rs.getInt("post_like"));
 				postVO.setPost_message_count(rs.getInt("post_message_count"));
 				postVO.setPost_share(rs.getInt("post_share"));
 				postVO.setCreate_time(rs.getTimestamp("create_time"));
 				postVO.setUpdate_time(rs.getTimestamp("update_time"));
+				
+//				postVO.setPost_image1(rs.getBytes("post_image1"));
+//				postVO.setPost_image2(rs.getBytes("post_image2"));
+//				postVO.setPost_image3(rs.getBytes("post_image3"));
+//				postVO.setPost_image4(rs.getBytes("post_image4"));
+//				postVO.setPost_image5(rs.getBytes("post_image5"));
 				list.add(postVO);
 			}
 		} catch (SQLException e) {
