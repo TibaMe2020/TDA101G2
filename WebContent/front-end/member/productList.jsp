@@ -557,7 +557,7 @@
 	    allowImagePreview: false,
 	    acceptedFileTypes: ['image/*'],
 	    maxFiles: 1,
-	    imageResizeTargetWidth: 500,
+	    imageResizeTargetWidth: 400,
 	    name: 'description',
 	    onpreparefile: (file, output) => {
 	      // console.log("this is file id: " + file.id);
@@ -615,7 +615,7 @@
 	    acceptedFileTypes: ['image/*'],
 	    maxFiles: 1,
 	    name: 'description',
-	    imageResizeTargetWidth: 500,
+	    imageResizeTargetWidth: 400,
 	    onpreparefile: (file, output) => {
 	      const holder = $('div#new-description-update');
 	      let url = URL.createObjectURL(output);
