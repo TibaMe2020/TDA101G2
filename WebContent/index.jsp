@@ -242,10 +242,10 @@
 	<hr>
 	<div class="container-fluid">
 		<div class="row justify-content-around">
-			<h2 class="col-3 wordpage text-center">平台社群連結</h2>
+			<h2 class="col-xl-3 wordpage text-center">平台社群連結</h2>
 		</div>
 		<div class="row justify-content-around">
-			<div class="social col-3 text-center" id="social">
+			<div class="social col-xl-3 text-center" id="social">
 				<a href="https://twitter.com/home" target="_blank"><i class="fab fa-twitter fa-3x"></i></a> <a
 					href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook fa-3x"></i></a> <a
 					href="https://github.com/" target="_blank"><i class="fab fa-github fa-3x"></i></a> <a
