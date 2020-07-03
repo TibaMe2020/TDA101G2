@@ -261,7 +261,7 @@
 	<script>
 		$(function () {
 			AOS.init({
-				duration: 400,
+				duration: 1200,
 			});
 		})
 	</script>
