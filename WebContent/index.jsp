@@ -140,7 +140,9 @@
 		}
 
 		img {
-			width: 600px !important;
+			width: 100% !important;
+			max-width: 600px;
+			max-height: 500px;
 		}
 	</style>
 	<title>Homepage</title>
@@ -166,13 +168,13 @@
 	<div class="container-fluid">
 		<!-- 部落格 -->
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-xl-6 d-flex justify-content-center">
 				<div data-aos="fade-right">
 					<img src="<%=request.getContextPath()%>/photo/blog.png" style="width: 500px;">
 				</div>
 
 			</div>
-			<div class="col-lg-6">
+			<div class="col-xl-6">
 				<p style="font-size: 30px; text-align: center;">部落格</p>
 				<p style="background-color: orange;"></p>
 				<p style="font-size: 25px; text-align: center;">
@@ -186,14 +188,14 @@
 	<!-- 店家 -->
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-xl-6">
 				<p style="font-size: 30px; text-align: center;">店家</p>
 				<p style="font-size: 25px; text-align: center;">日常所需的各類寵物實體店家<br>寵物餐廳、寵物旅館、寵物美容、寵物學校、寵物醫院
 				</p>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-xl-6 d-flex justify-content-center">
 				<div data-aos="fade-left">
-					<img src="<%=request.getContextPath()%>/photo/store.png" style="width: 750px; margin-left: 85px;">
+					<img src="<%=request.getContextPath()%>/photo/store.png" style="width: 750px;">
 				</div>
 
 			</div>
@@ -206,12 +208,12 @@
 	<!-- 公益 -->
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-xl-6 d-flex justify-content-center">
 				<div data-aos="fade-down-right">
 					<img src="<%=request.getContextPath()%>/photo/donation.jpg" style="width: 500px;">
 				</div>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-xl-6">
 				<p style="font-size: 30px; text-align: center;">公益</p>
 				<p style="font-size: 25px; text-align: center;">
 					因為堅持愛心不偏心，因此除了狗狗、貓咪、一般常見的寵物外，本網站關注寵物方面的問題，其他許多被關注和解決的寵物議題，這些需要被看見、被重視並且獲得幫助，本網站提供捐款跟認養功能。
@@ -224,15 +226,14 @@
 	<!-- 商家 -->
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-xl-6">
 				<p style="font-size: 30px; text-align: center;">商家</p>
 				<p style="font-size: 25px; text-align: center;">各種商品應有盡有，寵物愛好者在網路上的最佳選擇，商品多元，讓你愛不釋手的購物商城。
 				</p>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-xl-6 d-flex justify-content-center">
 				<div data-aos="fade-down-left">
-					<img src="<%=request.getContextPath()%>/photo/E-commerce.png"
-						style="width: 760px; margin-left: 85px;">
+					<img src="<%=request.getContextPath()%>/photo/E-commerce.png" style="width: 760px;">
 				</div>
 
 			</div>
